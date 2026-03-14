@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お問い合わせ｜SAIZEN警備保障株式会社</title>
+  <meta name="description" content="SAIZEN警備保障株式会社へのお問い合わせ。警備依頼・見積もり依頼・採用に関するご相談はこちら。">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="nav-overlay" id="navOverlay"></div>
+
+<header id="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo-img-link">
+      <img src="images/logo-08a.png" alt="SAIZEN警備保障株式会社" class="header-logo">
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="gnav" id="gnav">
+      <ul>
+        <li><a href="index.html">ホーム</a></li>
+        <li><a href="company.html">会社概要</a></li>
+        <li><a href="service.html">業務案内</a></li>
+        <li><a href="blog.html">警備の知恵袋</a></li>
+        <li class="contact-link"><a href="contact.html" class="active">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <h1>お問い合わせ</h1>
+  <p>Contact</p>
+</div>
+<div class="breadcrumb">
+  <div class="container">
+    <a href="index.html">ホーム</a>
+    <span class="sep">›</span>
+    <span>お問い合わせ</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     CONTACT SECTION
+     ============================================================ -->
+<section class="section">
+  <div class="container">
+    <div class="section-title">
+      <div class="label">CONTACT US</div>
+      <h2>お気軽にご連絡ください<span class="line"></span></h2>
+      <p>警備依頼・お見積もり・採用に関するご相談など、何でもお気軽にどうぞ。</p>
+    </div>
+
+    <div class="contact-grid">
+      <!-- Info box -->
+      <div class="contact-info-box">
+        <h3>会社情報</h3>
+
+        <div class="contact-info-item">
+          <div class="contact-info-icon">📍</div>
+          <div class="contact-info-text">
+            <div class="label">所在地</div>
+            <div class="value">〒733-0011<br>広島県広島市西区横川町3丁目1-9-305</div>
+          </div>
+        </div>
+
+        <div class="contact-info-item">
+          <div class="contact-info-icon">👤</div>
+          <div class="contact-info-text">
+            <div class="label">代表取締役</div>
+            <div class="value">末貞 皓己（すえさだ こうき）</div>
+          </div>
+        </div>
+
+        <div class="contact-info-item">
+          <div class="contact-info-icon">📋</div>
+          <div class="contact-info-text">
+            <div class="label">認定番号</div>
+            <div class="value">広島県公安委員会<br>第73000768号</div>
+          </div>
+        </div>
+
+        <div class="contact-info-item">
+          <div class="contact-info-icon">🕐</div>
+          <div class="contact-info-text">
+            <div class="label">受付時間</div>
+            <div class="value">24時間・365日対応</div>
+          </div>
+        </div>
+
+        <div style="margin-top:30px; padding-top:24px; border-top:1px solid rgba(255,255,255,.2);">
+          <p style="font-size:.82rem; color:rgba(255,255,255,.55); line-height:1.9;">
+            お見積もりは無料です。現場の規模・日程・場所など、わかる範囲でご記入いただけますと、よりスムーズにご対応できます。
+          </p>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="contact-form-box">
+        <h3>お問い合わせフォーム</h3>
+
+        <div class="success-msg" id="successMsg">
+          お問い合わせを受け付けました。担当者よりご連絡いたします。
+        </div>
+
+        <form id="contactForm" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="name">
+              お名前 <span class="required">必須</span>
+            </label>
+            <input type="text" id="name" name="name" class="form-input" placeholder="例：山田 太郎" required>
+            <div class="form-error" id="nameError" style="color:#e74c3c; font-size:.82rem; margin-top:4px; display:none;">お名前をご入力ください。</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="company">
+              会社名・団体名 <span class="optional">任意</span>
+            </label>
+            <input type="text" id="company" name="company" class="form-input" placeholder="例：株式会社〇〇建設">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">
+              メールアドレス <span class="required">必須</span>
+            </label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="例：info@example.com" required>
+            <div class="form-error" id="emailError" style="color:#e74c3c; font-size:.82rem; margin-top:4px; display:none;">正しいメールアドレスをご入力ください。</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="inquiry">
+              お問い合わせ種別 <span class="required">必須</span>
+            </label>
+            <select id="inquiry" name="inquiry" class="form-select" required>
+              <option value="">--- 選択してください ---</option>
+              <option value="quote">警備依頼・お見積もり</option>
+              <option value="traffic">交通誘導警備について</option>
+              <option value="event">イベント警備について</option>
+              <option value="parking">駐車場警備について</option>
+              <option value="recruit">採用について</option>
+              <option value="other">その他</option>
+            </select>
+            <div class="form-error" id="inquiryError" style="color:#e74c3c; font-size:.82rem; margin-top:4px; display:none;">お問い合わせ種別を選択してください。</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="message">
+              お問い合わせ内容 <span class="required">必須</span>
+            </label>
+            <textarea id="message" name="message" class="form-textarea" placeholder="現場の場所・規模・日程・人数など、詳しくお書きください。" required></textarea>
+            <div class="form-error" id="messageError" style="color:#e74c3c; font-size:.82rem; margin-top:4px; display:none;">お問い合わせ内容をご入力ください。</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-check">
+              <input type="checkbox" id="privacy" required>
+              <span><a href="privacy.html" target="_blank">プライバシーポリシー</a>に同意する</span>
+            </label>
+            <div class="form-error" id="privacyError" style="color:#e74c3c; font-size:.82rem; margin-top:4px; display:none;">プライバシーポリシーへの同意が必要です。</div>
+          </div>
+
+          <div class="form-submit">
+            <button type="submit" class="btn btn-gold">送信する <span class="arrow">›</span></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="footer">
+  <div class="footer-bottom">
+    <p>Copyright &copy; 2025 SAIZEN警備保障株式会社 All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Nav
+  const ham = document.getElementById('hamburger');
+  const nav = document.getElementById('gnav');
+  const overlay = document.getElementById('navOverlay');
+  function toggleMenu() {
+    ham.classList.toggle('open'); nav.classList.toggle('open'); overlay.classList.toggle('open');
+    document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+  }
+  ham.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', toggleMenu);
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { if (nav.classList.contains('open')) toggleMenu(); }));
+
+  // Form validation
+  const form = document.getElementById('contactForm');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    let valid = true;
+
+    // Name
+    const name = document.getElementById('name');
+    const nameError = document.getElementById('nameError');
+    if (!name.value.trim()) {
+      nameError.style.display = 'block';
+      name.style.borderColor = '#e74c3c';
+      valid = false;
+    } else {
+      nameError.style.display = 'none';
+      name.style.borderColor = '';
+    }
+
+    // Email
+    const email = document.getElementById('email');
+    const emailError = document.getElementById('emailError');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.value)) {
+      emailError.style.display = 'block';
+      email.style.borderColor = '#e74c3c';
+      valid = false;
+    } else {
+      emailError.style.display = 'none';
+      email.style.borderColor = '';
+    }
+
+    // Inquiry type
+    const inquiry = document.getElementById('inquiry');
+    const inquiryError = document.getElementById('inquiryError');
+    if (!inquiry.value) {
+      inquiryError.style.display = 'block';
+      inquiry.style.borderColor = '#e74c3c';
+      valid = false;
+    } else {
+      inquiryError.style.display = 'none';
+      inquiry.style.borderColor = '';
+    }
+
+    // Message
+    const message = document.getElementById('message');
+    const messageError = document.getElementById('messageError');
+    if (!message.value.trim()) {
+      messageError.style.display = 'block';
+      message.style.borderColor = '#e74c3c';
+      valid = false;
+    } else {
+      messageError.style.display = 'none';
+      message.style.borderColor = '';
+    }
+
+    // Privacy
+    const privacy = document.getElementById('privacy');
+    const privacyError = document.getElementById('privacyError');
+    if (!privacy.checked) {
+      privacyError.style.display = 'block';
+      valid = false;
+    } else {
+      privacyError.style.display = 'none';
+    }
+
+    if (valid) {
+      form.style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+      window.scrollTo({ top: document.getElementById('successMsg').offsetTop - 100, behavior: 'smooth' });
+    }
+  });
+</script>
+</body>
+</html>
