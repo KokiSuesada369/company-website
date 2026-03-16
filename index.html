@@ -251,9 +251,45 @@
     </div>
 
     <!-- 警備業者標識 -->
-    <div style="max-width:780px; margin:50px auto 0; text-align:center;">
+    <div style="max-width:640px; margin:50px auto 0; text-align:center;">
       <h3 style="font-size:1.2rem; color:#1a2f5e; margin-bottom:20px; padding-bottom:10px; border-bottom:2px solid #dde2eb;">警備業者標識</h3>
-      <img src="images/hyoshiki.png" alt="警備業者標識" style="max-width:400px; width:100%; height:auto; border:1px solid #dde2eb; border-radius:8px;">
+      <table style="width:100%; border-collapse:collapse; border:2px solid #1a2f5e; font-size:1rem; text-align:left; background:#fff;">
+        <thead>
+          <tr>
+            <th colspan="2" style="background:#1a2f5e; color:#fff; text-align:center; padding:14px 20px; font-size:1.15rem; letter-spacing:.1em;">警　備　業　者　標　識</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th style="width:38%; background:#f4f6fa; color:#1a2f5e; padding:14px 18px; border:1px solid #1a2f5e; font-size:.95rem; font-weight:700; vertical-align:top;">氏名又は名称</th>
+            <td style="padding:14px 18px; border:1px solid #1a2f5e; font-size:1rem; vertical-align:top;">SAIZEN警備保障株式会社</td>
+          </tr>
+          <tr>
+            <th style="background:#f4f6fa; color:#1a2f5e; padding:14px 18px; border:1px solid #1a2f5e; font-size:.95rem; font-weight:700; vertical-align:top;">認定公安委員会</th>
+            <td style="padding:14px 18px; border:1px solid #1a2f5e; font-size:1rem; vertical-align:top;">広島県公安委員会</td>
+          </tr>
+          <tr>
+            <th style="background:#f4f6fa; color:#1a2f5e; padding:14px 18px; border:1px solid #1a2f5e; font-size:.95rem; font-weight:700; vertical-align:top;">認定番号</th>
+            <td style="padding:14px 18px; border:1px solid #1a2f5e; font-size:1rem; vertical-align:top;">第73000768号</td>
+          </tr>
+          <tr>
+            <th style="background:#f4f6fa; color:#1a2f5e; padding:14px 18px; border:1px solid #1a2f5e; font-size:.95rem; font-weight:700; vertical-align:top;">警備業務の種別</th>
+            <td style="padding:14px 18px; border:1px solid #1a2f5e; font-size:1rem; vertical-align:top;">2号業務（交通誘導警備業務 等）</td>
+          </tr>
+          <tr>
+            <th style="background:#f4f6fa; color:#1a2f5e; padding:14px 18px; border:1px solid #1a2f5e; font-size:.95rem; font-weight:700; vertical-align:top;">代表者の氏名</th>
+            <td style="padding:14px 18px; border:1px solid #1a2f5e; font-size:1rem; vertical-align:top;">末貞 皓己</td>
+          </tr>
+          <tr>
+            <th style="background:#f4f6fa; color:#1a2f5e; padding:14px 18px; border:1px solid #1a2f5e; font-size:.95rem; font-weight:700; vertical-align:top;">主たる営業所の所在地</th>
+            <td style="padding:14px 18px; border:1px solid #1a2f5e; font-size:1rem; vertical-align:top;">広島県広島市西区横川町3丁目1-9-305</td>
+          </tr>
+          <tr>
+            <th style="background:#f4f6fa; color:#1a2f5e; padding:14px 18px; border:1px solid #1a2f5e; font-size:.95rem; font-weight:700; vertical-align:top;">有効期間</th>
+            <td style="padding:14px 18px; border:1px solid #1a2f5e; font-size:1rem; vertical-align:top;">令和7年5月22日から<br>令和12年5月22日まで</td>
+          </tr>
+        </tbody>
+      </table>
       <p style="margin-top:12px; font-size:.82rem; color:#888;">※警備業法第23条に基づく標識</p>
     </div>
   </div>
@@ -281,6 +317,7 @@
     document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
   }
   ham.addEventListener('click', toggleMenu);
+  ham.addEventListener('touchstart', function(e) { e.preventDefault(); toggleMenu(); }, { passive: false });
   overlay.addEventListener('click', toggleMenu);
 
   // Close on link click

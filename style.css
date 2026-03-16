@@ -1297,9 +1297,12 @@ button { font-family: inherit; }
   }
   .gnav.open { right: 0; }
   .gnav ul { flex-direction: column; gap: 0; }
-  .gnav a { padding: 14px 0; border-radius: 0; border-bottom: 1px solid rgba(255,255,255,.1); }
-  .gnav .contact-link a { background: var(--accent); color: var(--primary); border-radius: 6px; margin-top: 16px; text-align: center; justify-content: center; }
+  .gnav a { padding: 14px 0; border-radius: 0; border-bottom: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.85); }
+  .gnav a:hover, .gnav a.active { background: rgba(255,255,255,.1); color: #fff; }
+  .gnav .contact-link a { background: rgba(255,255,255,.15); color: #fff; border-radius: 6px; margin-top: 16px; text-align: center; justify-content: center; border-bottom: none; }
+  .gnav .contact-link a:hover { background: rgba(255,255,255,.25); }
   .hamburger { display: flex; z-index: 900; position: relative; }
+  .header-logo { height: 35px; }
 
   /* Nav overlay */
   .nav-overlay {
