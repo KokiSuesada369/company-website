@@ -17,7 +17,7 @@
      ============================================================ -->
 <header id="header">
   <div class="header-inner">
-    <a href="index.html" class="logo-img-link">
+    <a href="/" class="logo-img-link">
       <img src="images/logo-08a.png" alt="SAIZEN警備保障株式会社" class="header-logo">
     </a>
     <button class="hamburger" id="hamburger" aria-label="メニュー">
@@ -25,11 +25,11 @@
     </button>
     <nav class="gnav" id="gnav">
       <ul>
-        <li><a href="index.html" class="active">ホーム</a></li>
-        <li><a href="company.html">会社概要</a></li>
-        <li><a href="service.html">業務案内</a></li>
-        <li><a href="blog.html">警備の知恵袋</a></li>
-        <li class="contact-link"><a href="contact.html">お問い合わせ</a></li>
+        <li><a href="/" class="active">ホーム</a></li>
+        <li><a href="/company/">会社概要</a></li>
+        <li><a href="/service/">業務案内</a></li>
+        <li><a href="/blog/">警備の知恵袋</a></li>
+        <li class="contact-link"><a href="/contact/">お問い合わせ</a></li>
       </ul>
     </nav>
   </div>
@@ -48,8 +48,8 @@
       交通誘導・イベント警備・駐車場警備など、広島県内全域に対応。
     </p>
     <div class="hero-btns">
-      <a href="contact.html" class="btn btn-gold">お問い合わせ <span class="arrow">›</span></a>
-      <a href="service.html" class="btn btn-outline-navy">業務案内を見る</a>
+      <a href="/contact/" class="btn btn-gold">お問い合わせ <span class="arrow">›</span></a>
+      <a href="/service/" class="btn btn-outline-navy">業務案内を見る</a>
     </div>
   </div>
   <div class="hero-badge">
@@ -133,7 +133,7 @@
       </div>
     </div>
     <div style="text-align:center; margin-top:42px;">
-      <a href="service.html" class="btn btn-navy">業務案内の詳細はこちら <span class="arrow">›</span></a>
+      <a href="/service/" class="btn btn-navy">業務案内の詳細はこちら <span class="arrow">›</span></a>
     </div>
   </div>
 </section>
@@ -149,7 +149,7 @@
       <p>警備業務に関する役立つ情報をお届けします。</p>
     </div>
     <div class="grid-3">
-      <a href="blog1.html" class="blog-card">
+      <a href="/blog1/" class="blog-card">
         <div class="blog-card-img">🚦</div>
         <div class="blog-card-body">
           <div class="blog-meta">
@@ -160,7 +160,7 @@
           <span class="read-more">続きを読む ›</span>
         </div>
       </a>
-      <a href="blog2.html" class="blog-card">
+      <a href="/blog2/" class="blog-card">
         <div class="blog-card-img">🚩</div>
         <div class="blog-card-body">
           <div class="blog-meta">
@@ -171,7 +171,7 @@
           <span class="read-more">続きを読む ›</span>
         </div>
       </a>
-      <a href="blog3.html" class="blog-card">
+      <a href="/blog3/" class="blog-card">
         <div class="blog-card-img">⚖️</div>
         <div class="blog-card-body">
           <div class="blog-meta">
@@ -184,7 +184,7 @@
       </a>
     </div>
     <div style="text-align:center; margin-top:42px;">
-      <a href="blog.html" class="btn btn-navy">すべての記事を見る <span class="arrow">›</span></a>
+      <a href="/blog/" class="btn btn-navy">すべての記事を見る <span class="arrow">›</span></a>
     </div>
   </div>
 </section>
@@ -197,7 +197,7 @@
     <h2 style="font-size:1.8rem; color:#1a2f5e; margin-bottom:14px;">まずはお気軽にご相談ください</h2>
     <p style="color:#555e6b; margin-bottom:30px; font-size:.95rem;">見積もり・ご相談は無料です。広島県内全域、各種警備に対応しています。</p>
     <div class="cta-btns">
-      <a href="contact.html" class="btn btn-gold">お問い合わせフォーム <span class="arrow">›</span></a>
+      <a href="/contact/" class="btn btn-gold">お問い合わせフォーム <span class="arrow">›</span></a>
     </div>
   </div>
 </section>
@@ -337,8 +337,8 @@
 
   document.querySelectorAll('.service-card, .strength-card, .blog-card').forEach(el => {
     el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity .3s ease, transform .3s ease';
     observer.observe(el);
   });
 </script>
