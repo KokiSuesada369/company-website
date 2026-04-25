@@ -10,10 +10,88 @@
   <style>
     /* ── 警備依頼フォームページ専用スタイル ── */
 
-    .order-wrap {
-      max-width: 860px;
-      margin: 0 auto;
+    /* 2カラムレイアウト */
+    .order-layout {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 36px;
+      align-items: start;
     }
+
+    /* 概算料金カード */
+    .order-estimate-box { position: sticky; top: 84px; }
+    .order-estimate-card {
+      background: linear-gradient(160deg, var(--primary) 0%, var(--secondary) 100%);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(26,47,94,.22);
+    }
+    .oec-head {
+      padding: 24px 28px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+    .oec-head .oec-tag {
+      font-size: .7rem;
+      letter-spacing: .18em;
+      color: rgba(255,255,255,.5);
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .oec-head h3 { font-size: 1.05rem; color: #fff; font-weight: 700; }
+    .oec-period {
+      padding: 13px 28px;
+      background: rgba(255,255,255,.07);
+      font-size: .8rem;
+      color: rgba(255,255,255,.65);
+      line-height: 1.75;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .oec-period .pv { color: #fff; font-weight: 700; }
+    .oec-body { padding: 16px 28px; }
+    .oec-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .oec-row:last-of-type { border-bottom: none; }
+    .oec-row .rl { font-size: .83rem; color: rgba(255,255,255,.6); }
+    .oec-row .rv { font-size: .96rem; font-weight: 700; color: #fff; }
+    .oec-row .rv.muted { color: rgba(255,255,255,.4); }
+    .oec-sep { height: 1px; background: rgba(255,255,255,.18); margin: 4px 0; }
+    .oec-total {
+      padding: 16px 28px 20px;
+      background: rgba(0,0,0,.18);
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+    .oec-total .tl { font-size: .75rem; color: rgba(255,255,255,.5); margin-bottom: 4px; }
+    .oec-total .tv {
+      font-size: 1.9rem; font-weight: 700; color: #fff;
+      line-height: 1.1; letter-spacing: -.01em;
+    }
+    .oec-total .tv .ty { font-size: 1rem; font-weight: 500; margin-left: 2px; }
+    .oec-total .tn { font-size: .75rem; color: rgba(255,255,255,.4); margin-top: 4px; }
+    .oec-notice {
+      padding: 12px 28px 18px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .oec-notice p {
+      font-size: .75rem;
+      color: rgba(255,255,255,.4);
+      line-height: 1.75;
+    }
+    .oec-notice p + p { margin-top: 4px; }
+    .oec-notice p::before { content: '※ '; }
+    .oec-placeholder {
+      padding: 34px 28px;
+      text-align: center;
+      color: rgba(255,255,255,.38);
+      font-size: .86rem;
+      line-height: 1.85;
+    }
+    .oec-placeholder .ph-icon { font-size: 2rem; margin-bottom: 10px; }
 
     /* フォームカード */
     .order-card {
@@ -149,10 +227,16 @@
       margin: 30px 0;
     }
 
+    @media (max-width: 900px) {
+      .order-layout { grid-template-columns: 1fr; }
+      .order-estimate-box { position: static; order: -1; }
+    }
     @media (max-width: 768px) {
       .order-card { padding: 32px 22px; }
       .form-grid-2 { grid-template-columns: 1fr; gap: 0; }
       .btn-order { padding: 15px 40px; font-size: 1rem; }
+      .oec-head, .oec-body, .oec-total, .oec-notice, .oec-period,
+      .oec-placeholder { padding-left: 22px; padding-right: 22px; }
     }
   </style>
 </head>
@@ -217,7 +301,9 @@
       <p>必要事項をご入力の上、送信してください。内容確認後、担当者よりお電話いたします。</p>
     </div>
 
-    <div class="order-wrap">
+    <div class="order-layout">
+      <!-- 左列：フォーム -->
+      <div>
       <div class="order-card">
 
         <!-- 送信成功メッセージ -->
@@ -376,34 +462,6 @@
             </div>
           </div>
 
-          <div class="form-grid-2">
-            <div class="form-group">
-              <label class="form-label">
-                高速道路使用 <span class="optional">任意</span>
-              </label>
-              <div class="toggle-group">
-                <input type="radio" name="高速道路使用" id="hw-yes" value="あり">
-                <label for="hw-yes">あり</label>
-                <input type="radio" name="高速道路使用" id="hw-no" value="なし" checked>
-                <label for="hw-no">なし</label>
-              </div>
-              <p style="font-size:.78rem; color:var(--dark-gray); margin-top:7px;">あり：実費請求（領収書添付）</p>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">
-                駐車場使用 <span class="optional">任意</span>
-              </label>
-              <div class="toggle-group">
-                <input type="radio" name="駐車場使用" id="pk-yes" value="あり">
-                <label for="pk-yes">あり</label>
-                <input type="radio" name="駐車場使用" id="pk-no" value="なし" checked>
-                <label for="pk-no">なし</label>
-              </div>
-              <p style="font-size:.78rem; color:var(--dark-gray); margin-top:7px;">あり：実費請求（領収書添付）</p>
-            </div>
-          </div>
-
           <div class="form-group">
             <label class="form-label" for="notes">
               その他備考 <span class="optional">任意</span>
@@ -427,7 +485,60 @@
         </form>
 
       </div><!-- /.order-card -->
-    </div><!-- /.order-wrap -->
+      </div><!-- /左列 -->
+
+      <!-- 右列：概算料金カード -->
+      <div class="order-estimate-box">
+        <div class="order-estimate-card">
+          <div class="oec-head">
+            <div class="oec-tag">ESTIMATE</div>
+            <h3>概算料金</h3>
+          </div>
+
+          <div class="oec-placeholder" id="oecPlaceholder">
+            <div class="ph-icon">🧮</div>
+            <p>開始日・終了日・<br>必要人数を入力すると<br>概算料金が表示されます</p>
+          </div>
+
+          <div id="oecResult" style="display:none;">
+            <div class="oec-period" id="oecPeriod"></div>
+            <div class="oec-body">
+              <div class="oec-row">
+                <span class="rl">基本料金</span>
+                <span class="rv" id="oecBase">—</span>
+              </div>
+              <div class="oec-row">
+                <span class="rl">残業料金</span>
+                <span class="rv muted" id="oecOT">—</span>
+              </div>
+              <div class="oec-row">
+                <span class="rl">無線機料金</span>
+                <span class="rv muted" id="oecRadio">—</span>
+              </div>
+              <div class="oec-sep"></div>
+              <div class="oec-row">
+                <span class="rl">合計（税抜）</span>
+                <span class="rv" id="oecSubtotal">—</span>
+              </div>
+              <div class="oec-row">
+                <span class="rl">消費税（10%）</span>
+                <span class="rv muted" id="oecTax">—</span>
+              </div>
+            </div>
+            <div class="oec-total">
+              <div class="tl">税込合計金額（概算）</div>
+              <div class="tv" id="oecTotal">—<span class="ty">円</span></div>
+              <div class="tn" id="oecTotalNote"></div>
+            </div>
+            <div class="oec-notice">
+              <p>高速道路料金・駐車場料金は実費請求となります。</p>
+              <p>上記は概算です。正式な金額は担当者よりご連絡いたします。</p>
+            </div>
+          </div>
+        </div><!-- /.order-estimate-card -->
+      </div><!-- /.order-estimate-box -->
+
+    </div><!-- /.order-layout -->
   </div>
 </section>
 
@@ -584,6 +695,104 @@
       el.style.borderColor = '';
       clearError(id + 'Error');
     });
+  });
+
+  // ── 概算料金計算 ──
+  const PRICE_RATES = {
+    weekday:  { base: { day: 18000, night: 27000 }, ot: { day: 2900, night: 4300 } },
+    saturday: { base: 22500, ot: 3600 },
+    sunday:   { base: 24300, ot: 3800 }
+  };
+
+  function countDayTypes(startStr, endStr) {
+    if (!startStr || !endStr || endStr < startStr) return null;
+    const start = new Date(startStr + 'T00:00:00');
+    const end   = new Date(endStr   + 'T00:00:00');
+    let weekdays = 0, saturdays = 0, sundays = 0;
+    const cur = new Date(start);
+    while (cur <= end) {
+      const d = cur.getDay();
+      if (d === 0) sundays++;
+      else if (d === 6) saturdays++;
+      else weekdays++;
+      cur.setDate(cur.getDate() + 1);
+    }
+    return { weekdays, saturdays, sundays, total: weekdays + saturdays + sundays };
+  }
+
+  function calcOrder() {
+    const shift   = (document.querySelector('input[name="勤務区分"]:checked') || {}).value || '日勤';
+    const startV  = document.getElementById('startDate').value;
+    const endV    = document.getElementById('endDate').value;
+    const persons = Math.max(0, parseInt(document.getElementById('staffCount').value)    || 0);
+    const ot      = Math.max(0, parseInt(document.getElementById('overtimeHours').value) || 0);
+    const radios  = Math.max(0, parseInt(document.getElementById('radioCount').value)    || 0);
+
+    const days = countDayTypes(startV, endV);
+    const placeholder = document.getElementById('oecPlaceholder');
+    const result      = document.getElementById('oecResult');
+
+    if (!days || persons === 0) {
+      placeholder.style.display = 'block';
+      result.style.display      = 'none';
+      return;
+    }
+
+    const sk = shift === '夜勤' ? 'night' : 'day';
+
+    // 基本料金（週末は夜勤でも日勤単価を適用）
+    const baseAmt =
+      PRICE_RATES.weekday.base[sk] * days.weekdays  * persons +
+      PRICE_RATES.saturday.base    * days.saturdays * persons +
+      PRICE_RATES.sunday.base      * days.sundays   * persons;
+
+    // 残業料金
+    const otAmt =
+      PRICE_RATES.weekday.ot[sk] * ot * days.weekdays  * persons +
+      PRICE_RATES.saturday.ot    * ot * days.saturdays * persons +
+      PRICE_RATES.sunday.ot      * ot * days.sundays   * persons;
+
+    const radioAmt = 500 * radios * days.total;
+    const subtotal = baseAmt + otAmt + radioAmt;
+    const tax      = Math.floor(subtotal * 0.1);
+    const totalAmt = subtotal + tax;
+    const fmt = n => n.toLocaleString('ja-JP');
+
+    // 期間サマリ
+    const breakdown = [];
+    if (days.weekdays)  breakdown.push('平日 ' + days.weekdays  + '日');
+    if (days.saturdays) breakdown.push('土曜 ' + days.saturdays + '日');
+    if (days.sundays)   breakdown.push('日祝 ' + days.sundays   + '日');
+    document.getElementById('oecPeriod').innerHTML =
+      '<span class="pv">' + days.total + '日間</span>' +
+      (breakdown.length ? '（' + breakdown.join('・') + '）' : '') +
+      ' ／ <span class="pv">' + persons + '名</span> ／ <span class="pv">' + shift + '</span>';
+
+    document.getElementById('oecBase').textContent     = fmt(baseAmt)  + ' 円';
+    const otEl = document.getElementById('oecOT');
+    otEl.textContent = fmt(otAmt) + ' 円';
+    otEl.className   = 'rv' + (otAmt   === 0 ? ' muted' : '');
+    const radioEl = document.getElementById('oecRadio');
+    radioEl.textContent = fmt(radioAmt) + ' 円';
+    radioEl.className   = 'rv' + (radioAmt === 0 ? ' muted' : '');
+    document.getElementById('oecSubtotal').textContent = fmt(subtotal) + ' 円';
+    document.getElementById('oecTax').textContent      = fmt(tax)      + ' 円';
+    document.getElementById('oecTotal').innerHTML =
+      fmt(totalAmt) + '<span class="ty">円</span>';
+    document.getElementById('oecTotalNote').textContent =
+      '（税抜 ' + fmt(subtotal) + '円 ＋ 消費税 ' + fmt(tax) + '円）';
+
+    placeholder.style.display = 'none';
+    result.style.display      = 'block';
+  }
+
+  // 計算トリガー
+  ['startDate','endDate','staffCount','overtimeHours','radioCount'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', calcOrder);
+  });
+  document.querySelectorAll('input[name="勤務区分"]').forEach(r => {
+    r.addEventListener('change', calcOrder);
   });
 
   // ── ハンバーガーメニュー ──
