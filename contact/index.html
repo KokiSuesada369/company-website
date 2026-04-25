@@ -109,7 +109,12 @@
           お問い合わせを受け付けました。担当者よりご連絡いたします。
         </div>
 
-        <<form id="contactForm" action="https://formspree.io/f/xnjlrqlb" method="POST" novalidate>>
+        <div id="estimateBanner" style="display:none; background:#eef3fb; border:1px solid #b8cbe8; border-radius:8px; padding:14px 18px; margin-bottom:22px; font-size:.88rem; color:#1a2f5e; line-height:1.7;">
+          <strong>📋 自動見積もりの内容を入力しました</strong><br>
+          お問い合わせ種別と内容欄に見積もり結果を自動入力しました。内容をご確認の上、送信してください。
+        </div>
+
+        <form id="contactForm" action="https://formspree.io/f/xnjlrqlb" method="POST" novalidate>
           <div class="form-group">
             <label class="form-label" for="name">
               お名前 <span class="required">必須</span>
@@ -192,6 +197,72 @@
   ham.addEventListener('click', toggleMenu);
   overlay.addEventListener('click', toggleMenu);
   nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { if (nav.classList.contains('open')) toggleMenu(); }));
+
+  // ── 見積もりページからの自動入力 ──
+  (function() {
+    const params = new URLSearchParams(window.location.search);
+    if (!params.get('type')) return;
+
+    const RATES = {
+      base: {
+        '平日':     { '日勤': 18000, '夜勤': 27000 },
+        '土曜':     { '日勤': 22500 },
+        '日曜祝日': { '日勤': 24300 }
+      },
+      overtime: {
+        '平日':     { '日勤': 2900, '夜勤': 4300 },
+        '土曜':     { '日勤': 3600 },
+        '日曜祝日': { '日勤': 3800 }
+      }
+    };
+
+    const fmt = n => n.toLocaleString('ja-JP');
+
+    const type    = params.get('type')    || '';
+    const day     = params.get('day')     || '平日';
+    const shift   = params.get('shift')   || '日勤';
+    const persons = Math.max(1, parseInt(params.get('persons'))  || 1);
+    const days    = Math.max(1, parseInt(params.get('days'))     || 1);
+    const ot      = Math.max(0, parseInt(params.get('overtime')) || 0);
+    const radios  = Math.max(0, parseInt(params.get('radios'))   || 0);
+
+    const baseRate = (RATES.base[day]     || {})[shift] || 0;
+    const otRate   = (RATES.overtime[day] || {})[shift] || 0;
+
+    const baseAmt  = baseRate * persons * days;
+    const otAmt    = otRate   * ot      * persons * days;
+    const radioAmt = 500      * radios  * days;
+    const subtotal = baseAmt + otAmt + radioAmt;
+    const tax      = Math.floor(subtotal * 0.1);
+    const total    = subtotal + tax;
+
+    const typeLabel = type === '交通誘導' ? '交通誘導警備' : type;
+    const dayLabel  = { '平日': '平日', '土曜': '土曜日', '日曜祝日': '日曜・祝日' }[day] || day;
+
+    const message =
+      '【自動見積もり結果】\n' +
+      '警備種別：' + typeLabel + '\n' +
+      '曜日区分：' + dayLabel  + '\n' +
+      '勤務区分：' + shift     + '\n' +
+      '警備員人数：' + persons + '名\n' +
+      '日数：'      + days    + '日\n' +
+      '残業時間：'  + ot      + '時間\n' +
+      '無線機：'    + radios  + '台\n' +
+      '--------------------------\n' +
+      '基本料金：'  + fmt(baseAmt)  + '円\n' +
+      '残業料金：'  + fmt(otAmt)    + '円\n' +
+      '無線機料金：' + fmt(radioAmt) + '円\n' +
+      '税抜合計：'  + fmt(subtotal) + '円\n' +
+      '消費税：'    + fmt(tax)      + '円\n' +
+      '税込合計：'  + fmt(total)    + '円\n' +
+      '--------------------------\n' +
+      '※高速道路料金・駐車場料金は実費請求\n' +
+      '※カラーコーン・矢印板等は別途お見積もり';
+
+    document.getElementById('inquiry').value = 'quote';
+    document.getElementById('message').value = message;
+    document.getElementById('estimateBanner').style.display = 'block';
+  })();
 
   // Form validation
   const form = document.getElementById('contactForm');
