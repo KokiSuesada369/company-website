@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <link rel="icon" href="/images/logo-01a.png" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自動見積もり｜SAIZEN警備保障株式会社</title>
+  <meta name="description" content="SAIZEN警備保障株式会社の警備サービス自動見積もり。警備員人数・日数・曜日などを入力するだけで概算料金を即時計算。広島県内全域対応。">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    /* ── 見積もりページ専用スタイル ── */
+
+    .estimate-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 36px;
+      align-items: start;
+    }
+
+    /* フォームボックス */
+    .estimate-form-box {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: 44px 48px;
+    }
+    .estimate-form-box h2 {
+      font-size: 1.15rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 32px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--mid-gray);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .estimate-form-box h2::before {
+      content: '01';
+      font-size: .7rem;
+      font-weight: 700;
+      color: #fff;
+      background: var(--primary);
+      border-radius: 4px;
+      padding: 3px 8px;
+      letter-spacing: .05em;
+    }
+
+    /* フォームグループ */
+    .est-group {
+      margin-bottom: 28px;
+    }
+    .est-label {
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .est-label .badge {
+      font-size: .68rem;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+    .badge-req { background: #1a2f5e; color: #fff; }
+    .badge-opt { background: #95a5a6; color: #fff; }
+
+    /* トグルボタン式ラジオ */
+    .toggle-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .toggle-group input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .toggle-group label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 9px 20px;
+      border: 2px solid var(--mid-gray);
+      border-radius: var(--radius);
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--dark-gray);
+      cursor: pointer;
+      transition: all .2s ease;
+      user-select: none;
+      min-width: 80px;
+    }
+    .toggle-group input[type="radio"]:checked + label {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+    .toggle-group input[type="radio"]:disabled + label {
+      opacity: .35;
+      cursor: not-allowed;
+    }
+    .toggle-group label:hover:not([style*="not-allowed"]) {
+      border-color: var(--secondary);
+      color: var(--secondary);
+    }
+    .toggle-group input[type="radio"]:checked + label:hover {
+      color: #fff;
+    }
+
+    /* 数値スピナー */
+    .num-control {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      width: fit-content;
+    }
+    .num-control button {
+      width: 42px;
+      height: 42px;
+      border: 2px solid var(--mid-gray);
+      background: var(--light-bg);
+      color: var(--primary);
+      font-size: 1.3rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .15s;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0;
+    }
+    .num-control button:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+    .num-control button:last-child  { border-radius: 0 var(--radius) var(--radius) 0; }
+    .num-control button:hover { background: var(--mid-gray); }
+    .num-control button:active { background: #c8d0de; }
+    .num-control input[type="number"] {
+      width: 72px;
+      height: 42px;
+      border: 2px solid var(--mid-gray);
+      border-left: none;
+      border-right: none;
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+      font-family: inherit;
+      -moz-appearance: textfield;
+      outline: none;
+    }
+    .num-control input[type="number"]::-webkit-inner-spin-button,
+    .num-control input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+    .num-unit {
+      font-size: .85rem;
+      color: var(--dark-gray);
+      margin-left: 10px;
+    }
+
+    .num-control-row {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* 結果ボックス */
+    .estimate-result-box {
+      position: sticky;
+      top: 84px;
+    }
+    .result-card {
+      background: linear-gradient(160deg, var(--primary) 0%, var(--secondary) 100%);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(26,47,94,.22);
+    }
+    .result-card-head {
+      padding: 26px 30px 18px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+    .result-card-head .label {
+      font-size: .7rem;
+      letter-spacing: .18em;
+      color: rgba(255,255,255,.55);
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .result-card-head h3 {
+      font-size: 1.05rem;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .result-body {
+      padding: 22px 30px;
+    }
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 11px 0;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .result-row:last-of-type { border-bottom: none; }
+    .result-row .r-label {
+      font-size: .84rem;
+      color: rgba(255,255,255,.65);
+    }
+    .result-row .r-val {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: .02em;
+    }
+    .result-row.dim .r-val { color: rgba(255,255,255,.55); }
+
+    .result-divider {
+      height: 1px;
+      background: rgba(255,255,255,.2);
+      margin: 6px 0;
+    }
+
+    .result-total-block {
+      padding: 20px 30px 24px;
+      background: rgba(0,0,0,.18);
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+    .result-total-block .t-label {
+      font-size: .78rem;
+      color: rgba(255,255,255,.55);
+      margin-bottom: 4px;
+    }
+    .result-total-block .t-amount {
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      letter-spacing: -.01em;
+    }
+    .result-total-block .t-amount .t-yen {
+      font-size: 1.1rem;
+      margin-left: 3px;
+      font-weight: 500;
+    }
+    .result-total-block .t-tax {
+      font-size: .78rem;
+      color: rgba(255,255,255,.5);
+      margin-top: 4px;
+    }
+
+    /* 条件サマリ */
+    .result-summary {
+      background: rgba(255,255,255,.07);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 0 30px 16px;
+    }
+    .result-summary p {
+      font-size: .78rem;
+      color: rgba(255,255,255,.6);
+      line-height: 1.8;
+    }
+    .result-summary .s-val { color: rgba(255,255,255,.9); font-weight: 700; }
+
+    /* CTAボタン */
+    .result-cta {
+      padding: 0 30px 28px;
+    }
+    .result-cta .btn {
+      width: 100%;
+      justify-content: center;
+      padding: 15px 20px;
+      font-size: .95rem;
+      background: #fff;
+      color: var(--primary);
+      border-color: #fff;
+    }
+    .result-cta .btn:hover {
+      background: var(--light-bg);
+      border-color: var(--light-bg);
+      transform: translateY(-2px);
+    }
+    .result-cta .btn-sub {
+      display: block;
+      text-align: center;
+      font-size: .76rem;
+      color: rgba(255,255,255,.45);
+      margin-top: 10px;
+    }
+
+    /* 注意事項ボックス */
+    .estimate-notice {
+      margin-top: 36px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 28px 32px;
+    }
+    .estimate-notice h3 {
+      font-size: .95rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .estimate-notice ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .estimate-notice li {
+      font-size: .84rem;
+      color: var(--dark-gray);
+      line-height: 1.7;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .estimate-notice li::before {
+      content: '※';
+      color: var(--secondary);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* 計算中アニメーション */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .4; }
+    }
+    .calculating .r-val,
+    .calculating .t-amount { animation: pulse .6s ease infinite; }
+
+    /* レスポンシブ */
+    @media (max-width: 900px) {
+      .estimate-layout {
+        grid-template-columns: 1fr;
+      }
+      .estimate-result-box {
+        position: static;
+        order: -1;
+      }
+    }
+    @media (max-width: 600px) {
+      .estimate-form-box { padding: 28px 22px; }
+      .result-card-head,
+      .result-body,
+      .result-total-block,
+      .result-summary,
+      .result-cta { padding-left: 22px; padding-right: 22px; }
+      .result-summary { margin: 0 22px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav overlay -->
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header id="header">
+  <div class="header-inner">
+    <a href="/" class="logo-img-link">
+      <img src="/images/logo-08a.png" alt="SAIZEN警備保障株式会社" class="header-logo">
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="gnav" id="gnav">
+      <ul>
+        <li><a href="/">ホーム</a></li>
+        <li><a href="/company/">会社概要</a></li>
+        <li><a href="/service/">業務案内</a></li>
+        <li><a href="/price/">料金表</a></li>
+        <li><a href="/estimate/" class="active">お見積もり</a></li>
+        <li><a href="/blog/">警備の知恵袋</a></li>
+        <li class="contact-link"><a href="/contact/">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================================================
+     PAGE HERO
+     ============================================================ -->
+<section class="page-hero">
+  <div class="container">
+    <h1>自動見積もり</h1>
+    <p>ESTIMATE</p>
+  </div>
+</section>
+
+<!-- パンくずリスト -->
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <div class="container">
+    <a href="/">ホーム</a>
+    <span class="sep">›</span>
+    <span>自動見積もり</span>
+  </div>
+</nav>
+
+<!-- ============================================================
+     ESTIMATE SECTION
+     ============================================================ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-title">
+      <div class="label">ESTIMATE</div>
+      <h2>概算見積もり<span class="line"></span></h2>
+      <p>条件を選ぶだけで概算料金を即時計算します。</p>
+    </div>
+
+    <div class="estimate-layout">
+
+      <!-- ── 入力フォーム ── -->
+      <div>
+        <div class="estimate-form-box">
+          <h2>条件を入力</h2>
+
+          <!-- 警備種別 -->
+          <div class="est-group">
+            <div class="est-label">
+              警備種別
+              <span class="badge badge-req">必須</span>
+            </div>
+            <div class="toggle-group">
+              <input type="radio" name="type" id="type-traffic" value="交通誘導" checked>
+              <label for="type-traffic">🚦 交通誘導警備</label>
+              <input type="radio" name="type" id="type-crowd" value="雑踏警備">
+              <label for="type-crowd">🎪 雑踏警備</label>
+            </div>
+          </div>
+
+          <!-- 曜日区分 -->
+          <div class="est-group">
+            <div class="est-label">
+              曜日区分
+              <span class="badge badge-req">必須</span>
+            </div>
+            <div class="toggle-group">
+              <input type="radio" name="day" id="day-weekday" value="平日" checked>
+              <label for="day-weekday">平日</label>
+              <input type="radio" name="day" id="day-saturday" value="土曜">
+              <label for="day-saturday">土曜日</label>
+              <input type="radio" name="day" id="day-holiday" value="日曜祝日">
+              <label for="day-holiday">日曜・祝日</label>
+            </div>
+          </div>
+
+          <!-- 勤務区分 -->
+          <div class="est-group">
+            <div class="est-label">
+              勤務区分
+              <span class="badge badge-req">必須</span>
+            </div>
+            <div class="toggle-group">
+              <input type="radio" name="shift" id="shift-day" value="日勤" checked>
+              <label for="shift-day">日勤（8h）</label>
+              <input type="radio" name="shift" id="shift-night" value="夜勤">
+              <label for="shift-night">夜勤（8h）</label>
+            </div>
+            <p id="shift-note" style="font-size:.78rem; color:var(--dark-gray); margin-top:7px; display:none;">
+              ※ 夜勤は平日のみ選択できます
+            </p>
+          </div>
+
+          <!-- 警備員人数 -->
+          <div class="est-group">
+            <div class="est-label">
+              警備員人数
+              <span class="badge badge-req">必須</span>
+            </div>
+            <div class="num-control-row">
+              <div class="num-control">
+                <button type="button" onclick="stepNum('persons', -1, 1, 20)" aria-label="減らす">－</button>
+                <input type="number" id="persons" value="1" min="1" max="20" oninput="clampAndCalc('persons',1,20)">
+                <button type="button" onclick="stepNum('persons', 1, 1, 20)" aria-label="増やす">＋</button>
+              </div>
+              <span class="num-unit">名</span>
+            </div>
+          </div>
+
+          <!-- 日数 -->
+          <div class="est-group">
+            <div class="est-label">
+              日数
+              <span class="badge badge-req">必須</span>
+            </div>
+            <div class="num-control-row">
+              <div class="num-control">
+                <button type="button" onclick="stepNum('days', -1, 1, 30)" aria-label="減らす">－</button>
+                <input type="number" id="days" value="1" min="1" max="30" oninput="clampAndCalc('days',1,30)">
+                <button type="button" onclick="stepNum('days', 1, 1, 30)" aria-label="増やす">＋</button>
+              </div>
+              <span class="num-unit">日</span>
+            </div>
+          </div>
+
+          <!-- 残業時間 -->
+          <div class="est-group">
+            <div class="est-label">
+              残業時間
+              <span class="badge badge-opt">任意</span>
+            </div>
+            <div class="num-control-row">
+              <div class="num-control">
+                <button type="button" onclick="stepNum('overtime', -1, 0, 4)" aria-label="減らす">－</button>
+                <input type="number" id="overtime" value="0" min="0" max="4" oninput="clampAndCalc('overtime',0,4)">
+                <button type="button" onclick="stepNum('overtime', 1, 0, 4)" aria-label="増やす">＋</button>
+              </div>
+              <span class="num-unit">時間 / 1人・1日あたり</span>
+            </div>
+          </div>
+
+          <!-- 無線機台数 -->
+          <div class="est-group" style="margin-bottom:0;">
+            <div class="est-label">
+              無線機台数
+              <span class="badge badge-opt">任意</span>
+            </div>
+            <div class="num-control-row">
+              <div class="num-control">
+                <button type="button" onclick="stepNum('radios', -1, 0, 10)" aria-label="減らす">－</button>
+                <input type="number" id="radios" value="0" min="0" max="10" oninput="clampAndCalc('radios',0,10)">
+                <button type="button" onclick="stepNum('radios', 1, 0, 10)" aria-label="増やす">＋</button>
+              </div>
+              <span class="num-unit">台（500円/台・日）</span>
+            </div>
+          </div>
+
+        </div><!-- /.estimate-form-box -->
+
+        <!-- 注意事項 -->
+        <div class="estimate-notice">
+          <h3>⚠️ ご注意事項</h3>
+          <ul>
+            <li>高速道路料金・駐車場料金は実費請求となります（領収書添付）。</li>
+            <li>カラーコーン・矢印板・保安灯等の資材費は別途お見積もりになります。</li>
+            <li>半日請求はございません。1日単位でのご請求となります。</li>
+            <li>上記は概算です。現場の状況によって実際の金額が異なる場合があります。正式なお見積もりはお問い合わせください。</li>
+          </ul>
+        </div>
+      </div><!-- /left col -->
+
+      <!-- ── 結果カード ── -->
+      <div class="estimate-result-box">
+        <div class="result-card" id="resultCard">
+
+          <div class="result-card-head">
+            <div class="label">ESTIMATE RESULT</div>
+            <h3>概算見積もり結果</h3>
+          </div>
+
+          <!-- 条件サマリ -->
+          <div class="result-summary">
+            <p id="summaryText">
+              <span class="s-val" id="s-type">交通誘導警備</span> ／
+              <span class="s-val" id="s-day">平日</span>
+              <span class="s-val" id="s-shift">日勤</span> ／
+              <span class="s-val" id="s-persons">1名</span> ×
+              <span class="s-val" id="s-days">1日</span>
+            </p>
+          </div>
+
+          <div class="result-body">
+            <div class="result-row">
+              <span class="r-label">基本単価</span>
+              <span class="r-val" id="r-baseRate">18,000 円</span>
+            </div>
+            <div class="result-row">
+              <span class="r-label">基本料金</span>
+              <span class="r-val" id="r-base">18,000 円</span>
+            </div>
+            <div class="result-row" id="row-overtime">
+              <span class="r-label">残業料金</span>
+              <span class="r-val dim" id="r-overtime">0 円</span>
+            </div>
+            <div class="result-row" id="row-radio">
+              <span class="r-label">無線機料金</span>
+              <span class="r-val dim" id="r-radio">0 円</span>
+            </div>
+            <div class="result-divider"></div>
+            <div class="result-row">
+              <span class="r-label">合計（税抜）</span>
+              <span class="r-val" id="r-subtotal">18,000 円</span>
+            </div>
+            <div class="result-row dim">
+              <span class="r-label">消費税（10%）</span>
+              <span class="r-val" id="r-tax">1,800 円</span>
+            </div>
+          </div>
+
+          <div class="result-total-block">
+            <div class="t-label">税込合計金額（概算）</div>
+            <div class="t-amount" id="r-total">19,800<span class="t-yen">円</span></div>
+            <div class="t-tax" id="r-total-note">（税抜 18,000円 ＋ 消費税 1,800円）</div>
+          </div>
+
+          <div class="result-cta">
+            <a href="/contact/" class="btn" id="contactBtn">
+              この内容でお問い合わせ <span class="arrow">›</span>
+            </a>
+            <span class="btn-sub">見積もり内容をフォームに引き継ぎます</span>
+          </div>
+
+        </div><!-- /.result-card -->
+      </div><!-- /.estimate-result-box -->
+
+    </div><!-- /.estimate-layout -->
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer id="footer">
+  <div class="footer-bottom">
+    <p>Copyright &copy; 2025 SAIZEN警備保障株式会社 All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // ── 料金テーブル ──
+  const RATES = {
+    base: {
+      '平日':     { '日勤': 18000, '夜勤': 27000 },
+      '土曜':     { '日勤': 22500 },
+      '日曜祝日': { '日勤': 24300 }
+    },
+    overtime: {
+      '平日':     { '日勤': 2900, '夜勤': 4300 },
+      '土曜':     { '日勤': 3600 },
+      '日曜祝日': { '日勤': 3800 }
+    }
+  };
+
+  // ── 数値フォーマット ──
+  const fmt = n => n.toLocaleString('ja-JP');
+
+  // ── ステッパー ──
+  function stepNum(id, delta, min, max) {
+    const el = document.getElementById(id);
+    const v = Math.min(max, Math.max(min, (parseInt(el.value) || min) + delta));
+    el.value = v;
+    calculate();
+  }
+  function clampAndCalc(id, min, max) {
+    const el = document.getElementById(id);
+    const v = parseInt(el.value);
+    if (!isNaN(v)) el.value = Math.min(max, Math.max(min, v));
+    calculate();
+  }
+
+  // ── 曜日変更で夜勤を制御 ──
+  document.querySelectorAll('input[name="day"]').forEach(r => {
+    r.addEventListener('change', handleDayChange);
+  });
+
+  function handleDayChange() {
+    const day = document.querySelector('input[name="day"]:checked').value;
+    const nightInput = document.getElementById('shift-night');
+    const nightLabel = nightInput.nextElementSibling;
+    const note = document.getElementById('shift-note');
+
+    if (day !== '平日') {
+      nightInput.disabled = true;
+      note.style.display = 'block';
+      // 夜勤が選択されていれば日勤に戻す
+      if (document.getElementById('shift-night').checked) {
+        document.getElementById('shift-day').checked = true;
+      }
+    } else {
+      nightInput.disabled = false;
+      note.style.display = 'none';
+    }
+    calculate();
+  }
+
+  // ── 全入力変更イベント ──
+  document.querySelectorAll('input[name="type"], input[name="shift"]').forEach(r => {
+    r.addEventListener('change', calculate);
+  });
+
+  // ── 計算メイン ──
+  function calculate() {
+    const day     = document.querySelector('input[name="day"]:checked').value;
+    const shift   = document.querySelector('input[name="shift"]:checked').value;
+    const type    = document.querySelector('input[name="type"]:checked').value;
+    const persons = Math.max(1,  parseInt(document.getElementById('persons').value) || 1);
+    const days    = Math.max(1,  parseInt(document.getElementById('days').value)    || 1);
+    const ot      = Math.max(0,  parseInt(document.getElementById('overtime').value) || 0);
+    const radios  = Math.max(0,  parseInt(document.getElementById('radios').value)  || 0);
+
+    const baseRate = RATES.base[day][shift];
+    const otRate   = RATES.overtime[day][shift];
+
+    const baseAmt  = baseRate * persons * days;
+    const otAmt    = otRate   * ot      * persons * days;
+    const radioAmt = 500      * radios  * days;
+    const subtotal = baseAmt + otAmt + radioAmt;
+    const tax      = Math.floor(subtotal * 0.1);
+    const total    = subtotal + tax;
+
+    // 条件サマリ更新
+    document.getElementById('s-type').textContent    = type;
+    document.getElementById('s-day').textContent     = day;
+    document.getElementById('s-shift').textContent   = shift;
+    document.getElementById('s-persons').textContent = persons + '名';
+    document.getElementById('s-days').textContent    = days + '日';
+
+    // 内訳更新
+    document.getElementById('r-baseRate').textContent = fmt(baseRate) + ' 円';
+    document.getElementById('r-base').textContent     = fmt(baseAmt)  + ' 円';
+
+    const otRow = document.getElementById('row-overtime');
+    const otEl  = document.getElementById('r-overtime');
+    otEl.textContent = fmt(otAmt) + ' 円';
+    otEl.className   = 'r-val' + (otAmt === 0 ? ' dim' : '');
+
+    const radioRow = document.getElementById('row-radio');
+    const radioEl  = document.getElementById('r-radio');
+    radioEl.textContent = fmt(radioAmt) + ' 円';
+    radioEl.className   = 'r-val' + (radioAmt === 0 ? ' dim' : '');
+
+    document.getElementById('r-subtotal').textContent = fmt(subtotal) + ' 円';
+    document.getElementById('r-tax').textContent      = fmt(tax)      + ' 円';
+
+    // 税込合計
+    document.getElementById('r-total').innerHTML =
+      fmt(total) + '<span class="t-yen">円</span>';
+    document.getElementById('r-total-note').textContent =
+      '（税抜 ' + fmt(subtotal) + '円 ＋ 消費税 ' + fmt(tax) + '円）';
+
+    // お問い合わせボタンのURLに概算内容を付加
+    const params = new URLSearchParams({
+      type, day, shift,
+      persons, days,
+      overtime: ot,
+      radios,
+      total: fmt(total)
+    });
+    document.getElementById('contactBtn').href = '/contact/?' + params.toString();
+  }
+
+  // ── 初期化 ──
+  calculate();
+
+  // ── ハンバーガーメニュー ──
+  const ham     = document.getElementById('hamburger');
+  const nav     = document.getElementById('gnav');
+  const overlay = document.getElementById('navOverlay');
+
+  function toggleMenu() {
+    ham.classList.toggle('open');
+    nav.classList.toggle('open');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+  }
+  ham.addEventListener('click', toggleMenu);
+  ham.addEventListener('touchstart', function(e) { e.preventDefault(); toggleMenu(); }, { passive: false });
+  overlay.addEventListener('click', toggleMenu);
+
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    if (nav.classList.contains('open')) toggleMenu();
+  }));
+
+  // ── スクロールリビール ──
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.estimate-form-box, .result-card, .estimate-notice').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity .35s ease, transform .35s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
