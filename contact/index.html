@@ -107,7 +107,7 @@
           お問い合わせを受け付けました。担当者よりご連絡いたします。
         </div>
 
-        <form id="contactForm" novalidate>
+        <<form id="contactForm" action="https://formspree.io/f/xnjlrqlb" method="POST" novalidate>>
           <div class="form-group">
             <label class="form-label" for="name">
               お名前 <span class="required">必須</span>
@@ -257,10 +257,23 @@
       privacyError.style.display = 'none';
     }
 
-    if (valid) {
-      form.style.display = 'none';
-      document.getElementById('successMsg').style.display = 'block';
-      window.scrollTo({ top: document.getElementById('successMsg').offsetTop - 100, behavior: 'smooth' });
+  if (valid) {
+      const data = new FormData(form);
+      fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        if (response.ok) {
+          form.style.display = 'none';
+          document.getElementById('successMsg').style.display = 'block';
+          window.scrollTo({ top: document.getElementById('successMsg').offsetTop - 100, behavior: 'smooth' });
+        } else {
+          alert('送信に失敗しました。時間をおいて再度お試しください。');
+        }
+      }).catch(() => {
+        alert('通信エラーが発生しました。時間をおいて再度お試しください。');
+      });
     }
   });
 </script>
