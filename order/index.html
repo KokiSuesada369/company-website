@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <link rel="icon" href="/images/logo-01a.png" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>警備依頼フォーム｜SAIZEN警備保障株式会社</title>
+  <meta name="description" content="SAIZEN警備保障株式会社への警備依頼フォーム。交通誘導・雑踏警備・イベント警備・駐車場警備のご依頼はこちらから。広島県内全域対応。">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    /* ── 警備依頼フォームページ専用スタイル ── */
+
+    .order-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* フォームカード */
+    .order-card {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: 52px 56px;
+    }
+
+    /* セクション見出し */
+    .form-sec-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 36px 0 22px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--mid-gray);
+    }
+    .form-sec-head:first-of-type { margin-top: 0; }
+    .form-sec-num {
+      width: 30px;
+      height: 30px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .78rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .form-sec-head h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: .04em;
+    }
+
+    /* 2カラムグリッド */
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    /* トグルボタン式ラジオ（estimate流用） */
+    .toggle-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .toggle-group input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .toggle-group label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 9px 20px;
+      border: 2px solid var(--mid-gray);
+      border-radius: var(--radius);
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--dark-gray);
+      cursor: pointer;
+      transition: border-color .15s, background .15s, color .15s;
+      user-select: none;
+      min-width: 80px;
+    }
+    .toggle-group input[type="radio"]:checked + label {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+    .toggle-group label:hover {
+      border-color: var(--secondary);
+      color: var(--secondary);
+    }
+    .toggle-group input[type="radio"]:checked + label:hover {
+      color: #fff;
+    }
+
+    /* date input */
+    input[type="date"].form-input {
+      cursor: pointer;
+    }
+
+    /* 送信ボタン（金色） */
+    .btn-order {
+      background: #d97706;
+      color: #fff;
+      border-color: #d97706;
+      font-size: 1.05rem;
+      padding: 16px 64px;
+    }
+    .btn-order:hover {
+      background: #b45309;
+      border-color: #b45309;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(217,119,6,.32);
+    }
+
+    /* 送信成功メッセージ */
+    .order-success {
+      display: none;
+      text-align: center;
+      padding: 60px 30px;
+    }
+    .order-success .success-icon {
+      font-size: 3.5rem;
+      margin-bottom: 18px;
+    }
+    .order-success h3 {
+      font-size: 1.35rem;
+      color: var(--primary);
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+    .order-success p {
+      font-size: .92rem;
+      color: var(--dark-gray);
+      line-height: 1.9;
+    }
+
+    /* 区切り線 */
+    .form-divider {
+      border: none;
+      border-top: 1px dashed var(--mid-gray);
+      margin: 30px 0;
+    }
+
+    @media (max-width: 768px) {
+      .order-card { padding: 32px 22px; }
+      .form-grid-2 { grid-template-columns: 1fr; gap: 0; }
+      .btn-order { padding: 15px 40px; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav overlay -->
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header id="header">
+  <div class="header-inner">
+    <a href="/" class="logo-img-link">
+      <img src="/images/logo-08a.png" alt="SAIZEN警備保障株式会社" class="header-logo">
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="gnav" id="gnav">
+      <ul>
+        <li><a href="/">ホーム</a></li>
+        <li><a href="/company/">会社概要</a></li>
+        <li><a href="/service/">業務案内</a></li>
+        <li><a href="/price/">料金表</a></li>
+        <li><a href="/estimate/">お見積もり</a></li>
+        <li><a href="/order/" class="active">警備依頼</a></li>
+        <li><a href="/blog/">警備の知恵袋</a></li>
+        <li class="contact-link"><a href="/contact/">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================================================
+     PAGE HERO
+     ============================================================ -->
+<section class="page-hero">
+  <div class="container">
+    <h1>警備依頼フォーム</h1>
+    <p>ORDER FORM</p>
+  </div>
+</section>
+
+<!-- パンくずリスト -->
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <div class="container">
+    <a href="/">ホーム</a>
+    <span class="sep">›</span>
+    <span>警備依頼フォーム</span>
+  </div>
+</nav>
+
+<!-- ============================================================
+     ORDER FORM SECTION
+     ============================================================ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-title">
+      <div class="label">ORDER FORM</div>
+      <h2>警備依頼フォーム<span class="line"></span></h2>
+      <p>必要事項をご入力の上、送信してください。内容確認後、担当者よりお電話いたします。</p>
+    </div>
+
+    <div class="order-wrap">
+      <div class="order-card">
+
+        <!-- 送信成功メッセージ -->
+        <div class="order-success" id="orderSuccess">
+          <div class="success-icon">✅</div>
+          <h3>ご依頼ありがとうございます。<br>内容を確認の上、担当者より改めてお電話いたします。</h3>
+          <p>
+            通常1〜2営業日以内にご連絡いたします。<br>
+            お急ぎの場合はお手数ですが、直接お電話にてお問い合わせください。
+          </p>
+          <div style="margin-top:30px;">
+            <a href="/" class="btn btn-navy">トップページへ戻る <span class="arrow">›</span></a>
+          </div>
+        </div>
+
+        <!-- 依頼フォーム -->
+        <form id="orderForm" action="https://formspree.io/f/xnjlrqlb" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="【警備依頼フォーム】新規依頼が届きました">
+
+          <!-- ① 依頼者情報 -->
+          <div class="form-sec-head">
+            <div class="form-sec-num">1</div>
+            <h3>依頼者情報</h3>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="companyName">
+                会社名・団体名 <span class="required">必須</span>
+              </label>
+              <input type="text" id="companyName" name="会社名" class="form-input" placeholder="例：株式会社〇〇建設" required>
+              <div class="form-error" id="companyNameError"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contactPerson">
+                担当者名 <span class="required">必須</span>
+              </label>
+              <input type="text" id="contactPerson" name="担当者名" class="form-input" placeholder="例：山田 太郎" required>
+              <div class="form-error" id="contactPersonError"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="phone">
+                電話番号 <span class="required">必須</span>
+              </label>
+              <input type="tel" id="phone" name="電話番号" class="form-input" placeholder="例：082-000-0000" required>
+              <div class="form-error" id="phoneError"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="email">
+                メールアドレス <span class="required">必須</span>
+              </label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="例：info@example.com" required>
+              <div class="form-error" id="emailError"></div>
+            </div>
+          </div>
+
+          <!-- ② 現場情報 -->
+          <div class="form-sec-head">
+            <div class="form-sec-num">2</div>
+            <h3>現場情報</h3>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="siteName">
+                現場名 <span class="required">必須</span>
+              </label>
+              <input type="text" id="siteName" name="現場名" class="form-input" placeholder="例：〇〇道路工事現場" required>
+              <div class="form-error" id="siteNameError"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="siteAddress">
+                現場住所 <span class="required">必須</span>
+              </label>
+              <input type="text" id="siteAddress" name="現場住所" class="form-input" placeholder="例：広島市西区横川町〇〇" required>
+              <div class="form-error" id="siteAddressError"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              警備種別 <span class="required">必須</span>
+            </label>
+            <div class="toggle-group" id="guardTypeGroup">
+              <input type="radio" name="警備種別" id="gt-traffic" value="交通誘導警備" checked>
+              <label for="gt-traffic">🚦 交通誘導警備</label>
+              <input type="radio" name="警備種別" id="gt-crowd" value="雑踏警備">
+              <label for="gt-crowd">🎪 雑踏警備</label>
+              <input type="radio" name="警備種別" id="gt-event" value="イベント警備">
+              <label for="gt-event">🏟️ イベント警備</label>
+              <input type="radio" name="警備種別" id="gt-parking" value="駐車場警備">
+              <label for="gt-parking">🅿️ 駐車場警備</label>
+            </div>
+            <div class="form-error" id="guardTypeError"></div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="startDate">
+                警備開始日 <span class="required">必須</span>
+              </label>
+              <input type="date" id="startDate" name="警備開始日" class="form-input" required>
+              <div class="form-error" id="startDateError"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="endDate">
+                警備終了日 <span class="required">必須</span>
+              </label>
+              <input type="date" id="endDate" name="警備終了日" class="form-input" required>
+              <div class="form-error" id="endDateError"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              勤務区分 <span class="required">必須</span>
+            </label>
+            <div class="toggle-group">
+              <input type="radio" name="勤務区分" id="shift-day" value="日勤" checked>
+              <label for="shift-day">☀️ 日勤（8h）</label>
+              <input type="radio" name="勤務区分" id="shift-night" value="夜勤">
+              <label for="shift-night">🌙 夜勤（8h）</label>
+            </div>
+          </div>
+
+          <hr class="form-divider">
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="staffCount">
+                必要人数 <span class="required">必須</span>
+              </label>
+              <input type="number" id="staffCount" name="必要人数" class="form-input" placeholder="例：3" min="1" max="99" style="max-width:180px;" required>
+              <div class="form-error" id="staffCountError"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="overtimeHours">
+                残業見込み時間 <span class="optional">任意</span>
+              </label>
+              <input type="number" id="overtimeHours" name="残業見込み時間" class="form-input" placeholder="例：2" min="0" max="12" style="max-width:180px;">
+              <p style="font-size:.78rem; color:var(--dark-gray); margin-top:5px;">1人・1日あたりの目安時間</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="radioCount">
+                無線機台数 <span class="optional">任意</span>
+              </label>
+              <input type="number" id="radioCount" name="無線機台数" class="form-input" placeholder="例：2" min="0" max="20" style="max-width:180px;">
+              <p style="font-size:.78rem; color:var(--dark-gray); margin-top:5px;">500円 / 台・日</p>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">
+                高速道路使用 <span class="optional">任意</span>
+              </label>
+              <div class="toggle-group">
+                <input type="radio" name="高速道路使用" id="hw-yes" value="あり">
+                <label for="hw-yes">あり</label>
+                <input type="radio" name="高速道路使用" id="hw-no" value="なし" checked>
+                <label for="hw-no">なし</label>
+              </div>
+              <p style="font-size:.78rem; color:var(--dark-gray); margin-top:7px;">あり：実費請求（領収書添付）</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                駐車場使用 <span class="optional">任意</span>
+              </label>
+              <div class="toggle-group">
+                <input type="radio" name="駐車場使用" id="pk-yes" value="あり">
+                <label for="pk-yes">あり</label>
+                <input type="radio" name="駐車場使用" id="pk-no" value="なし" checked>
+                <label for="pk-no">なし</label>
+              </div>
+              <p style="font-size:.78rem; color:var(--dark-gray); margin-top:7px;">あり：実費請求（領収書添付）</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="notes">
+              その他備考 <span class="optional">任意</span>
+            </label>
+            <textarea id="notes" name="備考" class="form-textarea" placeholder="現場の詳細・特記事項・ご要望などがあればご記入ください。"></textarea>
+          </div>
+
+          <hr class="form-divider">
+
+          <div class="form-group">
+            <label class="form-check">
+              <input type="checkbox" id="privacy" required>
+              <span><a href="/privacy/" target="_blank">プライバシーポリシー</a>に同意する</span>
+            </label>
+            <div class="form-error" id="privacyError"></div>
+          </div>
+
+          <div class="form-submit">
+            <button type="submit" class="btn btn-order">送信する <span class="arrow">›</span></button>
+          </div>
+        </form>
+
+      </div><!-- /.order-card -->
+    </div><!-- /.order-wrap -->
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer id="footer">
+  <div class="footer-bottom">
+    <p>Copyright &copy; 2025 SAIZEN警備保障株式会社 All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // ── エラー表示ヘルパー ──
+  function showError(id, msg) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = msg;
+    el.style.display = msg ? 'block' : 'none';
+    el.style.color = '#e74c3c';
+    el.style.fontSize = '.82rem';
+    el.style.marginTop = '4px';
+  }
+  function clearError(id) { showError(id, ''); }
+  function markInvalid(el, errId, msg) {
+    el.style.borderColor = '#e74c3c';
+    showError(errId, msg);
+  }
+  function markValid(el, errId) {
+    el.style.borderColor = '';
+    clearError(errId);
+  }
+
+  // ── フォームバリデーション & 送信 ──
+  const form = document.getElementById('orderForm');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    let valid = true;
+
+    // 会社名
+    const companyName = document.getElementById('companyName');
+    if (!companyName.value.trim()) {
+      markInvalid(companyName, 'companyNameError', '会社名・団体名をご入力ください。');
+      valid = false;
+    } else { markValid(companyName, 'companyNameError'); }
+
+    // 担当者名
+    const contactPerson = document.getElementById('contactPerson');
+    if (!contactPerson.value.trim()) {
+      markInvalid(contactPerson, 'contactPersonError', '担当者名をご入力ください。');
+      valid = false;
+    } else { markValid(contactPerson, 'contactPersonError'); }
+
+    // 電話番号
+    const phone = document.getElementById('phone');
+    if (!phone.value.trim()) {
+      markInvalid(phone, 'phoneError', '電話番号をご入力ください。');
+      valid = false;
+    } else { markValid(phone, 'phoneError'); }
+
+    // メール
+    const email = document.getElementById('email');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+      markInvalid(email, 'emailError', '正しいメールアドレスをご入力ください。');
+      valid = false;
+    } else { markValid(email, 'emailError'); }
+
+    // 現場名
+    const siteName = document.getElementById('siteName');
+    if (!siteName.value.trim()) {
+      markInvalid(siteName, 'siteNameError', '現場名をご入力ください。');
+      valid = false;
+    } else { markValid(siteName, 'siteNameError'); }
+
+    // 現場住所
+    const siteAddress = document.getElementById('siteAddress');
+    if (!siteAddress.value.trim()) {
+      markInvalid(siteAddress, 'siteAddressError', '現場住所をご入力ください。');
+      valid = false;
+    } else { markValid(siteAddress, 'siteAddressError'); }
+
+    // 開始日
+    const startDate = document.getElementById('startDate');
+    if (!startDate.value) {
+      markInvalid(startDate, 'startDateError', '警備開始日を選択してください。');
+      valid = false;
+    } else { markValid(startDate, 'startDateError'); }
+
+    // 終了日
+    const endDate = document.getElementById('endDate');
+    if (!endDate.value) {
+      markInvalid(endDate, 'endDateError', '警備終了日を選択してください。');
+      valid = false;
+    } else if (startDate.value && endDate.value < startDate.value) {
+      markInvalid(endDate, 'endDateError', '終了日は開始日以降の日付を選択してください。');
+      valid = false;
+    } else { markValid(endDate, 'endDateError'); }
+
+    // 必要人数
+    const staffCount = document.getElementById('staffCount');
+    const sc = parseInt(staffCount.value);
+    if (!staffCount.value || isNaN(sc) || sc < 1) {
+      markInvalid(staffCount, 'staffCountError', '必要人数を入力してください（1以上）。');
+      valid = false;
+    } else { markValid(staffCount, 'staffCountError'); }
+
+    // プライバシー
+    const privacy = document.getElementById('privacy');
+    if (!privacy.checked) {
+      showError('privacyError', 'プライバシーポリシーへの同意が必要です。');
+      valid = false;
+    } else { clearError('privacyError'); }
+
+    if (!valid) {
+      // 最初のエラー箇所へスクロール
+      const firstErr = form.querySelector('[style*="border-color: rgb(231, 76, 60)"]');
+      if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    // 送信
+    const btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = '送信中…';
+
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(res => {
+      if (res.ok) {
+        form.style.display = 'none';
+        const success = document.getElementById('orderSuccess');
+        success.style.display = 'block';
+        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        btn.disabled = false;
+        btn.innerHTML = '送信する <span class="arrow">›</span>';
+        alert('送信に失敗しました。時間をおいて再度お試しください。');
+      }
+    }).catch(() => {
+      btn.disabled = false;
+      btn.innerHTML = '送信する <span class="arrow">›</span>';
+      alert('通信エラーが発生しました。時間をおいて再度お試しください。');
+    });
+  });
+
+  // ── リアルタイムバリデーション解除 ──
+  ['companyName','contactPerson','phone','email','siteName','siteAddress',
+   'startDate','endDate','staffCount'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', () => {
+      el.style.borderColor = '';
+      clearError(id + 'Error');
+    });
+  });
+
+  // ── ハンバーガーメニュー ──
+  const ham     = document.getElementById('hamburger');
+  const gnav    = document.getElementById('gnav');
+  const overlay = document.getElementById('navOverlay');
+  function toggleMenu() {
+    ham.classList.toggle('open');
+    gnav.classList.toggle('open');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = gnav.classList.contains('open') ? 'hidden' : '';
+  }
+  ham.addEventListener('click', toggleMenu);
+  ham.addEventListener('touchstart', e => { e.preventDefault(); toggleMenu(); }, { passive: false });
+  overlay.addEventListener('click', toggleMenu);
+  gnav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    if (gnav.classList.contains('open')) toggleMenu();
+  }));
+
+  // ── スクロールリビール ──
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.05 });
+
+  document.querySelectorAll('.order-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity .35s ease, transform .35s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
