@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <link rel="icon" href="/images/logo-01a.png" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>料金表｜SAIZEN警備保障株式会社</title>
+  <meta name="description" content="SAIZEN警備保障株式会社の警備サービス料金表。交通誘導・雑踏警備の基本単価、残業単価、追加料金をご確認いただけます。広島県内全域対応。">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    /* ── 料金表ページ専用スタイル ── */
+    .price-intro {
+      max-width: 760px;
+      margin: 0 auto 60px;
+      text-align: center;
+      color: var(--dark-gray);
+      font-size: .95rem;
+      line-height: 2;
+    }
+
+    /* 料金カードグリッド */
+    .price-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+      margin-bottom: 50px;
+    }
+
+    .price-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+      will-change: transform;
+    }
+    .price-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hv);
+    }
+    .price-card-head {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .price-card-icon {
+      font-size: 1.8rem;
+      width: 52px;
+      height: 52px;
+      background: rgba(255,255,255,.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .price-card-head h3 {
+      color: #fff;
+      font-size: 1.1rem;
+      line-height: 1.4;
+    }
+    .price-card-head h3 small {
+      display: block;
+      font-size: .72rem;
+      color: rgba(255,255,255,.6);
+      font-weight: 400;
+      margin-bottom: 3px;
+    }
+
+    /* 料金テーブル */
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .price-table tr {
+      border-bottom: 1px solid var(--mid-gray);
+    }
+    .price-table tr:last-child {
+      border-bottom: none;
+    }
+    .price-table th {
+      background: var(--light-bg);
+      color: var(--primary);
+      font-size: .88rem;
+      font-weight: 700;
+      padding: 14px 20px;
+      text-align: left;
+      width: 55%;
+      vertical-align: middle;
+    }
+    .price-table td {
+      padding: 14px 20px;
+      text-align: right;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+    .price-table td .unit {
+      font-size: .78rem;
+      font-weight: 400;
+      color: var(--dark-gray);
+      margin-left: 2px;
+    }
+    .price-table td .yen {
+      font-size: 1.25rem;
+      color: var(--secondary);
+    }
+    .price-table .overtime th {
+      font-size: .84rem;
+      color: var(--dark-gray);
+      font-weight: 500;
+      padding-left: 30px;
+      position: relative;
+    }
+    .price-table .overtime th::before {
+      content: '└';
+      position: absolute;
+      left: 18px;
+      color: #bbb;
+      font-size: .8rem;
+    }
+    .price-table .overtime td {
+      font-size: .95rem;
+    }
+    .price-table .overtime td .yen {
+      font-size: 1.1rem;
+    }
+
+    /* 追加料金セクション */
+    .extra-section {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 50px;
+    }
+    .extra-section-head {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 22px 32px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .extra-section-head h3 {
+      color: #fff;
+      font-size: 1.1rem;
+    }
+    .extra-section-head h3 small {
+      display: block;
+      font-size: .72rem;
+      color: rgba(255,255,255,.6);
+      font-weight: 400;
+      margin-bottom: 3px;
+    }
+    .extra-icon {
+      font-size: 1.8rem;
+      width: 52px;
+      height: 52px;
+      background: rgba(255,255,255,.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .extra-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+    }
+    .extra-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 22px 28px;
+      border-bottom: 1px solid var(--mid-gray);
+      border-right: 1px solid var(--mid-gray);
+    }
+    .extra-item:nth-child(even) {
+      border-right: none;
+    }
+    .extra-item:nth-last-child(-n+2) {
+      border-bottom: none;
+    }
+    .extra-item-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .extra-item-text .extra-name {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+    .extra-item-text .extra-detail {
+      font-size: .84rem;
+      color: var(--dark-gray);
+      line-height: 1.7;
+    }
+    .extra-item-text .extra-price {
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-top: 4px;
+    }
+
+    /* 注意事項 */
+    .notice-box {
+      background: var(--light-bg);
+      border-radius: 12px;
+      border: 1px solid var(--mid-gray);
+      padding: 32px 36px;
+      margin-bottom: 50px;
+    }
+    .notice-box h3 {
+      font-size: 1rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--mid-gray);
+    }
+    .notice-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .notice-list li {
+      font-size: .92rem;
+      color: var(--dark-gray);
+      line-height: 1.8;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .notice-list li::before {
+      content: '※';
+      color: var(--secondary);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* CTA */
+    .price-cta {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 14px;
+      padding: 50px 40px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .price-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(200,160,0,.08) 0%, transparent 70%);
+    }
+    .price-cta h3 {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .price-cta p {
+      color: rgba(255,255,255,.75);
+      margin-bottom: 28px;
+      font-size: .95rem;
+      position: relative;
+    }
+    .price-cta .cta-btns { position: relative; }
+
+    /* レスポンシブ */
+    @media (max-width: 768px) {
+      .price-grid {
+        grid-template-columns: 1fr;
+      }
+      .extra-grid {
+        grid-template-columns: 1fr;
+      }
+      .extra-item {
+        border-right: none !important;
+      }
+      .extra-item:nth-last-child(-n+2) {
+        border-bottom: 1px solid var(--mid-gray);
+      }
+      .extra-item:last-child {
+        border-bottom: none;
+      }
+      .price-table th { width: 60%; font-size: .82rem; padding: 12px 14px; }
+      .price-table td { padding: 12px 14px; font-size: .92rem; }
+      .price-table td .yen { font-size: 1.1rem; }
+      .notice-box { padding: 24px 20px; }
+      .price-cta { padding: 36px 24px; }
+      .price-cta h3 { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav overlay -->
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header id="header">
+  <div class="header-inner">
+    <a href="/" class="logo-img-link">
+      <img src="/images/logo-08a.png" alt="SAIZEN警備保障株式会社" class="header-logo">
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="gnav" id="gnav">
+      <ul>
+        <li><a href="/">ホーム</a></li>
+        <li><a href="/company/">会社概要</a></li>
+        <li><a href="/service/">業務案内</a></li>
+        <li><a href="/price/" class="active">料金表</a></li>
+        <li><a href="/blog/">警備の知恵袋</a></li>
+        <li class="contact-link"><a href="/contact/">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================================================
+     PAGE HERO
+     ============================================================ -->
+<section class="page-hero">
+  <div class="container">
+    <h1>料金表</h1>
+    <p>PRICE LIST</p>
+  </div>
+</section>
+
+<!-- パンくずリスト -->
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <div class="container">
+    <a href="/">ホーム</a>
+    <span class="sep">›</span>
+    <span>料金表</span>
+  </div>
+</nav>
+
+<!-- ============================================================
+     PRICE SECTION
+     ============================================================ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-title">
+      <div class="label">PRICE LIST</div>
+      <h2>基本単価<span class="line"></span></h2>
+      <p>2号警備（交通誘導・雑踏警備）の基本料金です。</p>
+    </div>
+
+    <p class="price-intro">
+      SAIZEN警備保障株式会社では、お客様のご要望に応じた透明性の高い料金体系をご提供しています。<br>
+      現場の状況やご依頼内容によってお見積もりも承りますので、お気軽にご相談ください。
+    </p>
+
+    <!-- 基本単価カード -->
+    <div class="price-grid">
+
+      <!-- 平日 -->
+      <div class="price-card">
+        <div class="price-card-head">
+          <div class="price-card-icon">📅</div>
+          <h3><small>Weekday</small>平日</h3>
+        </div>
+        <table class="price-table">
+          <tbody>
+            <tr>
+              <th>日勤（8時間）</th>
+              <td><span class="yen">18,000</span><span class="unit">円</span></td>
+            </tr>
+            <tr class="overtime">
+              <th>日勤 残業単価</th>
+              <td><span class="yen">2,900</span><span class="unit">円/h</span></td>
+            </tr>
+            <tr>
+              <th>夜勤（8時間）</th>
+              <td><span class="yen">27,000</span><span class="unit">円</span></td>
+            </tr>
+            <tr class="overtime">
+              <th>夜勤 残業単価</th>
+              <td><span class="yen">4,300</span><span class="unit">円/h</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 土曜日 -->
+      <div class="price-card">
+        <div class="price-card-head">
+          <div class="price-card-icon">🗓️</div>
+          <h3><small>Saturday</small>土曜日</h3>
+        </div>
+        <table class="price-table">
+          <tbody>
+            <tr>
+              <th>日勤（8時間）</th>
+              <td><span class="yen">22,500</span><span class="unit">円</span></td>
+            </tr>
+            <tr class="overtime">
+              <th>残業単価</th>
+              <td><span class="yen">3,600</span><span class="unit">円/h</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 日曜・祝日 -->
+      <div class="price-card" style="grid-column: 1 / -1;">
+        <div class="price-card-head">
+          <div class="price-card-icon">🎌</div>
+          <h3><small>Sunday &amp; Holiday</small>日曜日・祝日</h3>
+        </div>
+        <table class="price-table">
+          <tbody>
+            <tr>
+              <th>日勤（8時間）</th>
+              <td><span class="yen">24,300</span><span class="unit">円</span></td>
+            </tr>
+            <tr class="overtime">
+              <th>残業単価</th>
+              <td><span class="yen">3,800</span><span class="unit">円/h</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div><!-- /.price-grid -->
+
+    <!-- 追加料金 -->
+    <div class="section-title" style="margin-top:20px;">
+      <div class="label">ADDITIONAL CHARGES</div>
+      <h2>追加料金<span class="line"></span></h2>
+    </div>
+
+    <div class="extra-section">
+      <div class="extra-grid">
+        <div class="extra-item">
+          <div class="extra-item-icon">🛣️</div>
+          <div class="extra-item-text">
+            <div class="extra-name">高速道路料金</div>
+            <div class="extra-detail">領収書を添付してご請求します。</div>
+            <div class="extra-price">実費請求</div>
+          </div>
+        </div>
+        <div class="extra-item">
+          <div class="extra-item-icon">🅿️</div>
+          <div class="extra-item-text">
+            <div class="extra-name">駐車場料金</div>
+            <div class="extra-detail">領収書を添付してご請求します。</div>
+            <div class="extra-price">実費請求</div>
+          </div>
+        </div>
+        <div class="extra-item">
+          <div class="extra-item-icon">📻</div>
+          <div class="extra-item-text">
+            <div class="extra-name">無線機</div>
+            <div class="extra-detail">現場での連絡用として必要な場合にご利用いただけます。</div>
+            <div class="extra-price">500円 / 台・日</div>
+          </div>
+        </div>
+        <div class="extra-item">
+          <div class="extra-item-icon">🚧</div>
+          <div class="extra-item-text">
+            <div class="extra-name">カラーコーン・保安灯・矢印板</div>
+            <div class="extra-detail">使用数量・種類によって異なります。</div>
+            <div class="extra-price">別途お見積もり</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 注意事項 -->
+    <div class="notice-box">
+      <h3>⚠️ ご注意事項</h3>
+      <ul class="notice-list">
+        <li>半日請求はございません。1日単位でのご請求となります。</li>
+        <li>上記料金はすべて消費税別となります。別途消費税をご請求いたします。</li>
+        <li>上記は2号警備（交通誘導警備・雑踏警備）の基本単価です。</li>
+        <li>現場の状況や規模によってはお見積もりが異なる場合がございます。詳細はお問い合わせください。</li>
+      </ul>
+    </div>
+
+    <!-- CTA -->
+    <div class="price-cta">
+      <h3>お見積もり・ご相談は無料です</h3>
+      <p>料金についてのご不明点、現場に応じたお見積もりはお気軽にお問い合わせください。</p>
+      <div class="cta-btns">
+        <a href="/contact/" class="btn btn-gold">お問い合わせフォームへ <span class="arrow">›</span></a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer id="footer">
+  <div class="footer-bottom">
+    <p>Copyright &copy; 2025 SAIZEN警備保障株式会社 All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Hamburger menu
+  const ham = document.getElementById('hamburger');
+  const nav = document.getElementById('gnav');
+  const overlay = document.getElementById('navOverlay');
+
+  function toggleMenu() {
+    ham.classList.toggle('open');
+    nav.classList.toggle('open');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+  }
+  ham.addEventListener('click', toggleMenu);
+  ham.addEventListener('touchstart', function(e) { e.preventDefault(); toggleMenu(); }, { passive: false });
+  overlay.addEventListener('click', toggleMenu);
+
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    if (nav.classList.contains('open')) toggleMenu();
+  }));
+
+  // Scroll-reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.price-card, .extra-section, .notice-box').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity .3s ease, transform .3s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
