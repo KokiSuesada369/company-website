@@ -14,9 +14,15 @@
     .order-layout {
       display: grid;
       grid-template-columns: 1fr 360px;
+      grid-template-areas:
+        "inputs  estimate"
+        "footer  estimate";
       gap: 36px;
       align-items: start;
     }
+    .order-inputs-wrap  { grid-area: inputs; }
+    .order-estimate-box { grid-area: estimate; }
+    .order-footer-wrap  { grid-area: footer; }
 
     /* 概算料金カード */
     .order-estimate-box { position: sticky; top: 84px; }
@@ -220,6 +226,14 @@
       line-height: 1.9;
     }
 
+    /* 同意・送信エリア */
+    .order-footer-wrap {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: 32px 56px;
+    }
+
     /* 区切り線 */
     .form-divider {
       border: none;
@@ -338,11 +352,18 @@
     }
 
     @media (max-width: 900px) {
-      .order-layout { grid-template-columns: 1fr; }
+      .order-layout {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "inputs"
+          "estimate"
+          "footer";
+      }
       .order-estimate-box { position: static; }
     }
     @media (max-width: 768px) {
       .order-card { padding: 32px 22px; }
+      .order-footer-wrap { padding: 24px 22px; }
       .form-grid-2 { grid-template-columns: 1fr; gap: 0; }
       .btn-order { padding: 15px 40px; font-size: 1rem; }
       .oec-head, .oec-body, .oec-total, .oec-notice, .oec-period,
@@ -412,8 +433,8 @@
     </div>
 
     <div class="order-layout">
-      <!-- 左列：フォーム -->
-      <div>
+      <!-- 入力エリア -->
+      <div class="order-inputs-wrap">
       <div class="order-card">
 
         <!-- 送信成功メッセージ -->
@@ -610,25 +631,12 @@
             <textarea id="notes" name="備考" class="form-textarea" placeholder="現場の詳細・特記事項・ご要望などがあればご記入ください。"></textarea>
           </div>
 
-          <hr class="form-divider">
-
-          <div class="form-group">
-            <label class="form-check">
-              <input type="checkbox" id="privacy" required>
-              <span><a href="/privacy/" target="_blank">プライバシーポリシー</a>に同意する</span>
-            </label>
-            <div class="form-error" id="privacyError"></div>
-          </div>
-
-          <div class="form-submit">
-            <button type="submit" class="btn btn-order">送信する <span class="arrow">›</span></button>
-          </div>
         </form>
 
       </div><!-- /.order-card -->
-      </div><!-- /左列 -->
+      </div><!-- /.order-inputs-wrap -->
 
-      <!-- 右列：概算料金カード -->
+      <!-- 概算料金カード -->
       <div class="order-estimate-box">
         <div class="order-estimate-card">
           <div class="oec-head">
@@ -678,6 +686,20 @@
           </div>
         </div><!-- /.order-estimate-card -->
       </div><!-- /.order-estimate-box -->
+
+      <!-- 同意・送信エリア -->
+      <div class="order-footer-wrap">
+        <div class="form-group">
+          <label class="form-check">
+            <input type="checkbox" id="privacy" form="orderForm" required>
+            <span><a href="/privacy/" target="_blank">プライバシーポリシー</a>に同意する</span>
+          </label>
+          <div class="form-error" id="privacyError"></div>
+        </div>
+        <div class="form-submit">
+          <button type="submit" id="submitBtn" form="orderForm" class="btn btn-order">送信する <span class="arrow">›</span></button>
+        </div>
+      </div><!-- /.order-footer-wrap -->
 
     </div><!-- /.order-layout -->
   </div>
@@ -802,7 +824,7 @@
     }
 
     // 送信
-    const btn = form.querySelector('button[type="submit"]');
+    const btn = document.getElementById('submitBtn');
     btn.disabled = true;
     btn.textContent = '送信中…';
 
@@ -813,6 +835,7 @@
     }).then(res => {
       if (res.ok) {
         form.style.display = 'none';
+        document.querySelector('.order-footer-wrap').style.display = 'none';
         const success = document.getElementById('orderSuccess');
         success.style.display = 'block';
         success.scrollIntoView({ behavior: 'smooth', block: 'center' });
