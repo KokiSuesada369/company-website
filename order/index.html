@@ -227,6 +227,61 @@
       margin: 30px 0;
     }
 
+    /* カレンダー */
+    #calendarWrap { margin-top: 16px; }
+    .cal-month-title {
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      margin-top: 10px;
+    }
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px;
+    }
+    .cal-dow {
+      text-align: center;
+      font-size: .65rem;
+      font-weight: 700;
+      color: var(--dark-gray);
+      padding: 3px 0;
+    }
+    .cal-cell {
+      border-radius: 4px;
+      padding: 4px 2px;
+      text-align: center;
+      font-size: .72rem;
+      font-weight: 600;
+      min-height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cal-cell.empty { background: transparent; color: #ccc; }
+    .cd-wd   { background: #eef1f8; color: #1a2f5e; }
+    .cd-wdn  { background: #1a2f5e; color: #fff; }
+    .cd-sat  { background: #dbeafe; color: #1e40af; }
+    .cd-satn { background: #fed7aa; color: #92400e; }
+    .cd-sun  { background: #ffe4e6; color: #9f1239; }
+    .cd-sunn { background: #fca5a5; color: #7f1d1d; }
+    .cal-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: .72rem;
+      color: var(--dark-gray);
+    }
+    .cal-legend-item { display: flex; align-items: center; gap: 5px; }
+    .cal-legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
     @media (max-width: 900px) {
       .order-layout { grid-template-columns: 1fr; }
       .order-estimate-box { position: static; order: -1; }
@@ -419,6 +474,18 @@
               </label>
               <input type="date" id="endDate" name="警備終了日" class="form-input" required>
               <div class="form-error" id="endDateError"></div>
+            </div>
+          </div>
+
+          <div id="calendarWrap" style="display:none;">
+            <div id="calendarContent"></div>
+            <div class="cal-legend">
+              <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#eef1f8;border:1px solid #c5cde0;"></div>平日日勤</div>
+              <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#1a2f5e;"></div>平日夜勤</div>
+              <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#dbeafe;border:1px solid #93c5fd;"></div>土曜日勤</div>
+              <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#fed7aa;border:1px solid #fdba74;"></div>土曜夜勤</div>
+              <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#ffe4e6;border:1px solid #fda4af;"></div>日祝日勤</div>
+              <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#fca5a5;border:1px solid #f87171;"></div>日祝夜勤</div>
             </div>
           </div>
 
@@ -700,9 +767,27 @@
   // ── 概算料金計算 ──
   const PRICE_RATES = {
     weekday:  { base: { day: 18000, night: 27000 }, ot: { day: 2900, night: 4300 } },
-    saturday: { base: 22500, ot: 3600 },
-    sunday:   { base: 24300, ot: 3800 }
+    saturday: { base: { day: 22500, night: 33800 }, ot: { day: 3600, night: 5400 } },
+    sunday:   { base: { day: 24300, night: 36500 }, ot: { day: 3800, night: 5800 } }
   };
+
+  const HOLIDAYS = new Set([
+    '2025-01-01','2025-01-13','2025-02-11','2025-02-23','2025-02-24',
+    '2025-03-20','2025-04-29','2025-05-03','2025-05-04','2025-05-05',
+    '2025-05-06','2025-07-21','2025-08-11','2025-09-15','2025-09-23',
+    '2025-10-13','2025-11-03','2025-11-23','2025-11-24',
+    '2026-01-01','2026-01-12','2026-02-11','2026-02-23',
+    '2026-03-20','2026-04-29','2026-05-03','2026-05-04','2026-05-05',
+    '2026-07-20','2026-08-11','2026-09-21','2026-09-23',
+    '2026-10-12','2026-11-03','2026-11-23'
+  ]);
+
+  function getDayType(d, dateStr) {
+    const dow = d.getDay();
+    if (dow === 0 || HOLIDAYS.has(dateStr)) return 'sunday';
+    if (dow === 6) return 'saturday';
+    return 'weekday';
+  }
 
   function countDayTypes(startStr, endStr) {
     if (!startStr || !endStr || endStr < startStr) return null;
@@ -711,9 +796,10 @@
     let weekdays = 0, saturdays = 0, sundays = 0;
     const cur = new Date(start);
     while (cur <= end) {
-      const d = cur.getDay();
-      if (d === 0) sundays++;
-      else if (d === 6) saturdays++;
+      const dateStr = cur.toISOString().slice(0, 10);
+      const type = getDayType(cur, dateStr);
+      if (type === 'sunday') sundays++;
+      else if (type === 'saturday') saturdays++;
       else weekdays++;
       cur.setDate(cur.getDate() + 1);
     }
@@ -740,17 +826,15 @@
 
     const sk = shift === '夜勤' ? 'night' : 'day';
 
-    // 基本料金（週末は夜勤でも日勤単価を適用）
     const baseAmt =
-      PRICE_RATES.weekday.base[sk] * days.weekdays  * persons +
-      PRICE_RATES.saturday.base    * days.saturdays * persons +
-      PRICE_RATES.sunday.base      * days.sundays   * persons;
+      PRICE_RATES.weekday.base[sk]  * days.weekdays  * persons +
+      PRICE_RATES.saturday.base[sk] * days.saturdays * persons +
+      PRICE_RATES.sunday.base[sk]   * days.sundays   * persons;
 
-    // 残業料金
     const otAmt =
-      PRICE_RATES.weekday.ot[sk] * ot * days.weekdays  * persons +
-      PRICE_RATES.saturday.ot    * ot * days.saturdays * persons +
-      PRICE_RATES.sunday.ot      * ot * days.sundays   * persons;
+      PRICE_RATES.weekday.ot[sk]  * ot * days.weekdays  * persons +
+      PRICE_RATES.saturday.ot[sk] * ot * days.saturdays * persons +
+      PRICE_RATES.sunday.ot[sk]   * ot * days.sundays   * persons;
 
     const radioAmt = 500 * radios * days.total;
     const subtotal = baseAmt + otAmt + radioAmt;
@@ -784,6 +868,66 @@
 
     placeholder.style.display = 'none';
     result.style.display      = 'block';
+
+    renderCalendar();
+  }
+
+  function renderCalendar() {
+    const startV  = document.getElementById('startDate').value;
+    const endV    = document.getElementById('endDate').value;
+    const shift   = (document.querySelector('input[name="勤務区分"]:checked') || {}).value || '日勤';
+    const wrap    = document.getElementById('calendarWrap');
+    const content = document.getElementById('calendarContent');
+
+    if (!startV || !endV || endV < startV) {
+      wrap.style.display = 'none';
+      return;
+    }
+
+    const isNight = shift === '夜勤';
+    const start = new Date(startV + 'T00:00:00');
+    const end   = new Date(endV   + 'T00:00:00');
+    const DOW   = ['日','月','火','水','木','金','土'];
+
+    const months = {};
+    const cur = new Date(start);
+    while (cur <= end) {
+      const dateStr = cur.toISOString().slice(0, 10);
+      const yr = cur.getFullYear(), mo = cur.getMonth();
+      const key = yr + '-' + String(mo + 1).padStart(2, '0');
+      if (!months[key]) months[key] = { yr, mo, dayMap: {} };
+      months[key].dayMap[cur.getDate()] = getDayType(cur, dateStr);
+      cur.setDate(cur.getDate() + 1);
+    }
+
+    const CLASS = {
+      weekday:  isNight ? 'cd-wdn'  : 'cd-wd',
+      saturday: isNight ? 'cd-satn' : 'cd-sat',
+      sunday:   isNight ? 'cd-sunn' : 'cd-sun'
+    };
+
+    let html = '';
+    for (const key of Object.keys(months).sort()) {
+      const { yr, mo, dayMap } = months[key];
+      const firstDow   = new Date(yr, mo, 1).getDay();
+      const daysInMonth = new Date(yr, mo + 1, 0).getDate();
+      html += '<div class="cal-month">';
+      html += '<div class="cal-month-title">' + yr + '年' + (mo + 1) + '月</div>';
+      html += '<div class="cal-grid">';
+      DOW.forEach(l => { html += '<div class="cal-dow">' + l + '</div>'; });
+      for (let i = 0; i < firstDow; i++) html += '<div class="cal-cell empty"></div>';
+      for (let d = 1; d <= daysInMonth; d++) {
+        if (dayMap[d]) {
+          html += '<div class="cal-cell ' + CLASS[dayMap[d]] + '">' + d + '</div>';
+        } else {
+          html += '<div class="cal-cell empty">' + d + '</div>';
+        }
+      }
+      html += '</div></div>';
+    }
+
+    content.innerHTML = html;
+    wrap.style.display = 'block';
   }
 
   // 計算トリガー

@@ -470,9 +470,6 @@
               <input type="radio" name="shift" id="shift-night" value="夜勤">
               <label for="shift-night">夜勤（8h）</label>
             </div>
-            <p id="shift-note" style="font-size:.78rem; color:var(--dark-gray); margin-top:7px; display:none;">
-              ※ 夜勤は平日のみ選択できます
-            </p>
           </div>
 
           <!-- 警備員人数 -->
@@ -635,13 +632,13 @@
   const RATES = {
     base: {
       '平日':     { '日勤': 18000, '夜勤': 27000 },
-      '土曜':     { '日勤': 22500 },
-      '日曜祝日': { '日勤': 24300 }
+      '土曜':     { '日勤': 22500, '夜勤': 33800 },
+      '日曜祝日': { '日勤': 24300, '夜勤': 36500 }
     },
     overtime: {
       '平日':     { '日勤': 2900, '夜勤': 4300 },
-      '土曜':     { '日勤': 3600 },
-      '日曜祝日': { '日勤': 3800 }
+      '土曜':     { '日勤': 3600, '夜勤': 5400 },
+      '日曜祝日': { '日勤': 3800, '夜勤': 5800 }
     }
   };
 
@@ -662,30 +659,10 @@
     calculate();
   }
 
-  // ── 曜日変更で夜勤を制御 ──
+  // ── 曜日変更 ──
   document.querySelectorAll('input[name="day"]').forEach(r => {
-    r.addEventListener('change', handleDayChange);
+    r.addEventListener('change', calculate);
   });
-
-  function handleDayChange() {
-    const day = document.querySelector('input[name="day"]:checked').value;
-    const nightInput = document.getElementById('shift-night');
-    const nightLabel = nightInput.nextElementSibling;
-    const note = document.getElementById('shift-note');
-
-    if (day !== '平日') {
-      nightInput.disabled = true;
-      note.style.display = 'block';
-      // 夜勤が選択されていれば日勤に戻す
-      if (document.getElementById('shift-night').checked) {
-        document.getElementById('shift-day').checked = true;
-      }
-    } else {
-      nightInput.disabled = false;
-      note.style.display = 'none';
-    }
-    calculate();
-  }
 
   // ── 全入力変更イベント ──
   document.querySelectorAll('input[name="type"], input[name="shift"]').forEach(r => {
