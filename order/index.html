@@ -227,6 +227,61 @@
       margin: 30px 0;
     }
 
+    /* 数値スピナー */
+    .num-control {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      width: fit-content;
+    }
+    .num-control button {
+      width: 42px;
+      height: 42px;
+      border: 2px solid var(--mid-gray);
+      background: var(--light-bg);
+      color: var(--primary);
+      font-size: 1.3rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .15s;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0;
+    }
+    .num-control button:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+    .num-control button:last-child  { border-radius: 0 var(--radius) var(--radius) 0; }
+    .num-control button:hover:not(:disabled) { background: var(--mid-gray); }
+    .num-control button:active:not(:disabled) { background: #c8d0de; }
+    .num-control button:disabled { opacity: .35; cursor: not-allowed; }
+    .num-control input[type="number"] {
+      width: 72px;
+      height: 42px;
+      border: 2px solid var(--mid-gray);
+      border-left: none;
+      border-right: none;
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+      font-family: inherit;
+      -moz-appearance: textfield;
+      outline: none;
+    }
+    .num-control input[type="number"]::-webkit-inner-spin-button,
+    .num-control input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+    .num-unit {
+      font-size: .85rem;
+      color: var(--dark-gray);
+      margin-left: 10px;
+    }
+    .num-control-row {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
     /* カレンダー */
     #calendarWrap { margin-top: 16px; }
     .cal-month-title {
@@ -508,7 +563,14 @@
               <label class="form-label" for="staffCount">
                 必要人数 <span class="required">必須</span>
               </label>
-              <input type="number" id="staffCount" name="必要人数" class="form-input" placeholder="例：3" min="1" max="99" style="max-width:180px;" required>
+              <div class="num-control-row">
+                <div class="num-control">
+                  <button type="button" id="staffCountMinus" onclick="stepOrder('staffCount',-1,1,20)" aria-label="減らす">－</button>
+                  <input type="number" id="staffCount" name="必要人数" value="1" min="1" max="20" oninput="clampOrder('staffCount',1,20)">
+                  <button type="button" id="staffCountPlus" onclick="stepOrder('staffCount',1,1,20)" aria-label="増やす">＋</button>
+                </div>
+                <span class="num-unit">名</span>
+              </div>
               <div class="form-error" id="staffCountError"></div>
             </div>
 
@@ -516,16 +578,28 @@
               <label class="form-label" for="overtimeHours">
                 残業見込み時間 <span class="optional">任意</span>
               </label>
-              <input type="number" id="overtimeHours" name="残業見込み時間" class="form-input" placeholder="例：2" min="0" max="12" style="max-width:180px;">
-              <p style="font-size:.78rem; color:var(--dark-gray); margin-top:5px;">1人・1日あたりの目安時間</p>
+              <div class="num-control-row">
+                <div class="num-control">
+                  <button type="button" id="overtimeHoursMinus" onclick="stepOrder('overtimeHours',-1,0,4)" aria-label="減らす">－</button>
+                  <input type="number" id="overtimeHours" name="残業見込み時間" value="0" min="0" max="4" oninput="clampOrder('overtimeHours',0,4)">
+                  <button type="button" id="overtimeHoursPlus" onclick="stepOrder('overtimeHours',1,0,4)" aria-label="増やす">＋</button>
+                </div>
+                <span class="num-unit">時間 / 1人・1日あたり</span>
+              </div>
             </div>
 
             <div class="form-group">
               <label class="form-label" for="radioCount">
                 無線機台数 <span class="optional">任意</span>
               </label>
-              <input type="number" id="radioCount" name="無線機台数" class="form-input" placeholder="例：2" min="0" max="20" style="max-width:180px;">
-              <p style="font-size:.78rem; color:var(--dark-gray); margin-top:5px;">500円 / 台・日</p>
+              <div class="num-control-row">
+                <div class="num-control">
+                  <button type="button" id="radioCountMinus" onclick="stepOrder('radioCount',-1,0,10)" aria-label="減らす">－</button>
+                  <input type="number" id="radioCount" name="無線機台数" value="0" min="0" max="10" oninput="clampOrder('radioCount',0,10)">
+                  <button type="button" id="radioCountPlus" onclick="stepOrder('radioCount',1,0,10)" aria-label="増やす">＋</button>
+                </div>
+                <span class="num-unit">台（500円/台・日）</span>
+              </div>
             </div>
           </div>
 
@@ -930,8 +1004,35 @@
     wrap.style.display = 'block';
   }
 
+  // ── ステッパーヘルパー ──
+  function stepOrder(id, delta, min, max) {
+    const el = document.getElementById(id);
+    el.value = Math.min(max, Math.max(min, (parseInt(el.value) || min) + delta));
+    updateStepBtns(id, min, max);
+    calcOrder();
+  }
+  function clampOrder(id, min, max) {
+    const el = document.getElementById(id);
+    const v = parseInt(el.value);
+    if (!isNaN(v)) el.value = Math.min(max, Math.max(min, v));
+    updateStepBtns(id, min, max);
+    calcOrder();
+  }
+  function updateStepBtns(id, min, max) {
+    const v = parseInt(document.getElementById(id).value);
+    const mb = document.getElementById(id + 'Minus');
+    const pb = document.getElementById(id + 'Plus');
+    if (mb) mb.disabled = v <= min;
+    if (pb) pb.disabled = v >= max;
+  }
+
+  // 起動時ボタン状態初期化
+  updateStepBtns('staffCount',    1,  20);
+  updateStepBtns('overtimeHours', 0,   4);
+  updateStepBtns('radioCount',    0,  10);
+
   // 計算トリガー
-  ['startDate','endDate','staffCount','overtimeHours','radioCount'].forEach(id => {
+  ['startDate','endDate'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.addEventListener('input', calcOrder);
   });
