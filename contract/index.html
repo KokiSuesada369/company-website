@@ -52,6 +52,21 @@
       transition: background .15s;
     }
     .btn-print:hover { background: #2a4898; }
+    .btn-pdf { background: #b45309; }
+    .btn-pdf:hover { background: #92400e; }
+    .print-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-left: 2px solid #d1d5db;
+      padding-left: 14px;
+    }
+    .print-group-label {
+      font-size: .8rem;
+      font-weight: 700;
+      color: #666;
+      white-space: nowrap;
+    }
 
     /* ── A4書面ページ ── */
     .doc-page {
@@ -241,8 +256,16 @@
 
 <div class="screen-actions">
   <a href="/order/" class="btn-back">← 依頼フォームへ戻る</a>
-  <button class="btn-print" onclick="printDoc('mae')">📄 前書面を印刷</button>
-  <button class="btn-print" onclick="printDoc('go')">📄 後書面を印刷</button>
+  <div class="print-group">
+    <span class="print-group-label">前書面</span>
+    <button class="btn-print" onclick="printPaper('mae')">🖨 紙で印刷</button>
+    <button class="btn-print btn-pdf" onclick="printPDF('mae')">📄 PDFとして保存</button>
+  </div>
+  <div class="print-group">
+    <span class="print-group-label">後書面</span>
+    <button class="btn-print" onclick="printPaper('go')">🖨 紙で印刷</button>
+    <button class="btn-print btn-pdf" onclick="printPDF('go')">📄 PDFとして保存</button>
+  </div>
 </div>
 
 <!-- ==============================================================
@@ -398,7 +421,7 @@
       </div>
       <div class="confirm-box">
         <div class="confirm-label">確認者名</div>
-        <div class="confirm-write"></div>
+        <div class="confirm-write confirm-write-name"></div>
       </div>
       <div class="confirm-box">
         <div class="confirm-label">担当者名</div>
@@ -573,7 +596,7 @@
       </div>
       <div class="confirm-box">
         <div class="confirm-label">確認者名</div>
-        <div class="confirm-write"></div>
+        <div class="confirm-write confirm-write-name"></div>
       </div>
       <div class="confirm-box">
         <div class="confirm-label">担当者名</div>
@@ -590,10 +613,20 @@
 </div><!-- /.doc-page.doc-go -->
 
 <script>
-  function printDoc(which) {
+  function printPaper(which) {
+    document.querySelectorAll('.confirm-write-name').forEach(el => { el.textContent = ''; });
     document.body.className = 'print-' + which;
     window.print();
     document.body.className = '';
+  }
+
+  function printPDF(which) {
+    const contact = new URLSearchParams(window.location.search).get('contact') || '';
+    document.querySelectorAll('.confirm-write-name').forEach(el => { el.textContent = contact; });
+    document.body.className = 'print-' + which;
+    window.print();
+    document.body.className = '';
+    document.querySelectorAll('.confirm-write-name').forEach(el => { el.textContent = ''; });
   }
 
   (function () {

@@ -189,6 +189,17 @@
       cursor: pointer;
     }
 
+    /* 読み取り専用フィールド */
+    .form-input[readonly] {
+      background: #f3f4f6;
+      color: #6b7280;
+      cursor: not-allowed;
+      border-color: #d1d5db;
+    }
+    select.form-input {
+      cursor: pointer;
+    }
+
     /* 送信ボタン（金色） */
     .btn-order {
       background: #d97706;
@@ -440,14 +451,13 @@
         <!-- 送信成功メッセージ -->
         <div class="order-success" id="orderSuccess">
           <div class="success-icon">✅</div>
-          <h3>ご依頼ありがとうございます。<br>内容を確認の上、担当者より改めてお電話いたします。</h3>
+          <h3>ご依頼ありがとうございます。<br>内容確認後、担当者よりお電話いたします。</h3>
           <p>
             通常1〜2営業日以内にご連絡いたします。<br>
             お急ぎの場合はお手数ですが、直接お電話にてお問い合わせください。
           </p>
           <div style="margin-top:30px; display:flex; flex-wrap:wrap; gap:12px; justify-content:center;">
             <a href="/" class="btn btn-navy">トップページへ戻る <span class="arrow">›</span></a>
-            <a href="#" id="contractBtn" class="btn btn-order">契約書を作成する <span class="arrow">›</span></a>
           </div>
         </div>
 
@@ -591,14 +601,40 @@
               <label class="form-label" for="startTime">
                 開始時刻 <span class="required">必須</span>
               </label>
-              <input type="time" id="startTime" name="開始時刻" class="form-input" required>
+              <select id="startTime" name="開始時刻" class="form-input" required>
+                <option value="00:00">00:00</option><option value="01:00">01:00</option>
+                <option value="02:00">02:00</option><option value="03:00">03:00</option>
+                <option value="04:00">04:00</option><option value="05:00">05:00</option>
+                <option value="06:00">06:00</option><option value="07:00">07:00</option>
+                <option value="08:00" selected>08:00</option><option value="09:00">09:00</option>
+                <option value="10:00">10:00</option><option value="11:00">11:00</option>
+                <option value="12:00">12:00</option><option value="13:00">13:00</option>
+                <option value="14:00">14:00</option><option value="15:00">15:00</option>
+                <option value="16:00">16:00</option><option value="17:00">17:00</option>
+                <option value="18:00">18:00</option><option value="19:00">19:00</option>
+                <option value="20:00">20:00</option><option value="21:00">21:00</option>
+                <option value="22:00">22:00</option><option value="23:00">23:00</option>
+              </select>
               <div class="form-error" id="startTimeError"></div>
             </div>
             <div class="form-group">
               <label class="form-label" for="endTime">
                 終了時刻 <span class="required">必須</span>
               </label>
-              <input type="time" id="endTime" name="終了時刻" class="form-input" required>
+              <select id="endTime" name="終了時刻" class="form-input" required>
+                <option value="00:00">00:00</option><option value="01:00">01:00</option>
+                <option value="02:00">02:00</option><option value="03:00">03:00</option>
+                <option value="04:00">04:00</option><option value="05:00">05:00</option>
+                <option value="06:00">06:00</option><option value="07:00">07:00</option>
+                <option value="08:00">08:00</option><option value="09:00">09:00</option>
+                <option value="10:00">10:00</option><option value="11:00">11:00</option>
+                <option value="12:00">12:00</option><option value="13:00">13:00</option>
+                <option value="14:00">14:00</option><option value="15:00">15:00</option>
+                <option value="16:00">16:00</option><option value="17:00" selected>17:00</option>
+                <option value="18:00">18:00</option><option value="19:00">19:00</option>
+                <option value="20:00">20:00</option><option value="21:00">21:00</option>
+                <option value="22:00">22:00</option><option value="23:00">23:00</option>
+              </select>
               <div class="form-error" id="endTimeError"></div>
             </div>
           </div>
@@ -653,23 +689,23 @@
           <div class="form-grid-2" style="margin-top:16px;">
             <div class="form-group">
               <label class="form-label" for="confirmedFee">
-                確定警備料金（税抜） <span class="optional">任意</span>
+                確定警備料金（税抜）
               </label>
               <div class="num-control-row">
-                <input type="number" id="confirmedFee" name="確定警備料金（税抜）" class="form-input" placeholder="自動入力" min="0" style="max-width:180px;">
+                <input type="number" id="confirmedFee" name="確定警備料金（税抜）" class="form-input" placeholder="概算料金から自動入力" min="0" readonly style="max-width:180px;">
                 <span class="num-unit">円</span>
               </div>
-              <p style="font-size:.78rem; color:var(--dark-gray); margin-top:5px;">概算料金（税抜）を自動入力。変更可能です。</p>
+              <p style="font-size:.78rem; color:var(--dark-gray); margin-top:5px;">概算料金（税抜）から自動入力されます。</p>
             </div>
             <div class="form-group">
               <label class="form-label" for="overtimeRate">
-                残業単価（税抜） <span class="optional">任意</span>
+                残業単価（税抜）
               </label>
               <div class="num-control-row">
-                <input type="number" id="overtimeRate" name="残業単価（税抜）" class="form-input" value="2900" min="0" style="max-width:180px;">
+                <input type="number" id="overtimeRate" name="残業単価（税抜）" class="form-input" min="0" readonly style="max-width:180px;">
                 <span class="num-unit">円/h</span>
               </div>
-              <p style="font-size:.78rem; color:var(--dark-gray); margin-top:5px;">曜日・勤務区分から自動設定。変更可能です。</p>
+              <p style="font-size:.78rem; color:var(--dark-gray); margin-top:5px;">曜日・勤務区分から自動設定されます。</p>
             </div>
           </div>
 
@@ -979,35 +1015,6 @@
         const success = document.getElementById('orderSuccess');
         success.style.display = 'block';
         success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        // 契約書URLを構築
-        const cp = new URLSearchParams({
-          company:     document.getElementById('companyName').value,
-          contact:     document.getElementById('contactPerson').value,
-          phone:       document.getElementById('phone').value,
-          site:        document.getElementById('siteName').value,
-          zip:         document.getElementById('siteZip').value,
-          address:     document.getElementById('siteAddress').value,
-          guardType:   (document.querySelector('input[name="警備種別"]:checked') || {}).value || '',
-          startDate:   document.getElementById('startDate').value,
-          endDate:     document.getElementById('endDate').value,
-          startTime:   document.getElementById('startTime').value,
-          endTime:     document.getElementById('endTime').value,
-          shift:       (document.querySelector('input[name="勤務区分"]:checked') || {}).value || '',
-          staff:       document.getElementById('staffCount').value,
-          ot:          document.getElementById('overtimeHours').value,
-          radios:      document.getElementById('radioCount').value,
-          fee:         document.getElementById('confirmedFee').value,
-          otRate:      document.getElementById('overtimeRate').value,
-          equip:       (document.querySelector('input[name="資機材準備"]:checked') || {}).value || '不要',
-          cones:       document.getElementById('cones').value,
-          lights:      document.getElementById('lights').value,
-          signs:       document.getElementById('signs').value,
-          radiosEquip: document.getElementById('radiosEquip').value,
-          otherEquip:  document.getElementById('otherEquip').value,
-          special:     document.getElementById('specialTerms').value,
-          contractDate:document.getElementById('contractDate').value
-        });
-        document.getElementById('contractBtn').href = '/contract/?' + cp.toString();
       } else {
         btn.disabled = false;
         btn.innerHTML = '送信する <span class="arrow">›</span>';
