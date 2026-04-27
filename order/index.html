@@ -445,8 +445,9 @@
             通常1〜2営業日以内にご連絡いたします。<br>
             お急ぎの場合はお手数ですが、直接お電話にてお問い合わせください。
           </p>
-          <div style="margin-top:30px;">
+          <div style="margin-top:30px; display:flex; flex-wrap:wrap; gap:12px; justify-content:center;">
             <a href="/" class="btn btn-navy">トップページへ戻る <span class="arrow">›</span></a>
+            <a href="#" id="contractBtn" class="btn btn-order">契約書を作成する <span class="arrow">›</span></a>
           </div>
         </div>
 
@@ -502,6 +503,14 @@
 
           <div class="form-grid-2">
             <div class="form-group">
+              <label class="form-label" for="siteZip">
+                現場郵便番号 <span class="required">必須</span>
+              </label>
+              <input type="text" id="siteZip" name="現場郵便番号" class="form-input" placeholder="例：733-0011" required>
+              <div class="form-error" id="siteZipError"></div>
+            </div>
+
+            <div class="form-group">
               <label class="form-label" for="siteName">
                 現場名 <span class="required">必須</span>
               </label>
@@ -509,7 +518,7 @@
               <div class="form-error" id="siteNameError"></div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="grid-column:1/-1;">
               <label class="form-label" for="siteAddress">
                 現場住所 <span class="required">必須</span>
               </label>
@@ -577,6 +586,23 @@
             </div>
           </div>
 
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="startTime">
+                開始時刻 <span class="required">必須</span>
+              </label>
+              <input type="time" id="startTime" name="開始時刻" class="form-input" required>
+              <div class="form-error" id="startTimeError"></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="endTime">
+                終了時刻 <span class="required">必須</span>
+              </label>
+              <input type="time" id="endTime" name="終了時刻" class="form-input" required>
+              <div class="form-error" id="endTimeError"></div>
+            </div>
+          </div>
+
           <hr class="form-divider">
 
           <div class="form-grid-2">
@@ -624,11 +650,97 @@
             </div>
           </div>
 
+          <div class="form-grid-2" style="margin-top:16px;">
+            <div class="form-group">
+              <label class="form-label" for="confirmedFee">
+                確定警備料金（税抜） <span class="optional">任意</span>
+              </label>
+              <div class="num-control-row">
+                <input type="number" id="confirmedFee" name="確定警備料金（税抜）" class="form-input" placeholder="自動入力" min="0" style="max-width:180px;">
+                <span class="num-unit">円</span>
+              </div>
+              <p style="font-size:.78rem; color:var(--dark-gray); margin-top:5px;">概算料金（税抜）を自動入力。変更可能です。</p>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="overtimeRate">
+                残業単価（税抜） <span class="optional">任意</span>
+              </label>
+              <div class="num-control-row">
+                <input type="number" id="overtimeRate" name="残業単価（税抜）" class="form-input" value="2900" min="0" style="max-width:180px;">
+                <span class="num-unit">円/h</span>
+              </div>
+              <p style="font-size:.78rem; color:var(--dark-gray); margin-top:5px;">曜日・勤務区分から自動設定。変更可能です。</p>
+            </div>
+          </div>
+
           <div class="form-group">
             <label class="form-label" for="notes">
               その他備考 <span class="optional">任意</span>
             </label>
             <textarea id="notes" name="備考" class="form-textarea" placeholder="現場の詳細・特記事項・ご要望などがあればご記入ください。"></textarea>
+          </div>
+
+          <hr class="form-divider">
+
+          <!-- 資機材の準備 -->
+          <div class="form-group">
+            <label class="form-label">資機材の準備 <span class="required">必須</span></label>
+            <div class="toggle-group">
+              <input type="radio" name="資機材準備" id="equip-none" value="不要" checked>
+              <label for="equip-none">不要</label>
+              <input type="radio" name="資機材準備" id="equip-needed" value="必要">
+              <label for="equip-needed">必要</label>
+            </div>
+          </div>
+
+          <div id="equipFields" style="display:none;">
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="cones">カラーコーン <span class="optional">任意</span></label>
+                <div class="num-control-row">
+                  <input type="number" id="cones" name="カラーコーン（個）" class="form-input" value="0" min="0" style="max-width:120px;">
+                  <span class="num-unit">個</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="lights">保安灯・点滅灯 <span class="optional">任意</span></label>
+                <div class="num-control-row">
+                  <input type="number" id="lights" name="保安灯・点滅灯（個）" class="form-input" value="0" min="0" style="max-width:120px;">
+                  <span class="num-unit">個</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="signs">矢印板 <span class="optional">任意</span></label>
+                <div class="num-control-row">
+                  <input type="number" id="signs" name="矢印板（枚）" class="form-input" value="0" min="0" style="max-width:120px;">
+                  <span class="num-unit">枚</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="radiosEquip">無線機 <span class="optional">任意</span></label>
+                <div class="num-control-row">
+                  <input type="number" id="radiosEquip" name="無線機（台）" class="form-input" value="0" min="0" style="max-width:120px;">
+                  <span class="num-unit">台（500円/台・日）</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="otherEquip">その他 <span class="optional">任意</span></label>
+              <input type="text" id="otherEquip" name="その他資機材" class="form-input" placeholder="例：保安灯スタンドなど">
+            </div>
+          </div>
+
+          <!-- 特約事項 -->
+          <div class="form-group">
+            <label class="form-label" for="specialTerms">特約事項 <span class="optional">任意</span></label>
+            <textarea id="specialTerms" name="特約事項" class="form-textarea" placeholder="特約事項があればご記入ください。"></textarea>
+          </div>
+
+          <!-- 契約締結日 -->
+          <div class="form-group">
+            <label class="form-label" for="contractDate">契約締結日 <span class="required">必須</span></label>
+            <input type="date" id="contractDate" name="契約締結日" class="form-input" required>
+            <div class="form-error" id="contractDateError"></div>
           </div>
 
         </form>
@@ -770,6 +882,13 @@
       valid = false;
     } else { markValid(email, 'emailError'); }
 
+    // 現場郵便番号
+    const siteZip = document.getElementById('siteZip');
+    if (!siteZip.value.trim()) {
+      markInvalid(siteZip, 'siteZipError', '現場郵便番号をご入力ください。');
+      valid = false;
+    } else { markValid(siteZip, 'siteZipError'); }
+
     // 現場名
     const siteName = document.getElementById('siteName');
     if (!siteName.value.trim()) {
@@ -783,6 +902,20 @@
       markInvalid(siteAddress, 'siteAddressError', '現場住所をご入力ください。');
       valid = false;
     } else { markValid(siteAddress, 'siteAddressError'); }
+
+    // 開始時刻
+    const startTime = document.getElementById('startTime');
+    if (!startTime.value) {
+      markInvalid(startTime, 'startTimeError', '開始時刻を入力してください。');
+      valid = false;
+    } else { markValid(startTime, 'startTimeError'); }
+
+    // 終了時刻
+    const endTime = document.getElementById('endTime');
+    if (!endTime.value) {
+      markInvalid(endTime, 'endTimeError', '終了時刻を入力してください。');
+      valid = false;
+    } else { markValid(endTime, 'endTimeError'); }
 
     // 開始日
     const startDate = document.getElementById('startDate');
@@ -808,6 +941,13 @@
       markInvalid(staffCount, 'staffCountError', '必要人数を入力してください（1以上）。');
       valid = false;
     } else { markValid(staffCount, 'staffCountError'); }
+
+    // 契約締結日
+    const contractDate = document.getElementById('contractDate');
+    if (!contractDate.value) {
+      markInvalid(contractDate, 'contractDateError', '契約締結日を選択してください。');
+      valid = false;
+    } else { markValid(contractDate, 'contractDateError'); }
 
     // プライバシー
     const privacy = document.getElementById('privacy');
@@ -839,6 +979,35 @@
         const success = document.getElementById('orderSuccess');
         success.style.display = 'block';
         success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // 契約書URLを構築
+        const cp = new URLSearchParams({
+          company:     document.getElementById('companyName').value,
+          contact:     document.getElementById('contactPerson').value,
+          phone:       document.getElementById('phone').value,
+          site:        document.getElementById('siteName').value,
+          zip:         document.getElementById('siteZip').value,
+          address:     document.getElementById('siteAddress').value,
+          guardType:   (document.querySelector('input[name="警備種別"]:checked') || {}).value || '',
+          startDate:   document.getElementById('startDate').value,
+          endDate:     document.getElementById('endDate').value,
+          startTime:   document.getElementById('startTime').value,
+          endTime:     document.getElementById('endTime').value,
+          shift:       (document.querySelector('input[name="勤務区分"]:checked') || {}).value || '',
+          staff:       document.getElementById('staffCount').value,
+          ot:          document.getElementById('overtimeHours').value,
+          radios:      document.getElementById('radioCount').value,
+          fee:         document.getElementById('confirmedFee').value,
+          otRate:      document.getElementById('overtimeRate').value,
+          equip:       (document.querySelector('input[name="資機材準備"]:checked') || {}).value || '不要',
+          cones:       document.getElementById('cones').value,
+          lights:      document.getElementById('lights').value,
+          signs:       document.getElementById('signs').value,
+          radiosEquip: document.getElementById('radiosEquip').value,
+          otherEquip:  document.getElementById('otherEquip').value,
+          special:     document.getElementById('specialTerms').value,
+          contractDate:document.getElementById('contractDate').value
+        });
+        document.getElementById('contractBtn').href = '/contract/?' + cp.toString();
       } else {
         btn.disabled = false;
         btn.innerHTML = '送信する <span class="arrow">›</span>';
@@ -853,7 +1022,7 @@
 
   // ── リアルタイムバリデーション解除 ──
   ['companyName','contactPerson','phone','email','siteName','siteAddress',
-   'startDate','endDate','staffCount'].forEach(id => {
+   'startDate','endDate','staffCount','siteZip','startTime','endTime','contractDate'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.addEventListener('input', () => {
       el.style.borderColor = '';
@@ -939,6 +1108,10 @@
     const totalAmt = subtotal + tax;
     const fmt = n => n.toLocaleString('ja-JP');
 
+    const feeEl = document.getElementById('confirmedFee');
+    if (feeEl) feeEl.value = subtotal;
+    autoSetOvertimeRate();
+
     // 期間サマリ
     const breakdown = [];
     if (days.weekdays)  breakdown.push('平日 ' + days.weekdays  + '日');
@@ -967,6 +1140,20 @@
     result.style.display      = 'block';
 
     renderCalendar();
+  }
+
+  function autoSetOvertimeRate() {
+    const startV = document.getElementById('startDate').value;
+    const shift  = (document.querySelector('input[name="勤務区分"]:checked') || {}).value || '日勤';
+    const sk = shift === '夜勤' ? 'night' : 'day';
+    let rate = PRICE_RATES.weekday.ot[sk];
+    if (startV) {
+      const d = new Date(startV + 'T00:00:00');
+      const type = getDayType(d, startV);
+      rate = PRICE_RATES[type].ot[sk];
+    }
+    const el = document.getElementById('overtimeRate');
+    if (el) el.value = rate;
   }
 
   function renderCalendar() {
@@ -1053,6 +1240,16 @@
   updateStepBtns('staffCount',    1,  20);
   updateStepBtns('overtimeHours', 0,   4);
   updateStepBtns('radioCount',    0,  10);
+
+  // 資機材トグル
+  document.querySelectorAll('input[name="資機材準備"]').forEach(r => {
+    r.addEventListener('change', function() {
+      document.getElementById('equipFields').style.display = this.value === '必要' ? 'block' : 'none';
+    });
+  });
+
+  // 契約締結日の初期値（今日）
+  document.getElementById('contractDate').value = new Date().toISOString().slice(0, 10);
 
   // 計算トリガー
   ['startDate','endDate'].forEach(id => {
