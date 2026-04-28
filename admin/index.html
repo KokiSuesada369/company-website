@@ -170,8 +170,8 @@
       <button class="btn-refresh" onclick="loadData()">🔄 更新</button>
     </div>
     <div class="section-heading">依頼一覧</div>
-    <div class="msg-loading" id="msgLoading" style="display:none">データを読み込み中...</div>
-    <div class="msg-error"   id="msgError"   style="display:none">データの取得に失敗しました。「更新」ボタンを押してください。</div>
+    <div class="msg-loading" id="loadingMsg" style="display:none">データを読み込み中...</div>
+    <div class="msg-error"   id="errorMsg"   style="display:none">データの取得に失敗しました。「更新」ボタンを押してください。</div>
     <div class="table-wrap">
       <table class="orders-table">
         <thead>
@@ -464,23 +464,33 @@
 
   // ── データ取得（JSONP） ──
   function loadData() {
-    document.getElementById('msgLoading').style.display = 'block';
-    document.getElementById('msgError').style.display   = 'none';
+    document.getElementById('loadingMsg').style.display = 'block';
+    document.getElementById('errorMsg').style.display   = 'none';
     document.getElementById('ordersBody').innerHTML = '';
 
-    var callbackName = 'callback_' + Date.now();
+    var callbackName = 'gasCallback';
+
     window[callbackName] = function(response) {
-      if (response.result === 'success') {
+      document.getElementById('loadingMsg').style.display = 'none';
+      if (response && response.result === 'success') {
         displayData(response.data);
       } else {
-        document.getElementById('msgError').style.display = 'block';
+        document.getElementById('errorMsg').style.display = 'block';
       }
-      delete window[callbackName];
-      document.getElementById('msgLoading').style.display = 'none';
     };
 
+    var existingScript = document.getElementById('gasScript');
+    if (existingScript) {
+      existingScript.parentNode.removeChild(existingScript);
+    }
+
     var script = document.createElement('script');
-    script.src = GAS_URL + '?callback=' + callbackName;
+    script.id  = 'gasScript';
+    script.src = GAS_URL + '?callback=' + callbackName + '&t=' + Date.now();
+    script.onerror = function() {
+      document.getElementById('loadingMsg').style.display = 'none';
+      document.getElementById('errorMsg').style.display   = 'block';
+    };
     document.body.appendChild(script);
   }
 
@@ -496,6 +506,27 @@
       return o;
     });
     renderTable();
+  }
+
+  // ── 日付フォーマット（ISO → 日本時間 YYYY/MM/DD HH:MM） ──
+  function formatDate(dateStr) {
+    if (!dateStr) return '';
+    var d = new Date(dateStr);
+    if (isNaN(d.getTime())) return dateStr;
+    return (d.getFullYear() + '/' +
+      String(d.getMonth() + 1).padStart(2, '0') + '/' +
+      String(d.getDate()).padStart(2, '0') + ' ' +
+      String(d.getHours()).padStart(2, '0') + ':' +
+      String(d.getMinutes()).padStart(2, '0'));
+  }
+
+  // ── 時刻フォーマット（ISO or HH:MM → HH:MM） ──
+  function formatTime(timeStr) {
+    if (!timeStr) return '';
+    if (/^\d{1,2}:\d{2}$/.test(timeStr)) return timeStr.padStart(5, '0');
+    var d = new Date(timeStr);
+    if (isNaN(d.getTime())) return timeStr;
+    return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
   }
 
   // ── テーブル描画 ──
@@ -514,7 +545,7 @@
         `<option value="${s}"${s === st ? ' selected' : ''}>${s}</option>`
       ).join('');
       return `<tr class="st-${st}" data-idx="${idx}">
-        <td style="white-space:nowrap">${o.receivedAt || '—'}</td>
+        <td style="white-space:nowrap">${formatDate(o.receivedAt) || '—'}</td>
         <td>${o.company || '—'}</td>
         <td>${o.site || '—'}</td>
         <td style="white-space:nowrap">${period || '—'}</td>
@@ -547,12 +578,12 @@
     const o = orders[idx];
     const fmt = n => { const v = parseInt(n); return isNaN(v) ? (n || '—') : v.toLocaleString('ja-JP'); };
     const rows = [
-      ['受付日時',o.receivedAt],['会社名',o.company],['担当者名',o.contact],
+      ['受付日時',formatDate(o.receivedAt)],['会社名',o.company],['担当者名',o.contact],
       ['電話番号',o.phone],['メール',o.email],['現場郵便番号',o.zip],
       ['現場名',o.site],['現場住所',o.address],['警備種別',o.guardType],
       ['警備開始日',(o.startDate||'').replace(/-/g,'/')],
       ['警備終了日',(o.endDate  ||'').replace(/-/g,'/')],
-      ['開始時刻',o.startTime],['終了時刻',o.endTime],['勤務区分',o.shift],
+      ['開始時刻',formatTime(o.startTime)],['終了時刻',formatTime(o.endTime)],['勤務区分',o.shift],
       ['必要人数', o.staff  ? o.staff  + '名'    : '—'],
       ['残業見込み時間', o.ot ? o.ot + '時間/人・日' : '0時間'],
       ['無線機台数', o.radios ? o.radios + '台' : '0台'],
