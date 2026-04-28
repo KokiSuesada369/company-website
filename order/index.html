@@ -533,7 +533,7 @@
         <!-- 送信成功メッセージ -->
         <div class="order-success" id="orderSuccess">
           <div class="success-icon">✅</div>
-          <h3>ご依頼ありがとうございます。<br>内容確認後、担当者よりお電話いたします。</h3>
+          <h3>ご依頼ありがとうございます。<br>担当者より改めてお電話いたします。</h3>
           <p>
             通常1〜2営業日以内にご連絡いたします。<br>
             お急ぎの場合はお手数ですが、直接お電話にてお問い合わせください。
@@ -544,8 +544,7 @@
         </div>
 
         <!-- 依頼フォーム -->
-        <form id="orderForm" action="https://formspree.io/f/xnjlrqlb" method="POST" novalidate>
-          <input type="hidden" name="_subject" value="【警備依頼フォーム】新規依頼が届きました">
+        <form id="orderForm" novalidate>
 
           <!-- ① 依頼者情報 -->
           <div class="form-sec-head">
@@ -1068,30 +1067,30 @@
     }
 
     // 送信
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbxAIcflhTwYbWPOPjaGauiQPN8fr80h176098NaFGQFUpdEsQ6FM2Putccvdedue2Rz/exec';
     const btn = document.getElementById('submitBtn');
     btn.disabled = true;
-    btn.textContent = '送信中…';
+    btn.textContent = '送信中...';
 
-    fetch(form.action, {
+    const formData = new FormData(form);
+    const data = {};
+    formData.forEach((value, key) => { data[key] = value; });
+
+    fetch(GAS_URL, {
       method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    }).then(res => {
-      if (res.ok) {
-        form.style.display = 'none';
-        document.querySelector('.order-footer-wrap').style.display = 'none';
-        const success = document.getElementById('orderSuccess');
-        success.style.display = 'block';
-        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      } else {
-        btn.disabled = false;
-        btn.innerHTML = '送信する <span class="arrow">›</span>';
-        alert('送信に失敗しました。時間をおいて再度お試しください。');
-      }
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(data)
+    }).then(() => {
+      form.style.display = 'none';
+      document.querySelector('.order-footer-wrap').style.display = 'none';
+      const success = document.getElementById('orderSuccess');
+      success.style.display = 'block';
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }).catch(() => {
       btn.disabled = false;
       btn.innerHTML = '送信する <span class="arrow">›</span>';
-      alert('通信エラーが発生しました。時間をおいて再度お試しください。');
+      alert('送信に失敗しました。お電話にてお問い合わせください。');
     });
   });
 
