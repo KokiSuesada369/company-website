@@ -7,234 +7,137 @@
   <link rel="icon" href="/images/logo-01a.png" type="image/png">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --navy:   #1a2f5e;
-      --navy2:  #2a4898;
-      --gold:   #d97706;
-      --gold2:  #b45309;
-      --bg:     #f0f2f7;
-      --white:  #ffffff;
-      --border: #d1d5db;
-      --text:   #111827;
-      --muted:  #6b7280;
-      --radius: 8px;
+      --navy:   #1a2f5e; --navy2: #2a4898;
+      --gold:   #d97706; --gold2: #b45309;
+      --bg:     #f0f2f7; --white: #ffffff;
+      --border: #d1d5db; --text: #111827;
+      --muted:  #6b7280; --radius: 8px;
       --shadow: 0 2px 12px rgba(26,47,94,.12);
     }
-
-    body {
-      font-family: 'Noto Sans JP', 'Hiragino Sans', sans-serif;
-      font-size: 14px;
-      color: var(--text);
-      background: var(--bg);
-      min-height: 100vh;
-    }
+    body { font-family: 'Noto Sans JP','Hiragino Sans',sans-serif; font-size:14px; color:var(--text); background:var(--bg); min-height:100vh; }
 
     /* ─── LOGIN ─── */
-    #loginWrap {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
-      padding: 24px;
-    }
-    .login-card {
-      background: var(--white);
-      border-radius: 16px;
-      padding: 48px 40px;
-      width: 100%;
-      max-width: 400px;
-      box-shadow: 0 12px 40px rgba(0,0,0,.25);
-      text-align: center;
-    }
-    .login-logo { height: 48px; margin-bottom: 20px; object-fit: contain; }
-    .login-title { font-size: 1.2rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
-    .login-sub { font-size: .82rem; color: var(--muted); margin-bottom: 32px; }
-    .login-card label {
-      display: block; font-size: .82rem; font-weight: 600;
-      color: var(--navy); text-align: left; margin-bottom: 6px;
-    }
-    .login-card input[type="password"] {
-      width: 100%; padding: 11px 14px;
-      border: 2px solid var(--border); border-radius: var(--radius);
-      font-size: .95rem; outline: none; transition: border-color .15s; margin-bottom: 12px;
-    }
-    .login-card input[type="password"]:focus { border-color: var(--navy); }
-    .login-err { font-size: .82rem; color: #dc2626; min-height: 20px; margin-bottom: 8px; text-align: left; }
-    .btn-login {
-      width: 100%; padding: 13px; background: var(--navy); color: #fff;
-      border: none; border-radius: var(--radius); font-size: .95rem;
-      font-weight: 700; cursor: pointer; transition: background .15s;
-    }
-    .btn-login:hover { background: var(--navy2); }
+    #loginWrap { min-height:100vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,var(--navy),var(--navy2)); padding:24px; }
+    .login-card { background:var(--white); border-radius:16px; padding:48px 40px; width:100%; max-width:400px; box-shadow:0 12px 40px rgba(0,0,0,.25); text-align:center; }
+    .login-logo { height:48px; margin-bottom:20px; object-fit:contain; }
+    .login-title { font-size:1.2rem; font-weight:700; color:var(--navy); margin-bottom:6px; }
+    .login-sub { font-size:.82rem; color:var(--muted); margin-bottom:32px; }
+    .login-card label { display:block; font-size:.82rem; font-weight:600; color:var(--navy); text-align:left; margin-bottom:6px; }
+    .login-card input[type="password"] { width:100%; padding:11px 14px; border:2px solid var(--border); border-radius:var(--radius); font-size:.95rem; outline:none; transition:border-color .15s; margin-bottom:12px; }
+    .login-card input[type="password"]:focus { border-color:var(--navy); }
+    .login-err { font-size:.82rem; color:#dc2626; min-height:20px; margin-bottom:8px; text-align:left; }
+    .btn-login { width:100%; padding:13px; background:var(--navy); color:#fff; border:none; border-radius:var(--radius); font-size:.95rem; font-weight:700; cursor:pointer; transition:background .15s; }
+    .btn-login:hover { background:var(--navy2); }
 
     /* ─── ADMIN LAYOUT ─── */
-    #adminWrap { display: none; }
-
-    .admin-header {
-      background: var(--navy); color: #fff;
-      padding: 0 28px; height: 60px;
-      display: flex; align-items: center; gap: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.2);
-      position: sticky; top: 0; z-index: 100;
-    }
-    .admin-logo { height: 34px; object-fit: contain; filter: brightness(10); }
-    .admin-header-title { font-size: 1rem; font-weight: 700; letter-spacing: .04em; flex: 1; }
-    .btn-logout {
-      padding: 7px 18px; background: rgba(255,255,255,.12); color: #fff;
-      border: 1px solid rgba(255,255,255,.25); border-radius: var(--radius);
-      font-size: .82rem; cursor: pointer; transition: background .15s;
-    }
-    .btn-logout:hover { background: rgba(255,255,255,.22); }
-
-    .admin-body { max-width: 1280px; margin: 28px auto; padding: 0 24px; }
-
-    /* ─── TOOLBAR ─── */
-    .toolbar {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 18px; flex-wrap: wrap;
-    }
-    .btn-new-contract {
-      padding: 10px 22px; background: var(--gold); color: #fff;
-      border: none; border-radius: var(--radius);
-      font-size: .88rem; font-weight: 700; cursor: pointer;
-      transition: background .15s; display: inline-flex; align-items: center; gap: 6px;
-    }
-    .btn-new-contract:hover { background: var(--gold2); }
-    .btn-refresh {
-      padding: 10px 18px; background: var(--white); color: var(--navy);
-      border: 2px solid var(--navy); border-radius: var(--radius);
-      font-size: .88rem; font-weight: 700; cursor: pointer;
-      transition: background .15s, color .15s; display: inline-flex; align-items: center; gap: 6px;
-    }
-    .btn-refresh:hover { background: var(--navy); color: #fff; }
-
-    .section-heading {
-      font-size: 1.1rem; font-weight: 700; color: var(--navy);
-      margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
-    }
-    .section-heading::after { content: ''; flex: 1; height: 2px; background: var(--border); }
-
-    /* ─── STATUS MESSAGE ─── */
-    .msg-loading, .msg-error {
-      padding: 16px 20px; border-radius: var(--radius);
-      font-size: .88rem; font-weight: 600; margin-bottom: 14px;
-    }
-    .msg-loading { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
-    .msg-error   { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+    #adminWrap { display:none; }
+    .admin-header { background:var(--navy); color:#fff; padding:0 28px; height:60px; display:flex; align-items:center; gap:16px; box-shadow:0 2px 8px rgba(0,0,0,.2); position:sticky; top:0; z-index:100; }
+    .admin-logo { height:34px; object-fit:contain; filter:brightness(10); }
+    .admin-header-title { font-size:1rem; font-weight:700; letter-spacing:.04em; flex:1; }
+    .btn-logout { padding:7px 18px; background:rgba(255,255,255,.12); color:#fff; border:1px solid rgba(255,255,255,.25); border-radius:var(--radius); font-size:.82rem; cursor:pointer; transition:background .15s; }
+    .btn-logout:hover { background:rgba(255,255,255,.22); }
+    .admin-body { max-width:1280px; margin:28px auto; padding:0 24px; }
+    .toolbar { display:flex; align-items:center; gap:10px; margin-bottom:18px; flex-wrap:wrap; }
+    .btn-new-contract { padding:10px 22px; background:var(--gold); color:#fff; border:none; border-radius:var(--radius); font-size:.88rem; font-weight:700; cursor:pointer; transition:background .15s; }
+    .btn-new-contract:hover { background:var(--gold2); }
+    .btn-refresh { padding:10px 18px; background:var(--white); color:var(--navy); border:2px solid var(--navy); border-radius:var(--radius); font-size:.88rem; font-weight:700; cursor:pointer; transition:background .15s,color .15s; }
+    .btn-refresh:hover { background:var(--navy); color:#fff; }
+    .section-heading { font-size:1.1rem; font-weight:700; color:var(--navy); margin-bottom:14px; display:flex; align-items:center; gap:10px; }
+    .section-heading::after { content:''; flex:1; height:2px; background:var(--border); }
+    .msg-loading,.msg-error { padding:14px 18px; border-radius:var(--radius); font-size:.88rem; font-weight:600; margin-bottom:14px; }
+    .msg-loading { background:#eff6ff; color:#1d4ed8; border:1px solid #bfdbfe; }
+    .msg-error   { background:#fef2f2; color:#b91c1c; border:1px solid #fecaca; }
 
     /* ─── TABLE ─── */
-    .table-wrap {
-      background: var(--white); border-radius: 12px;
-      box-shadow: var(--shadow); overflow-x: auto;
-    }
-    .orders-table { width: 100%; border-collapse: collapse; min-width: 700px; }
-    .orders-table thead th {
-      background: var(--navy); color: #fff;
-      padding: 12px 14px; text-align: left;
-      font-size: .82rem; font-weight: 700;
-      white-space: nowrap; letter-spacing: .03em;
-    }
-    .orders-table tbody tr { border-bottom: 1px solid var(--border); transition: filter .1s; }
-    .orders-table tbody tr:last-child { border-bottom: none; }
-    .orders-table tbody tr:hover { filter: brightness(.97); }
-    .orders-table td { padding: 10px 14px; vertical-align: middle; font-size: .87rem; }
+    .table-wrap { background:var(--white); border-radius:12px; box-shadow:var(--shadow); overflow-x:auto; }
+    .orders-table { width:100%; border-collapse:collapse; min-width:700px; }
+    .orders-table thead th { background:var(--navy); color:#fff; padding:12px 14px; text-align:left; font-size:.82rem; font-weight:700; white-space:nowrap; }
+    .orders-table tbody tr { border-bottom:1px solid var(--border); transition:filter .1s; }
+    .orders-table tbody tr:last-child { border-bottom:none; }
+    .orders-table tbody tr:hover { filter:brightness(.97); }
+    .orders-table td { padding:10px 14px; vertical-align:middle; font-size:.87rem; }
+    tr.st-未確認       { background:#ffffff; }
+    tr.st-確認済       { background:#eff6ff; }
+    tr.st-手配完了     { background:#f0fdf4; }
+    tr.st-契約書作成済 { background:#f3f4f6; }
+    .status-select-sm { padding:5px 8px; border:2px solid var(--border); border-radius:6px; font-size:.82rem; color:var(--navy); font-weight:600; cursor:pointer; outline:none; background:#fff; max-width:120px; }
+    .status-select-sm:focus { border-color:var(--navy); }
+    .action-cell { display:flex; gap:6px; align-items:center; flex-wrap:wrap; }
+    .btn-detail { padding:5px 12px; background:var(--navy); color:#fff; border:none; border-radius:6px; font-size:.8rem; font-weight:700; cursor:pointer; white-space:nowrap; transition:background .15s; }
+    .btn-detail:hover { background:var(--navy2); }
+    .btn-contract-sm { padding:5px 12px; background:var(--gold); color:#fff; border:none; border-radius:6px; font-size:.8rem; font-weight:700; text-decoration:none; white-space:nowrap; display:inline-block; transition:background .15s; cursor:pointer; }
+    .btn-contract-sm:hover { background:var(--gold2); }
 
-    /* ステータスで行の背景色 */
-    tr.st-未確認       { background: #ffffff; }
-    tr.st-確認済       { background: #eff6ff; }
-    tr.st-手配完了     { background: #f0fdf4; }
-    tr.st-契約書作成済 { background: #f3f4f6; }
-
-    /* インラインステータスドロップダウン */
-    .status-select-sm {
-      padding: 5px 8px; border: 2px solid var(--border);
-      border-radius: 6px; font-size: .82rem; color: var(--navy);
-      font-weight: 600; cursor: pointer; outline: none;
-      background: #fff; max-width: 120px;
-    }
-    .status-select-sm:focus { border-color: var(--navy); }
-
-    /* アクションセル */
-    .action-cell { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
-    .btn-detail {
-      padding: 5px 12px; background: var(--navy); color: #fff;
-      border: none; border-radius: 6px; font-size: .8rem;
-      font-weight: 700; cursor: pointer; white-space: nowrap;
-      transition: background .15s;
-    }
-    .btn-detail:hover { background: var(--navy2); }
-    .btn-contract-sm {
-      padding: 5px 12px; background: var(--gold); color: #fff;
-      border: none; border-radius: 6px; font-size: .8rem;
-      font-weight: 700; text-decoration: none; white-space: nowrap;
-      display: inline-block; transition: background .15s; cursor: pointer;
-    }
-    .btn-contract-sm:hover { background: var(--gold2); }
+    /* ─── OVERLAY (共通) ─── */
+    .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.48); z-index:200; align-items:flex-start; justify-content:center; padding:28px 16px; overflow-y:auto; }
+    .overlay.open { display:flex; }
 
     /* ─── DETAIL MODAL ─── */
-    .overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,.45); z-index: 200;
-      align-items: flex-start; justify-content: center;
-      padding: 32px 16px; overflow-y: auto;
-    }
-    .overlay.open { display: flex; }
-    .detail-modal {
-      background: var(--white); border-radius: 14px;
-      width: 100%; max-width: 720px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.3);
-      overflow: hidden; margin: auto;
-    }
-    .detail-head {
-      background: var(--navy); color: #fff;
-      padding: 18px 24px;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .detail-head h2 { font-size: 1rem; font-weight: 700; }
-    .btn-close {
-      background: rgba(255,255,255,.15); color: #fff;
-      border: none; border-radius: 6px;
-      width: 32px; height: 32px; font-size: 1rem; cursor: pointer;
-    }
-    .btn-close:hover { background: rgba(255,255,255,.28); }
-    .detail-body { padding: 24px; }
-    .detail-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 0; border: 1px solid var(--border);
-      border-radius: 8px; overflow: hidden; margin-bottom: 20px;
-    }
-    .detail-label {
-      background: #f3f5f9; padding: 9px 14px;
-      font-size: .8rem; font-weight: 700; color: var(--navy);
-      border-bottom: 1px solid var(--border);
-    }
-    .detail-val {
-      padding: 9px 14px; font-size: .88rem;
-      border-bottom: 1px solid var(--border);
-      border-left: 1px solid var(--border); word-break: break-all;
-    }
-    .detail-label:last-of-type,
-    .detail-val:last-of-type { border-bottom: none; }
-    .detail-actions {
-      display: flex; align-items: center; gap: 14px;
-      flex-wrap: wrap; padding-top: 4px;
-    }
-    .btn-contract-lg {
-      padding: 10px 24px; background: var(--gold); color: #fff;
-      border: none; border-radius: var(--radius);
-      font-size: .9rem; font-weight: 700; text-decoration: none;
-      display: inline-flex; align-items: center; gap: 6px;
-      cursor: pointer; transition: background .15s;
-    }
-    .btn-contract-lg:hover { background: var(--gold2); }
+    .detail-modal { background:var(--white); border-radius:14px; width:100%; max-width:720px; box-shadow:0 20px 60px rgba(0,0,0,.3); overflow:hidden; margin:auto; }
+    .detail-head { background:var(--navy); color:#fff; padding:18px 24px; display:flex; justify-content:space-between; align-items:center; }
+    .detail-head h2 { font-size:1rem; font-weight:700; }
+    .btn-close { background:rgba(255,255,255,.15); color:#fff; border:none; border-radius:6px; width:32px; height:32px; font-size:1rem; cursor:pointer; }
+    .btn-close:hover { background:rgba(255,255,255,.28); }
+    .detail-body { padding:24px; }
+    .detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--border); border-radius:8px; overflow:hidden; margin-bottom:20px; }
+    .detail-label { background:#f3f5f9; padding:9px 14px; font-size:.8rem; font-weight:700; color:var(--navy); border-bottom:1px solid var(--border); }
+    .detail-val { padding:9px 14px; font-size:.88rem; border-bottom:1px solid var(--border); border-left:1px solid var(--border); word-break:break-all; }
+    .detail-label:last-of-type,.detail-val:last-of-type { border-bottom:none; }
+    .detail-actions { display:flex; align-items:center; gap:14px; flex-wrap:wrap; padding-top:4px; }
+    .btn-contract-lg { padding:10px 24px; background:var(--gold); color:#fff; border:none; border-radius:var(--radius); font-size:.9rem; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px; cursor:pointer; transition:background .15s; }
+    .btn-contract-lg:hover { background:var(--gold2); }
 
-    @media (max-width: 680px) {
+    /* ─── CONTRACT FORM MODAL ─── */
+    .cform-modal { background:var(--white); border-radius:14px; width:100%; max-width:680px; box-shadow:0 20px 60px rgba(0,0,0,.3); overflow:hidden; margin:auto; }
+    .cform-head { background:var(--navy); color:#fff; padding:18px 24px; display:flex; justify-content:space-between; align-items:center; flex-shrink:0; }
+    .cform-head h2 { font-size:1rem; font-weight:700; }
+    .cform-body { padding:24px; max-height:calc(100vh - 160px); overflow-y:auto; }
+    .cform-section { margin-bottom:22px; }
+    .cform-section-title { font-size:.78rem; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:.06em; border-bottom:2px solid var(--navy); padding-bottom:4px; margin-bottom:14px; }
+    .cform-group { margin-bottom:14px; }
+    .cform-label { display:block; font-size:.82rem; font-weight:700; color:#374151; margin-bottom:5px; }
+    .cform-required { color:#dc2626; margin-left:4px; font-size:.75rem; }
+    .cform-input,.cform-select,.cform-textarea {
+      width:100%; padding:9px 12px; border:2px solid var(--border); border-radius:var(--radius);
+      font-size:.9rem; font-family:inherit; outline:none; transition:border-color .15s; color:var(--text);
+    }
+    .cform-input:focus,.cform-select:focus,.cform-textarea:focus { border-color:var(--navy); }
+    .cform-input[readonly] { background:#f3f4f6; color:var(--muted); cursor:not-allowed; border-color:#e5e7eb; }
+    .cform-textarea { min-height:80px; resize:vertical; }
+    .cform-error { font-size:.78rem; color:#dc2626; min-height:18px; margin-top:3px; }
+    .cform-2col { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    /* トグルボタン */
+    .cform-toggle { display:flex; flex-wrap:wrap; gap:0; border:2px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+    .cform-toggle input[type="radio"] { display:none; }
+    .cform-toggle label { flex:1; text-align:center; padding:8px 10px; font-size:.84rem; font-weight:600; cursor:pointer; color:var(--muted); transition:background .15s,color .15s; white-space:nowrap; border-right:1px solid var(--border); }
+    .cform-toggle label:last-of-type { border-right:none; }
+    .cform-toggle input[type="radio"]:checked + label { background:var(--navy); color:#fff; }
+    /* 数量コントロール */
+    .cform-num { display:inline-flex; align-items:center; border:2px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+    .cform-num-btn { width:36px; height:36px; background:#f3f4f6; border:none; font-size:1.1rem; font-weight:700; cursor:pointer; color:var(--navy); transition:background .15s; }
+    .cform-num-btn:hover { background:#e5e7eb; }
+    .cform-num-val { width:52px; text-align:center; font-size:.95rem; font-weight:700; color:var(--navy); border:none; outline:none; background:#fff; padding:0 4px; }
+    /* 資機材 */
+    .cform-equip-detail { display:none; margin-top:10px; padding:14px; background:#f8f9fb; border-radius:var(--radius); border:1px solid var(--border); }
+    .cform-equip-detail.open { display:block; }
+    /* 料金表示 */
+    .cform-fee-row { display:flex; align-items:center; gap:10px; }
+    .cform-fee-row .cform-input { max-width:180px; }
+    .cform-fee-note { font-size:.76rem; color:var(--muted); }
+    /* フッター */
+    .cform-footer { padding:20px 24px; background:#f8f9fb; border-top:1px solid var(--border); display:flex; justify-content:flex-end; gap:12px; }
+    .btn-cform-cancel { padding:10px 22px; background:var(--white); color:var(--muted); border:2px solid var(--border); border-radius:var(--radius); font-size:.9rem; font-weight:700; cursor:pointer; transition:border-color .15s; }
+    .btn-cform-cancel:hover { border-color:#9ca3af; }
+    .btn-cform-submit { padding:10px 28px; background:var(--gold); color:#fff; border:none; border-radius:var(--radius); font-size:.9rem; font-weight:700; cursor:pointer; transition:background .15s; }
+    .btn-cform-submit:hover { background:var(--gold2); }
+
+    @media (max-width:680px) {
       .orders-table thead th:nth-child(4),
-      .orders-table tbody td:nth-child(4) { display: none; }
-      .detail-grid { grid-template-columns: 1fr; }
-      .detail-val { border-left: none; }
+      .orders-table tbody td:nth-child(4) { display:none; }
+      .detail-grid { grid-template-columns:1fr; }
+      .detail-val { border-left:none; }
+      .cform-2col { grid-template-columns:1fr; }
     }
   </style>
 </head>
@@ -261,31 +164,20 @@
     <div class="admin-header-title">警備依頼 管理画面</div>
     <button class="btn-logout" onclick="doLogout()">ログアウト</button>
   </header>
-
   <div class="admin-body">
     <div class="toolbar">
-      <button class="btn-new-contract" onclick="openNewContract()">📄 新規契約書を手動作成</button>
+      <button class="btn-new-contract" onclick="openNewContractForm()">📄 新規契約書を手動作成</button>
       <button class="btn-refresh" onclick="loadOrders()">🔄 更新</button>
     </div>
-
     <div class="section-heading">依頼一覧</div>
-
     <div class="msg-loading" id="msgLoading" style="display:none">データを取得中...</div>
-    <div class="msg-error"   id="msgError"   style="display:none">
-      データの取得に失敗しました。ネットワーク接続を確認して「更新」ボタンを押してください。
-    </div>
-
+    <div class="msg-error"   id="msgError"   style="display:none">データの取得に失敗しました。「更新」ボタンを押してください。</div>
     <div class="table-wrap">
       <table class="orders-table">
         <thead>
           <tr>
-            <th>受付日時</th>
-            <th>会社名</th>
-            <th>現場名</th>
-            <th>警備期間</th>
-            <th>人数</th>
-            <th>ステータス</th>
-            <th>操作</th>
+            <th>受付日時</th><th>会社名</th><th>現場名</th>
+            <th>警備期間</th><th>人数</th><th>ステータス</th><th>操作</th>
           </tr>
         </thead>
         <tbody id="ordersBody"></tbody>
@@ -305,6 +197,228 @@
   </div>
 </div>
 
+<!-- ==================== CONTRACT FORM MODAL ==================== -->
+<div class="overlay" id="cformOverlay" onclick="closeCformIfBg(event)">
+  <div class="cform-modal" onclick="event.stopPropagation()">
+    <div class="cform-head">
+      <h2>新規契約書を手動作成</h2>
+      <button class="btn-close" onclick="closeNewContractForm()">✕</button>
+    </div>
+    <div class="cform-body">
+
+      <!-- 依頼者情報 -->
+      <div class="cform-section">
+        <div class="cform-section-title">依頼者情報</div>
+        <div class="cform-2col">
+          <div class="cform-group">
+            <label class="cform-label">会社名<span class="cform-required">必須</span></label>
+            <input type="text" id="cf_company" class="cform-input" placeholder="株式会社〇〇建設">
+            <div class="cform-error" id="cf_companyErr"></div>
+          </div>
+          <div class="cform-group">
+            <label class="cform-label">担当者名<span class="cform-required">必須</span></label>
+            <input type="text" id="cf_contact" class="cform-input" placeholder="山田 太郎">
+            <div class="cform-error" id="cf_contactErr"></div>
+          </div>
+        </div>
+        <div class="cform-2col">
+          <div class="cform-group">
+            <label class="cform-label">電話番号<span class="cform-required">必須</span></label>
+            <input type="tel" id="cf_phone" class="cform-input" placeholder="082-000-0000">
+            <div class="cform-error" id="cf_phoneErr"></div>
+          </div>
+          <div class="cform-group">
+            <label class="cform-label">メールアドレス</label>
+            <input type="email" id="cf_email" class="cform-input" placeholder="info@example.com">
+          </div>
+        </div>
+      </div>
+
+      <!-- 現場情報 -->
+      <div class="cform-section">
+        <div class="cform-section-title">現場情報</div>
+        <div class="cform-2col">
+          <div class="cform-group">
+            <label class="cform-label">現場名<span class="cform-required">必須</span></label>
+            <input type="text" id="cf_site" class="cform-input" placeholder="〇〇道路工事現場">
+            <div class="cform-error" id="cf_siteErr"></div>
+          </div>
+          <div class="cform-group">
+            <label class="cform-label">現場郵便番号</label>
+            <input type="text" id="cf_zip" class="cform-input" placeholder="733-0011">
+          </div>
+        </div>
+        <div class="cform-group">
+          <label class="cform-label">現場住所<span class="cform-required">必須</span></label>
+          <input type="text" id="cf_address" class="cform-input" placeholder="広島市西区横川町〇〇">
+          <div class="cform-error" id="cf_addressErr"></div>
+        </div>
+      </div>
+
+      <!-- 警備内容 -->
+      <div class="cform-section">
+        <div class="cform-section-title">警備内容</div>
+        <div class="cform-group">
+          <label class="cform-label">警備種別</label>
+          <div class="cform-toggle">
+            <input type="radio" name="cf_guardType" id="cf_gt1" value="交通誘導警備" checked>
+            <label for="cf_gt1">交通誘導警備</label>
+            <input type="radio" name="cf_guardType" id="cf_gt2" value="雑踏警備">
+            <label for="cf_gt2">雑踏警備</label>
+            <input type="radio" name="cf_guardType" id="cf_gt3" value="イベント警備">
+            <label for="cf_gt3">イベント警備</label>
+            <input type="radio" name="cf_guardType" id="cf_gt4" value="駐車場警備">
+            <label for="cf_gt4">駐車場警備</label>
+          </div>
+        </div>
+        <div class="cform-group">
+          <label class="cform-label">勤務区分</label>
+          <div class="cform-toggle" style="max-width:260px">
+            <input type="radio" name="cf_shift" id="cf_sh1" value="日勤" checked onchange="cfCalc()">
+            <label for="cf_sh1">☀️ 日勤（8h）</label>
+            <input type="radio" name="cf_shift" id="cf_sh2" value="夜勤" onchange="cfCalc()">
+            <label for="cf_sh2">🌙 夜勤（8h）</label>
+          </div>
+        </div>
+        <div class="cform-2col">
+          <div class="cform-group">
+            <label class="cform-label">警備開始日<span class="cform-required">必須</span></label>
+            <input type="date" id="cf_startDate" class="cform-input" onchange="cfCalc()">
+            <div class="cform-error" id="cf_startDateErr"></div>
+          </div>
+          <div class="cform-group">
+            <label class="cform-label">警備終了日<span class="cform-required">必須</span></label>
+            <input type="date" id="cf_endDate" class="cform-input" onchange="cfCalc()">
+            <div class="cform-error" id="cf_endDateErr"></div>
+          </div>
+        </div>
+        <div class="cform-2col">
+          <div class="cform-group">
+            <label class="cform-label">開始時刻</label>
+            <select id="cf_startTime" class="cform-select"></select>
+          </div>
+          <div class="cform-group">
+            <label class="cform-label">終了時刻</label>
+            <select id="cf_endTime" class="cform-select"></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 人員・時間 -->
+      <div class="cform-section">
+        <div class="cform-section-title">人員・時間</div>
+        <div class="cform-2col">
+          <div class="cform-group">
+            <label class="cform-label">必要人数</label>
+            <div class="cform-num">
+              <button type="button" class="cform-num-btn" onclick="cfAdj('cf_staff',-1,1,20)">－</button>
+              <input type="number" id="cf_staff" class="cform-num-val" value="1" min="1" max="20" readonly onchange="cfCalc()">
+              <button type="button" class="cform-num-btn" onclick="cfAdj('cf_staff',1,1,20)">＋</button>
+            </div>
+            <span style="font-size:.78rem;color:var(--muted);margin-left:8px">名（1〜20）</span>
+          </div>
+          <div class="cform-group">
+            <label class="cform-label">残業見込み時間</label>
+            <div class="cform-num">
+              <button type="button" class="cform-num-btn" onclick="cfAdj('cf_ot',-1,0,4)">－</button>
+              <input type="number" id="cf_ot" class="cform-num-val" value="0" min="0" max="4" readonly onchange="cfCalc()">
+              <button type="button" class="cform-num-btn" onclick="cfAdj('cf_ot',1,0,4)">＋</button>
+            </div>
+            <span style="font-size:.78rem;color:var(--muted);margin-left:8px">時間（0〜4）</span>
+          </div>
+        </div>
+        <div class="cform-group">
+          <label class="cform-label">無線機台数</label>
+          <div class="cform-num">
+            <button type="button" class="cform-num-btn" onclick="cfAdj('cf_radios',-1,0,10)">－</button>
+            <input type="number" id="cf_radios" class="cform-num-val" value="0" min="0" max="10" readonly onchange="cfCalc()">
+            <button type="button" class="cform-num-btn" onclick="cfAdj('cf_radios',1,0,10)">＋</button>
+          </div>
+          <span style="font-size:.78rem;color:var(--muted);margin-left:8px">台（0〜10）</span>
+        </div>
+      </div>
+
+      <!-- 料金 -->
+      <div class="cform-section">
+        <div class="cform-section-title">料金</div>
+        <div class="cform-2col">
+          <div class="cform-group">
+            <label class="cform-label">確定警備料金（税抜）</label>
+            <div class="cform-fee-row">
+              <input type="number" id="cf_fee" class="cform-input" readonly placeholder="日程・人数を入力すると自動計算">
+              <span class="cform-fee-note">円</span>
+            </div>
+          </div>
+          <div class="cform-group">
+            <label class="cform-label">残業単価（税抜）</label>
+            <div class="cform-fee-row">
+              <input type="number" id="cf_otRate" class="cform-input" readonly placeholder="自動設定">
+              <span class="cform-fee-note">円/h</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 資機材 -->
+      <div class="cform-section">
+        <div class="cform-section-title">資機材</div>
+        <div class="cform-group">
+          <label class="cform-label">資機材準備</label>
+          <div class="cform-toggle" style="max-width:220px">
+            <input type="radio" name="cf_equip" id="cf_eq0" value="不要" checked onchange="cfEquipToggle()">
+            <label for="cf_eq0">不要</label>
+            <input type="radio" name="cf_equip" id="cf_eq1" value="必要" onchange="cfEquipToggle()">
+            <label for="cf_eq1">必要</label>
+          </div>
+        </div>
+        <div class="cform-equip-detail" id="cf_equipDetail">
+          <div class="cform-2col">
+            <div class="cform-group">
+              <label class="cform-label">カラーコーン（個）</label>
+              <input type="number" id="cf_cones" class="cform-input" value="0" min="0">
+            </div>
+            <div class="cform-group">
+              <label class="cform-label">保安灯・点滅灯（個）</label>
+              <input type="number" id="cf_lights" class="cform-input" value="0" min="0">
+            </div>
+            <div class="cform-group">
+              <label class="cform-label">矢印板（枚）</label>
+              <input type="number" id="cf_signs" class="cform-input" value="0" min="0">
+            </div>
+            <div class="cform-group">
+              <label class="cform-label">無線機（台）</label>
+              <input type="number" id="cf_radiosEquip" class="cform-input" value="0" min="0">
+            </div>
+          </div>
+          <div class="cform-group">
+            <label class="cform-label">その他資機材</label>
+            <input type="text" id="cf_otherEquip" class="cform-input" placeholder="例：反射ベスト">
+          </div>
+        </div>
+      </div>
+
+      <!-- その他 -->
+      <div class="cform-section">
+        <div class="cform-section-title">その他</div>
+        <div class="cform-group">
+          <label class="cform-label">特約事項</label>
+          <textarea id="cf_special" class="cform-textarea" placeholder="特約事項があればご記入ください。"></textarea>
+        </div>
+        <div class="cform-group">
+          <label class="cform-label">契約締結日<span class="cform-required">必須</span></label>
+          <input type="date" id="cf_contractDate" class="cform-input" style="max-width:200px">
+          <div class="cform-error" id="cf_contractDateErr"></div>
+        </div>
+      </div>
+
+    </div><!-- /.cform-body -->
+    <div class="cform-footer">
+      <button class="btn-cform-cancel" onclick="closeNewContractForm()">キャンセル</button>
+      <button class="btn-cform-submit" onclick="submitNewContract()">📄 契約書を作成する</button>
+    </div>
+  </div>
+</div>
+
 <script>
   const GAS_URL  = 'https://script.google.com/macros/s/AKfycbxAIcflhTwYbWPOPjaGauiQPN8fr80h176098NaFGQFUpdEsQ6FM2Putccvdedue2Rz/exec';
   const PASS     = 'saizen2024';
@@ -312,65 +426,83 @@
 
   const STATUS_LIST = ['未確認', '確認済', '手配完了', '契約書作成済'];
 
-  // GASから返るキー名（フォームのname属性）→ 内部キー名のマッピング
   const FIELD_MAP = {
-    '受付日時':             'receivedAt',
-    '会社名':               'company',
-    '担当者名':             'contact',
-    '電話番号':             'phone',
-    'email':                'email',
-    '現場郵便番号':         'zip',
-    '現場名':               'site',
-    '現場住所':             'address',
-    '警備種別':             'guardType',
-    '警備開始日':           'startDate',
-    '警備終了日':           'endDate',
-    '開始時刻':             'startTime',
-    '終了時刻':             'endTime',
-    '勤務区分':             'shift',
-    '必要人数':             'staff',
-    '残業見込み時間':       'ot',
-    '無線機台数':           'radios',
-    '確定警備料金（税抜）': 'fee',
-    '残業単価（税抜）':     'otRate',
-    '備考':                 'notes',
-    '資機材準備':           'equip',
-    'カラーコーン（個）':   'cones',
-    '保安灯・点滅灯（個）': 'lights',
-    '矢印板（枚）':         'signs',
-    '無線機（台）':         'radiosEquip',
-    'その他資機材':         'otherEquip',
-    '特約事項':             'special',
-    '契約締結日':           'contractDate',
-    'ステータス':           'status',
-    'rowIndex':             'rowIndex',
+    '受付日時':'receivedAt','会社名':'company','担当者名':'contact',
+    '電話番号':'phone','email':'email','現場郵便番号':'zip',
+    '現場名':'site','現場住所':'address','警備種別':'guardType',
+    '警備開始日':'startDate','警備終了日':'endDate',
+    '開始時刻':'startTime','終了時刻':'endTime','勤務区分':'shift',
+    '必要人数':'staff','残業見込み時間':'ot','無線機台数':'radios',
+    '確定警備料金（税抜）':'fee','残業単価（税抜）':'otRate',
+    '備考':'notes','資機材準備':'equip',
+    'カラーコーン（個）':'cones','保安灯・点滅灯（個）':'lights',
+    '矢印板（枚）':'signs','無線機（台）':'radiosEquip',
+    'その他資機材':'otherEquip','特約事項':'special',
+    '契約締結日':'contractDate','ステータス':'status','rowIndex':'rowIndex'
   };
 
-  let orders = []; // 取得済みデータ
+  let orders = [];
+
+  // ── 単価 ──
+  const PR = {
+    weekday:  { base:{ day:18000, night:27000 }, ot:{ day:2900, night:4300 } },
+    saturday: { base:{ day:22500, night:33800 }, ot:{ day:3600, night:5400 } },
+    sunday:   { base:{ day:24300, night:36500 }, ot:{ day:3800, night:5800 } }
+  };
+
+  // 祝日データ（フォールバック）
+  let HOLIDAYS = new Set([
+    '2025-01-01','2025-01-13','2025-02-11','2025-02-23','2025-02-24',
+    '2025-03-20','2025-04-29','2025-05-03','2025-05-04','2025-05-05',
+    '2025-05-06','2025-07-21','2025-08-11','2025-09-15','2025-09-23',
+    '2025-10-13','2025-11-03','2025-11-23','2025-11-24',
+    '2026-01-01','2026-01-12','2026-02-11','2026-02-23','2026-03-20',
+    '2026-04-29','2026-05-03','2026-05-04','2026-05-05','2026-05-06',
+    '2026-07-20','2026-08-11','2026-09-21','2026-09-22','2026-09-23',
+    '2026-10-12','2026-11-03','2026-11-23'
+  ]);
+
+  // ── JSONP取得 ──
+  function jsonpFetch(url) {
+    return new Promise((resolve, reject) => {
+      const cbName = '_gasJsonp' + Date.now();
+      const script = document.createElement('script');
+
+      const cleanup = () => {
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+      };
+
+      const timer = setTimeout(() => { cleanup(); reject(new Error('timeout')); }, 15000);
+
+      window[cbName] = data => {
+        clearTimeout(timer);
+        cleanup();
+        resolve(data);
+      };
+
+      script.onerror = () => { clearTimeout(timer); cleanup(); reject(new Error('error')); };
+      script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cbName;
+      document.head.appendChild(script);
+    });
+  }
 
   // ── データ取得 ──
   async function loadOrders() {
     document.getElementById('msgLoading').style.display = 'block';
     document.getElementById('msgError').style.display   = 'none';
     document.getElementById('ordersBody').innerHTML = '';
-
     try {
-      const res = await fetch(GAS_URL);
-      const raw = await res.json();
+      const raw  = await jsonpFetch(GAS_URL);
       const rows = Array.isArray(raw) ? raw : (raw.orders || []);
-
-      // 日本語キー → 内部キーに変換
       orders = rows.map((row, idx) => {
-        const o = { _arrayIdx: idx };
+        const o = {};
         Object.entries(row).forEach(([k, v]) => {
-          const mapped = FIELD_MAP[k];
-          o[mapped !== undefined ? mapped : k] = v;
+          o[FIELD_MAP[k] !== undefined ? FIELD_MAP[k] : k] = v;
         });
-        // rowIndex が返らない場合はスプレッドシートの行番号を推定（ヘッダー行=1, データ開始=2）
         if (o.rowIndex === undefined) o.rowIndex = idx + 2;
         return o;
       });
-
       renderTable();
     } catch (_) {
       document.getElementById('msgError').style.display = 'block';
@@ -394,24 +526,17 @@
       const statusOpts = STATUS_LIST.map(s =>
         `<option value="${s}"${s === st ? ' selected' : ''}>${s}</option>`
       ).join('');
-      const cls = 'st-' + st;
-      return `<tr class="${cls}" data-idx="${idx}">
+      return `<tr class="st-${st}" data-idx="${idx}">
         <td style="white-space:nowrap">${o.receivedAt || '—'}</td>
         <td>${o.company || '—'}</td>
         <td>${o.site || '—'}</td>
         <td style="white-space:nowrap">${period || '—'}</td>
         <td style="text-align:center">${o.staff || '—'}名</td>
-        <td>
-          <select class="status-select-sm" onchange="changeStatus(${idx}, this.value)">
-            ${statusOpts}
-          </select>
-        </td>
-        <td>
-          <div class="action-cell">
-            <button class="btn-detail" onclick="openDetail(${idx})">詳細</button>
-            <a href="${buildContractUrl(o)}" target="_blank" class="btn-contract-sm">契約書</a>
-          </div>
-        </td>
+        <td><select class="status-select-sm" onchange="changeStatus(${idx},this.value)">${statusOpts}</select></td>
+        <td><div class="action-cell">
+          <button class="btn-detail" onclick="openDetail(${idx})">詳細</button>
+          <a href="${buildContractUrl(o)}" target="_blank" class="btn-contract-sm">契約書</a>
+        </div></td>
       </tr>`;
     }).join('');
   }
@@ -420,20 +545,12 @@
   async function changeStatus(idx, newStatus) {
     orders[idx].status = newStatus;
     const row = document.querySelector(`[data-idx="${idx}"]`);
-    if (row) {
-      row.className = 'st-' + newStatus;
-    }
-    // GASに保存（no-cors）
+    if (row) row.className = 'st-' + newStatus;
     try {
       await fetch(GAS_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify({
-          action:   'updateStatus',
-          rowIndex: orders[idx].rowIndex,
-          status:   newStatus
-        })
+        method:'POST', mode:'no-cors',
+        headers:{'Content-Type':'text/plain'},
+        body: JSON.stringify({ action:'updateStatus', rowIndex:orders[idx].rowIndex, status:newStatus })
       });
     } catch (_) {}
   }
@@ -442,50 +559,37 @@
   function openDetail(idx) {
     const o = orders[idx];
     const fmt = n => { const v = parseInt(n); return isNaN(v) ? (n || '—') : v.toLocaleString('ja-JP'); };
-
     const rows = [
-      ['受付日時',             o.receivedAt],
-      ['会社名',               o.company],
-      ['担当者名',             o.contact],
-      ['電話番号',             o.phone],
-      ['メール',               o.email],
-      ['現場郵便番号',         o.zip],
-      ['現場名',               o.site],
-      ['現場住所',             o.address],
-      ['警備種別',             o.guardType],
-      ['警備開始日',           (o.startDate || '').replace(/-/g, '/')],
-      ['警備終了日',           (o.endDate   || '').replace(/-/g, '/')],
-      ['開始時刻',             o.startTime],
-      ['終了時刻',             o.endTime],
-      ['勤務区分',             o.shift],
-      ['必要人数',             o.staff ? o.staff + '名' : '—'],
-      ['残業見込み時間',       o.ot ? o.ot + '時間/人・日' : '0時間'],
-      ['無線機台数',           o.radios ? o.radios + '台' : '0台'],
-      ['確定警備料金（税抜）', o.fee   ? fmt(o.fee)   + '円' : '—'],
+      ['受付日時',o.receivedAt],['会社名',o.company],['担当者名',o.contact],
+      ['電話番号',o.phone],['メール',o.email],['現場郵便番号',o.zip],
+      ['現場名',o.site],['現場住所',o.address],['警備種別',o.guardType],
+      ['警備開始日',(o.startDate||'').replace(/-/g,'/')],
+      ['警備終了日',(o.endDate  ||'').replace(/-/g,'/')],
+      ['開始時刻',o.startTime],['終了時刻',o.endTime],['勤務区分',o.shift],
+      ['必要人数', o.staff  ? o.staff  + '名'    : '—'],
+      ['残業見込み時間', o.ot ? o.ot + '時間/人・日' : '0時間'],
+      ['無線機台数', o.radios ? o.radios + '台' : '0台'],
+      ['確定警備料金（税抜）', o.fee    ? fmt(o.fee)    + '円'   : '—'],
       ['残業単価（税抜）',     o.otRate ? fmt(o.otRate) + '円/h' : '—'],
-      ['資機材準備',           o.equip],
-      ['カラーコーン',         o.cones      ? o.cones + '個'      : '0個'],
-      ['保安灯・点滅灯',       o.lights     ? o.lights + '個'     : '0個'],
-      ['矢印板',               o.signs      ? o.signs + '枚'      : '0枚'],
-      ['無線機（資機材）',     o.radiosEquip ? o.radiosEquip + '台' : '0台'],
-      ['その他資機材',         o.otherEquip || 'なし'],
-      ['備考',                 o.notes      || 'なし'],
-      ['特約事項',             o.special    || 'なし'],
-      ['契約締結日',           (o.contractDate || '').replace(/-/g, '/')],
-      ['ステータス',           o.status     || '未確認'],
+      ['資機材準備',o.equip],
+      ['カラーコーン',    o.cones      ? o.cones      + '個' : '0個'],
+      ['保安灯・点滅灯',  o.lights     ? o.lights     + '個' : '0個'],
+      ['矢印板',          o.signs      ? o.signs      + '枚' : '0枚'],
+      ['無線機（資機材）',o.radiosEquip? o.radiosEquip+ '台' : '0台'],
+      ['その他資機材',o.otherEquip||'なし'],['備考',o.notes||'なし'],
+      ['特約事項',o.special||'なし'],
+      ['契約締結日',(o.contractDate||'').replace(/-/g,'/')],
+      ['ステータス',o.status||'未確認']
     ];
-
-    const gridHTML = rows.map(([label, val]) =>
-      `<div class="detail-label">${label}</div><div class="detail-val">${val || '—'}</div>`
+    const grid = rows.map(([l,v])=>
+      `<div class="detail-label">${l}</div><div class="detail-val">${v||'—'}</div>`
     ).join('');
-
-    document.getElementById('detailTitle').textContent = (o.company || '依頼') + '　詳細';
-    document.getElementById('detailBody').innerHTML = `
-      <div class="detail-grid">${gridHTML}</div>
-      <div class="detail-actions">
-        <a href="${buildContractUrl(o)}" target="_blank" class="btn-contract-lg">📄 契約書を作成する</a>
-      </div>
-    `;
+    document.getElementById('detailTitle').textContent = (o.company||'依頼') + '　詳細';
+    document.getElementById('detailBody').innerHTML =
+      `<div class="detail-grid">${grid}</div>
+       <div class="detail-actions">
+         <a href="${buildContractUrl(o)}" target="_blank" class="btn-contract-lg">📄 契約書を作成する</a>
+       </div>`;
     document.getElementById('detailOverlay').classList.add('open');
   }
 
@@ -496,42 +600,203 @@
 
   // ── 契約書URL構築 ──
   function buildContractUrl(o) {
-    const params = new URLSearchParams({
-      company:     o.company      || '',
-      contact:     o.contact      || '',
-      phone:       o.phone        || '',
-      site:        o.site         || '',
-      zip:         o.zip          || '',
-      address:     o.address      || '',
-      guardType:   o.guardType    || '',
-      startDate:   o.startDate    || '',
-      endDate:     o.endDate      || '',
-      startTime:   o.startTime    || '',
-      endTime:     o.endTime      || '',
-      shift:       o.shift        || '',
-      staff:       o.staff        || '',
-      ot:          o.ot           || '',
-      radios:      o.radios       || '',
-      fee:         o.fee          || '',
-      otRate:      o.otRate       || '',
-      equip:       o.equip        || '',
-      cones:       o.cones        || '',
-      lights:      o.lights       || '',
-      signs:       o.signs        || '',
-      radiosEquip: o.radiosEquip  || '',
-      otherEquip:  o.otherEquip   || '',
-      special:     o.special      || '',
-      contractDate:o.contractDate || ''
+    return '/contract/?' + new URLSearchParams({
+      company:o.company||'', contact:o.contact||'', phone:o.phone||'',
+      site:o.site||'', zip:o.zip||'', address:o.address||'',
+      guardType:o.guardType||'', startDate:o.startDate||'', endDate:o.endDate||'',
+      startTime:o.startTime||'', endTime:o.endTime||'', shift:o.shift||'',
+      staff:o.staff||'', ot:o.ot||'', radios:o.radios||'',
+      fee:o.fee||'', otRate:o.otRate||'', equip:o.equip||'',
+      cones:o.cones||'', lights:o.lights||'', signs:o.signs||'',
+      radiosEquip:o.radiosEquip||'', otherEquip:o.otherEquip||'',
+      special:o.special||'', contractDate:o.contractDate||''
+    }).toString();
+  }
+
+  // ─────────────────────────────────────────────────
+  // ── 新規契約書フォーム ──
+  // ─────────────────────────────────────────────────
+
+  function buildTimeOpts(defaultVal) {
+    let h = '';
+    for (let i = 0; i < 24; i++) {
+      const v = String(i).padStart(2,'0') + ':00';
+      h += `<option value="${v}"${v === defaultVal ? ' selected' : ''}>${v}</option>`;
+    }
+    return h;
+  }
+
+  function openNewContractForm() {
+    // 時刻ドロップダウン生成
+    document.getElementById('cf_startTime').innerHTML = buildTimeOpts('08:00');
+    document.getElementById('cf_endTime').innerHTML   = buildTimeOpts('17:00');
+    // 契約締結日を今日に設定
+    document.getElementById('cf_contractDate').value = new Date().toISOString().slice(0, 10);
+    // フォームリセット
+    ['cf_company','cf_contact','cf_phone','cf_email',
+     'cf_site','cf_zip','cf_address','cf_special',
+     'cf_fee','cf_otRate'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
     });
-    return '/contract/?' + params.toString();
+    ['cf_staff','cf_ot','cf_radios','cf_cones','cf_lights','cf_signs','cf_radiosEquip']
+      .forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (id === 'cf_staff') el.value = '1';
+        else el.value = '0';
+      });
+    document.getElementById('cf_otherEquip').value = '';
+    document.getElementById('cf_gt1').checked = true;
+    document.getElementById('cf_sh1').checked = true;
+    document.getElementById('cf_eq0').checked = true;
+    document.getElementById('cf_equipDetail').classList.remove('open');
+    document.getElementById('cf_startDate').value = '';
+    document.getElementById('cf_endDate').value   = '';
+    // エラーリセット
+    document.querySelectorAll('.cform-error').forEach(el => { el.textContent = ''; });
+    document.getElementById('cformOverlay').classList.add('open');
   }
 
-  // ── 新規契約書（空） ──
-  function openNewContract() {
-    window.open('/contract/', '_blank');
+  function closeNewContractForm() {
+    document.getElementById('cformOverlay').classList.remove('open');
   }
 
+  function closeCformIfBg(e) {
+    if (e.target === document.getElementById('cformOverlay')) closeNewContractForm();
+  }
+
+  // 数量調整
+  function cfAdj(id, delta, min, max) {
+    const el = document.getElementById(id);
+    const v  = Math.min(max, Math.max(min, parseInt(el.value || 0) + delta));
+    el.value = v;
+    cfCalc();
+  }
+
+  // 資機材トグル
+  function cfEquipToggle() {
+    const needed = document.getElementById('cf_eq1').checked;
+    document.getElementById('cf_equipDetail').classList.toggle('open', needed);
+  }
+
+  // 日付タイプ判定
+  function cfDayType(dateStr) {
+    const dow = new Date(dateStr).getDay();
+    if (dow === 0 || HOLIDAYS.has(dateStr)) return 'sunday';
+    if (dow === 6) return 'saturday';
+    return 'weekday';
+  }
+
+  // 料金計算
+  function cfCalc() {
+    const shift   = document.querySelector('input[name="cf_shift"]:checked')?.value || '日勤';
+    const persons = Math.max(0, parseInt(document.getElementById('cf_staff').value)  || 0);
+    const ot      = Math.max(0, parseInt(document.getElementById('cf_ot').value)     || 0);
+    const radios  = Math.max(0, parseInt(document.getElementById('cf_radios').value) || 0);
+    const sd      = document.getElementById('cf_startDate').value;
+    const ed      = document.getElementById('cf_endDate').value;
+
+    const feeEl   = document.getElementById('cf_fee');
+    const otRateEl= document.getElementById('cf_otRate');
+
+    if (!sd || !ed || sd > ed || persons === 0) {
+      feeEl.value    = '';
+      otRateEl.value = '';
+      return;
+    }
+
+    const sk = shift === '夜勤' ? 'night' : 'day';
+    let weekdays = 0, saturdays = 0, sundays = 0;
+    for (let d = new Date(sd); d <= new Date(ed); d.setDate(d.getDate() + 1)) {
+      const ds = d.toISOString().slice(0, 10);
+      const t  = cfDayType(ds);
+      if (t === 'weekday') weekdays++;
+      else if (t === 'saturday') saturdays++;
+      else sundays++;
+    }
+    const totalDays = weekdays + saturdays + sundays;
+
+    const baseAmt = PR.weekday.base[sk] * weekdays * persons
+                  + PR.saturday.base[sk] * saturdays * persons
+                  + PR.sunday.base[sk]   * sundays   * persons;
+    const otAmt   = PR.weekday.ot[sk] * ot * weekdays * persons
+                  + PR.saturday.ot[sk] * ot * saturdays * persons
+                  + PR.sunday.ot[sk]   * ot * sundays   * persons;
+    const radioAmt = 500 * radios * totalDays;
+    const subtotal = baseAmt + otAmt + radioAmt;
+
+    feeEl.value = subtotal;
+
+    // 残業単価は期間最初の日の曜日タイプで決定
+    const firstType = cfDayType(sd);
+    const rateKey   = firstType === 'saturday' ? 'saturday' : firstType === 'sunday' ? 'sunday' : 'weekday';
+    otRateEl.value  = PR[rateKey].ot[sk];
+  }
+
+  // バリデーション & 契約書URL遷移
+  function submitNewContract() {
+    let ok = true;
+    const req = [
+      ['cf_company',      'cf_companyErr',      '会社名を入力してください。'],
+      ['cf_contact',      'cf_contactErr',      '担当者名を入力してください。'],
+      ['cf_phone',        'cf_phoneErr',        '電話番号を入力してください。'],
+      ['cf_site',         'cf_siteErr',         '現場名を入力してください。'],
+      ['cf_address',      'cf_addressErr',      '現場住所を入力してください。'],
+      ['cf_startDate',    'cf_startDateErr',    '警備開始日を入力してください。'],
+      ['cf_endDate',      'cf_endDateErr',      '警備終了日を入力してください。'],
+      ['cf_contractDate', 'cf_contractDateErr', '契約締結日を入力してください。'],
+    ];
+    req.forEach(([id, errId, msg]) => {
+      const el  = document.getElementById(id);
+      const err = document.getElementById(errId);
+      if (!el.value.trim()) { err.textContent = msg; ok = false; }
+      else { err.textContent = ''; }
+    });
+    const sd = document.getElementById('cf_startDate').value;
+    const ed = document.getElementById('cf_endDate').value;
+    if (sd && ed && sd > ed) {
+      document.getElementById('cf_endDateErr').textContent = '終了日は開始日以降を指定してください。';
+      ok = false;
+    }
+    if (!ok) return;
+
+    const equip = document.querySelector('input[name="cf_equip"]:checked')?.value || '不要';
+    const o = {
+      company:     document.getElementById('cf_company').value,
+      contact:     document.getElementById('cf_contact').value,
+      phone:       document.getElementById('cf_phone').value,
+      email:       document.getElementById('cf_email').value,
+      site:        document.getElementById('cf_site').value,
+      zip:         document.getElementById('cf_zip').value,
+      address:     document.getElementById('cf_address').value,
+      guardType:   document.querySelector('input[name="cf_guardType"]:checked')?.value || '',
+      startDate:   sd,
+      endDate:     ed,
+      startTime:   document.getElementById('cf_startTime').value,
+      endTime:     document.getElementById('cf_endTime').value,
+      shift:       document.querySelector('input[name="cf_shift"]:checked')?.value || '日勤',
+      staff:       document.getElementById('cf_staff').value,
+      ot:          document.getElementById('cf_ot').value,
+      radios:      document.getElementById('cf_radios').value,
+      fee:         document.getElementById('cf_fee').value,
+      otRate:      document.getElementById('cf_otRate').value,
+      equip:       equip,
+      cones:       document.getElementById('cf_cones').value,
+      lights:      document.getElementById('cf_lights').value,
+      signs:       document.getElementById('cf_signs').value,
+      radiosEquip: document.getElementById('cf_radiosEquip').value,
+      otherEquip:  document.getElementById('cf_otherEquip').value,
+      special:     document.getElementById('cf_special').value,
+      contractDate:document.getElementById('cf_contractDate').value,
+    };
+    window.open(buildContractUrl(o), '_blank');
+    closeNewContractForm();
+  }
+
+  // ─────────────────────────────────────────────────
   // ── 認証 ──
+  // ─────────────────────────────────────────────────
   function doLogin() {
     const pw = document.getElementById('pwInput').value;
     if (pw === PASS) {
@@ -549,6 +814,11 @@
   function showAdmin() {
     document.getElementById('loginWrap').style.display = 'none';
     document.getElementById('adminWrap').style.display = 'block';
+    // 祝日API取得（料金計算の精度向上）
+    fetch('https://holidays-jp.github.io/api/v1/date.json')
+      .then(r => r.json())
+      .then(d => { HOLIDAYS = new Set(Object.keys(d)); })
+      .catch(() => {});
     loadOrders();
   }
 
