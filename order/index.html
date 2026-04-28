@@ -339,12 +339,34 @@
     }
     .btn-cal-reset:hover { border-color: #e74c3c; color: #e74c3c; }
 
+    /* 月選択バー */
+    .cal-month-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .btn-month-sel {
+      padding: 5px 12px;
+      background: #fff;
+      color: var(--dark-gray);
+      border: 2px solid var(--mid-gray);
+      border-radius: 20px;
+      font-size: .78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .15s, border-color .15s, color .15s;
+    }
+    .btn-month-sel:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-month-sel.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
     .cal-panels {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+      flex-wrap: wrap;
       gap: 14px;
       margin-bottom: 10px;
     }
+    .cal-panel { flex: 0 0 calc(50% - 7px); min-width: 260px; }
     .cal-panel {
       border: 1px solid var(--mid-gray);
       border-radius: 10px;
@@ -419,7 +441,7 @@
     }
 
     @media (max-width: 580px) {
-      .cal-panels { grid-template-columns: 1fr; }
+      .cal-panel { flex: 0 0 100%; }
     }
 
     @media (max-width: 900px) {
@@ -622,15 +644,13 @@
             <label class="form-label">警備日程 <span class="required">必須</span></label>
 
             <div class="cal-btn-row">
-              <button type="button" class="btn-cal-bulk" onclick="bulkSelectWeekdays(0)">当月の平日を一括選択</button>
-              <button type="button" class="btn-cal-bulk" onclick="bulkSelectWeekdays(1)">翌月の平日を一括選択</button>
+              <button type="button" class="btn-cal-bulk" onclick="bulkSelectAllVisible()">表示中の全カレンダーの平日を一括選択</button>
               <button type="button" class="btn-cal-reset" onclick="resetAllDates()">選択をすべてリセット</button>
             </div>
 
-            <div class="cal-panels">
-              <div id="calPanel0"></div>
-              <div id="calPanel1"></div>
-            </div>
+            <div class="cal-month-selector" id="calMonthSelector"></div>
+
+            <div class="cal-panels" id="calPanelsContainer"></div>
 
             <div class="cal-legend-new">
               <div class="cal-leg-item"><div class="cal-leg-dot" style="background:#1a2f5e;"></div>平日（選択）</div>
@@ -1143,13 +1163,44 @@
   }
 
   // ── カレンダー描画 ──
-  const _calNow = new Date();
-  let calViewYear  = _calNow.getFullYear();
-  let calViewMonth = _calNow.getMonth();
+  const _calNow       = new Date();
+  const _calBaseYear  = _calNow.getFullYear();
+  const _calBaseMonth = _calNow.getMonth();
 
-  function renderMonthPanel(containerId, year, month) {
-    const container = document.getElementById(containerId);
+  // 表示中の月管理（"YYYY-MM" 文字列のSet）
+  const visibleMonths = new Set();
+  visibleMonths.add(_calBaseYear + '-' + String(_calBaseMonth + 1).padStart(2, '0'));
+
+  function fmtYM(y, m) {
+    return y + '-' + String(m + 1).padStart(2, '0');
+  }
+
+  // 現在月から12ヶ月分のリストを生成
+  function getSelectableMonths() {
+    const list = [];
+    for (let i = 0; i < 12; i++) {
+      const total = _calBaseMonth + i;
+      const y = _calBaseYear + Math.floor(total / 12);
+      const m = total % 12;
+      list.push({ year: y, month: m, ym: fmtYM(y, m) });
+    }
+    return list;
+  }
+
+  function renderMonthSelector() {
+    const container = document.getElementById('calMonthSelector');
     if (!container) return;
+    const MONTH_NAMES = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+    let html = '';
+    getSelectableMonths().forEach(({ year, month, ym }) => {
+      const isActive = visibleMonths.has(ym);
+      const label = (year !== _calBaseYear ? year + '年' : '') + MONTH_NAMES[month];
+      html += '<button type="button" class="btn-month-sel' + (isActive ? ' active' : '') + '" onclick="toggleMonthVisibility(\'' + ym + '\')">' + label + '</button>';
+    });
+    container.innerHTML = html;
+  }
+
+  function buildMonthPanelHtml(year, month) {
     const DOW_LABELS  = ['日','月','火','水','木','金','土'];
     const MONTH_NAMES = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
     const firstDow    = new Date(year, month, 1).getDay();
@@ -1175,43 +1226,59 @@
       html += '<div class="' + cls + '" onclick="toggleCalDate(\'' + dateStr + '\',\'' + dayType + '\')">' + d + '</div>';
     }
     html += '</div></div></div>';
-    container.innerHTML = html;
+    return html;
   }
 
   function renderCalendars() {
-    renderMonthPanel('calPanel0', calViewYear, calViewMonth);
-    let y2 = calViewYear, m2 = calViewMonth + 1;
-    if (m2 > 11) { m2 = 0; y2++; }
-    renderMonthPanel('calPanel1', y2, m2);
+    const container = document.getElementById('calPanelsContainer');
+    if (!container) return;
+    let html = '';
+    // 選択可能な月の時系列順で、表示中の月だけ描画
+    getSelectableMonths().forEach(({ year, month, ym }) => {
+      if (visibleMonths.has(ym)) html += buildMonthPanelHtml(year, month);
+    });
+    container.innerHTML = html;
+    renderMonthSelector();
     updateCalSummary();
+  }
+
+  // ── 月表示トグル ──
+  function toggleMonthVisibility(ym) {
+    if (visibleMonths.has(ym)) {
+      visibleMonths.delete(ym);
+    } else {
+      visibleMonths.add(ym);
+    }
+    renderCalendars();
   }
 
   // ── クリック：トグル ──
   function toggleCalDate(dateStr, dayType) {
     if (selectedDates.has(dateStr)) {
-      selectedDates.delete(dateStr);        // 選択済み→未選択（白）
+      selectedDates.delete(dateStr);
     } else {
-      selectedDates.set(dateStr, dayType);  // 未選択→選択（平日:青/土:黄/日祝:緑）
+      selectedDates.set(dateStr, dayType);
     }
     updateHiddenDateFields();
     renderCalendars();
     calcOrder();
   }
 
-  // ── 一括選択 ──
-  function bulkSelectWeekdays(monthOffset) {
-    const base  = new Date();
-    const total = base.getMonth() + monthOffset;
-    const year  = base.getFullYear() + Math.floor(total / 12);
-    const month = ((total % 12) + 12) % 12;
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    for (let d = 1; d <= daysInMonth; d++) {
-      const dateStr = fmtDateStr(year, month, d);
-      const dow     = new Date(year, month, d).getDay();
-      if (dow !== 0 && dow !== 6 && !HOLIDAYS.has(dateStr)) {
-        selectedDates.set(dateStr, 'weekday');
+  // ── 一括選択（表示中の全カレンダー平日） ──
+  function bulkSelectAllVisible() {
+    visibleMonths.forEach(ym => {
+      const parts = ym.split('-');
+      const year  = parseInt(parts[0], 10);
+      const month = parseInt(parts[1], 10) - 1;
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dateStr = fmtDateStr(year, month, d);
+        const dow     = new Date(year, month, d).getDay();
+        if (dow !== 0 && dow !== 6 && !HOLIDAYS.has(dateStr)) {
+          selectedDates.set(dateStr, 'weekday');
+        }
       }
-    }
+    });
     updateHiddenDateFields();
     renderCalendars();
     calcOrder();
