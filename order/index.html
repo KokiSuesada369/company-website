@@ -307,59 +307,119 @@
       gap: 0;
     }
 
-    /* カレンダー */
-    #calendarWrap { margin-top: 16px; }
-    .cal-month-title {
-      font-size: .8rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 6px;
-      margin-top: 10px;
+    /* ── インタラクティブカレンダー ── */
+    .cal-btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
     }
-    .cal-grid {
+    .btn-cal-bulk {
+      padding: 8px 16px;
+      background: var(--primary);
+      color: #fff;
+      border: 2px solid var(--primary);
+      border-radius: var(--radius);
+      font-size: .83rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .15s, border-color .15s;
+    }
+    .btn-cal-bulk:hover { background: var(--secondary); border-color: var(--secondary); }
+    .btn-cal-reset {
+      padding: 8px 16px;
+      background: #fff;
+      color: var(--dark-gray);
+      border: 2px solid var(--mid-gray);
+      border-radius: var(--radius);
+      font-size: .83rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: border-color .15s, color .15s;
+    }
+    .btn-cal-reset:hover { border-color: #e74c3c; color: #e74c3c; }
+
+    .cal-panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+    .cal-panel {
+      border: 1px solid var(--mid-gray);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .cal-panel-hd {
+      background: var(--primary);
+      color: #fff;
+      text-align: center;
+      padding: 8px;
+      font-size: .85rem;
+      font-weight: 700;
+    }
+    .cal-panel-body { padding: 8px; }
+    .cal-dows {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 3px;
+      gap: 2px;
+      margin-bottom: 3px;
     }
-    .cal-dow {
+    .cal-dow-lbl {
       text-align: center;
       font-size: .65rem;
       font-weight: 700;
       color: var(--dark-gray);
-      padding: 3px 0;
+      padding: 2px 0;
     }
-    .cal-cell {
-      border-radius: 4px;
-      padding: 4px 2px;
-      text-align: center;
-      font-size: .72rem;
-      font-weight: 600;
-      min-height: 28px;
+    .cal-days-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+    }
+    .cal-d {
+      aspect-ratio: 1;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: .72rem;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: transform .1s, opacity .1s;
+      user-select: none;
+      min-height: 28px;
+      border: 1px solid transparent;
     }
-    .cal-cell.empty { background: transparent; color: #ccc; }
-    .cd-wd   { background: #eef1f8; color: #1a2f5e; }
-    .cd-wdn  { background: #1a2f5e; color: #fff; }
-    .cd-sat  { background: #dbeafe; color: #1e40af; }
-    .cd-satn { background: #fed7aa; color: #92400e; }
-    .cd-sun  { background: #ffe4e6; color: #9f1239; }
-    .cd-sunn { background: #fca5a5; color: #7f1d1d; }
-    .cal-legend {
+    .cal-d.empty { cursor: default; pointer-events: none; background: transparent; border-color: transparent; }
+    .cal-d.wd-off  { background: #eef1f8; color: #1a2f5e; border-color: #c5cde0; }
+    .cal-d.sat-off { background: #eff6ff; color: #1e40af; border-color: #bfdbfe; }
+    .cal-d.sun-off { background: #fff1f2; color: #9f1239; border-color: #fecdd3; }
+    .cal-d.wd-on   { background: #1a2f5e; color: #fff; border-color: #1a2f5e; }
+    .cal-d.sat-on  { background: #d97706; color: #fff; border-color: #d97706; }
+    .cal-d.sun-on  { background: #16a34a; color: #fff; border-color: #16a34a; }
+    .cal-d:not(.empty):hover { transform: scale(1.1); opacity: .82; }
+
+    .cal-legend-new {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-      font-size: .72rem;
+      gap: 12px;
+      margin-top: 8px;
+      font-size: .74rem;
       color: var(--dark-gray);
     }
-    .cal-legend-item { display: flex; align-items: center; gap: 5px; }
-    .cal-legend-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-      flex-shrink: 0;
+    .cal-leg-item { display: flex; align-items: center; gap: 5px; }
+    .cal-leg-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+    .cal-summary-txt {
+      margin-top: 8px;
+      font-size: .84rem;
+      font-weight: 700;
+      color: var(--primary);
+      min-height: 20px;
+    }
+
+    @media (max-width: 580px) {
+      .cal-panels { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 900px) {
@@ -554,34 +614,33 @@
             <div class="form-error" id="guardTypeError"></div>
           </div>
 
-          <div class="form-grid-2">
-            <div class="form-group">
-              <label class="form-label" for="startDate">
-                警備開始日 <span class="required">必須</span>
-              </label>
-              <input type="date" id="startDate" name="警備開始日" class="form-input" required>
-              <div class="form-error" id="startDateError"></div>
+          <!-- 警備開始日・終了日（hidden: カレンダー選択から自動設定） -->
+          <input type="hidden" id="startDate" name="警備開始日">
+          <input type="hidden" id="endDate" name="警備終了日">
+
+          <div class="form-group">
+            <label class="form-label">警備日程 <span class="required">必須</span></label>
+
+            <div class="cal-btn-row">
+              <button type="button" class="btn-cal-bulk" onclick="bulkSelectWeekdays(0)">当月の平日を一括選択</button>
+              <button type="button" class="btn-cal-bulk" onclick="bulkSelectWeekdays(1)">翌月の平日を一括選択</button>
+              <button type="button" class="btn-cal-reset" onclick="resetAllDates()">選択をすべてリセット</button>
             </div>
 
-            <div class="form-group">
-              <label class="form-label" for="endDate">
-                警備終了日 <span class="required">必須</span>
-              </label>
-              <input type="date" id="endDate" name="警備終了日" class="form-input" required>
-              <div class="form-error" id="endDateError"></div>
+            <div class="cal-panels">
+              <div id="calPanel0"></div>
+              <div id="calPanel1"></div>
             </div>
-          </div>
 
-          <div id="calendarWrap" style="display:none;">
-            <div id="calendarContent"></div>
-            <div class="cal-legend">
-              <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#eef1f8;border:1px solid #c5cde0;"></div>平日日勤</div>
-              <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#1a2f5e;"></div>平日夜勤</div>
-              <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#dbeafe;border:1px solid #93c5fd;"></div>土曜日勤</div>
-              <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#fed7aa;border:1px solid #fdba74;"></div>土曜夜勤</div>
-              <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#ffe4e6;border:1px solid #fda4af;"></div>日祝日勤</div>
-              <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#fca5a5;border:1px solid #f87171;"></div>日祝夜勤</div>
+            <div class="cal-legend-new">
+              <div class="cal-leg-item"><div class="cal-leg-dot" style="background:#1a2f5e;"></div>平日（選択）</div>
+              <div class="cal-leg-item"><div class="cal-leg-dot" style="background:#d97706;"></div>土曜（選択）</div>
+              <div class="cal-leg-item"><div class="cal-leg-dot" style="background:#16a34a;"></div>日祝（選択）</div>
+              <div class="cal-leg-item"><div class="cal-leg-dot" style="background:#eef1f8;border:1px solid #c5cde0;"></div>未選択</div>
             </div>
+
+            <div id="calSummary" class="cal-summary-txt">日程が選択されていません</div>
+            <div class="form-error" id="datesError"></div>
           </div>
 
           <div class="form-group">
@@ -953,22 +1012,11 @@
       valid = false;
     } else { markValid(endTime, 'endTimeError'); }
 
-    // 開始日
-    const startDate = document.getElementById('startDate');
-    if (!startDate.value) {
-      markInvalid(startDate, 'startDateError', '警備開始日を選択してください。');
+    // 警備日程
+    if (selectedDates.size === 0) {
+      showError('datesError', '警備日程を1日以上選択してください。');
       valid = false;
-    } else { markValid(startDate, 'startDateError'); }
-
-    // 終了日
-    const endDate = document.getElementById('endDate');
-    if (!endDate.value) {
-      markInvalid(endDate, 'endDateError', '警備終了日を選択してください。');
-      valid = false;
-    } else if (startDate.value && endDate.value < startDate.value) {
-      markInvalid(endDate, 'endDateError', '終了日は開始日以降の日付を選択してください。');
-      valid = false;
-    } else { markValid(endDate, 'endDateError'); }
+    } else { clearError('datesError'); }
 
     // 必要人数
     const staffCount = document.getElementById('staffCount');
@@ -1029,7 +1077,7 @@
 
   // ── リアルタイムバリデーション解除 ──
   ['companyName','contactPerson','phone','email','siteName','siteAddress',
-   'startDate','endDate','staffCount','siteZip','startTime','endTime','contractDate'].forEach(id => {
+   'staffCount','siteZip','startTime','endTime','contractDate'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.addEventListener('input', () => {
       el.style.borderColor = '';
@@ -1045,71 +1093,184 @@
   };
 
   const HOLIDAYS = new Set([
+    /* 2025 */
     '2025-01-01','2025-01-13','2025-02-11','2025-02-23','2025-02-24',
     '2025-03-20','2025-04-29','2025-05-03','2025-05-04','2025-05-05',
     '2025-05-06','2025-07-21','2025-08-11','2025-09-15','2025-09-23',
     '2025-10-13','2025-11-03','2025-11-23','2025-11-24',
-    '2026-01-01','2026-01-12','2026-02-11','2026-02-23',
-    '2026-03-20','2026-04-29','2026-05-03','2026-05-04','2026-05-05',
-    '2026-07-20','2026-08-11','2026-09-21','2026-09-23',
-    '2026-10-12','2026-11-03','2026-11-23'
+    /* 2026 */
+    '2026-01-01',              /* 元日 */
+    '2026-01-12',              /* 成人の日（第2月曜） */
+    '2026-02-11',              /* 建国記念の日 */
+    '2026-02-23',              /* 天皇誕生日 */
+    '2026-03-20',              /* 春分の日 */
+    '2026-04-29',              /* 昭和の日 */
+    '2026-05-03',              /* 憲法記念日 */
+    '2026-05-04',              /* みどりの日 */
+    '2026-05-05',              /* こどもの日 */
+    '2026-05-06',              /* 振替休日（憲法記念日が日曜のため） */
+    '2026-07-20',              /* 海の日（第3月曜） */
+    '2026-08-11',              /* 山の日 */
+    '2026-09-21',              /* 敬老の日（第3月曜） */
+    '2026-09-22',              /* 国民の休日（敬老の日と秋分の日に挟まれた日） */
+    '2026-09-23',              /* 秋分の日 */
+    '2026-10-12',              /* スポーツの日（第2月曜） */
+    '2026-11-03',              /* 文化の日 */
+    '2026-11-23'               /* 勤労感謝の日 */
   ]);
 
-  function getDayType(d, dateStr) {
-    const dow = d.getDay();
+  // ── 日付タイプ判定 ──
+  function getDayTypeStr(dateStr, dow) {
     if (dow === 0 || HOLIDAYS.has(dateStr)) return 'sunday';
     if (dow === 6) return 'saturday';
     return 'weekday';
   }
 
-  function countDayTypes(startStr, endStr) {
-    if (!startStr || !endStr || endStr < startStr) return null;
-    const start = new Date(startStr + 'T00:00:00');
-    const end   = new Date(endStr   + 'T00:00:00');
-    let weekdays = 0, saturdays = 0, sundays = 0;
-    const cur = new Date(start);
-    while (cur <= end) {
-      const dateStr = cur.toISOString().slice(0, 10);
-      const type = getDayType(cur, dateStr);
-      if (type === 'sunday') sundays++;
-      else if (type === 'saturday') saturdays++;
-      else weekdays++;
-      cur.setDate(cur.getDate() + 1);
-    }
-    return { weekdays, saturdays, sundays, total: weekdays + saturdays + sundays };
+  // ── 選択日管理 ──
+  const selectedDates = new Map(); // dateStr -> 'weekday'|'saturday'|'sunday'
+
+  function fmtDateStr(y, m, d) {
+    return y + '-' + String(m + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
   }
 
+  function updateHiddenDateFields() {
+    const sorted = Array.from(selectedDates.keys()).sort();
+    document.getElementById('startDate').value = sorted[0]                   || '';
+    document.getElementById('endDate').value   = sorted[sorted.length - 1]  || '';
+  }
+
+  function updateCalSummary() {
+    const el = document.getElementById('calSummary');
+    if (!el) return;
+    const total = selectedDates.size;
+    if (total === 0) { el.textContent = '日程が選択されていません'; return; }
+    let wd = 0, sat = 0, sun = 0;
+    selectedDates.forEach(t => { if (t === 'weekday') wd++; else if (t === 'saturday') sat++; else sun++; });
+    const parts = [];
+    if (wd)  parts.push('平日 '  + wd  + '日');
+    if (sat) parts.push('土曜 ' + sat + '日');
+    if (sun) parts.push('日祝 ' + sun + '日');
+    el.textContent = total + '日選択中（' + parts.join('・') + '）';
+  }
+
+  // ── カレンダー描画 ──
+  const _calNow = new Date();
+  let calViewYear  = _calNow.getFullYear();
+  let calViewMonth = _calNow.getMonth();
+
+  function renderMonthPanel(containerId, year, month) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const DOW_LABELS  = ['日','月','火','水','木','金','土'];
+    const MONTH_NAMES = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+    const firstDow    = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    let html = '<div class="cal-panel">';
+    html += '<div class="cal-panel-hd">' + year + '年 ' + MONTH_NAMES[month] + '</div>';
+    html += '<div class="cal-panel-body"><div class="cal-dows">';
+    DOW_LABELS.forEach(l => { html += '<div class="cal-dow-lbl">' + l + '</div>'; });
+    html += '</div><div class="cal-days-grid">';
+    for (let i = 0; i < firstDow; i++) html += '<div class="cal-d empty"></div>';
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dateStr = fmtDateStr(year, month, d);
+      const dow     = new Date(year, month, d).getDay();
+      const dayType = getDayTypeStr(dateStr, dow);
+      const isOn    = selectedDates.has(dateStr);
+      let cls = 'cal-d ';
+      if (isOn) {
+        cls += dayType === 'weekday' ? 'wd-on' : dayType === 'saturday' ? 'sat-on' : 'sun-on';
+      } else {
+        cls += dayType === 'weekday' ? 'wd-off' : dayType === 'saturday' ? 'sat-off' : 'sun-off';
+      }
+      html += '<div class="' + cls + '" onclick="toggleCalDate(\'' + dateStr + '\',\'' + dayType + '\')">' + d + '</div>';
+    }
+    html += '</div></div></div>';
+    container.innerHTML = html;
+  }
+
+  function renderCalendars() {
+    renderMonthPanel('calPanel0', calViewYear, calViewMonth);
+    let y2 = calViewYear, m2 = calViewMonth + 1;
+    if (m2 > 11) { m2 = 0; y2++; }
+    renderMonthPanel('calPanel1', y2, m2);
+    updateCalSummary();
+  }
+
+  // ── クリック：トグル ──
+  function toggleCalDate(dateStr, dayType) {
+    if (selectedDates.has(dateStr)) {
+      selectedDates.delete(dateStr);        // 選択済み→未選択（白）
+    } else {
+      selectedDates.set(dateStr, dayType);  // 未選択→選択（平日:青/土:黄/日祝:緑）
+    }
+    updateHiddenDateFields();
+    renderCalendars();
+    calcOrder();
+  }
+
+  // ── 一括選択 ──
+  function bulkSelectWeekdays(monthOffset) {
+    const base  = new Date();
+    const total = base.getMonth() + monthOffset;
+    const year  = base.getFullYear() + Math.floor(total / 12);
+    const month = ((total % 12) + 12) % 12;
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dateStr = fmtDateStr(year, month, d);
+      const dow     = new Date(year, month, d).getDay();
+      if (dow !== 0 && dow !== 6 && !HOLIDAYS.has(dateStr)) {
+        selectedDates.set(dateStr, 'weekday');
+      }
+    }
+    updateHiddenDateFields();
+    renderCalendars();
+    calcOrder();
+  }
+
+  // ── リセット ──
+  function resetAllDates() {
+    selectedDates.clear();
+    updateHiddenDateFields();
+    renderCalendars();
+    calcOrder();
+  }
+
+  // ── 概算料金計算 ──
   function calcOrder() {
     const shift   = (document.querySelector('input[name="勤務区分"]:checked') || {}).value || '日勤';
-    const startV  = document.getElementById('startDate').value;
-    const endV    = document.getElementById('endDate').value;
     const persons = Math.max(0, parseInt(document.getElementById('staffCount').value)    || 0);
     const ot      = Math.max(0, parseInt(document.getElementById('overtimeHours').value) || 0);
     const radios  = Math.max(0, parseInt(document.getElementById('radioCount').value)    || 0);
 
-    const days = countDayTypes(startV, endV);
+    let weekdays = 0, saturdays = 0, sundays = 0;
+    selectedDates.forEach(t => { if (t === 'weekday') weekdays++; else if (t === 'saturday') saturdays++; else sundays++; });
+    const totalDays = weekdays + saturdays + sundays;
+
     const placeholder = document.getElementById('oecPlaceholder');
     const result      = document.getElementById('oecResult');
 
-    if (!days || persons === 0) {
+    if (totalDays === 0 || persons === 0) {
       placeholder.style.display = 'block';
       result.style.display      = 'none';
+      const feeEl = document.getElementById('confirmedFee');
+      if (feeEl) feeEl.value = '';
       return;
     }
 
     const sk = shift === '夜勤' ? 'night' : 'day';
 
     const baseAmt =
-      PRICE_RATES.weekday.base[sk]  * days.weekdays  * persons +
-      PRICE_RATES.saturday.base[sk] * days.saturdays * persons +
-      PRICE_RATES.sunday.base[sk]   * days.sundays   * persons;
+      PRICE_RATES.weekday.base[sk]  * weekdays  * persons +
+      PRICE_RATES.saturday.base[sk] * saturdays * persons +
+      PRICE_RATES.sunday.base[sk]   * sundays   * persons;
 
     const otAmt =
-      PRICE_RATES.weekday.ot[sk]  * ot * days.weekdays  * persons +
-      PRICE_RATES.saturday.ot[sk] * ot * days.saturdays * persons +
-      PRICE_RATES.sunday.ot[sk]   * ot * days.sundays   * persons;
+      PRICE_RATES.weekday.ot[sk]  * ot * weekdays  * persons +
+      PRICE_RATES.saturday.ot[sk] * ot * saturdays * persons +
+      PRICE_RATES.sunday.ot[sk]   * ot * sundays   * persons;
 
-    const radioAmt = 500 * radios * days.total;
+    const radioAmt = 500 * radios * totalDays;
     const subtotal = baseAmt + otAmt + radioAmt;
     const tax      = Math.floor(subtotal * 0.1);
     const totalAmt = subtotal + tax;
@@ -1119,20 +1280,19 @@
     if (feeEl) feeEl.value = subtotal;
     autoSetOvertimeRate();
 
-    // 期間サマリ
     const breakdown = [];
-    if (days.weekdays)  breakdown.push('平日 ' + days.weekdays  + '日');
-    if (days.saturdays) breakdown.push('土曜 ' + days.saturdays + '日');
-    if (days.sundays)   breakdown.push('日祝 ' + days.sundays   + '日');
+    if (weekdays)  breakdown.push('平日 '  + weekdays  + '日');
+    if (saturdays) breakdown.push('土曜 ' + saturdays + '日');
+    if (sundays)   breakdown.push('日祝 ' + sundays   + '日');
     document.getElementById('oecPeriod').innerHTML =
-      '<span class="pv">' + days.total + '日間</span>' +
+      '<span class="pv">' + totalDays + '日間</span>' +
       (breakdown.length ? '（' + breakdown.join('・') + '）' : '') +
       ' ／ <span class="pv">' + persons + '名</span> ／ <span class="pv">' + shift + '</span>';
 
-    document.getElementById('oecBase').textContent     = fmt(baseAmt)  + ' 円';
+    document.getElementById('oecBase').textContent = fmt(baseAmt) + ' 円';
     const otEl = document.getElementById('oecOT');
     otEl.textContent = fmt(otAmt) + ' 円';
-    otEl.className   = 'rv' + (otAmt   === 0 ? ' muted' : '');
+    otEl.className   = 'rv' + (otAmt    === 0 ? ' muted' : '');
     const radioEl = document.getElementById('oecRadio');
     radioEl.textContent = fmt(radioAmt) + ' 円';
     radioEl.className   = 'rv' + (radioAmt === 0 ? ' muted' : '');
@@ -1145,80 +1305,19 @@
 
     placeholder.style.display = 'none';
     result.style.display      = 'block';
-
-    renderCalendar();
   }
 
   function autoSetOvertimeRate() {
-    const startV = document.getElementById('startDate').value;
-    const shift  = (document.querySelector('input[name="勤務区分"]:checked') || {}).value || '日勤';
+    const shift = (document.querySelector('input[name="勤務区分"]:checked') || {}).value || '日勤';
     const sk = shift === '夜勤' ? 'night' : 'day';
     let rate = PRICE_RATES.weekday.ot[sk];
-    if (startV) {
-      const d = new Date(startV + 'T00:00:00');
-      const type = getDayType(d, startV);
-      rate = PRICE_RATES[type].ot[sk];
+    if (selectedDates.size > 0) {
+      const firstType = selectedDates.get(Array.from(selectedDates.keys()).sort()[0]);
+      if (firstType === 'saturday') rate = PRICE_RATES.saturday.ot[sk];
+      else if (firstType === 'sunday')   rate = PRICE_RATES.sunday.ot[sk];
     }
     const el = document.getElementById('overtimeRate');
     if (el) el.value = rate;
-  }
-
-  function renderCalendar() {
-    const startV  = document.getElementById('startDate').value;
-    const endV    = document.getElementById('endDate').value;
-    const shift   = (document.querySelector('input[name="勤務区分"]:checked') || {}).value || '日勤';
-    const wrap    = document.getElementById('calendarWrap');
-    const content = document.getElementById('calendarContent');
-
-    if (!startV || !endV || endV < startV) {
-      wrap.style.display = 'none';
-      return;
-    }
-
-    const isNight = shift === '夜勤';
-    const start = new Date(startV + 'T00:00:00');
-    const end   = new Date(endV   + 'T00:00:00');
-    const DOW   = ['日','月','火','水','木','金','土'];
-
-    const months = {};
-    const cur = new Date(start);
-    while (cur <= end) {
-      const dateStr = cur.toISOString().slice(0, 10);
-      const yr = cur.getFullYear(), mo = cur.getMonth();
-      const key = yr + '-' + String(mo + 1).padStart(2, '0');
-      if (!months[key]) months[key] = { yr, mo, dayMap: {} };
-      months[key].dayMap[cur.getDate()] = getDayType(cur, dateStr);
-      cur.setDate(cur.getDate() + 1);
-    }
-
-    const CLASS = {
-      weekday:  isNight ? 'cd-wdn'  : 'cd-wd',
-      saturday: isNight ? 'cd-satn' : 'cd-sat',
-      sunday:   isNight ? 'cd-sunn' : 'cd-sun'
-    };
-
-    let html = '';
-    for (const key of Object.keys(months).sort()) {
-      const { yr, mo, dayMap } = months[key];
-      const firstDow   = new Date(yr, mo, 1).getDay();
-      const daysInMonth = new Date(yr, mo + 1, 0).getDate();
-      html += '<div class="cal-month">';
-      html += '<div class="cal-month-title">' + yr + '年' + (mo + 1) + '月</div>';
-      html += '<div class="cal-grid">';
-      DOW.forEach(l => { html += '<div class="cal-dow">' + l + '</div>'; });
-      for (let i = 0; i < firstDow; i++) html += '<div class="cal-cell empty"></div>';
-      for (let d = 1; d <= daysInMonth; d++) {
-        if (dayMap[d]) {
-          html += '<div class="cal-cell ' + CLASS[dayMap[d]] + '">' + d + '</div>';
-        } else {
-          html += '<div class="cal-cell empty">' + d + '</div>';
-        }
-      }
-      html += '</div></div>';
-    }
-
-    content.innerHTML = html;
-    wrap.style.display = 'block';
   }
 
   // ── ステッパーヘルパー ──
@@ -1258,14 +1357,13 @@
   // 契約締結日の初期値（今日）
   document.getElementById('contractDate').value = new Date().toISOString().slice(0, 10);
 
-  // 計算トリガー
-  ['startDate','endDate'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener('input', calcOrder);
-  });
+  // 計算トリガー（勤務区分変更で再計算）
   document.querySelectorAll('input[name="勤務区分"]').forEach(r => {
     r.addEventListener('change', calcOrder);
   });
+
+  // カレンダー初期化
+  renderCalendars();
 
   // ── ハンバーガーメニュー ──
   const ham     = document.getElementById('hamburger');
