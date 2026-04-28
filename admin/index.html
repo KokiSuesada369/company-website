@@ -30,9 +30,7 @@
       min-height: 100vh;
     }
 
-    /* ─────────────────────────────────────────
-       LOGIN SCREEN
-    ───────────────────────────────────────── */
+    /* ─── LOGIN ─── */
     #loginWrap {
       min-height: 100vh;
       display: flex;
@@ -50,310 +48,187 @@
       box-shadow: 0 12px 40px rgba(0,0,0,.25);
       text-align: center;
     }
-    .login-logo {
-      height: 48px;
-      margin-bottom: 20px;
-      object-fit: contain;
-    }
-    .login-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 6px;
-    }
-    .login-sub {
-      font-size: .82rem;
-      color: var(--muted);
-      margin-bottom: 32px;
-    }
+    .login-logo { height: 48px; margin-bottom: 20px; object-fit: contain; }
+    .login-title { font-size: 1.2rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .login-sub { font-size: .82rem; color: var(--muted); margin-bottom: 32px; }
     .login-card label {
-      display: block;
-      font-size: .82rem;
-      font-weight: 600;
-      color: var(--navy);
-      text-align: left;
-      margin-bottom: 6px;
+      display: block; font-size: .82rem; font-weight: 600;
+      color: var(--navy); text-align: left; margin-bottom: 6px;
     }
     .login-card input[type="password"] {
-      width: 100%;
-      padding: 11px 14px;
-      border: 2px solid var(--border);
-      border-radius: var(--radius);
-      font-size: .95rem;
-      outline: none;
-      transition: border-color .15s;
-      margin-bottom: 12px;
+      width: 100%; padding: 11px 14px;
+      border: 2px solid var(--border); border-radius: var(--radius);
+      font-size: .95rem; outline: none; transition: border-color .15s; margin-bottom: 12px;
     }
     .login-card input[type="password"]:focus { border-color: var(--navy); }
-    .login-err {
-      font-size: .82rem;
-      color: #dc2626;
-      min-height: 20px;
-      margin-bottom: 8px;
-      text-align: left;
-    }
+    .login-err { font-size: .82rem; color: #dc2626; min-height: 20px; margin-bottom: 8px; text-align: left; }
     .btn-login {
-      width: 100%;
-      padding: 13px;
-      background: var(--navy);
-      color: #fff;
-      border: none;
-      border-radius: var(--radius);
-      font-size: .95rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background .15s;
+      width: 100%; padding: 13px; background: var(--navy); color: #fff;
+      border: none; border-radius: var(--radius); font-size: .95rem;
+      font-weight: 700; cursor: pointer; transition: background .15s;
     }
     .btn-login:hover { background: var(--navy2); }
 
-    /* ─────────────────────────────────────────
-       ADMIN LAYOUT
-    ───────────────────────────────────────── */
+    /* ─── ADMIN LAYOUT ─── */
     #adminWrap { display: none; }
 
     .admin-header {
-      background: var(--navy);
-      color: #fff;
-      padding: 0 28px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
+      background: var(--navy); color: #fff;
+      padding: 0 28px; height: 60px;
+      display: flex; align-items: center; gap: 16px;
       box-shadow: 0 2px 8px rgba(0,0,0,.2);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      position: sticky; top: 0; z-index: 100;
     }
-    .admin-logo {
-      height: 34px;
-      object-fit: contain;
-      filter: brightness(10);
-    }
-    .admin-header-title {
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: .04em;
-      flex: 1;
-    }
+    .admin-logo { height: 34px; object-fit: contain; filter: brightness(10); }
+    .admin-header-title { font-size: 1rem; font-weight: 700; letter-spacing: .04em; flex: 1; }
     .btn-logout {
-      padding: 7px 18px;
-      background: rgba(255,255,255,.12);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,.25);
-      border-radius: var(--radius);
-      font-size: .82rem;
-      cursor: pointer;
-      transition: background .15s;
+      padding: 7px 18px; background: rgba(255,255,255,.12); color: #fff;
+      border: 1px solid rgba(255,255,255,.25); border-radius: var(--radius);
+      font-size: .82rem; cursor: pointer; transition: background .15s;
     }
     .btn-logout:hover { background: rgba(255,255,255,.22); }
 
-    .admin-body {
-      max-width: 1200px;
-      margin: 32px auto;
-      padding: 0 24px;
+    .admin-body { max-width: 1280px; margin: 28px auto; padding: 0 24px; }
+
+    /* ─── TOOLBAR ─── */
+    .toolbar {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 18px; flex-wrap: wrap;
     }
+    .btn-new-contract {
+      padding: 10px 22px; background: var(--gold); color: #fff;
+      border: none; border-radius: var(--radius);
+      font-size: .88rem; font-weight: 700; cursor: pointer;
+      transition: background .15s; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-new-contract:hover { background: var(--gold2); }
+    .btn-refresh {
+      padding: 10px 18px; background: var(--white); color: var(--navy);
+      border: 2px solid var(--navy); border-radius: var(--radius);
+      font-size: .88rem; font-weight: 700; cursor: pointer;
+      transition: background .15s, color .15s; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-refresh:hover { background: var(--navy); color: #fff; }
 
     .section-heading {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      font-size: 1.1rem; font-weight: 700; color: var(--navy);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
     }
-    .section-heading::after {
-      content: '';
-      flex: 1;
-      height: 2px;
-      background: var(--border);
-    }
+    .section-heading::after { content: ''; flex: 1; height: 2px; background: var(--border); }
 
-    .demo-notice {
-      background: #fef9c3;
-      border: 1px solid #fde68a;
-      border-radius: var(--radius);
-      padding: 10px 16px;
-      font-size: .82rem;
-      color: #92400e;
-      margin-bottom: 18px;
+    /* ─── STATUS MESSAGE ─── */
+    .msg-loading, .msg-error {
+      padding: 16px 20px; border-radius: var(--radius);
+      font-size: .88rem; font-weight: 600; margin-bottom: 14px;
     }
+    .msg-loading { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+    .msg-error   { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
 
-    /* ─────────────────────────────────────────
-       ORDERS TABLE
-    ───────────────────────────────────────── */
+    /* ─── TABLE ─── */
     .table-wrap {
-      background: var(--white);
-      border-radius: 12px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
+      background: var(--white); border-radius: 12px;
+      box-shadow: var(--shadow); overflow-x: auto;
     }
-    .orders-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
+    .orders-table { width: 100%; border-collapse: collapse; min-width: 700px; }
     .orders-table thead th {
-      background: var(--navy);
-      color: #fff;
-      padding: 12px 14px;
-      text-align: left;
-      font-size: .82rem;
-      font-weight: 700;
-      white-space: nowrap;
-      letter-spacing: .03em;
+      background: var(--navy); color: #fff;
+      padding: 12px 14px; text-align: left;
+      font-size: .82rem; font-weight: 700;
+      white-space: nowrap; letter-spacing: .03em;
     }
-    .orders-table tbody tr {
-      border-bottom: 1px solid var(--border);
-      transition: background .1s;
-    }
+    .orders-table tbody tr { border-bottom: 1px solid var(--border); transition: filter .1s; }
     .orders-table tbody tr:last-child { border-bottom: none; }
-    .orders-table tbody tr:hover { background: #f8f9fb; }
-    .orders-table td {
-      padding: 13px 14px;
-      vertical-align: middle;
-      font-size: .88rem;
-    }
+    .orders-table tbody tr:hover { filter: brightness(.97); }
+    .orders-table td { padding: 10px 14px; vertical-align: middle; font-size: .87rem; }
 
-    /* ステータスバッジ */
-    .badge {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-size: .78rem;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-    .badge-new        { background: #fee2e2; color: #b91c1c; }
-    .badge-checked    { background: #dbeafe; color: #1d4ed8; }
-    .badge-arranged   { background: #d1fae5; color: #065f46; }
-    .badge-contracted { background: #ede9fe; color: #5b21b6; }
+    /* ステータスで行の背景色 */
+    tr.st-未確認       { background: #ffffff; }
+    tr.st-確認済       { background: #eff6ff; }
+    tr.st-手配完了     { background: #f0fdf4; }
+    tr.st-契約書作成済 { background: #f3f4f6; }
 
+    /* インラインステータスドロップダウン */
+    .status-select-sm {
+      padding: 5px 8px; border: 2px solid var(--border);
+      border-radius: 6px; font-size: .82rem; color: var(--navy);
+      font-weight: 600; cursor: pointer; outline: none;
+      background: #fff; max-width: 120px;
+    }
+    .status-select-sm:focus { border-color: var(--navy); }
+
+    /* アクションセル */
+    .action-cell { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
     .btn-detail {
-      padding: 6px 16px;
-      background: var(--navy);
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      font-size: .82rem;
-      font-weight: 700;
-      cursor: pointer;
+      padding: 5px 12px; background: var(--navy); color: #fff;
+      border: none; border-radius: 6px; font-size: .8rem;
+      font-weight: 700; cursor: pointer; white-space: nowrap;
       transition: background .15s;
     }
     .btn-detail:hover { background: var(--navy2); }
+    .btn-contract-sm {
+      padding: 5px 12px; background: var(--gold); color: #fff;
+      border: none; border-radius: 6px; font-size: .8rem;
+      font-weight: 700; text-decoration: none; white-space: nowrap;
+      display: inline-block; transition: background .15s; cursor: pointer;
+    }
+    .btn-contract-sm:hover { background: var(--gold2); }
 
-    /* ─────────────────────────────────────────
-       DETAIL MODAL
-    ───────────────────────────────────────── */
+    /* ─── DETAIL MODAL ─── */
     .overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.45);
-      z-index: 200;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 32px 16px;
-      overflow-y: auto;
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.45); z-index: 200;
+      align-items: flex-start; justify-content: center;
+      padding: 32px 16px; overflow-y: auto;
     }
     .overlay.open { display: flex; }
-
     .detail-modal {
-      background: var(--white);
-      border-radius: 14px;
-      width: 100%;
-      max-width: 720px;
+      background: var(--white); border-radius: 14px;
+      width: 100%; max-width: 720px;
       box-shadow: 0 20px 60px rgba(0,0,0,.3);
-      overflow: hidden;
-      margin: auto;
+      overflow: hidden; margin: auto;
     }
     .detail-head {
-      background: var(--navy);
-      color: #fff;
+      background: var(--navy); color: #fff;
       padding: 18px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: flex; justify-content: space-between; align-items: center;
     }
     .detail-head h2 { font-size: 1rem; font-weight: 700; }
     .btn-close {
-      background: rgba(255,255,255,.15);
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      width: 32px;
-      height: 32px;
-      font-size: 1rem;
-      cursor: pointer;
+      background: rgba(255,255,255,.15); color: #fff;
+      border: none; border-radius: 6px;
+      width: 32px; height: 32px; font-size: 1rem; cursor: pointer;
     }
     .btn-close:hover { background: rgba(255,255,255,.28); }
-
     .detail-body { padding: 24px; }
-
     .detail-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      margin-bottom: 20px;
-    }
-    .detail-row {
-      display: contents;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; border: 1px solid var(--border);
+      border-radius: 8px; overflow: hidden; margin-bottom: 20px;
     }
     .detail-label {
-      background: #f3f5f9;
-      padding: 9px 14px;
-      font-size: .8rem;
-      font-weight: 700;
-      color: var(--navy);
+      background: #f3f5f9; padding: 9px 14px;
+      font-size: .8rem; font-weight: 700; color: var(--navy);
       border-bottom: 1px solid var(--border);
     }
     .detail-val {
-      padding: 9px 14px;
-      font-size: .88rem;
+      padding: 9px 14px; font-size: .88rem;
       border-bottom: 1px solid var(--border);
-      border-left: 1px solid var(--border);
-      word-break: break-all;
+      border-left: 1px solid var(--border); word-break: break-all;
     }
     .detail-label:last-of-type,
     .detail-val:last-of-type { border-bottom: none; }
-
     .detail-actions {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      padding-top: 4px;
+      display: flex; align-items: center; gap: 14px;
+      flex-wrap: wrap; padding-top: 4px;
     }
-    .status-select {
-      padding: 9px 14px;
-      border: 2px solid var(--border);
-      border-radius: var(--radius);
-      font-size: .88rem;
-      color: var(--navy);
-      font-weight: 600;
-      cursor: pointer;
-      outline: none;
+    .btn-contract-lg {
+      padding: 10px 24px; background: var(--gold); color: #fff;
+      border: none; border-radius: var(--radius);
+      font-size: .9rem; font-weight: 700; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 6px;
+      cursor: pointer; transition: background .15s;
     }
-    .status-select:focus { border-color: var(--navy); }
-
-    .btn-contract {
-      padding: 10px 24px;
-      background: var(--gold);
-      color: #fff;
-      border: none;
-      border-radius: var(--radius);
-      font-size: .9rem;
-      font-weight: 700;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      transition: background .15s;
-    }
-    .btn-contract:hover { background: var(--gold2); }
+    .btn-contract-lg:hover { background: var(--gold2); }
 
     @media (max-width: 680px) {
       .orders-table thead th:nth-child(4),
@@ -388,10 +263,18 @@
   </header>
 
   <div class="admin-body">
-    <div class="section-heading">依頼一覧</div>
-    <div class="demo-notice">
-      ※ このページはデモ表示です。サンプルデータ3件を表示しています。実際のFormspreeデータには接続されていません。
+    <div class="toolbar">
+      <button class="btn-new-contract" onclick="openNewContract()">📄 新規契約書を手動作成</button>
+      <button class="btn-refresh" onclick="loadOrders()">🔄 更新</button>
     </div>
+
+    <div class="section-heading">依頼一覧</div>
+
+    <div class="msg-loading" id="msgLoading" style="display:none">データを取得中...</div>
+    <div class="msg-error"   id="msgError"   style="display:none">
+      データの取得に失敗しました。ネットワーク接続を確認して「更新」ボタンを押してください。
+    </div>
+
     <div class="table-wrap">
       <table class="orders-table">
         <thead>
@@ -423,122 +306,229 @@
 </div>
 
 <script>
-  // ── 定数 ──
+  const GAS_URL  = 'https://script.google.com/macros/s/AKfycbxAIcflhTwYbWPOPjaGauiQPN8fr80h176098NaFGQFUpdEsQ6FM2Putccvdedue2Rz/exec';
   const PASS     = 'saizen2024';
   const AUTH_KEY = 'saizen_admin_auth';
-  const STAT_KEY = 'saizen_order_statuses';
-
-  // ── サンプルデータ ──
-  const ORDERS = [
-    {
-      id: 'ORD-001',
-      receivedAt: '2026-04-25 09:15',
-      company:    '山田建設株式会社',
-      contact:    '山田 太郎',
-      phone:      '082-555-1234',
-      email:      'yamada@yamada-const.co.jp',
-      zip:        '733-0011',
-      site:       '横川駅前道路工事現場',
-      address:    '広島市西区横川町1丁目5-3',
-      guardType:  '交通誘導警備',
-      startDate:  '2026-05-01',
-      endDate:    '2026-05-10',
-      startTime:  '08:00',
-      endTime:    '17:00',
-      shift:      '日勤',
-      staff:      '2',
-      ot:         '0',
-      radios:     '2',
-      fee:        '360000',
-      otRate:     '2900',
-      equip:      '必要',
-      cones:      '10',
-      lights:     '5',
-      signs:      '2',
-      radiosEquip:'2',
-      otherEquip: '',
-      special:    '',
-      contractDate:'2026-04-30',
-      defaultStatus: '未確認'
-    },
-    {
-      id: 'ORD-002',
-      receivedAt: '2026-04-24 14:30',
-      company:    '株式会社大和建設',
-      contact:    '佐藤 花子',
-      phone:      '082-444-5678',
-      email:      'sato@yamato-const.co.jp',
-      zip:        '730-0051',
-      site:       '己斐跨線橋改修工事',
-      address:    '広島市西区己斐上3丁目10-1',
-      guardType:  '交通誘導警備',
-      startDate:  '2026-05-15',
-      endDate:    '2026-05-20',
-      startTime:  '07:00',
-      endTime:    '18:00',
-      shift:      '日勤',
-      staff:      '3',
-      ot:         '1',
-      radios:     '3',
-      fee:        '405000',
-      otRate:     '2900',
-      equip:      '必要',
-      cones:      '20',
-      lights:     '10',
-      signs:      '4',
-      radiosEquip:'3',
-      otherEquip: '反射ベスト',
-      special:    '夜間工事の可能性あり。追加人員について事前協議が必要。',
-      contractDate:'2026-05-10',
-      defaultStatus: '確認済'
-    },
-    {
-      id: 'ORD-003',
-      receivedAt: '2026-04-23 11:00',
-      company:    '広島土木株式会社',
-      contact:    '田中 一郎',
-      phone:      '082-333-9012',
-      email:      'tanaka@hiroshima-doboku.co.jp',
-      zip:        '732-0822',
-      site:       '広島駅北口整備工事',
-      address:    '広島市南区松原町2-37',
-      guardType:  '交通誘導警備',
-      startDate:  '2026-04-28',
-      endDate:    '2026-04-28',
-      startTime:  '09:00',
-      endTime:    '18:00',
-      shift:      '日勤',
-      staff:      '1',
-      ot:         '0',
-      radios:     '0',
-      fee:        '18000',
-      otRate:     '2900',
-      equip:      '不要',
-      cones:      '0',
-      lights:     '0',
-      signs:      '0',
-      radiosEquip:'0',
-      otherEquip: '',
-      special:    '',
-      contractDate:'2026-04-25',
-      defaultStatus: '手配完了'
-    }
-  ];
 
   const STATUS_LIST = ['未確認', '確認済', '手配完了', '契約書作成済'];
-  const STATUS_CLASS = { '未確認': 'new', '確認済': 'checked', '手配完了': 'arranged', '契約書作成済': 'contracted' };
 
-  // ── ステータス管理 ──
-  function getStatuses() {
-    try { return JSON.parse(localStorage.getItem(STAT_KEY) || '{}'); } catch { return {}; }
+  // GASから返るキー名（フォームのname属性）→ 内部キー名のマッピング
+  const FIELD_MAP = {
+    '受付日時':             'receivedAt',
+    '会社名':               'company',
+    '担当者名':             'contact',
+    '電話番号':             'phone',
+    'email':                'email',
+    '現場郵便番号':         'zip',
+    '現場名':               'site',
+    '現場住所':             'address',
+    '警備種別':             'guardType',
+    '警備開始日':           'startDate',
+    '警備終了日':           'endDate',
+    '開始時刻':             'startTime',
+    '終了時刻':             'endTime',
+    '勤務区分':             'shift',
+    '必要人数':             'staff',
+    '残業見込み時間':       'ot',
+    '無線機台数':           'radios',
+    '確定警備料金（税抜）': 'fee',
+    '残業単価（税抜）':     'otRate',
+    '備考':                 'notes',
+    '資機材準備':           'equip',
+    'カラーコーン（個）':   'cones',
+    '保安灯・点滅灯（個）': 'lights',
+    '矢印板（枚）':         'signs',
+    '無線機（台）':         'radiosEquip',
+    'その他資機材':         'otherEquip',
+    '特約事項':             'special',
+    '契約締結日':           'contractDate',
+    'ステータス':           'status',
+    'rowIndex':             'rowIndex',
+  };
+
+  let orders = []; // 取得済みデータ
+
+  // ── データ取得 ──
+  async function loadOrders() {
+    document.getElementById('msgLoading').style.display = 'block';
+    document.getElementById('msgError').style.display   = 'none';
+    document.getElementById('ordersBody').innerHTML = '';
+
+    try {
+      const res = await fetch(GAS_URL);
+      const raw = await res.json();
+      const rows = Array.isArray(raw) ? raw : (raw.orders || []);
+
+      // 日本語キー → 内部キーに変換
+      orders = rows.map((row, idx) => {
+        const o = { _arrayIdx: idx };
+        Object.entries(row).forEach(([k, v]) => {
+          const mapped = FIELD_MAP[k];
+          o[mapped !== undefined ? mapped : k] = v;
+        });
+        // rowIndex が返らない場合はスプレッドシートの行番号を推定（ヘッダー行=1, データ開始=2）
+        if (o.rowIndex === undefined) o.rowIndex = idx + 2;
+        return o;
+      });
+
+      renderTable();
+    } catch (_) {
+      document.getElementById('msgError').style.display = 'block';
+    } finally {
+      document.getElementById('msgLoading').style.display = 'none';
+    }
   }
-  function saveStatus(id, status) {
-    const s = getStatuses();
-    s[id] = status;
-    localStorage.setItem(STAT_KEY, JSON.stringify(s));
+
+  // ── テーブル描画 ──
+  function renderTable() {
+    const tbody = document.getElementById('ordersBody');
+    if (orders.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:32px;color:#6b7280;">依頼データがありません</td></tr>';
+      return;
+    }
+    tbody.innerHTML = orders.map((o, idx) => {
+      const st = o.status || '未確認';
+      const startDate = (o.startDate || '').replace(/-/g, '/');
+      const endDate   = (o.endDate   || '').replace(/-/g, '/');
+      const period = startDate + (endDate && endDate !== startDate ? ' ～ ' + endDate : '');
+      const statusOpts = STATUS_LIST.map(s =>
+        `<option value="${s}"${s === st ? ' selected' : ''}>${s}</option>`
+      ).join('');
+      const cls = 'st-' + st;
+      return `<tr class="${cls}" data-idx="${idx}">
+        <td style="white-space:nowrap">${o.receivedAt || '—'}</td>
+        <td>${o.company || '—'}</td>
+        <td>${o.site || '—'}</td>
+        <td style="white-space:nowrap">${period || '—'}</td>
+        <td style="text-align:center">${o.staff || '—'}名</td>
+        <td>
+          <select class="status-select-sm" onchange="changeStatus(${idx}, this.value)">
+            ${statusOpts}
+          </select>
+        </td>
+        <td>
+          <div class="action-cell">
+            <button class="btn-detail" onclick="openDetail(${idx})">詳細</button>
+            <a href="${buildContractUrl(o)}" target="_blank" class="btn-contract-sm">契約書</a>
+          </div>
+        </td>
+      </tr>`;
+    }).join('');
   }
-  function getStatus(order) {
-    return getStatuses()[order.id] || order.defaultStatus;
+
+  // ── ステータス変更 ──
+  async function changeStatus(idx, newStatus) {
+    orders[idx].status = newStatus;
+    const row = document.querySelector(`[data-idx="${idx}"]`);
+    if (row) {
+      row.className = 'st-' + newStatus;
+    }
+    // GASに保存（no-cors）
+    try {
+      await fetch(GAS_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({
+          action:   'updateStatus',
+          rowIndex: orders[idx].rowIndex,
+          status:   newStatus
+        })
+      });
+    } catch (_) {}
+  }
+
+  // ── 詳細モーダル ──
+  function openDetail(idx) {
+    const o = orders[idx];
+    const fmt = n => { const v = parseInt(n); return isNaN(v) ? (n || '—') : v.toLocaleString('ja-JP'); };
+
+    const rows = [
+      ['受付日時',             o.receivedAt],
+      ['会社名',               o.company],
+      ['担当者名',             o.contact],
+      ['電話番号',             o.phone],
+      ['メール',               o.email],
+      ['現場郵便番号',         o.zip],
+      ['現場名',               o.site],
+      ['現場住所',             o.address],
+      ['警備種別',             o.guardType],
+      ['警備開始日',           (o.startDate || '').replace(/-/g, '/')],
+      ['警備終了日',           (o.endDate   || '').replace(/-/g, '/')],
+      ['開始時刻',             o.startTime],
+      ['終了時刻',             o.endTime],
+      ['勤務区分',             o.shift],
+      ['必要人数',             o.staff ? o.staff + '名' : '—'],
+      ['残業見込み時間',       o.ot ? o.ot + '時間/人・日' : '0時間'],
+      ['無線機台数',           o.radios ? o.radios + '台' : '0台'],
+      ['確定警備料金（税抜）', o.fee   ? fmt(o.fee)   + '円' : '—'],
+      ['残業単価（税抜）',     o.otRate ? fmt(o.otRate) + '円/h' : '—'],
+      ['資機材準備',           o.equip],
+      ['カラーコーン',         o.cones      ? o.cones + '個'      : '0個'],
+      ['保安灯・点滅灯',       o.lights     ? o.lights + '個'     : '0個'],
+      ['矢印板',               o.signs      ? o.signs + '枚'      : '0枚'],
+      ['無線機（資機材）',     o.radiosEquip ? o.radiosEquip + '台' : '0台'],
+      ['その他資機材',         o.otherEquip || 'なし'],
+      ['備考',                 o.notes      || 'なし'],
+      ['特約事項',             o.special    || 'なし'],
+      ['契約締結日',           (o.contractDate || '').replace(/-/g, '/')],
+      ['ステータス',           o.status     || '未確認'],
+    ];
+
+    const gridHTML = rows.map(([label, val]) =>
+      `<div class="detail-label">${label}</div><div class="detail-val">${val || '—'}</div>`
+    ).join('');
+
+    document.getElementById('detailTitle').textContent = (o.company || '依頼') + '　詳細';
+    document.getElementById('detailBody').innerHTML = `
+      <div class="detail-grid">${gridHTML}</div>
+      <div class="detail-actions">
+        <a href="${buildContractUrl(o)}" target="_blank" class="btn-contract-lg">📄 契約書を作成する</a>
+      </div>
+    `;
+    document.getElementById('detailOverlay').classList.add('open');
+  }
+
+  function closeDetail(e) {
+    if (e && e.target !== document.getElementById('detailOverlay')) return;
+    document.getElementById('detailOverlay').classList.remove('open');
+  }
+
+  // ── 契約書URL構築 ──
+  function buildContractUrl(o) {
+    const params = new URLSearchParams({
+      company:     o.company      || '',
+      contact:     o.contact      || '',
+      phone:       o.phone        || '',
+      site:        o.site         || '',
+      zip:         o.zip          || '',
+      address:     o.address      || '',
+      guardType:   o.guardType    || '',
+      startDate:   o.startDate    || '',
+      endDate:     o.endDate      || '',
+      startTime:   o.startTime    || '',
+      endTime:     o.endTime      || '',
+      shift:       o.shift        || '',
+      staff:       o.staff        || '',
+      ot:          o.ot           || '',
+      radios:      o.radios       || '',
+      fee:         o.fee          || '',
+      otRate:      o.otRate       || '',
+      equip:       o.equip        || '',
+      cones:       o.cones        || '',
+      lights:      o.lights       || '',
+      signs:       o.signs        || '',
+      radiosEquip: o.radiosEquip  || '',
+      otherEquip:  o.otherEquip   || '',
+      special:     o.special      || '',
+      contractDate:o.contractDate || ''
+    });
+    return '/contract/?' + params.toString();
+  }
+
+  // ── 新規契約書（空） ──
+  function openNewContract() {
+    window.open('/contract/', '_blank');
   }
 
   // ── 認証 ──
@@ -559,145 +549,10 @@
   function showAdmin() {
     document.getElementById('loginWrap').style.display = 'none';
     document.getElementById('adminWrap').style.display = 'block';
-    renderTable();
+    loadOrders();
   }
 
-  // ── テーブル描画 ──
-  function renderTable() {
-    const tbody = document.getElementById('ordersBody');
-    tbody.innerHTML = ORDERS.map(o => {
-      const st  = getStatus(o);
-      const cls = STATUS_CLASS[st] || 'new';
-      const period = o.startDate.replace(/-/g, '/') + (o.startDate !== o.endDate ? ' ～ ' + o.endDate.replace(/-/g, '/') : '');
-      return `<tr>
-        <td>${o.receivedAt}</td>
-        <td>${o.company}</td>
-        <td>${o.site}</td>
-        <td>${period}</td>
-        <td>${o.staff}名</td>
-        <td><span class="badge badge-${cls}">${st}</span></td>
-        <td><button class="btn-detail" onclick="openDetail('${o.id}')">詳細</button></td>
-      </tr>`;
-    }).join('');
-  }
-
-  // ── 詳細モーダル ──
-  function openDetail(id) {
-    const o = ORDERS.find(x => x.id === id);
-    if (!o) return;
-    const st = getStatus(o);
-
-    const equipDetail = (() => {
-      if (o.equip !== '必要') return '不要';
-      const parts = [];
-      if (+o.cones       > 0) parts.push('カラーコーン ' + o.cones + '個');
-      if (+o.lights      > 0) parts.push('保安灯・点滅灯 ' + o.lights + '個');
-      if (+o.signs       > 0) parts.push('矢印板 ' + o.signs + '枚');
-      if (+o.radiosEquip > 0) parts.push('無線機 ' + o.radiosEquip + '台');
-      if (o.otherEquip)       parts.push(o.otherEquip);
-      return parts.length ? parts.join('、') : '必要（詳細未記入）';
-    })();
-
-    const fmt = n => parseInt(n || 0).toLocaleString('ja-JP');
-    const contractUrl = buildContractUrl(o);
-
-    const statusOptions = STATUS_LIST.map(s =>
-      `<option value="${s}"${s === st ? ' selected' : ''}>${s}</option>`
-    ).join('');
-
-    const rows = [
-      ['受付日時',         o.receivedAt],
-      ['会社名',           o.company],
-      ['担当者名',         o.contact],
-      ['電話番号',         o.phone],
-      ['メール',           o.email],
-      ['現場郵便番号',     o.zip],
-      ['現場名',           o.site],
-      ['現場住所',         o.address],
-      ['警備種別',         o.guardType],
-      ['警備開始日',       o.startDate.replace(/-/g,'/')],
-      ['警備終了日',       o.endDate.replace(/-/g,'/')],
-      ['開始時刻',         o.startTime],
-      ['終了時刻',         o.endTime],
-      ['勤務区分',         o.shift],
-      ['必要人数',         o.staff + '名'],
-      ['残業見込み時間',   o.ot + '時間/人・日'],
-      ['無線機台数',       o.radios + '台'],
-      ['確定警備料金（税抜）', fmt(o.fee) + '円'],
-      ['残業単価（税抜）', fmt(o.otRate) + '円/h'],
-      ['資機材の準備',     equipDetail],
-      ['特約事項',         o.special || 'なし'],
-      ['契約締結日',       o.contractDate.replace(/-/g,'/')],
-    ];
-
-    const gridHTML = rows.map(([label, val]) =>
-      `<div class="detail-label">${label}</div><div class="detail-val">${val || '—'}</div>`
-    ).join('');
-
-    document.getElementById('detailTitle').textContent = o.company + '　依頼詳細';
-    document.getElementById('detailBody').innerHTML = `
-      <div class="detail-grid">${gridHTML}</div>
-      <div class="detail-actions">
-        <div>
-          <label style="font-size:.78rem;font-weight:700;color:#374151;display:block;margin-bottom:5px;">ステータス変更</label>
-          <select class="status-select" id="statusSel_${id}" onchange="changeStatus('${id}')">
-            ${statusOptions}
-          </select>
-        </div>
-        <a href="${contractUrl}" target="_blank" class="btn-contract">📄 契約書を作成する</a>
-      </div>
-    `;
-
-    document.getElementById('detailOverlay').classList.add('open');
-  }
-
-  function closeDetail(e) {
-    if (e && e.target !== document.getElementById('detailOverlay')) return;
-    document.getElementById('detailOverlay').classList.remove('open');
-    renderTable();
-  }
-
-  function changeStatus(id) {
-    const sel = document.getElementById('statusSel_' + id);
-    if (sel) saveStatus(id, sel.value);
-  }
-
-  // ── 契約書URL構築 ──
-  function buildContractUrl(o) {
-    const params = new URLSearchParams({
-      company:     o.company,
-      contact:     o.contact,
-      phone:       o.phone,
-      site:        o.site,
-      zip:         o.zip,
-      address:     o.address,
-      guardType:   o.guardType,
-      startDate:   o.startDate,
-      endDate:     o.endDate,
-      startTime:   o.startTime,
-      endTime:     o.endTime,
-      shift:       o.shift,
-      staff:       o.staff,
-      ot:          o.ot,
-      radios:      o.radios,
-      fee:         o.fee,
-      otRate:      o.otRate,
-      equip:       o.equip,
-      cones:       o.cones,
-      lights:      o.lights,
-      signs:       o.signs,
-      radiosEquip: o.radiosEquip,
-      otherEquip:  o.otherEquip,
-      special:     o.special,
-      contractDate:o.contractDate
-    });
-    return '/contract/?' + params.toString();
-  }
-
-  // ── 初期化 ──
-  if (localStorage.getItem(AUTH_KEY) === '1') {
-    showAdmin();
-  }
+  if (localStorage.getItem(AUTH_KEY) === '1') showAdmin();
 </script>
 </body>
 </html>
