@@ -9,177 +9,142 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Noto Serif JP', 'Yu Mincho', 'YuMincho', '游明朝', serif;
-      font-size: 11px;
-      color: #111;
-      background: #e0e0e0;
-      padding: 24px 16px;
+      font-family: 'MS Mincho', 'MS 明朝', 'Yu Mincho', 'YuMincho', '游明朝', serif;
+      font-size: 10px;
+      color: #000;
+      background: #b8b8b8;
+      padding: 20px 12px;
     }
 
-    /* ── 画面ボタン ── */
+    /* ── 印刷ボタン ── */
     .screen-actions {
-      max-width: 860px;
-      margin: 0 auto 20px;
+      max-width: 794px;
+      margin: 0 auto 14px;
       display: flex;
-      gap: 14px;
+      gap: 12px;
     }
     .btn-print {
-      padding: 11px 32px;
+      padding: 9px 26px;
       border: none;
-      border-radius: 6px;
-      font-size: 14px;
+      border-radius: 5px;
+      font-size: 13px;
       font-weight: 700;
       cursor: pointer;
-      background: #1a2f5e;
       color: #fff;
-      font-family: inherit;
-      letter-spacing: 0.05em;
+      font-family: 'Noto Sans JP', sans-serif;
+      letter-spacing: 0.04em;
       transition: background .15s;
     }
-    .btn-print:hover { background: #263f7a; }
-    .btn-go { background: #7b1a1a; }
-    .btn-go:hover { background: #9c2222; }
+    .btn-mae { background: #1565c0; }
+    .btn-mae:hover { background: #1e88e5; }
+    .btn-go  { background: #1a2f5e; }
+    .btn-go:hover  { background: #253f7a; }
 
-    /* ── A4書面ページ ── */
+    /* ── A4書面ページ（画面プレビュー） ── */
     .doc-page {
-      max-width: 860px;
-      margin: 0 auto 44px;
+      max-width: 794px;
+      margin: 0 auto 36px;
       background: #fff;
-      padding: 16mm 17mm 13mm;
-      box-shadow: 0 4px 30px rgba(0,0,0,.20);
+      color: #000;
+      padding: 20mm 15mm;
+      box-shadow: 0 2px 18px rgba(0,0,0,.32);
     }
 
-    /* ── ページ最上部：タイトル + 日付 ── */
-    .doc-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 2px;
-    }
-    .doc-title-block {
-      flex: 1;
-      text-align: center;
-      padding-right: 16px;
-    }
+    /* ── ヘッダー ── */
     .doc-title {
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      margin-bottom: 4px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 3px;
+      letter-spacing: 0.04em;
     }
     .doc-subtitle {
-      font-size: 9.5px;
-      color: #444;
-      letter-spacing: 0.02em;
+      text-align: center;
+      font-size: 10px;
+      margin-bottom: 5px;
     }
     .doc-date {
-      font-size: 11px;
-      white-space: nowrap;
-      padding-top: 2px;
-      min-width: 130px;
       text-align: right;
+      font-size: 10px;
+      margin-bottom: 3px;
     }
-
-    /* ── 区切り線 ── */
     .doc-divider {
       border: none;
-      border-top: 2px solid #111;
-      margin: 10px 0 12px;
+      border-top: 1px solid #000;
+      margin: 4px 0 7px;
     }
-
-    /* ── 宛先 + 自社情報 ── */
-    .doc-info-row {
+    .doc-parties {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 14px;
+      margin-bottom: 8px;
     }
     .doc-recipient {
-      font-size: 14px;
-      font-weight: 700;
-      line-height: 2.1;
-      padding-top: 4px;
+      font-size: 11px;
+      font-weight: bold;
+      line-height: 2.0;
     }
     .doc-company-info {
       font-size: 10px;
-      line-height: 1.95;
       text-align: right;
-      color: #222;
+      line-height: 1.9;
     }
 
-    /* ── 主テーブル ── */
+    /* ── テーブル ── */
     .contract-table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 13px;
       font-size: 10px;
+      margin-bottom: 10px;
+      table-layout: fixed;
     }
-    .contract-table thead th {
-      background: #d2d9e8;
-      font-weight: 700;
-      text-align: center;
-      padding: 5px 6px;
-      border: 1px solid #888;
-      font-size: 10px;
-      letter-spacing: 0.04em;
-    }
-    .contract-table .col-no   { width: 30px; }
-    .contract-table .col-item { width: 152px; }
+    .col-left  { width: 35%; }
+    .col-right { width: 65%; }
 
-    .contract-table tbody td {
-      border: 1px solid #aaa;
-      padding: 3px 7px;
-      vertical-align: middle;
-      line-height: 1.6;
+    .contract-table th,
+    .contract-table td {
+      border: 1px solid #000;
+      padding: 2px 5px;
+      line-height: 1.55;
+      background: #fff;
+      color: #000;
     }
-    .contract-table tbody td.td-no {
+    .contract-table th {
       text-align: center;
-      font-weight: 700;
-      background: #f4f4f4;
-      color: #1a2f5e;
+      font-weight: bold;
       vertical-align: middle;
     }
-    .contract-table tbody td.td-item {
-      font-weight: 700;
-      background: #edf0f7;
-      font-size: 9.5px;
+    .contract-table td.td-left {
       vertical-align: middle;
     }
-    .contract-table tbody td.td-val {
+    .contract-table td.td-right {
       vertical-align: top;
+      overflow-wrap: break-word;
     }
+
+    /* 番号＋項目名の並べ方 */
+    .ii {
+      display: flex;
+      align-items: flex-start;
+      gap: 2px;
+    }
+    .ii-n {
+      flex-shrink: 0;
+      font-weight: bold;
+      min-width: 20px;
+      text-align: right;
+    }
+    .ii-t { flex: 1; }
 
     /* ── 確認欄 ── */
-    .confirm-area {
-      border: 1px solid #888;
-    }
     .confirm-statement {
-      padding: 6px 12px;
-      font-size: 11px;
-      font-weight: 700;
-      border-bottom: 1px solid #aaa;
-      letter-spacing: 0.04em;
+      font-size: 10px;
+      margin-bottom: 8px;
     }
-    .confirm-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-    .confirm-box {
-      padding: 8px 12px;
-      min-height: 52px;
-    }
-    .confirm-box + .confirm-box { border-left: 1px solid #aaa; }
-    .confirm-label {
-      font-size: 9px;
-      color: #666;
-      margin-bottom: 4px;
-    }
-    .confirm-value {
-      font-size: 11px;
-      min-height: 22px;
-      border-bottom: 1px solid #888;
-      padding-bottom: 2px;
-      padding-left: 2px;
+    .confirm-fields {
+      text-align: right;
+      font-size: 10px;
+      line-height: 2.5;
     }
 
     /* ── 印刷 ── */
@@ -187,40 +152,33 @@
       body {
         background: #fff;
         padding: 0;
-        font-size: 9pt;
+        color: #000;
       }
       .screen-actions { display: none !important; }
       .doc-page {
         max-width: none;
         width: 100%;
         margin: 0;
-        padding: 8mm 11mm 7mm;
+        padding: 0;
         box-shadow: none;
         page-break-after: always;
       }
       .doc-page:last-of-type { page-break-after: auto; }
-
       body.print-mae .doc-go { display: none !important; }
       body.print-go  .doc-mae { display: none !important; }
-
-      .contract-table { font-size: 8.5pt; }
-      .contract-table .col-item { width: 140px; }
-      .doc-title { font-size: 15pt; }
-      .doc-subtitle { font-size: 8pt; }
-      .confirm-statement { font-size: 9pt; }
     }
 
     @page {
       size: A4 portrait;
-      margin: 0;
+      margin: 20mm 15mm;
     }
   </style>
 </head>
 <body>
 
 <div class="screen-actions">
-  <button class="btn-print" onclick="doPrint('mae')">前書面を印刷</button>
-  <button class="btn-print btn-go" onclick="doPrint('go')">後書面を印刷</button>
+  <button class="btn-print btn-mae" onclick="doPrint('mae')">前書面を印刷</button>
+  <button class="btn-print btn-go"  onclick="doPrint('go')">後書面を印刷</button>
 </div>
 
 <!-- ==================================================
@@ -228,154 +186,121 @@
      ================================================== -->
 <div class="doc-page doc-mae">
 
-  <div class="doc-top">
-    <div class="doc-title-block">
-      <div class="doc-title">契約前書面（2号警備）</div>
-      <div class="doc-subtitle">契約の概要について記載した書面（警備業法第１９条、施行規則第３３条第１項第２号）</div>
-    </div>
-    <div class="doc-date" id="mae-date"></div>
-  </div>
-
+  <div class="doc-title">契約前書面（2号警備）</div>
+  <div class="doc-subtitle">契約の概要について記載した書面（警備業法第１９条、施行規則第３３条第１項第2号）</div>
+  <div class="doc-date" id="mae-date"></div>
   <hr class="doc-divider">
 
-  <div class="doc-info-row">
+  <div class="doc-parties">
     <div class="doc-recipient" id="mae-recipient"></div>
     <div class="doc-company-info">
-      広島県広島市西区横川町3丁目1-9-305　横川商店街ビルB棟<br>
+      広島県広島市西区横川町3丁目1-9-305 横川商店街ビルB棟<br>
       SAIZEN警備保障株式会社<br>
       末貞皓己<br>
-      TEL　05017254554
+      TEL 05017254554
     </div>
   </div>
 
   <table class="contract-table">
+    <colgroup>
+      <col class="col-left">
+      <col class="col-right">
+    </colgroup>
     <thead>
       <tr>
-        <th class="col-no">番号</th>
-        <th class="col-item">項目</th>
+        <th>項目</th>
         <th>内容</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td class="td-no">1</td>
-        <td class="td-item">業務内容</td>
-        <td class="td-val" id="mae-r1"></td>
+        <td class="td-left"><div class="ii"><span class="ii-n">1</span><span class="ii-t">業務内容</span></div></td>
+        <td class="td-right" id="mae-r1"></td>
       </tr>
       <tr>
-        <td class="td-no">2</td>
-        <td class="td-item">警備業務を行う期間</td>
-        <td class="td-val" id="mae-r2"></td>
+        <td class="td-left"><div class="ii"><span class="ii-n">2</span><span class="ii-t">警備業務を行う期間</span></div></td>
+        <td class="td-right" id="mae-r2"></td>
       </tr>
       <tr>
-        <td class="td-no">3</td>
-        <td class="td-item">警備業務を行う日及び時間帯</td>
-        <td class="td-val" id="mae-r3"></td>
+        <td class="td-left"><div class="ii"><span class="ii-n">3</span><span class="ii-t">警備業務を行う日及び時間帯</span></div></td>
+        <td class="td-right" id="mae-r3"></td>
       </tr>
       <tr>
-        <td class="td-no">4</td>
-        <td class="td-item">警備業務を行うこととする場所（郵便番号、都道府県、住所）</td>
-        <td class="td-val" id="mae-r4"></td>
+        <td class="td-left"><div class="ii"><span class="ii-n">4</span><span class="ii-t">警備業務を行うこととする場所（郵便番号、都道府県、住所）</span></div></td>
+        <td class="td-right" id="mae-r4"></td>
       </tr>
       <tr>
-        <td class="td-no">5</td>
-        <td class="td-item">警備員の人数及び担当業務</td>
-        <td class="td-val" id="mae-r5"></td>
+        <td class="td-left"><div class="ii"><span class="ii-n">5</span><span class="ii-t">警備員の人数及び担当業務</span></div></td>
+        <td class="td-right" id="mae-r5"></td>
       </tr>
       <tr>
-        <td class="td-no">6</td>
-        <td class="td-item">警備員が有する知識及び技能</td>
-        <td class="td-val">警備業務における新任教育もしくは現任教育を受講した者</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">6</span><span class="ii-t">警備員が有する知識及び技能</span></div></td>
+        <td class="td-right">警備業務における新任教育もしくは現任教育を受講した者</td>
       </tr>
       <tr>
-        <td class="td-no">7</td>
-        <td class="td-item">警備員が用いる服装</td>
-        <td class="td-val">当社指定の制服</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">7</span><span class="ii-t">警備員が用いる服装</span></div></td>
+        <td class="td-right">当社指定の制服</td>
       </tr>
       <tr>
-        <td class="td-no">8</td>
-        <td class="td-item">使用する機器又は各種資機材</td>
-        <td class="td-val" id="mae-r8"></td>
+        <td class="td-left"><div class="ii"><span class="ii-n">8</span><span class="ii-t">使用する機器又は各種資機材</span></div></td>
+        <td class="td-right" id="mae-r8"></td>
       </tr>
       <tr>
-        <td class="td-no">9</td>
-        <td class="td-item">負傷等の事故発生時の措置</td>
-        <td class="td-val">警備業務対象者の身辺の安全を第一とし、対象者を安全な場所へ避難させる等の措置を講じ、必要に応じて警察機関、依頼者へ即報する。</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">9</span><span class="ii-t">負傷等の事故発生時の措置</span></div></td>
+        <td class="td-right">警備業務対象者の身辺の安全を第一とし、対象者を安全な場所へ避難させる等の措置を講じ、必要に応じて警察機関、依頼者へ即報する。</td>
       </tr>
       <tr>
-        <td class="td-no">10</td>
-        <td class="td-item">報告の方法、頻度及び時期その他依頼者への報告</td>
-        <td class="td-val">電話、メール、その他、最も合理的かつ適当な手段・頻度にて連絡を行う</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">10</span><span class="ii-t">報告の方法、頻度及び時期<br>その他依頼者への報告</span></div></td>
+        <td class="td-right">電話、メール、その他、最も合理的かつ適当な手段・頻度にて連絡を行う</td>
       </tr>
       <tr>
-        <td class="td-no">11</td>
-        <td class="td-item">警備料金・その他費用（円/税抜き）</td>
-        <td class="td-val" id="mae-r11"></td>
+        <td class="td-left"><div class="ii"><span class="ii-n">11</span><span class="ii-t">警備料金・その他費用（円/税抜き）</span></div></td>
+        <td class="td-right" id="mae-r11"></td>
       </tr>
       <tr>
-        <td class="td-no">12</td>
-        <td class="td-item">支払の時期及び方法</td>
-        <td class="td-val">月末〆、翌月末支払い、銀行振込</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">12</span><span class="ii-t">支払の時期及び方法</span></div></td>
+        <td class="td-right">月末〆、翌月末支払い、銀行振込</td>
       </tr>
       <tr>
-        <td class="td-no">13</td>
-        <td class="td-item">警備業務の再委託に関する事項</td>
-        <td class="td-val">再委託はなし</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">13</span><span class="ii-t">警備業務の再委託に関する事項</span></div></td>
+        <td class="td-right">再委託はなし</td>
       </tr>
       <tr>
-        <td class="td-no">14</td>
-        <td class="td-item">免責に関する事項</td>
-        <td class="td-val">① 当社に帰すべき賠償責任の事由が無い場合　② 警備対象者によって発生した損害　③ 天災地変・公共交通機関の事故、その他貴社及び当社の責に帰することが出来ない事由により、本契約の目的を達成することが不可能となった場合</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">14</span><span class="ii-t">免責に関する<br>事項</span></div></td>
+        <td class="td-right">① 当社に帰すべき賠償責任の事由が無い場合<br>② 警備対象者によって発生した損害<br>③ 天災地変・公共交通機関の事故、その他貴社及び当社の責に帰することが出来ない事由により、本契約の目的を達成することが不可能となった場合</td>
       </tr>
       <tr>
-        <td class="td-no">15</td>
-        <td class="td-item">損害賠償の範囲、損害賠償額その他の損害賠償に関する事項</td>
-        <td class="td-val">弊社の責に帰すべき損害について、警備業務賠償責任保険に基づき、人的損害・物的損害併せて1事故につき1億円を限度として賠償する。</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">15</span><span class="ii-t">損害賠償の範囲、損害賠償額<br>その他の損害賠償に関する事項</span></div></td>
+        <td class="td-right">弊社の責に帰すべき損害について、警備業務賠償責任保険に基づき、人的損害・物的損害併せて1事故につき1億円を限度として賠償する。</td>
       </tr>
       <tr>
-        <td class="td-no">16</td>
-        <td class="td-item">契約の変更及び更新に関する事項</td>
-        <td class="td-val">協議の上、決定</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">16</span><span class="ii-t">契約の変更及び更新に関する事項</span></div></td>
+        <td class="td-right">協議の上、決定</td>
       </tr>
       <tr>
-        <td class="td-no">17</td>
-        <td class="td-item">契約の解除に関する事項</td>
-        <td class="td-val">協議の上、決定</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">17</span><span class="ii-t">契約の解除に関する事項</span></div></td>
+        <td class="td-right">協議の上、決定</td>
       </tr>
       <tr>
-        <td class="td-no">18</td>
-        <td class="td-item">警備業務に関する苦情の受付窓口</td>
-        <td class="td-val">08056241393</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">18</span><span class="ii-t">警備業務に関する苦情の受付窓口</span></div></td>
+        <td class="td-right">08056241393</td>
       </tr>
       <tr>
-        <td class="td-no">19</td>
-        <td class="td-item">残業時間１時間あたりの単価（円/税抜き）</td>
-        <td class="td-val" id="mae-r19"></td>
+        <td class="td-left"><div class="ii"><span class="ii-n">19</span><span class="ii-t">残業時間1時間あたりの<br>単価(円/税抜き)</span></div></td>
+        <td class="td-right" id="mae-r19"></td>
       </tr>
       <tr>
-        <td class="td-no">20</td>
-        <td class="td-item">特約事項</td>
-        <td class="td-val" id="mae-r20"></td>
+        <td class="td-left"><div class="ii"><span class="ii-n">20</span><span class="ii-t">特約事項</span></div></td>
+        <td class="td-right" id="mae-r20"></td>
       </tr>
     </tbody>
   </table>
 
-  <div class="confirm-area">
-    <div class="confirm-statement">上記の警備業務の契約の概要について確認しました。</div>
-    <div class="confirm-grid">
-      <div class="confirm-box">
-        <div class="confirm-label">日付</div>
-        <div class="confirm-value"></div>
-      </div>
-      <div class="confirm-box">
-        <div class="confirm-label">確認者</div>
-        <div class="confirm-value" id="mae-confirmer"></div>
-      </div>
-      <div class="confirm-box">
-        <div class="confirm-label">担当者</div>
-        <div class="confirm-value">末貞　皓己</div>
-      </div>
-    </div>
+  <div class="confirm-statement">上記の警備業務の契約の概要について確認しました。</div>
+  <div class="confirm-fields">
+    <div>日付：　　　　年　　　月　　　日</div>
+    <div>確認者：<span id="mae-confirmer"></span></div>
+    <div>担当者：末貞皓己</div>
   </div>
 
 </div><!-- /.doc-page.doc-mae -->
@@ -386,159 +311,125 @@
      ================================================== -->
 <div class="doc-page doc-go">
 
-  <div class="doc-top">
-    <div class="doc-title-block">
-      <div class="doc-title">契約後書面（2号警備）</div>
-      <div class="doc-subtitle">契約の概要について記載した書面（警備業法第１９条、施行規則第３３条第１項第２号）</div>
-    </div>
-    <div class="doc-date" id="go-date"></div>
-  </div>
-
+  <div class="doc-title">契約後書面（2号警備）</div>
+  <div class="doc-subtitle">契約の概要について記載した書面（警備業法第１９条、施行規則第３３条第１項第2号）</div>
+  <div class="doc-date" id="go-date"></div>
   <hr class="doc-divider">
 
-  <div class="doc-info-row">
+  <div class="doc-parties">
     <div class="doc-recipient" id="go-recipient"></div>
     <div class="doc-company-info">
-      広島県広島市西区横川町3丁目1-9-305　横川商店街ビルB棟<br>
+      広島県広島市西区横川町3丁目1-9-305 横川商店街ビルB棟<br>
       SAIZEN警備保障株式会社<br>
       末貞皓己<br>
-      TEL　05017254554
+      TEL 05017254554
     </div>
   </div>
 
   <table class="contract-table">
+    <colgroup>
+      <col class="col-left">
+      <col class="col-right">
+    </colgroup>
     <thead>
       <tr>
-        <th class="col-no">番号</th>
-        <th class="col-item">項目</th>
+        <th>項目</th>
         <th>内容</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td class="td-no">1</td>
-        <td class="td-item">業務内容</td>
-        <td class="td-val" id="go-r1"></td>
+        <td class="td-left"><div class="ii"><span class="ii-n">1</span><span class="ii-t">業務内容</span></div></td>
+        <td class="td-right" id="go-r1"></td>
       </tr>
       <tr>
-        <td class="td-no">2</td>
-        <td class="td-item">警備業務を行う期間</td>
-        <td class="td-val" id="go-r2"></td>
+        <td class="td-left"><div class="ii"><span class="ii-n">2</span><span class="ii-t">警備業務を行う期間</span></div></td>
+        <td class="td-right" id="go-r2"></td>
       </tr>
       <tr>
-        <td class="td-no">3</td>
-        <td class="td-item">警備業務を行う日及び時間帯</td>
-        <td class="td-val" id="go-r3"></td>
+        <td class="td-left"><div class="ii"><span class="ii-n">3</span><span class="ii-t">警備業務を行う日及び時間帯</span></div></td>
+        <td class="td-right" id="go-r3"></td>
       </tr>
       <tr>
-        <td class="td-no">4</td>
-        <td class="td-item">警備業務を行うこととする場所（郵便番号、都道府県、住所）</td>
-        <td class="td-val" id="go-r4"></td>
+        <td class="td-left"><div class="ii"><span class="ii-n">4</span><span class="ii-t">警備業務を行うこととする場所（郵便番号、都道府県、住所）</span></div></td>
+        <td class="td-right" id="go-r4"></td>
       </tr>
       <tr>
-        <td class="td-no">5</td>
-        <td class="td-item">警備員の人数及び担当業務</td>
-        <td class="td-val" id="go-r5"></td>
+        <td class="td-left"><div class="ii"><span class="ii-n">5</span><span class="ii-t">警備員の人数及び担当業務</span></div></td>
+        <td class="td-right" id="go-r5"></td>
       </tr>
       <tr>
-        <td class="td-no">6</td>
-        <td class="td-item">警備員が有する知識及び技能</td>
-        <td class="td-val">警備業務における新任教育もしくは現任教育を受講した者</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">6</span><span class="ii-t">警備員が有する知識及び技能</span></div></td>
+        <td class="td-right">警備業務における新任教育もしくは現任教育を受講した者</td>
       </tr>
       <tr>
-        <td class="td-no">7</td>
-        <td class="td-item">警備員が用いる服装</td>
-        <td class="td-val">当社指定の制服</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">7</span><span class="ii-t">警備員が用いる服装</span></div></td>
+        <td class="td-right">当社指定の制服</td>
       </tr>
       <tr>
-        <td class="td-no">8</td>
-        <td class="td-item">使用する機器又は各種資機材</td>
-        <td class="td-val" id="go-r8"></td>
+        <td class="td-left"><div class="ii"><span class="ii-n">8</span><span class="ii-t">使用する機器又は各種資機材</span></div></td>
+        <td class="td-right" id="go-r8"></td>
       </tr>
       <tr>
-        <td class="td-no">9</td>
-        <td class="td-item">負傷等の事故発生時の措置</td>
-        <td class="td-val">警備業務対象者の身辺の安全を第一とし、対象者を安全な場所へ避難させる等の措置を講じ、必要に応じて警察機関、依頼者へ即報する。</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">9</span><span class="ii-t">負傷等の事故発生時の措置</span></div></td>
+        <td class="td-right">警備業務対象者の身辺の安全を第一とし、対象者を安全な場所へ避難させる等の措置を講じ、必要に応じて警察機関、依頼者へ即報する。</td>
       </tr>
       <tr>
-        <td class="td-no">10</td>
-        <td class="td-item">報告の方法、頻度及び時期その他依頼者への報告</td>
-        <td class="td-val">電話、メール、その他、最も合理的かつ適当な手段・頻度にて連絡を行う</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">10</span><span class="ii-t">報告の方法、頻度及び時期<br>その他依頼者への報告</span></div></td>
+        <td class="td-right">電話、メール、その他、最も合理的かつ適当な手段・頻度にて連絡を行う</td>
       </tr>
       <tr>
-        <td class="td-no">11</td>
-        <td class="td-item">警備料金・その他費用（円/税抜き）</td>
-        <td class="td-val" id="go-r11"></td>
+        <td class="td-left"><div class="ii"><span class="ii-n">11</span><span class="ii-t">警備料金・その他費用（円/税抜き）</span></div></td>
+        <td class="td-right" id="go-r11"></td>
       </tr>
       <tr>
-        <td class="td-no">12</td>
-        <td class="td-item">支払の時期及び方法</td>
-        <td class="td-val">月末〆、翌月末支払い、銀行振込</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">12</span><span class="ii-t">支払の時期及び方法</span></div></td>
+        <td class="td-right">月末〆、翌月末支払い、銀行振込</td>
       </tr>
       <tr>
-        <td class="td-no">13</td>
-        <td class="td-item">警備業務の再委託に関する事項</td>
-        <td class="td-val">再委託はなし</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">13</span><span class="ii-t">警備業務の再委託に関する事項</span></div></td>
+        <td class="td-right">再委託はなし</td>
       </tr>
       <tr>
-        <td class="td-no">14</td>
-        <td class="td-item">免責に関する事項</td>
-        <td class="td-val">① 当社に帰すべき賠償責任の事由が無い場合　② 警備対象者によって発生した損害　③ 天災地変・公共交通機関の事故、その他貴社及び当社の責に帰することが出来ない事由により、本契約の目的を達成することが不可能となった場合</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">14</span><span class="ii-t">免責に関する<br>事項</span></div></td>
+        <td class="td-right">① 当社に帰すべき賠償責任の事由が無い場合<br>② 警備対象者によって発生した損害<br>③ 天災地変・公共交通機関の事故、その他貴社及び当社の責に帰することが出来ない事由により、本契約の目的を達成することが不可能となった場合</td>
       </tr>
       <tr>
-        <td class="td-no">15</td>
-        <td class="td-item">損害賠償の範囲、損害賠償額その他の損害賠償に関する事項</td>
-        <td class="td-val">弊社の責に帰すべき損害について、警備業務賠償責任保険に基づき、人的損害・物的損害併せて1事故につき1億円を限度として賠償する。</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">15</span><span class="ii-t">損害賠償の範囲、損害賠償額<br>その他の損害賠償に関する事項</span></div></td>
+        <td class="td-right">弊社の責に帰すべき損害について、警備業務賠償責任保険に基づき、人的損害・物的損害併せて1事故につき1億円を限度として賠償する。</td>
       </tr>
       <tr>
-        <td class="td-no">16</td>
-        <td class="td-item">契約の変更及び更新に関する事項</td>
-        <td class="td-val">協議の上、決定</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">16</span><span class="ii-t">契約の変更及び更新に関する事項</span></div></td>
+        <td class="td-right">協議の上、決定</td>
       </tr>
       <tr>
-        <td class="td-no">17</td>
-        <td class="td-item">契約の解除に関する事項</td>
-        <td class="td-val">協議の上、決定</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">17</span><span class="ii-t">契約の解除に関する事項</span></div></td>
+        <td class="td-right">協議の上、決定</td>
       </tr>
       <tr>
-        <td class="td-no">18</td>
-        <td class="td-item">警備業務に関する苦情の受付窓口</td>
-        <td class="td-val">08056241393</td>
+        <td class="td-left"><div class="ii"><span class="ii-n">18</span><span class="ii-t">警備業務に関する苦情の受付窓口</span></div></td>
+        <td class="td-right">08056241393</td>
       </tr>
       <tr>
-        <td class="td-no">19</td>
-        <td class="td-item">残業時間１時間あたりの単価（円/税抜き）</td>
-        <td class="td-val" id="go-r19"></td>
+        <td class="td-left"><div class="ii"><span class="ii-n">19</span><span class="ii-t">残業時間1時間あたりの<br>単価(円/税抜き)</span></div></td>
+        <td class="td-right" id="go-r19"></td>
       </tr>
       <tr>
-        <td class="td-no">20</td>
-        <td class="td-item">特約事項</td>
-        <td class="td-val" id="go-r20"></td>
+        <td class="td-left"><div class="ii"><span class="ii-n">20</span><span class="ii-t">特約事項</span></div></td>
+        <td class="td-right" id="go-r20"></td>
       </tr>
       <tr>
-        <td class="td-no">21</td>
-        <td class="td-item">契約の締結日</td>
-        <td class="td-val" id="go-r21"></td>
+        <td class="td-left"><div class="ii"><span class="ii-n">21</span><span class="ii-t">契約の締結日</span></div></td>
+        <td class="td-right" id="go-r21"></td>
       </tr>
     </tbody>
   </table>
 
-  <div class="confirm-area">
-    <div class="confirm-statement">上記の警備業務の契約の概要について確認しました。</div>
-    <div class="confirm-grid">
-      <div class="confirm-box">
-        <div class="confirm-label">日付</div>
-        <div class="confirm-value"></div>
-      </div>
-      <div class="confirm-box">
-        <div class="confirm-label">確認者</div>
-        <div class="confirm-value" id="go-confirmer"></div>
-      </div>
-      <div class="confirm-box">
-        <div class="confirm-label">担当者</div>
-        <div class="confirm-value">末貞　皓己</div>
-      </div>
-    </div>
+  <div class="confirm-statement">上記の警備業務の契約の概要について確認しました。</div>
+  <div class="confirm-fields">
+    <div>日付：　　　　年　　　月　　　日</div>
+    <div>確認者：<span id="go-confirmer"></span></div>
+    <div>担当者：末貞皓己</div>
   </div>
 
 </div><!-- /.doc-page.doc-go -->
@@ -608,15 +499,15 @@
     const r5 = r5Parts.join('　');
 
     const r8  = equipment === '有' ? 'あり' : equipment === '無' ? 'なし' : (equipment || 'なし');
-    const r11 = price         ? fmtNum(price)         + '円（税抜）'        : '';
-    const r19 = overtimePrice ? fmtNum(overtimePrice) + '円/時間（税抜）'   : '';
+    const r11 = price         ? fmtNum(price)         + '円（税抜）'      : '';
+    const r19 = overtimePrice ? fmtNum(overtimePrice) + '円/時間（税抜）' : '';
     const r20 = specialNotes  || 'なし';
     const r21 = fmtDate(contractDate);
 
     function fill(prefix) {
       function setEl(id, val) {
         const el = document.getElementById(id);
-        if (el) el.textContent = val || '　';
+        if (el) el.textContent = val || '';
       }
       setEl(prefix + '-date',      dateDisplay);
       setEl(prefix + '-recipient', recipientTxt);
@@ -636,7 +527,7 @@
     fill('go');
 
     const goR21 = document.getElementById('go-r21');
-    if (goR21) goR21.textContent = r21 || '　';
+    if (goR21) goR21.textContent = r21 || '';
   })();
 </script>
 
