@@ -132,12 +132,69 @@
     .btn-cform-submit { padding:10px 28px; background:var(--gold); color:#fff; border:none; border-radius:var(--radius); font-size:.9rem; font-weight:700; cursor:pointer; transition:background .15s; }
     .btn-cform-submit:hover { background:var(--gold2); }
 
-    @media (max-width:680px) {
-      .orders-table thead th:nth-child(4),
-      .orders-table tbody td:nth-child(4) { display:none; }
-      .detail-grid { grid-template-columns:1fr; }
-      .detail-val { border-left:none; }
-      .cform-2col { grid-template-columns:1fr; }
+    /* ─── CARDS (スマホ用カード表示) ─── */
+    #cardsWrap { display:none; }
+    .order-card { background:var(--white); border-radius:12px; padding:16px; margin-bottom:12px; box-shadow:var(--shadow); border-left:4px solid var(--border); }
+    .order-card.st-未確認       { border-left-color:#9ca3af; }
+    .order-card.st-確認済       { border-left-color:#1d4ed8; background:#eff6ff; }
+    .order-card.st-手配完了     { border-left-color:#16a34a; background:#f0fdf4; }
+    .order-card.st-契約書作成済 { border-left-color:#9ca3af; background:#f3f4f6; }
+    .card-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+    .card-date { font-size:.76rem; color:var(--muted); }
+    .card-badge { font-size:.74rem; font-weight:700; padding:3px 10px; border-radius:20px; }
+    .card-badge.st-未確認       { background:#f3f4f6; color:#6b7280; }
+    .card-badge.st-確認済       { background:#dbeafe; color:#1d4ed8; }
+    .card-badge.st-手配完了     { background:#dcfce7; color:#16a34a; }
+    .card-badge.st-契約書作成済 { background:#e5e7eb; color:#6b7280; }
+    .card-company { font-size:1rem; font-weight:700; color:var(--navy); margin-bottom:6px; }
+    .card-meta { font-size:.8rem; color:var(--muted); display:flex; flex-direction:column; gap:3px; margin-bottom:12px; }
+    .card-footer { display:flex; flex-direction:column; gap:8px; }
+    .card-status-row { display:flex; align-items:center; gap:8px; }
+    .card-status-label { font-size:.76rem; font-weight:700; color:var(--navy); white-space:nowrap; }
+    .card-btn-row { display:flex; gap:8px; }
+    .card-btn-row .btn-detail,
+    .card-btn-row .btn-contract-sm { flex:1; text-align:center; padding:10px 8px; font-size:.88rem; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width:640px) {
+      /* ヘッダー */
+      .admin-header { padding:0 14px; height:54px; }
+      .admin-logo   { height:36px; }
+      .admin-header-title { display:none; }
+      .btn-logout   { padding:6px 12px; font-size:.78rem; }
+      /* ボディ */
+      .admin-body   { margin:14px auto; padding:0 12px; }
+      .toolbar      { gap:8px; }
+      .btn-new-contract,.btn-refresh { font-size:.82rem; padding:9px 14px; }
+      /* ログイン */
+      .login-card   { padding:28px 18px; }
+      /* テーブル非表示 → カード表示 */
+      .table-wrap   { display:none; }
+      #cardsWrap    { display:block; }
+      /* ステータス選択：タップしやすく */
+      .status-select-sm { height:44px; min-height:44px; font-size:.88rem; width:100%; max-width:100%; }
+      /* ＋－ボタン */
+      .cform-num-btn { width:44px; height:44px; font-size:1.2rem; }
+      .cform-num-val { width:60px; font-size:1rem; }
+      /* モーダル全画面 */
+      .overlay { padding:0; align-items:flex-start; }
+      .detail-modal,
+      .cform-modal  { max-width:100%; width:100%; border-radius:0; min-height:100vh; display:flex; flex-direction:column; margin:0; }
+      .detail-head,
+      .cform-head   { position:sticky; top:0; z-index:10; }
+      .btn-close    { width:40px; height:40px; font-size:1.1rem; }
+      .detail-body  { padding:14px; flex:1; overflow-y:auto; }
+      .cform-body   { max-height:none; flex:1; padding:14px; }
+      .cform-footer { padding:12px 14px; }
+      /* グリッド1列 */
+      .detail-grid  { grid-template-columns:1fr; }
+      .detail-val   { border-left:none; }
+      .cform-2col   { grid-template-columns:1fr; }
+      /* 日付・料金 */
+      input[type="date"].cform-input { max-width:none; width:100%; }
+      #cf_contractDate { max-width:none !important; }
+      .cform-fee-row .cform-input { max-width:none; flex:1; }
+      .cform-fee-row { gap:6px; }
     }
   </style>
 </head>
@@ -183,6 +240,7 @@
         <tbody id="ordersBody"></tbody>
       </table>
     </div>
+    <div id="cardsWrap"></div>
   </div>
 </div>
 
@@ -532,11 +590,15 @@
   // ── テーブル描画 ──
   function renderTable() {
     const tbody = document.getElementById('ordersBody');
+    const cards = document.getElementById('cardsWrap');
     if (orders.length === 0) {
       tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:32px;color:#6b7280;">依頼データがありません</td></tr>';
+      cards.innerHTML = '<div style="text-align:center;padding:32px;color:#6b7280;">依頼データがありません</div>';
       return;
     }
-    tbody.innerHTML = orders.map((o, idx) => {
+    let tableHtml = '';
+    let cardHtml  = '';
+    orders.forEach((o, idx) => {
       const st = o.status || '未確認';
       const startDate = (o.startDate || '').replace(/-/g, '/');
       const endDate   = (o.endDate   || '').replace(/-/g, '/');
@@ -544,7 +606,7 @@
       const statusOpts = STATUS_LIST.map(s =>
         `<option value="${s}"${s === st ? ' selected' : ''}>${s}</option>`
       ).join('');
-      return `<tr class="st-${st}" data-idx="${idx}">
+      tableHtml += `<tr class="st-${st}" data-idx="${idx}">
         <td style="white-space:nowrap">${formatDate(o.receivedAt) || '—'}</td>
         <td>${o.company || '—'}</td>
         <td>${o.site || '—'}</td>
@@ -556,7 +618,31 @@
           <a href="${buildContractUrl(o)}" target="_blank" class="btn-contract-sm">契約書</a>
         </div></td>
       </tr>`;
-    }).join('');
+      cardHtml += `<div class="order-card st-${st}">
+        <div class="card-top">
+          <span class="card-date">${formatDate(o.receivedAt) || '—'}</span>
+          <span class="card-badge st-${st}">${st}</span>
+        </div>
+        <div class="card-company">${o.company || '—'}</div>
+        <div class="card-meta">
+          <span>📍 ${o.site || '—'}</span>
+          <span>📅 ${period || '—'}</span>
+          <span>👤 ${o.staff || '—'}名</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-status-row">
+            <span class="card-status-label">ステータス：</span>
+            <select class="status-select-sm" onchange="changeStatus(${idx},this.value)">${statusOpts}</select>
+          </div>
+          <div class="card-btn-row">
+            <button class="btn-detail" onclick="openDetail(${idx})">詳細</button>
+            <a href="${buildContractUrl(o)}" target="_blank" class="btn-contract-sm">契約書</a>
+          </div>
+        </div>
+      </div>`;
+    });
+    tbody.innerHTML = tableHtml;
+    cards.innerHTML = cardHtml;
   }
 
   // ── ステータス変更 ──
