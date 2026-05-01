@@ -97,12 +97,12 @@ button { font-family: inherit; }
    HEADER
    ============================================================ */
 #header {
-  background: #ffffff;
+  background: #1a2744;
   position: sticky;
   top: 0;
-  z-index: 900;
-  box-shadow: 0 2px 12px rgba(0,0,0,.10);
-  border-bottom: 1px solid var(--mid-gray);
+  z-index: 1000;
+  box-shadow: 0 2px 20px rgba(0,0,0,.30);
+  border-bottom: 1px solid rgba(255,255,255,.08);
 }
 
 .header-inner {
@@ -146,23 +146,25 @@ button { font-family: inherit; }
   display: block;
   padding: 8px 14px;
   font-size: .875rem;
-  color: var(--primary);
+  color: rgba(255,255,255,.82);
   border-radius: var(--radius);
   letter-spacing: .04em;
   transition: background var(--transition), color var(--transition);
 }
 .gnav a:hover,
 .gnav a.active {
-  background: rgba(26,47,94,.08);
-  color: var(--primary);
+  background: rgba(255,255,255,.12);
+  color: #ffffff;
 }
 .gnav .contact-link a {
-  background: var(--primary);
+  background: #d97706;
   color: #fff;
   font-weight: 700;
+  border: 1px solid #d97706;
 }
 .gnav .contact-link a:hover {
-  background: var(--secondary);
+  background: #b45309;
+  border-color: #b45309;
   color: #fff;
 }
 
@@ -198,7 +200,8 @@ button { font-family: inherit; }
   background: rgba(255,255,255,.06);
 }
 .gnav .has-dropdown.active > .dropdown-toggle {
-  background: rgba(26,47,94,.08);
+  background: rgba(255,255,255,.12);
+  color: #ffffff;
 }
 .dropdown-arrow {
   font-size: .55rem;
@@ -222,7 +225,7 @@ button { font-family: inherit; }
   display: block;
   width: 26px;
   height: 2px;
-  background: var(--primary);
+  background: #ffffff;
   border-radius: 2px;
   transition: all .3s;
 }
