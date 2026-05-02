@@ -1397,10 +1397,14 @@ button { font-family: inherit; }
   .gnav ul { flex-direction: column; gap: 0; }
   .gnav a { padding: 14px 0; border-radius: 0; border-bottom: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.85); }
   .gnav a:hover, .gnav a.active { background: rgba(255,255,255,.1); color: #fff; }
-  .gnav .contact-link a { background: rgba(255,255,255,.15); color: #fff; border-radius: 6px; margin-top: 16px; text-align: center; justify-content: center; border-bottom: none; }
-  .gnav .contact-link a:hover { background: rgba(255,255,255,.25); }
+  .gnav .contact-link a { background: #d97706; color: #fff; font-weight: 700; border: 1px solid #d97706; border-radius: 6px; margin-top: 16px; text-align: center; justify-content: center; border-bottom: none; }
+  .gnav .contact-link a:hover { background: #b45309; border-color: #b45309; color: #fff; }
   .gnav .has-dropdown:hover > .dropdown { display: none; }
   .gnav .has-dropdown.open > .dropdown { display: block; }
+  /* Fix: prevent sticky touch-hover background on dropdown toggle */
+  .gnav .has-dropdown > .dropdown-toggle,
+  .gnav .has-dropdown > .dropdown-toggle:hover { background: transparent !important; }
+  .gnav .has-dropdown.open > .dropdown-toggle { background: rgba(255,255,255,.08) !important; }
   .gnav .dropdown {
     position: static;
     background: rgba(255,255,255,.06);
