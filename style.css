@@ -197,10 +197,13 @@ button { font-family: inherit; }
   letter-spacing: .03em;
   transition: color var(--transition), background var(--transition);
 }
-.gnav .dropdown a:hover,
-.gnav .dropdown a.active {
+.gnav .dropdown a:hover {
   color: #d97706 !important;
   background: rgba(255,255,255,.06);
+}
+.gnav .dropdown a.active {
+  color: rgba(255,255,255,.88) !important;
+  background: rgba(255,255,255,.04);
 }
 .gnav .has-dropdown.active > .dropdown-toggle {
   background: rgba(26,39,68,.08);
@@ -1401,10 +1404,11 @@ button { font-family: inherit; }
   .gnav .contact-link a:hover { background: #b45309; border-color: #b45309; color: #fff; }
   .gnav .has-dropdown:hover > .dropdown { display: none; }
   .gnav .has-dropdown.open > .dropdown { display: block; }
-  /* Fix: prevent sticky touch-hover background on dropdown toggle */
+  /* Fix: prevent sticky touch-hover on dropdown toggle / keep text visible */
   .gnav .has-dropdown > .dropdown-toggle,
-  .gnav .has-dropdown > .dropdown-toggle:hover { background: transparent !important; }
-  .gnav .has-dropdown.open > .dropdown-toggle { background: rgba(255,255,255,.08) !important; }
+  .gnav .has-dropdown > .dropdown-toggle:hover { background: transparent !important; color: rgba(255,255,255,.85) !important; }
+  .gnav .has-dropdown.open > .dropdown-toggle { background: rgba(255,255,255,.08) !important; color: #fff !important; }
+  .gnav .has-dropdown.active > .dropdown-toggle { color: rgba(255,255,255,.85) !important; }
   .gnav .dropdown {
     position: static;
     background: rgba(255,255,255,.06);
@@ -1420,8 +1424,8 @@ button { font-family: inherit; }
     color: rgba(255,255,255,.7) !important;
     border-bottom: 1px solid rgba(255,255,255,.08) !important;
   }
-  .gnav .dropdown a:hover,
-  .gnav .dropdown a.active { color: #d97706 !important; background: transparent; }
+  .gnav .dropdown a:hover { color: #d97706 !important; background: transparent; }
+  .gnav .dropdown a.active { color: rgba(255,255,255,.7) !important; background: transparent; }
   .gnav .has-dropdown.open .dropdown-arrow { transform: rotate(180deg); }
   .gnav .dropdown-toggle {
     display: flex !important;
