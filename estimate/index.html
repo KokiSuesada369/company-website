@@ -789,6 +789,12 @@
     el.style.transition = 'opacity .35s ease, transform .35s ease';
     observer.observe(el);
   });
+
+  // Fixed header: set body padding-top dynamically
+  document.addEventListener('DOMContentLoaded', function() {
+    var header = document.getElementById('header');
+    document.body.style.paddingTop = header.offsetHeight + 'px';
+  });
 </script>
 
 </body>

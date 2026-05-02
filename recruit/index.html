@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <link rel="icon" href="/images/logo-01a.png" type="image/png">
@@ -582,6 +582,12 @@
         alert('通信エラーが発生しました。時間をおいて再度お試しください。');
       });
     }
+  });
+
+  // Fixed header: set body padding-top dynamically
+  document.addEventListener('DOMContentLoaded', function() {
+    var header = document.getElementById('header');
+    document.body.style.paddingTop = header.offsetHeight + 'px';
   });
 </script>
 
