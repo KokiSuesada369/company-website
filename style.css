@@ -160,14 +160,14 @@ button { font-family: inherit; }
   color: #1a2744;
 }
 .gnav .contact-link a {
-  background: #d97706;
+  background: #f97316;
   color: #fff;
   font-weight: 700;
-  border: 1px solid #d97706;
+  border: 1px solid #f97316;
 }
 .gnav .contact-link a:hover {
-  background: #b45309;
-  border-color: #b45309;
+  background: #ea6c0a;
+  border-color: #ea6c0a;
   color: #fff;
 }
 
@@ -402,15 +402,15 @@ button { font-family: inherit; }
   will-change: transform;
 }
 .btn-gold {
-  background: var(--primary);
+  background: #f97316;
   color: #fff;
-  border-color: var(--primary);
+  border-color: #f97316;
 }
 .btn-gold:hover {
-  background: var(--secondary);
-  border-color: var(--secondary);
+  background: #ea6c0a;
+  border-color: #ea6c0a;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(26,47,94,.3);
+  box-shadow: 0 6px 20px rgba(249,115,22,.35);
 }
 .btn-outline-white {
   background: transparent;
@@ -1400,8 +1400,8 @@ button { font-family: inherit; }
   .gnav ul { flex-direction: column; gap: 0; }
   .gnav a { padding: 14px 0; border-radius: 0; border-bottom: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.85); }
   .gnav a:hover, .gnav a.active { background: rgba(255,255,255,.1); color: #fff; }
-  .gnav .contact-link a { background: #d97706; color: #fff; font-weight: 700; border: 1px solid #d97706; border-radius: 6px; margin-top: 16px; text-align: center; justify-content: center; border-bottom: none; }
-  .gnav .contact-link a:hover { background: #b45309; border-color: #b45309; color: #fff; }
+  .gnav .contact-link a { background: #f97316; color: #fff; font-weight: 700; border: 1px solid #f97316; border-radius: 6px; margin-top: 16px; text-align: center; justify-content: center; border-bottom: none; }
+  .gnav .contact-link a:hover { background: #ea6c0a; border-color: #ea6c0a; color: #fff; }
   .gnav .has-dropdown:hover > .dropdown { display: none; }
   .gnav .has-dropdown.open > .dropdown { display: block; }
   /* Fix: prevent sticky touch-hover on dropdown toggle / keep text visible */
