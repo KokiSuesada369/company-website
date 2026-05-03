@@ -299,7 +299,7 @@ button { font-family: inherit; }
    ============================================================ */
 .page-hero {
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  padding: 70px 24px;
+  padding: 60px 24px;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -1482,6 +1482,7 @@ button { font-family: inherit; }
   /* CTA */
   .tel-large a { font-size: 1.7rem; }
 
+  .page-hero { padding: 40px 24px; }
   .page-hero h1 { font-size: 1.55rem; }
 
   /* ── スマホ：アニメーション・トランジション最小化 ── */
