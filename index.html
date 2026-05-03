@@ -363,10 +363,13 @@
   });
 
   // Fixed header: set body padding-top dynamically
-  document.addEventListener('DOMContentLoaded', function() {
+  function setBodyPadding() {
     var header = document.getElementById('header');
     document.body.style.paddingTop = header.offsetHeight + 'px';
-  });
+  }
+  document.addEventListener('DOMContentLoaded', setBodyPadding);
+  window.addEventListener('load', setBodyPadding);
+  window.addEventListener('resize', setBodyPadding);
 </script>
 
 </body>

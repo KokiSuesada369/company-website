@@ -299,7 +299,7 @@ button { font-family: inherit; }
    ============================================================ */
 .page-hero {
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  padding: 60px 24px;
+  padding: 40px 20px;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -1453,7 +1453,7 @@ button { font-family: inherit; }
 
   /* Hero */
   .hero { min-height: 100svh; }
-  .hero-content { margin-left: 0; text-align: center; padding: 80px 24px 120px; }
+  .hero-content { margin-left: 0; text-align: center; padding: 36px 24px 80px; }
   .hero h1 { font-size: 2.8rem; }
   .hero-btns { justify-content: center; }
   .hero-badge { display: none; }
@@ -1482,7 +1482,7 @@ button { font-family: inherit; }
   /* CTA */
   .tel-large a { font-size: 1.7rem; }
 
-  .page-hero { padding: 40px 24px; }
+  .page-hero { padding: 25px 15px; }
   .page-hero h1 { font-size: 1.55rem; }
 
   /* ── スマホ：アニメーション・トランジション最小化 ── */
