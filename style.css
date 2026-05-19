@@ -447,6 +447,37 @@ button { font-family: inherit; }
 /* Arrow decoration */
 .btn .arrow { font-size: .8rem; }
 
+.btn-orange {
+  background: #e86c00;
+  color: #fff;
+  border-color: #e86c00;
+}
+.btn-orange:hover {
+  background: #c55a00;
+  border-color: #c55a00;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(232,108,0,.3);
+}
+.btn-lg {
+  padding: 16px 44px;
+  font-size: 1.05rem;
+}
+.hero-link {
+  margin-top: 14px;
+}
+.hero-link a {
+  color: var(--secondary);
+  font-size: .9rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid var(--secondary);
+  transition: color var(--transition), border-color var(--transition);
+}
+.hero-link a:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
 /* ============================================================
    CARDS
    ============================================================ */
