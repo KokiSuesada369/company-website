@@ -477,9 +477,7 @@
             </div>
             <div class="toggle-group">
               <input type="radio" name="day" id="day-weekday" value="平日" checked>
-              <label for="day-weekday">平日</label>
-              <input type="radio" name="day" id="day-saturday" value="土曜">
-              <label for="day-saturday">土曜日</label>
+              <label for="day-weekday">月〜土</label>
               <input type="radio" name="day" id="day-holiday" value="日曜祝日">
               <label for="day-holiday">日曜・祝日</label>
             </div>
@@ -657,14 +655,14 @@
   // ── 料金テーブル ──
   const RATES = {
     base: {
-      '平日':     { '日勤': 18000, '夜勤': 27000 },
-      '土曜':     { '日勤': 22500, '夜勤': 33800 },
-      '日曜祝日': { '日勤': 24300, '夜勤': 36500 }
+      '平日':     { '日勤': 18000, '夜勤': 25000 },
+      '土曜':     { '日勤': 18000, '夜勤': 25000 },
+      '日曜祝日': { '日勤': 22500, '夜勤': 31000 }
     },
     overtime: {
-      '平日':     { '日勤': 2900, '夜勤': 4300 },
-      '土曜':     { '日勤': 3600, '夜勤': 5400 },
-      '日曜祝日': { '日勤': 3800, '夜勤': 5800 }
+      '平日':     { '日勤': 2900, '夜勤': 3900 },
+      '土曜':     { '日勤': 2900, '夜勤': 3900 },
+      '日曜祝日': { '日勤': 3600, '夜勤': 4900 }
     }
   };
 
