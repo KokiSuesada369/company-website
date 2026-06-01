@@ -1557,6 +1557,15 @@ button { font-family: inherit; }
   }
 }
 
+/* ── スマホ時ボタン折り返し防止 ── */
+@media (max-width: 768px) {
+  .btn {
+    font-size: 13px;
+    padding: 10px 16px;
+    white-space: nowrap;
+  }
+}
+
 /* ── 電話番号リンク ── */
 a[href^="tel"] {
   color: inherit;
