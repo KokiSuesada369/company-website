@@ -176,19 +176,30 @@ button { font-family: inherit; }
 /* ── Dropdown ── */
 .gnav .has-dropdown { position: relative; }
 .gnav .dropdown {
-  display: none;
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
   position: absolute;
-  top: calc(100% + 4px);
+  top: 100%;
   left: 0;
+  margin-top: 0;
+  padding-top: 5px;
   background: #1a2744;
   border-radius: var(--radius);
   box-shadow: 0 8px 28px rgba(0,0,0,.22);
   min-width: 168px;
   z-index: 1000;
-  padding: 6px 0;
+  padding-bottom: 6px;
   white-space: nowrap;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
-.gnav .has-dropdown:hover > .dropdown { display: block; }
+.gnav .has-dropdown:hover > .dropdown,
+.gnav .dropdown:hover {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
 .gnav .dropdown li { display: block; margin: 0; }
 .gnav .dropdown a {
   display: block;
