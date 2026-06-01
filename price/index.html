@@ -350,6 +350,61 @@
       .price-cta h3 { font-size: 1.3rem; }
     }
 
+    /* 見積もり導線 */
+    .estimate-cta-box {
+      background: #1a2744;
+      border-radius: 14px;
+      padding: 44px 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 36px;
+      margin-bottom: 50px;
+    }
+    .estimate-cta-box .ecb-text h3 {
+      color: #fff;
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .estimate-cta-box .ecb-text p {
+      color: rgba(255,255,255,.72);
+      font-size: .95rem;
+      line-height: 1.9;
+    }
+    .btn-estimate {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #d97706;
+      color: #fff;
+      border: 2px solid #d97706;
+      border-radius: 8px;
+      padding: 18px 40px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background .2s, border-color .2s, transform .2s, box-shadow .2s;
+    }
+    .btn-estimate:hover {
+      background: #b45309;
+      border-color: #b45309;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(217,119,6,.35);
+    }
+    @media (max-width: 768px) {
+      .estimate-cta-box {
+        flex-direction: column;
+        padding: 32px 24px;
+        text-align: center;
+        gap: 24px;
+      }
+      .btn-estimate { width: 100%; justify-content: center; }
+    }
+
     /* FAQ */
     .faq-section { margin-bottom: 50px; }
     .faq-list { background: #fff; border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; }
@@ -557,6 +612,15 @@
       <div class="cta-btns">
         <a href="/contact/" class="btn btn-gold">お問い合わせフォームへ <span class="arrow">›</span></a>
       </div>
+    </div>
+
+    <!-- 見積もり導線 -->
+    <div class="estimate-cta-box">
+      <div class="ecb-text">
+        <h3>料金をその場で自動計算できます</h3>
+        <p>人数・日数・曜日区分を入力するだけで、概算の警備費用がすぐにわかります。まずはお気軽にお試しください。</p>
+      </div>
+      <a href="/estimate/" class="btn-estimate">無料で見積もりする →</a>
     </div>
 
     <!-- FAQ -->
