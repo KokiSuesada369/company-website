@@ -1556,3 +1556,14 @@ button { font-family: inherit; }
     transition: none;
   }
 }
+
+/* ── 電話番号リンク ── */
+a[href^="tel"] {
+  color: inherit;
+  text-decoration: none;
+  font-weight: bold;
+}
+a[href^="tel"]:hover {
+  color: #f97316;
+  text-decoration: underline;
+}
