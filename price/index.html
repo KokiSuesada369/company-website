@@ -405,6 +405,72 @@
       .btn-estimate { width: 100%; justify-content: center; }
     }
 
+    /* お問い合わせCTAボックス */
+    .page-cta-section { padding-top: 0; }
+    .contact-cta-box {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 14px;
+      padding: 50px 52px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-cta-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(200,160,0,.07) 0%, transparent 70%);
+    }
+    .contact-cta-box h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .contact-cta-box > p {
+      color: rgba(255,255,255,.75);
+      font-size: .95rem;
+      margin-bottom: 28px;
+      position: relative;
+    }
+    .ccb-contacts {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 36px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+      position: relative;
+    }
+    .ccb-tel {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: .02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ccb-mail {
+      color: rgba(255,255,255,.85);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ccb-tel:hover { opacity: .85; }
+    .ccb-mail:hover { opacity: .85; }
+    .contact-cta-box .btn { position: relative; }
+    @media (max-width: 768px) {
+      .contact-cta-box { padding: 36px 24px; }
+      .ccb-contacts { flex-direction: column; gap: 14px; }
+      .ccb-tel { font-size: 1.3rem; }
+    }
+
     /* FAQ */
     .faq-section { margin-bottom: 50px; }
     .faq-list { background: #fff; border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; }
@@ -605,24 +671,6 @@
       </ul>
     </div>
 
-    <!-- CTA -->
-    <div class="price-cta">
-      <h3>お見積もり・ご相談は無料です</h3>
-      <p>料金についてのご不明点、現場に応じたお見積もりはお気軽にお問い合わせください。</p>
-      <div class="cta-btns">
-        <a href="/contact/" class="btn btn-gold">お問い合わせフォームへ <span class="arrow">›</span></a>
-      </div>
-    </div>
-
-    <!-- 見積もり導線 -->
-    <div class="estimate-cta-box">
-      <div class="ecb-text">
-        <h3>料金をその場で自動計算できます</h3>
-        <p>人数・日数・曜日区分を入力するだけで、概算の警備費用がすぐにわかります。まずはお気軽にお試しください。</p>
-      </div>
-      <a href="/estimate/" class="btn-estimate">無料で見積もりする →</a>
-    </div>
-
     <!-- FAQ -->
     <div class="faq-section">
       <div class="section-title" style="margin-top:20px;">
@@ -643,6 +691,35 @@
           <p class="faq-a">はい、高速道路料金・駐車場料金は実費請求となります。事前にお見積りをご提示いたします。</p>
         </div>
       </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     PAGE CTA
+     ============================================================ -->
+<section class="section page-cta-section">
+  <div class="container">
+
+    <!-- 見積もりCTA -->
+    <div class="estimate-cta-box" style="margin-bottom:24px;">
+      <div class="ecb-text">
+        <h3>料金をその場で自動計算できます</h3>
+        <p>人数・日数・曜日区分を入力するだけで、概算の警備費用がすぐにわかります。まずはお気軽にお試しください。</p>
+      </div>
+      <a href="/estimate/" class="btn-estimate">無料で見積もりする →</a>
+    </div>
+
+    <!-- お問い合わせCTA -->
+    <div class="contact-cta-box">
+      <h3>お見積り・ご相談は無料です</h3>
+      <p>警備のご依頼・お見積もりはお気軽にご連絡ください。</p>
+      <div class="ccb-contacts">
+        <a href="tel:08056241393" class="ccb-tel">📞 080-5624-1393</a>
+        <a href="mailto:info@saizen.one" class="ccb-mail">✉️ info@saizen.one</a>
+      </div>
+      <a href="/contact/" class="btn btn-gold">お問い合わせはこちら <span class="arrow">›</span></a>
     </div>
 
   </div>
@@ -697,7 +774,7 @@
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.price-card, .extra-section, .notice-box').forEach(el => {
+  document.querySelectorAll('.price-card, .extra-section, .notice-box, .estimate-cta-box, .contact-cta-box').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(16px)';
     el.style.transition = 'opacity .3s ease, transform .3s ease';
