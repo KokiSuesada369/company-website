@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 <!-- Google tag (gtag.js) -->
@@ -38,11 +38,11 @@
   @keyframes fadeInDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
   @keyframes fadeInUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
   @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
-  .header-logo{animation:fadeInDown .4s ease both;will-change:transform;height:50px;width:auto;display:block}
-  .hero-tag{animation:fadeInUp .4s ease .10s both;will-change:transform}
-  .hero h1{animation:fadeInUp .5s ease .20s both;will-change:transform}
-  .hero-sub{animation:fadeInUp .4s ease .30s both;will-change:transform}
-  .hero-btns{animation:fadeInUp .4s ease .40s both;will-change:transform}
+  .header-logo{height:50px;width:auto;display:block}
+  .hero-tag{}
+  .hero h1{}
+  .hero-sub{}
+  .hero-btns{}
   @media (prefers-reduced-motion:reduce){.header-logo,.hero-tag,.hero h1,.hero-sub,.hero-btns,.page-hero h1,.page-hero p{animation:none;will-change:auto}}
   #header{position:fixed;top:0;left:0;width:100%;z-index:9999;background:#fff!important;background-color:#fff!important;box-shadow:0 2px 10px rgba(0,0,0,.08);border-bottom:2px solid #1a2744}
   .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:1200px;margin:0 auto}
@@ -77,9 +77,9 @@
   .hero-badge-item .num{font-size:2rem;font-weight:700;color:var(--primary);line-height:1}
   .hero-badge-item .unit{font-size:.75rem;color:var(--dark-gray)}
   .hero-badge-item .desc{font-size:.72rem;margin-top:4px}
-  .scroll-down{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px;color:rgba(26,47,94,.3);font-size:.7rem;letter-spacing:.1em;animation:bounce 1.8s infinite;will-change:transform}
+  .scroll-down{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px;color:rgba(26,47,94,.3);font-size:.7rem;letter-spacing:.1em}
   .scroll-down::after{content:'▼';font-size:.7rem}
-  .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 38px;border-radius:var(--radius);font-size:.95rem;font-weight:700;letter-spacing:.05em;transition:all var(--transition);cursor:pointer;border:2px solid transparent;will-change:transform}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 38px;border-radius:var(--radius);font-size:.95rem;font-weight:700;letter-spacing:.05em;transition:all var(--transition);cursor:pointer;border:2px solid transparent}
   .btn-orange{background:#e86c00;color:#fff;border-color:#e86c00}
   .btn-outline-navy{background:transparent;color:var(--primary);border-color:var(--primary)}
   .btn-lg{padding:16px 44px;font-size:1.05rem}
@@ -101,12 +101,12 @@
     .nav-overlay.open{display:block}
     .hero{min-height:100svh}
     .hero-content{margin-left:0;text-align:center;padding:36px 24px 80px}
-    .hero h1{font-size:2.8rem;animation-duration:.3s;animation-delay:.1s}
-    .hero-btns{justify-content:center;animation-duration:.3s;animation-delay:.2s}
+    .hero h1{font-size:2.8rem}
+    .hero-btns{justify-content:center}
     .hero-badge{display:none}
     .hero-geo::before{display:none}
-    .hero-tag{animation-duration:.3s;animation-delay:.05s}
-    .hero-sub{animation-duration:.3s;animation-delay:.15s}
+    .hero-tag{}
+    .hero-sub{}
     .btn{will-change:auto;transition:none}
   }
   </style>
