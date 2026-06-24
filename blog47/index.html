@@ -207,6 +207,7 @@
   function toggleMenu() {
     ham.classList.toggle('open'); nav.classList.toggle('open'); overlay.classList.toggle('open');
     document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+    nav.querySelectorAll('.has-dropdown.open').forEach(function(d){ d.classList.remove('open'); });
   }
   ham.addEventListener('click', toggleMenu);
   overlay.addEventListener('click', toggleMenu);

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 <!-- Google tag (gtag.js) -->
@@ -1460,6 +1460,7 @@
     gnav.classList.toggle('open');
     overlay.classList.toggle('open');
     document.body.style.overflow = gnav.classList.contains('open') ? 'hidden' : '';
+    gnav.querySelectorAll('.has-dropdown.open').forEach(function(d){ d.classList.remove('open'); });
   }
   ham.addEventListener('click', toggleMenu);
   ham.addEventListener('touchstart', e => { e.preventDefault(); toggleMenu(); }, { passive: false });
