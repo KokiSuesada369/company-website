@@ -1587,3 +1587,21 @@ a[href^="tel"]:hover {
   color: #f97316;
   text-decoration: underline;
 }
+
+/* ============================================================
+   nextkb.jp に合わせた調整（アニメーション削除・フォントサイズ統一）
+   2026-06 追加。インラインCSSにも確実に適用するため !important を使用。
+   ============================================================ */
+/* --- アニメーションをすべて削除 --- */
+*, *::before, *::after { animation: none !important; }
+html { scroll-behavior: auto !important; }
+
+/* --- フォントサイズを nextkb.jp の基準に統一 --- */
+.hero h1          { font-size: clamp(1.875rem, 5vw, 2.25rem) !important; } /* 30〜36px */
+.page-hero h1     { font-size: clamp(1.5rem, 4vw, 1.875rem) !important; }  /* 24〜30px */
+.section-title h2 { font-size: clamp(1.5rem, 4vw, 1.875rem) !important; }  /* 24〜30px */
+.cta-section h2   { font-size: clamp(1.375rem, 4vw, 1.5rem) !important; }  /* 22〜24px */
+.article-title    { font-size: clamp(1.5rem, 4vw, 1.75rem) !important; }   /* 24〜28px */
+.article-body h2  { font-size: 1.25rem !important; }                       /* 20px */
+.article-body h3  { font-size: 1rem !important; }                          /* 16px */
+.blog-list-content h2 { font-size: 1.125rem !important; }                  /* 18px */
