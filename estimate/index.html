@@ -854,21 +854,7 @@
   });
 
   // ── スクロールリビール ──
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.opacity = '1';
-        e.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.08 });
-
-  document.querySelectorAll('.estimate-form-box, .result-card, .estimate-notice').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(16px)';
-    el.style.transition = 'opacity .35s ease, transform .35s ease';
-    observer.observe(el);
-  });
+  /* scroll-reveal removed */
 
   // Fixed header: set body padding-top dynamically
   document.addEventListener('DOMContentLoaded', function() {

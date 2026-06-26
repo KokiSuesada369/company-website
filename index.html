@@ -28,7 +28,7 @@
   <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   :root{--primary:#1a2f5e;--secondary:#2a4898;--accent:#1a2f5e;--accent-lt:#7aadde;--white:#fff;--light-bg:#f4f6fa;--mid-gray:#dde2eb;--dark-gray:#555e6b;--text:#1e2530;--radius:6px;--shadow:0 4px 20px rgba(26,47,94,.10);--shadow-hv:0 8px 30px rgba(26,47,94,.18);--transition:.25s ease}
-  html{scroll-behavior:smooth;overflow-x:hidden;overscroll-behavior-y:none;-webkit-overflow-scrolling:touch}
+  html{scroll-behavior:auto;overflow-x:hidden;overscroll-behavior-y:none;-webkit-overflow-scrolling:touch}
   body{font-family:'Noto Sans JP','Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;color:var(--text);line-height:1.8;font-size:16px;background:#fff;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   a{color:inherit;text-decoration:none}
   ul{list-style:none}
@@ -77,8 +77,6 @@
   .hero-badge-item .num{font-size:2rem;font-weight:700;color:var(--primary);line-height:1}
   .hero-badge-item .unit{font-size:.75rem;color:var(--dark-gray)}
   .hero-badge-item .desc{font-size:.72rem;margin-top:4px}
-  .scroll-down{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px;color:rgba(26,47,94,.3);font-size:.7rem;letter-spacing:.1em}
-  .scroll-down::after{content:'▼';font-size:.7rem}
   .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 38px;border-radius:var(--radius);font-size:.95rem;font-weight:700;letter-spacing:.05em;transition:all var(--transition);cursor:pointer;border:2px solid transparent}
   .btn-orange{background:#e86c00;color:#fff;border-color:#e86c00}
   .btn-outline-navy{background:transparent;color:var(--primary);border-color:var(--primary)}
@@ -206,7 +204,7 @@
       <div class="desc">広島県内</div>
     </div>
   </div>
-  <div class="scroll-down">SCROLL</div>
+
 </section>
 
 <!-- ============================================================
@@ -477,22 +475,7 @@
     });
   });
 
-  // Scroll-reveal (simple)
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.opacity = '1';
-        e.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.service-card, .strength-card, .blog-card').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(16px)';
-    el.style.transition = 'opacity .3s ease, transform .3s ease';
-    observer.observe(el);
-  });
+  /* scroll-reveal removed: アニメーション削除でカクつき防止 */
 
   // Fixed header: set body padding-top dynamically
   function setBodyPadding() {

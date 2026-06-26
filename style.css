@@ -1496,6 +1496,11 @@ button { font-family: inherit; }
   .gnav .has-dropdown.active > .dropdown-toggle { color: rgba(255,255,255,.85) !important; }
   .gnav .dropdown {
     position: static;
+    display: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: none;
     background: rgba(255,255,255,.06);
     border-radius: 0;
     box-shadow: none;
