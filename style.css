@@ -29,7 +29,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   overflow-x: hidden;
   overscroll-behavior-y: none;
   -webkit-overflow-scrolling: touch;
@@ -62,18 +62,18 @@ a { color: inherit; text-decoration: none; }
 /* Header logo */
 .header-logo {
   animation: fadeInDown 0.4s ease both;
-  will-change: transform;
+  will-change: auto;
 }
 
 /* Hero content — staggered */
-.hero-tag  { animation: fadeInUp 0.4s ease 0.10s both; will-change: transform; }
-.hero h1   { animation: fadeInUp 0.5s ease 0.20s both; will-change: transform; }
-.hero-sub  { animation: fadeInUp 0.4s ease 0.30s both; will-change: transform; }
-.hero-btns { animation: fadeInUp 0.4s ease 0.40s both; will-change: transform; }
+.hero-tag  { animation: fadeInUp 0.4s ease 0.10s both; will-change: auto; }
+.hero h1   { animation: fadeInUp 0.5s ease 0.20s both; will-change: auto; }
+.hero-sub  { animation: fadeInUp 0.4s ease 0.30s both; will-change: auto; }
+.hero-btns { animation: fadeInUp 0.4s ease 0.40s both; will-change: auto; }
 
 /* Page hero (内部ページ共通) */
-.page-hero h1 { animation: fadeInUp 0.4s ease 0.10s both; will-change: transform; }
-.page-hero p  { animation: fadeInUp 0.4s ease 0.20s both; will-change: transform; }
+.page-hero h1 { animation: fadeInUp 0.4s ease 0.10s both; will-change: auto; }
+.page-hero p  { animation: fadeInUp 0.4s ease 0.20s both; will-change: auto; }
 
 /* モーション軽減設定に対応 */
 @media (prefers-reduced-motion: reduce) {
@@ -412,7 +412,7 @@ button { font-family: inherit; }
   transition: all var(--transition);
   cursor: pointer;
   border: 2px solid transparent;
-  will-change: transform;
+  will-change: auto;
 }
 .btn-gold {
   background: #f97316;
@@ -498,7 +498,7 @@ button { font-family: inherit; }
   box-shadow: var(--shadow);
   overflow: hidden;
   transition: transform var(--transition), box-shadow var(--transition);
-  will-change: transform;
+  will-change: auto;
 }
 .card:hover {
   transform: translateY(-6px);
@@ -646,7 +646,7 @@ button { font-family: inherit; }
   font-size: .7rem;
   letter-spacing: .1em;
   animation: bounce 1.8s infinite;
-  will-change: transform;
+  will-change: auto;
 }
 .scroll-down::after {
   content: '▼';
@@ -666,7 +666,7 @@ button { font-family: inherit; }
   box-shadow: var(--shadow);
   background: #fff;
   transition: transform var(--transition), box-shadow var(--transition);
-  will-change: transform;
+  will-change: auto;
 }
 .service-card:hover {
   transform: translateY(-6px);
@@ -732,7 +732,7 @@ button { font-family: inherit; }
   border-radius: 10px;
   box-shadow: var(--shadow);
   transition: transform var(--transition);
-  will-change: transform;
+  will-change: auto;
 }
 .strength-card:hover { transform: translateY(-5px); }
 .strength-num {
@@ -769,7 +769,7 @@ button { font-family: inherit; }
   display: flex;
   flex-direction: column;
   transition: transform var(--transition), box-shadow var(--transition);
-  will-change: transform;
+  will-change: auto;
 }
 .blog-card:hover {
   transform: translateY(-5px);
@@ -1019,7 +1019,7 @@ button { font-family: inherit; }
   overflow: hidden;
   transition: transform var(--transition), box-shadow var(--transition);
   margin-bottom: 24px;
-  will-change: transform;
+  will-change: auto;
 }
 .blog-list-item:hover {
   transform: translateX(4px);
@@ -1651,3 +1651,10 @@ html { scroll-behavior: auto !important; }
 .article-body h2  { font-size: 1.25rem !important; }                       /* 20px */
 .article-body h3  { font-size: 1rem !important; }                          /* 16px */
 .blog-list-content h2 { font-size: 1.125rem !important; }                  /* 18px */
+/* ===== タッチ端末: ホバーの動き(transform)を無効化しスクロールのカクつきを防止 ===== */
+@media (hover: none) {
+  .strength-card:hover,
+  .service-card:hover,
+  .blog-card:hover,
+  .blog-list-item:hover { transform: none !important; }
+}

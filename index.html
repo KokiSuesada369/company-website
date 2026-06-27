@@ -484,7 +484,10 @@
   }
   document.addEventListener('DOMContentLoaded', setBodyPadding);
   window.addEventListener('load', setBodyPadding);
-  window.addEventListener('resize', setBodyPadding);
+  var _lastW = window.innerWidth;
+  window.addEventListener('resize', function () {
+    if (window.innerWidth !== _lastW) { _lastW = window.innerWidth; setBodyPadding(); }
+  });
 </script>
 
 </body>
