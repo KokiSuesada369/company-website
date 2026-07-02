@@ -1658,3 +1658,13 @@ html { scroll-behavior: auto !important; }
   .blog-card:hover,
   .blog-list-item:hover { transform: none !important; }
 }
+/* ===== 記事ページ: page-heroの見出しをH1から降格したテキストの体裁 ===== */
+.page-hero .page-hero-title {
+  display: block;
+  margin: 0 0 8px;
+  font-size: clamp(1.5rem, 4vw, 1.875rem);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: .06em;
+  line-height: 1.3;
+}
