@@ -15,6 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <meta name="theme-color" content="#1a2f5e">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
   <title>広島の警備費用を無料見積もり｜その場で料金計算｜SAIZEN警備保障株式会社</title>
   <link rel="canonical" href="https://saizen.one/estimate/">
   <meta name="twitter:card" content="summary_large_image">
@@ -432,8 +433,28 @@
     .faq-a::before { content: 'A'; position: absolute; left: 0; top: 0; width: 21px; height: 21px; background: var(--secondary); color: #fff; border-radius: 4px; font-size: .72rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
     @media (max-width: 768px) { .faq-item { padding: 20px 20px; } }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "ホーム",
+        "item": "https://saizen.one/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "お見積もり"
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">本文へスキップ</a>
 
 <!-- Nav overlay -->
 <div class="nav-overlay" id="navOverlay"></div>
@@ -444,7 +465,7 @@
 <header id="header">
   <div class="header-inner">
     <a href="/" class="logo-img-link">
-      <img src="/images/logo-08a.png" alt="広島の警備会社 SAIZEN警備保障株式会社" class="header-logo">
+      <img src="/images/logo-08a.png" alt="広島の警備会社 SAIZEN警備保障株式会社" width="2046" height="319" class="header-logo">
     </a>
     <button class="hamburger" id="hamburger" aria-label="メニュー">
       <span></span><span></span><span></span>
@@ -458,7 +479,7 @@
           <ul class="dropdown">
             <li><a href="/service/">業務案内</a></li>
             <li><a href="/price/">料金表</a></li>
-            <li><a href="/estimate/" class="active">お見積もり</a></li>
+            <li><a href="/estimate/" class="active" aria-current="page">お見積もり</a></li>
             <li><a href="/order/">警備依頼</a></li>
           </ul>
         </li>
@@ -473,7 +494,7 @@
 <!-- ============================================================
      PAGE HERO
      ============================================================ -->
-<section class="page-hero">
+<section id="main-content" role="main" class="page-hero">
   <div class="container">
     <h1>自動見積もり</h1>
     <p>ESTIMATE</p>

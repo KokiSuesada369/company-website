@@ -15,6 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <meta name="theme-color" content="#1a2f5e">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
   <title>業務案内｜広島の警備会社SAIZEN警備保障株式会社</title>
   <link rel="canonical" href="https://saizen.one/service/">
   <meta name="twitter:card" content="summary_large_image">
@@ -30,15 +31,53 @@
   <meta property="og:image" content="https://saizen.one/images/logo-01a.png">
   <meta property="og:locale" content="ja_JP">
   <link rel="stylesheet" href="/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "交通誘導警備・雑踏警備・駐車場警備・イベント警備",
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "SAIZEN警備保障株式会社",
+      "url": "https://saizen.one",
+      "telephone": "080-5624-1393"
+    },
+    "areaServed": {
+      "@type": "AdministrativeArea",
+      "name": "広島県"
+    },
+    "url": "https://saizen.one/service/"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "ホーム",
+        "item": "https://saizen.one/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "業務案内"
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">本文へスキップ</a>
 
 <div class="nav-overlay" id="navOverlay"></div>
 
 <header id="header">
   <div class="header-inner">
     <a href="/" class="logo-img-link">
-      <img src="/images/logo-08a.png" alt="広島の警備会社 SAIZEN警備保障株式会社" class="header-logo">
+      <img src="/images/logo-08a.png" alt="広島の警備会社 SAIZEN警備保障株式会社" width="2046" height="319" class="header-logo">
     </a>
     <button class="hamburger" id="hamburger" aria-label="メニュー">
       <span></span><span></span><span></span>
@@ -50,7 +89,7 @@
         <li class="has-dropdown active">
           <a href="/service/" class="dropdown-toggle">サービス <span class="dropdown-arrow">▼</span></a>
           <ul class="dropdown">
-            <li><a href="/service/" class="active">業務案内</a></li>
+            <li><a href="/service/" class="active" aria-current="page">業務案内</a></li>
             <li><a href="/price/">料金表</a></li>
             <li><a href="/estimate/">お見積もり</a></li>
             <li><a href="/order/">警備依頼</a></li>
@@ -79,7 +118,7 @@
 <!-- ============================================================
      INTRO
      ============================================================ -->
-<section class="section">
+<section id="main-content" role="main" class="section">
   <div class="container">
     <div class="section-title">
       <div class="label">OUR SERVICES</div>

@@ -15,6 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <meta name="theme-color" content="#1a2f5e">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
   <title>採用情報｜SAIZEN警備保障株式会社</title>
   <link rel="canonical" href="https://saizen.one/recruit/">
   <meta property="og:site_name" content="SAIZEN警備保障株式会社">
@@ -189,15 +190,35 @@
       .contact-method-grid { grid-template-columns: 1fr; }
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "ホーム",
+        "item": "https://saizen.one/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "採用情報"
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">本文へスキップ</a>
 
 <div class="nav-overlay" id="navOverlay"></div>
 
 <header id="header">
   <div class="header-inner">
     <a href="/" class="logo-img-link">
-      <img src="/images/logo-08a.png" alt="広島の警備会社 SAIZEN警備保障株式会社" class="header-logo">
+      <img src="/images/logo-08a.png" alt="広島の警備会社 SAIZEN警備保障株式会社" width="2046" height="319" class="header-logo">
     </a>
     <button class="hamburger" id="hamburger" aria-label="メニュー">
       <span></span><span></span><span></span>
@@ -215,7 +236,7 @@
             <li><a href="/order/">警備依頼</a></li>
           </ul>
         </li>
-        <li><a href="/recruit/" class="active">採用情報</a></li>
+        <li><a href="/recruit/" class="active" aria-current="page">採用情報</a></li>
         <li><a href="/blog/">警備の知恵袋</a></li>
         <li class="contact-link"><a href="/contact/">お問い合わせ</a></li>
       </ul>
@@ -238,7 +259,7 @@
 <!-- ============================================================
      HERO MESSAGE
      ============================================================ -->
-<section style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); padding: 80px 0; position: relative; overflow: hidden;">
+<section id="main-content" role="main" style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); padding: 80px 0; position: relative; overflow: hidden;">
   <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(200,160,0,.08) 0%, transparent 70%);"></div>
   <div class="container" style="text-align: center; position: relative;">
     <div style="color: rgba(255,255,255,.55); font-size: .78rem; letter-spacing: .15em; font-weight: 700; text-transform: uppercase; margin-bottom: 20px;">RECRUIT MESSAGE</div>

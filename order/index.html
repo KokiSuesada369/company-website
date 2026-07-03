@@ -15,6 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <meta name="theme-color" content="#1a2f5e">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
   <title>警備依頼・お申し込み｜広島SAIZEN警備保障株式会社</title>
   <link rel="canonical" href="https://saizen.one/order/">
   <meta name="twitter:card" content="summary_large_image">
@@ -486,8 +487,28 @@
       .oec-placeholder { padding-left: 22px; padding-right: 22px; }
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "ホーム",
+        "item": "https://saizen.one/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "警備依頼"
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">本文へスキップ</a>
 
 <!-- Nav overlay -->
 <div class="nav-overlay" id="navOverlay"></div>
@@ -498,7 +519,7 @@
 <header id="header">
   <div class="header-inner">
     <a href="/" class="logo-img-link">
-      <img src="/images/logo-08a.png" alt="広島の警備会社 SAIZEN警備保障株式会社" class="header-logo">
+      <img src="/images/logo-08a.png" alt="広島の警備会社 SAIZEN警備保障株式会社" width="2046" height="319" class="header-logo">
     </a>
     <button class="hamburger" id="hamburger" aria-label="メニュー">
       <span></span><span></span><span></span>
@@ -513,7 +534,7 @@
             <li><a href="/service/">業務案内</a></li>
             <li><a href="/price/">料金表</a></li>
             <li><a href="/estimate/">お見積もり</a></li>
-            <li><a href="/order/" class="active">警備依頼</a></li>
+            <li><a href="/order/" class="active" aria-current="page">警備依頼</a></li>
           </ul>
         </li>
         <li><a href="/recruit/">採用情報</a></li>
@@ -527,7 +548,7 @@
 <!-- ============================================================
      PAGE HERO
      ============================================================ -->
-<section class="page-hero">
+<section id="main-content" role="main" class="page-hero">
   <div class="container">
     <h1>警備依頼フォーム</h1>
     <p>ORDER FORM</p>
