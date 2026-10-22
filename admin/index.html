@@ -485,8 +485,11 @@
 
 <script>
   const GAS_URL  = 'https://script.google.com/macros/s/AKfycbxAIcflhTwYbWPOPjaGauiQPN8fr80h176098NaFGQFUpdEsQ6FM2Putccvdedue2Rz/exec';
-  const PASS     = 'saizen2024';
-  const AUTH_KEY = 'saizen_admin_auth';
+  // パスワードはこのファイルには書きません。入力された値をApps Script側へ送って確認します。
+  const PW_KEY   = 'saizen_admin_pw';   // タブを閉じると消える（sessionStorage）
+  function getPw() { try { return sessionStorage.getItem(PW_KEY) || ''; } catch (_) { return ''; } }
+  function setPw(v) { try { if (v) sessionStorage.setItem(PW_KEY, v); else sessionStorage.removeItem(PW_KEY); } catch (_) {} }
+  try { localStorage.removeItem('saizen_admin_auth'); } catch (_) {}   // 旧ログイン情報を消す
 
   const STATUS_LIST = ['未確認', '確認済', '手配完了', '契約書作成済'];
 
@@ -536,10 +539,20 @@
 
     window[callbackName] = function(response) {
       document.getElementById('loadingMsg').style.display = 'none';
-      if (response && response.result === 'success') {
+      if (response && response.result === 'success' && response.auth === true) {
+        if (document.getElementById('adminWrap').style.display !== 'block') showAdmin();
         displayData(response.data);
+      } else if (response && response.result === 'unauthorized') {
+        loginFailed('パスワードが違います。');
+      } else if (response && response.result === 'success') {
+        // サーバー側（Apps Script）がまだパスワード確認に対応していない
+        loginFailed('サーバー側の設定が未完了です。Apps Scriptの更新が必要です。');
       } else {
-        document.getElementById('errorMsg').style.display = 'block';
+        if (document.getElementById('adminWrap').style.display === 'block') {
+          document.getElementById('errorMsg').style.display = 'block';
+        } else {
+          loginFailed('サーバーに接続できませんでした。');
+        }
       }
     };
 
@@ -550,10 +563,14 @@
 
     var script = document.createElement('script');
     script.id  = 'gasScript';
-    script.src = GAS_URL + '?callback=' + callbackName + '&t=' + Date.now();
+    script.src = GAS_URL + '?action=list&pw=' + encodeURIComponent(getPw()) + '&callback=' + callbackName + '&t=' + Date.now();
     script.onerror = function() {
       document.getElementById('loadingMsg').style.display = 'none';
-      document.getElementById('errorMsg').style.display   = 'block';
+      if (document.getElementById('adminWrap').style.display === 'block') {
+        document.getElementById('errorMsg').style.display = 'block';
+      } else {
+        loginFailed('サーバーに接続できませんでした。');
+      }
     };
     document.body.appendChild(script);
   }
@@ -660,7 +677,7 @@
       await fetch(GAS_URL, {
         method:'POST', mode:'no-cors',
         headers:{'Content-Type':'text/plain'},
-        body: JSON.stringify({ action:'updateStatus', rowIndex:orders[idx].rowIndex, status:newStatus })
+        body: JSON.stringify({ action:'updateStatus', pw:getPw(), rowIndex:orders[idx].rowIndex, status:newStatus })
       });
     } catch (_) {}
   }
@@ -907,21 +924,26 @@
   // ─────────────────────────────────────────────────
   // ── 認証 ──
   // ─────────────────────────────────────────────────
+  function loginFailed(msg) {
+    setPw('');
+    document.getElementById('adminWrap').style.display = 'none';
+    document.getElementById('loginWrap').style.display = 'flex';
+    document.getElementById('loginErr').textContent = msg;
+    document.getElementById('pwInput').value = '';
+  }
   function doLogin() {
     const pw = document.getElementById('pwInput').value;
-    if (pw === PASS) {
-      localStorage.setItem(AUTH_KEY, '1');
-      showAdmin();
-    } else {
-      document.getElementById('loginErr').textContent = 'パスワードが違います。';
-      document.getElementById('pwInput').value = '';
-    }
+    if (!pw) { document.getElementById('loginErr').textContent = 'パスワードを入力してください。'; return; }
+    document.getElementById('loginErr').textContent = '確認中…';
+    setPw(pw);
+    loadData();   // サーバーが「正しい」と返した場合だけ管理画面が開く
   }
   function doLogout() {
-    localStorage.removeItem(AUTH_KEY);
+    setPw('');
     location.reload();
   }
   function showAdmin() {
+    document.getElementById('loginErr').textContent = '';
     document.getElementById('loginWrap').style.display = 'none';
     document.getElementById('adminWrap').style.display = 'block';
     // 祝日API取得（料金計算の精度向上）
@@ -929,10 +951,10 @@
       .then(r => r.json())
       .then(d => { HOLIDAYS = new Set(Object.keys(d)); })
       .catch(() => {});
-    loadData();
   }
 
-  if (localStorage.getItem(AUTH_KEY) === '1') showAdmin();
+  // タブを開いたまま再読み込みした場合は、保存済みのパスワードで自動確認
+  if (getPw()) loadData();
 </script>
 </body>
 </html>
