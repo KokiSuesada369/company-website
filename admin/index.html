@@ -590,6 +590,9 @@
       if (o.rowIndex === undefined) o.rowIndex = idx + 2;
       return o;
     });
+    // 新しい順（スマホのカード表示も同じ）。新しい依頼はスプレッドシートの下に足されるので、行番号の大きい順にする。
+    // 並べ替えた orders をそのまま使うので、詳細・ステータス変更・削除がずれることはない。
+    orders.sort(function (a, b) { return Number(b.rowIndex) - Number(a.rowIndex); });
     renderTable();
   }
 
