@@ -32,162 +32,187 @@
   <meta name="description" content="SAIZEN警備保障株式会社の採用情報。未経験歓迎・社会保険完備。交通誘導・雑踏警備の警備員（アルバイト・正社員）を広島県内で募集中。">
   <link rel="stylesheet" href="/style.css">
   <style>
-    .recruit-card {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      transition: transform var(--transition), box-shadow var(--transition);
-      will-change:auto;
-    }
-    .recruit-card:hover {
-      transform: translateY(-6px);
-      box-shadow: var(--shadow-hv);
-    }
-    .recruit-card-head {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      padding: 28px 30px;
-    }
-    .recruit-card-head .card-type {
-      display: inline-block;
-      background: rgba(255,255,255,.18);
-      color: #fff;
-      font-size: .72rem;
-      padding: 4px 14px;
-      border-radius: 20px;
-      font-weight: 700;
-      letter-spacing: .06em;
-      margin-bottom: 12px;
-    }
-    .recruit-card-head h3 {
-      color: #fff;
-      font-size: 1.35rem;
-      font-weight: 700;
-      line-height: 1.4;
-    }
-    .recruit-card-head h3 small {
-      display: block;
-      font-size: .82rem;
-      font-weight: 400;
-      color: rgba(255,255,255,.7);
-      margin-top: 4px;
-    }
-    .recruit-card-body {
-      padding: 4px 0;
-    }
-    .recruit-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: .92rem;
-    }
-    .recruit-table tr {
-      border-bottom: 1px solid var(--mid-gray);
-    }
-    .recruit-table tr:last-child {
-      border-bottom: none;
-    }
-    .recruit-table th {
-      width: 120px;
-      padding: 14px 18px;
-      background: var(--light-bg);
-      color: var(--primary);
-      font-weight: 700;
-      vertical-align: top;
-      white-space: nowrap;
-      font-size: .88rem;
-    }
-    .recruit-table td {
-      padding: 14px 18px;
-      color: var(--dark-gray);
-      line-height: 1.8;
-    }
-    .salary-highlight {
-      color: var(--primary);
-      font-weight: 700;
-      font-size: 1.1rem;
-    }
-    .career-badge {
-      display: inline-block;
-      margin-top: 6px;
-      font-size: .82rem;
-      color: var(--secondary);
-      padding: 5px 12px;
-      background: rgba(42,72,152,.07);
-      border-radius: 4px;
-      border-left: 3px solid var(--secondary);
+    /* ============================================================
+       採用ページ（案 R-1：給与ファースト）
+       色・文字・ボタンは /style.css の共通設定を使う
+       ============================================================ */
+    .rc-wrap ul,.rc-wrap ol{list-style:none;padding-left:0}
+    .rc-wrap h1,.rc-wrap h2,.rc-wrap h3{font-weight:900;font-feature-settings:"palt";line-height:1.4}
+
+    /* 最初の画面 */
+    .rc-hero{padding:16px var(--gutter) 0}
+    .rc-hero-panel{position:relative;max-width:1240px;margin:0 auto;border-radius:32px;background:linear-gradient(180deg,#EAF3FC 0%,#FFFFFF 100%);overflow:hidden;padding:80px 24px 72px;text-align:center}
+    .rc-deco{position:absolute;pointer-events:none;user-select:none;height:auto}
+    .rc-deco-r{width:380px;right:-30px;bottom:-70px;opacity:.15}
+    .rc-deco-l{width:240px;left:-40px;top:-50px;opacity:.15}
+    .rc-hero-inner{position:relative;z-index:1;max-width:900px;margin:0 auto}
+    .rc-eyebrow{color:var(--primary);font-size:15px;font-weight:700;letter-spacing:.2em;margin:0 0 20px}
+    .rc-eyebrow .en{letter-spacing:.24em}
+    .rc-title{font-size:clamp(31px,4.2vw + 4px,58px);line-height:1.3;letter-spacing:.02em;margin:0 0 24px}
+    .rc-title em{font-style:normal;color:var(--primary)}
+    .rc-lead{color:var(--sub);font-size:16px;line-height:2.05;margin:0 0 36px}
+    .rc-lead-sp{display:none}
+
+    .rc-pay{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:900px;margin:0 auto 28px;text-align:left}
+    .rc-pay-card{background:#fff;border-radius:22px;box-shadow:0 10px 30px rgba(15,29,46,.07);padding:26px 30px 24px}
+    .rc-pay-type{display:inline-block;background:var(--soft-blue);color:var(--primary);font-size:13px;font-weight:700;border-radius:999px;padding:4px 12px;margin-bottom:10px}
+    .rc-pay-amount{display:flex;align-items:baseline;gap:6px;margin:0;line-height:1.1;color:var(--text);font-weight:900}
+    .rc-pay-amount .unit{font-size:18px}
+    .rc-pay-amount strong{font-family:var(--font-en);font-weight:800;font-size:46px;color:var(--primary);letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+    .rc-pay-amount .yen{font-size:17px;color:var(--primary)}
+    .rc-pay-note{margin:10px 0 0;font-size:13.5px;color:var(--sub)}
+
+    .rc-checks{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 26px;margin:0 0 32px}
+    .rc-checks li{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700}
+    .rc-check-dot{width:22px;height:22px;border-radius:50%;background:var(--primary);color:#fff;display:grid;place-items:center;flex:none}
+    .rc-check-dot .i{width:14px;height:14px;stroke-width:3}
+    .rc-actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+    .rc-actions .pill{min-height:56px;padding:0 34px;font-size:16px}
+    .rc-actions .pill-outline{border-color:var(--line);color:var(--text)}
+    .rc-actions .pill-outline .i{color:var(--primary)}
+    .rc-actions .pill-outline strong{font-family:var(--font-en);font-weight:700;letter-spacing:.03em}
+
+    /* 段の共通 */
+    .rc-sec{padding:96px 0}
+    .rc-sec-soft{background:var(--soft)}
+    .rc-head{text-align:center;margin-bottom:44px}
+    .rc-head .eyebrow{display:block;font-family:var(--font-en);font-size:13px;font-weight:700;letter-spacing:.22em;color:var(--primary);margin-bottom:10px}
+    .rc-head h2{font-size:34px;letter-spacing:.02em;margin:0}
+    .rc-head p{color:var(--sub);margin:12px 0 0}
+
+    /* 働く魅力 */
+    .rc-why{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+    .rc-why li{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px 24px 30px}
+    .rc-why h3{font-size:18px;margin:18px 0 8px}
+    .rc-why p{font-size:14.5px;color:var(--sub);line-height:1.85;margin:0}
+
+    /* 募集要項 */
+    .rc-jd{max-width:960px;margin:0 auto}
+    .rc-jd-switch{display:none}
+    .rc-jd-radio{position:absolute;opacity:0;pointer-events:none}
+    .rc-jd-table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;font-size:15px}
+    .rc-jd-table th,.rc-jd-table td{padding:18px 24px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+    .rc-jd-table tbody tr:last-child th,.rc-jd-table tbody tr:last-child td{border-bottom:0}
+    .rc-jd-table thead th{background:var(--soft-blue);color:var(--primary);font-size:15px;font-weight:900}
+    .rc-jd-table thead th:first-child{background:var(--soft-blue)}
+    .rc-jd-table tbody th{width:20%;background:var(--soft);font-weight:700;color:var(--text);white-space:nowrap}
+    .rc-jd-table td{width:40%}
+    .rc-jd-table td + td{border-left:1px solid var(--line)}
+    .rc-jd-table thead th + th{border-left:1px solid #D5E6F4}
+    .rc-jd-pay td{color:var(--primary);font-weight:900;font-size:16.5px}
+    .rc-jd-pay td .sub{color:var(--text);font-weight:500;font-size:14.5px}
+
+    /* 応募から現場デビューまで */
+    .rc-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .rc-flow li{position:relative;text-align:center;padding:0 8px}
+    .rc-flow li + li::before{content:"";position:absolute;top:38px;right:calc(50% + 46px);width:calc(100% - 92px + 16px);border-top:2px dotted #8DBFE3}
+    .rc-flow-circle{width:76px;height:76px;border-radius:50%;background:#fff;border:2px solid var(--primary);color:var(--primary);display:grid;place-items:center;margin:0 auto 18px}
+    .rc-flow-circle .i{width:30px;height:30px}
+    .rc-flow .step{display:block;font-family:var(--font-en);font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--primary)}
+    .rc-flow h3{font-size:18px;margin:4px 0 6px}
+    .rc-flow p{font-size:14px;color:var(--sub);line-height:1.7;margin:0}
+
+    /* 応募する */
+    #apply{scroll-margin-top:calc(var(--header-h) + 16px)}
+    .rc-apply{display:grid;grid-template-columns:1.6fr 1fr;gap:24px;align-items:start;max-width:1040px;margin:0 auto}
+    .rc-form-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:36px 36px 32px}
+    .rc-form-card .form-group{margin-bottom:20px}
+    .rc-job{border:0;margin:0 0 22px;padding:0;min-width:0}
+    .rc-job legend{display:flex;align-items:center;gap:8px;font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:8px;padding:0}
+    .rc-job-seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--soft);border-radius:999px;padding:4px}
+    .rc-job-seg label{position:relative;display:block;cursor:pointer}
+    .rc-job-seg input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+    .rc-job-seg span{display:flex;align-items:center;justify-content:center;min-height:46px;border-radius:999px;font-weight:700;color:var(--sub);transition:background-color .15s,color .15s}
+    .rc-job-seg input:checked + span{background:#fff;color:var(--primary);box-shadow:0 1px 4px rgba(15,29,46,.1)}
+    .rc-job-seg input:focus-visible + span{outline:3px solid #7FB6E0;outline-offset:1px}
+    .rc-more{margin:4px 0 20px;border-top:1px dashed var(--line);padding-top:14px}
+    .rc-more summary{display:inline-flex;align-items:center;gap:6px;min-height:44px;cursor:pointer;color:var(--primary);font-weight:700;font-size:14.5px;list-style:none}
+    .rc-more summary::-webkit-details-marker{display:none}
+    .rc-more summary::before{content:"+";display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--soft-blue);font-family:var(--font-en);font-weight:800}
+    .rc-more[open] summary::before{content:"−"}
+    .rc-more[open] summary{margin-bottom:12px}
+    .rc-form-card .form-submit{text-align:left;margin-top:24px}
+    .rc-form-card .form-submit .pill{min-height:54px;padding:0 34px;font-size:16px}
+    .rc-success{display:none;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:14px;padding:24px;color:#2e7d32;text-align:center;font-size:1rem;line-height:1.8}
+
+    .rc-tel-card{background:var(--primary);color:#fff;border-radius:22px;padding:34px 30px}
+    .rc-tel-card h3{font-size:20px;margin:0 0 6px;color:#fff}
+    .rc-tel-card p{margin:0;opacity:.9;font-size:14px}
+    .rc-tel-card a.rc-tel{display:flex;align-items:center;gap:10px;margin:22px 0 6px;min-height:48px;color:#fff;font-family:var(--font-en);font-weight:800;font-size:30px;letter-spacing:.02em;text-decoration:none}
+    .rc-tel-card a.rc-tel:hover{color:#fff;text-decoration:underline;text-underline-offset:4px}
+    .rc-tel-card a.rc-tel .i{width:26px;height:26px}
+    .rc-tel-card .rc-hours{font-size:13.5px;opacity:.9}
+    .rc-tel-card .rc-mail{margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.25);font-size:14px}
+    .rc-tel-card .rc-mail a{color:#fff;font-weight:700;text-decoration:underline;text-underline-offset:3px;display:inline-block;padding:10px 0;margin:-10px 0}
+
+    /* タブレット */
+    @media (max-width:1000px){
+      .rc-why{grid-template-columns:repeat(2,1fr)}
+      .rc-apply{grid-template-columns:1fr}
     }
 
-    .appeal-card {
-      text-align: center;
-      padding: 40px 28px;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: var(--shadow);
-      transition: transform var(--transition);
-      will-change:auto;
-    }
-    .appeal-card:hover { transform: translateY(-5px); }
-    .appeal-icon {
-      font-size: 2.8rem;
-      margin-bottom: 16px;
-      line-height: 1;
-    }
-    .appeal-card h3 {
-      font-size: 1.05rem;
-      color: var(--primary);
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-    .appeal-card p {
-      font-size: .88rem;
-      color: var(--dark-gray);
-      line-height: 1.9;
-    }
+    /* スマホ */
+    @media (max-width:768px){
+      .rc-hero{padding-top:8px}
+      .rc-hero-panel{border-radius:24px;padding:40px 16px 32px}
+      .rc-deco-r{width:200px;right:-40px;bottom:-30px}
+      .rc-deco-l{width:130px;left:-36px;top:-30px}
+      .rc-eyebrow{font-size:12.5px;letter-spacing:.14em;margin-bottom:14px}
+      .rc-title{letter-spacing:0;margin-bottom:14px}
+      .rc-lead-pc{display:none}
+      .rc-lead-sp{display:block;font-size:14px;margin-bottom:24px}
+      .rc-pay{grid-template-columns:1fr;gap:12px;margin-bottom:20px}
+      .rc-pay-card{padding:20px 20px 18px;border-radius:18px}
+      .rc-pay-amount strong{font-size:38px}
+      .rc-checks{display:grid;grid-template-columns:1fr 1fr;gap:10px 8px;justify-items:start;max-width:320px;margin:0 auto}
+      .rc-checks li{font-size:14px}
+      .rc-actions{display:none}
 
-    .contact-method-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-      max-width: 820px;
-      margin: 0 auto;
-    }
-    .contact-method-box {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: var(--shadow);
-      padding: 38px 32px;
-      text-align: center;
-    }
-    .contact-method-icon {
-      font-size: 2.4rem;
-      margin-bottom: 16px;
-      line-height: 1;
-    }
-    .contact-method-box h3 {
-      font-size: 1rem;
-      color: var(--primary);
-      font-weight: 700;
-      margin-bottom: 14px;
-    }
-    .contact-value {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 8px;
-      letter-spacing: .03em;
-    }
-    .contact-value a { color: var(--primary); }
-    .contact-value a:hover { color: var(--secondary); }
-    .contact-hours {
-      font-size: .82rem;
-      color: var(--dark-gray);
-      line-height: 1.7;
-    }
+      .rc-sec{padding:56px 0}
+      .rc-head{margin-bottom:28px}
+      .rc-head h2{font-size:24px}
+      .rc-head p{font-size:14px}
 
-    @media (max-width: 768px) {
-      .recruit-table th { width: 82px; font-size: .82rem; padding: 12px 12px; }
-      .recruit-table td { padding: 12px 12px; }
-      .contact-method-grid { grid-template-columns: 1fr; }
+      .rc-why{grid-template-columns:1fr;gap:12px}
+      .rc-why li{display:grid;grid-template-columns:56px 1fr;column-gap:16px;padding:18px;border-radius:16px}
+      .rc-why .ico{grid-row:span 2}
+      .rc-why h3{margin:2px 0 4px;font-size:16.5px}
+      .rc-why p{font-size:13.5px}
+
+      .rc-jd-switch{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px;margin:0 0 14px}
+      .rc-jd-switch label{display:flex;align-items:center;justify-content:center;min-height:44px;border-radius:999px;font-weight:700;color:var(--sub);cursor:pointer}
+      .rc-jd-radio{position:absolute;opacity:0;pointer-events:none}
+      #jdPart:checked ~ .rc-jd-switch label[for="jdPart"],
+      #jdFull:checked ~ .rc-jd-switch label[for="jdFull"]{background:var(--primary);color:#fff}
+      #jdPart:focus-visible ~ .rc-jd-switch label[for="jdPart"],
+      #jdFull:focus-visible ~ .rc-jd-switch label[for="jdFull"]{outline:3px solid #7FB6E0;outline-offset:1px}
+      #jdPart:checked ~ .rc-jd-table .col-full,
+      #jdFull:checked ~ .rc-jd-table .col-part{display:none}
+      .rc-jd-table{font-size:14px}
+      .rc-jd-table thead{display:none}
+      .rc-jd-table th,.rc-jd-table td{padding:14px 14px}
+      .rc-jd-table tbody th{width:34%;white-space:normal}
+      .rc-jd-table td{width:auto}
+      .rc-jd-table td + td{border-left:0}
+      .rc-jd-pay td{font-size:15px}
+
+      .rc-flow{grid-template-columns:1fr;gap:0}
+      .rc-flow li{display:grid;grid-template-columns:56px 1fr;column-gap:16px;text-align:left;padding:0 0 26px}
+      .rc-flow li + li::before{display:none}
+      .rc-flow li:not(:last-child)::after{content:"";position:absolute;left:27px;top:60px;bottom:4px;border-left:2px dotted #8DBFE3}
+      .rc-flow-circle{width:56px;height:56px;margin:0;grid-row:span 3}
+      .rc-flow-circle .i{width:24px;height:24px}
+      .rc-flow h3{font-size:17px;margin:0 0 2px}
+      .rc-flow p{font-size:13.5px}
+
+      .rc-form-card{padding:24px 18px 22px;border-radius:18px}
+      .rc-form-card .form-submit .pill{width:100%}
+      .rc-tel-card{padding:28px 22px;border-radius:18px}
+      .rc-tel-card a.rc-tel{font-size:26px}
+    }
+    @media (max-width:359px){
+      .rc-title{font-size:28px}
+      .rc-pay-amount strong{font-size:34px}
     }
   </style>
   <script type="application/ld+json">
@@ -263,10 +288,6 @@
 </div>
 <!-- site-header:end -->
 
-<div class="page-hero">
-  <h1>採用情報</h1>
-  <p>Recruit</p>
-</div>
 <div class="breadcrumb">
   <div class="container">
     <a href="/">ホーム</a>
@@ -275,274 +296,251 @@
   </div>
 </div>
 
-<!-- ============================================================
-     HERO MESSAGE
-     ============================================================ -->
-<section id="main-content" role="main" style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); padding: 80px 0; position: relative; overflow: hidden;">
-  <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(200,160,0,.08) 0%, transparent 70%);"></div>
-  <div class="container" style="text-align: center; position: relative;">
-    <div style="color: rgba(255,255,255,.55); font-size: .78rem; letter-spacing: .15em; font-weight: 700; text-transform: uppercase; margin-bottom: 20px;">RECRUIT MESSAGE</div>
-    <h2 style="font-size: clamp(1.8rem, 5vw, 2.8rem); color: #fff; font-weight: 700; margin-bottom: 22px; letter-spacing: .04em; line-height: 1.4;">あなたのキャリアを、SAIZENで築こう</h2>
-    <p style="color: rgba(255,255,255,.8); font-size: 1.05rem; line-height: 1.9;">未経験歓迎・社会保険完備・スキルアップを全力サポート</p>
-  </div>
-</section>
+<main class="rc-wrap">
 
 <!-- ============================================================
-     JOB LISTINGS
+     最初の画面（給与ファースト）
      ============================================================ -->
-<section class="section section-alt">
-  <div class="container">
-    <div class="section-title">
-      <div class="label">JOB LISTINGS</div>
-      <h2>求人情報<span class="line"></span></h2>
-      <p>あなたのライフスタイルに合わせた働き方をお選びください。</p>
-    </div>
-    <div class="grid-2">
+<section class="rc-hero" id="main-content" aria-labelledby="rcTitle">
+  <div class="rc-hero-panel">
+    <img class="rc-deco rc-deco-l" src="/images/logo-01a.png" alt="" aria-hidden="true" width="614" height="581">
+    <img class="rc-deco rc-deco-r" src="/images/logo-01a.png" alt="" aria-hidden="true" width="614" height="581">
+    <div class="rc-hero-inner">
+      <p class="rc-eyebrow"><span class="en">RECRUIT</span> ／ 警備員 募集</p>
+      <h1 class="rc-title" id="rcTitle">未経験から、<br><em>プロの警備員</em>へ。</h1>
+      <p class="rc-lead rc-lead-pc">広島で、交通誘導・雑踏警備のスタッフを募集しています。<br>20時間の新任教育があるので、はじめての方も安心です。</p>
+      <p class="rc-lead rc-lead-sp">20時間の新任教育で、はじめてでも安心。</p>
 
-      <!-- アルバイト・パート -->
-      <div class="recruit-card">
-        <div class="recruit-card-head">
-          <span class="card-type">アルバイト・パート</span>
-          <h3>警備員<small>交通誘導・雑踏警備</small></h3>
-        </div>
-        <div class="recruit-card-body">
-          <table class="recruit-table">
-            <tr>
-              <th>給与</th>
-              <td><span class="salary-highlight">日給 10,000円〜</span></td>
-            </tr>
-            <tr>
-              <th>キャリアアップ</th>
-              <td>
-                営業所長を目指せます。
-                <span class="career-badge"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-award"/></svg>営業所長になれば月収50万円〜</span>
-              </td>
-            </tr>
-            <tr>
-              <th>勤務地</th>
-              <td>広島県内の指定する場所</td>
-            </tr>
-            <tr>
-              <th>勤務時間</th>
-              <td>シフト制（現場による）</td>
-            </tr>
-            <tr>
-              <th>試用期間</th>
-              <td>なし</td>
-            </tr>
-            <tr>
-              <th>社会保険</th>
-              <td>完備（アルバイト・正社員問わず）</td>
-            </tr>
-            <tr>
-              <th>研修制度</th>
-              <td>入社後、現場に出る前に新任教育20時間あり</td>
-            </tr>
-            <tr>
-              <th>資格・経験</th>
-              <td>不問・未経験歓迎</td>
-            </tr>
-          </table>
-        </div>
+      <ul class="rc-pay" aria-label="給与">
+        <li class="rc-pay-card">
+          <span class="rc-pay-type">アルバイト・パート</span>
+          <p class="rc-pay-amount"><span class="unit">日給</span><strong>10,000</strong><span class="yen">円〜</span></p>
+          <p class="rc-pay-note">社会保険も加入OK ／ 交通誘導・雑踏警備</p>
+        </li>
+        <li class="rc-pay-card">
+          <span class="rc-pay-type">正社員</span>
+          <p class="rc-pay-amount"><span class="unit">月給</span><strong>210,000</strong><span class="yen">円〜</span></p>
+          <p class="rc-pay-note">ボーナスあり ／ 交通誘導・雑踏警備</p>
+        </li>
+      </ul>
+
+      <ul class="rc-checks" aria-label="特長">
+        <li><span class="rc-check-dot"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-check"/></svg></span>未経験歓迎</li>
+        <li><span class="rc-check-dot"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-check"/></svg></span>社会保険完備</li>
+        <li><span class="rc-check-dot"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-check"/></svg></span>試用期間なし</li>
+        <li><span class="rc-check-dot"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-check"/></svg></span>研修20時間</li>
+      </ul>
+
+      <div class="rc-actions">
+        <a href="#apply" class="pill pill-primary">応募フォームへ<svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+        <a href="tel:080-5624-1393" class="pill pill-outline"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-phone"/></svg><span class="sr-only">電話で応募 </span><strong>080-5624-1393</strong></a>
       </div>
-
-      <!-- 正社員 -->
-      <div class="recruit-card">
-        <div class="recruit-card-head">
-          <span class="card-type">正社員</span>
-          <h3>警備員<small>交通誘導・雑踏警備</small></h3>
-        </div>
-        <div class="recruit-card-body">
-          <table class="recruit-table">
-            <tr>
-              <th>給与</th>
-              <td><span class="salary-highlight">月給 210,000円〜</span>・ボーナスあり</td>
-            </tr>
-            <tr>
-              <th>キャリアアップ</th>
-              <td>
-                営業所長を目指せます。
-                <span class="career-badge"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-award"/></svg>営業所長になれば月収50万円〜</span>
-              </td>
-            </tr>
-            <tr>
-              <th>勤務地</th>
-              <td>広島県内の指定する場所</td>
-            </tr>
-            <tr>
-              <th>勤務時間</th>
-              <td>シフト制（現場による）</td>
-            </tr>
-            <tr>
-              <th>試用期間</th>
-              <td>なし</td>
-            </tr>
-            <tr>
-              <th>社会保険</th>
-              <td>完備</td>
-            </tr>
-            <tr>
-              <th>研修制度</th>
-              <td>入社後、現場に出る前に新任教育20時間あり</td>
-            </tr>
-            <tr>
-              <th>資格・経験</th>
-              <td>不問・未経験歓迎</td>
-            </tr>
-          </table>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     COMPANY APPEAL
+     SAIZENで働く魅力
      ============================================================ -->
-<section class="section">
-  <div class="container">
-    <div class="section-title">
-      <div class="label">WHY SAIZEN</div>
-      <h2>SAIZENで働く魅力<span class="line"></span></h2>
-      <p>スタッフ全員が安心して長く働ける環境を整えています。</p>
+<section class="rc-sec" aria-labelledby="rcWhy">
+  <div class="wrap">
+    <div class="rc-head">
+      <span class="eyebrow">WHY SAIZEN</span>
+      <h2 id="rcWhy">SAIZENで働く魅力</h2>
     </div>
-    <div class="grid-2" style="max-width: 840px; margin: 0 auto;">
-      <div class="appeal-card">
-        <div class="appeal-icon"><span class="ico"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-leaf"/></svg></span></div>
-        <h3>未経験歓迎</h3>
-        <p>入社後20時間の新任教育で安心スタート。警備の知識ゼロからでもプロの警備員を目指せます。</p>
-      </div>
-      <div class="appeal-card">
-        <div class="appeal-icon"><span class="ico"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-shield"/></svg></span></div>
+    <ul class="rc-why">
+      <li>
+        <span class="ico"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-book"/></svg></span>
+        <h3>未経験から安心</h3>
+        <p>入社後、現場に出る前に20時間の新任教育。知識ゼロからプロを目指せます。</p>
+      </li>
+      <li>
+        <span class="ico"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-shield"/></svg></span>
         <h3>社会保険完備</h3>
-        <p>アルバイト・正社員問わず社会保険に加入できます。安心して長く働ける環境を整えています。</p>
+        <p>アルバイト・正社員を問わず加入できます。長く安心して働けます。</p>
+      </li>
+      <li>
+        <span class="ico"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-trend"/></svg></span>
+        <h3>営業所長を目指せる</h3>
+        <p>現場スタッフから営業所長へ。営業所長になれば月収50万円〜。</p>
+      </li>
+      <li>
+        <span class="ico"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-award"/></svg></span>
+        <h3>資格取得を支援</h3>
+        <p>交通誘導警備業務検定の取得をサポート。できる仕事が広がります。</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================
+     募集要項
+     ============================================================ -->
+<section class="rc-sec rc-sec-soft" aria-labelledby="rcJd">
+  <div class="wrap">
+    <div class="rc-head">
+      <span class="eyebrow">JOB DETAIL</span>
+      <h2 id="rcJd">募集要項</h2>
+    </div>
+    <div class="rc-jd">
+      <!-- スマホでは、この切り替えで片方ずつ表示（JavaScriptなしで動く） -->
+      <input type="radio" name="rcJdView" id="jdPart" class="rc-jd-radio" checked>
+      <input type="radio" name="rcJdView" id="jdFull" class="rc-jd-radio">
+      <div class="rc-jd-switch" aria-hidden="true">
+        <label for="jdPart">アルバイト・パート</label>
+        <label for="jdFull">正社員</label>
       </div>
-      <div class="appeal-card">
-        <div class="appeal-icon"><span class="ico"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-trend"/></svg></span></div>
-        <h3>キャリアアップ</h3>
-        <p>現場スタッフから営業所長を目指せます。実力次第で月収50万円以上も可能です。</p>
-      </div>
-      <div class="appeal-card">
-        <div class="appeal-icon"><span class="ico"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-award"/></svg></span></div>
-        <h3>資格取得支援</h3>
-        <p>交通誘導警備業務検定の取得をサポート。資格を取得することでキャリアの幅が広がります。</p>
-      </div>
+      <table class="rc-jd-table">
+        <caption class="sr-only">警備員（交通誘導・雑踏警備）の募集要項</caption>
+        <thead>
+          <tr><th scope="col"><span class="sr-only">項目</span></th><th scope="col" class="col-part">アルバイト・パート</th><th scope="col" class="col-full">正社員</th></tr>
+        </thead>
+        <tbody>
+          <tr class="rc-jd-pay"><th scope="row">給与</th><td class="col-part">日給 10,000円〜</td><td class="col-full">月給 210,000円〜<span class="sub">・ボーナスあり</span></td></tr>
+          <tr><th scope="row">勤務地</th><td class="col-part">広島県内の指定する場所</td><td class="col-full">広島県内の指定する場所</td></tr>
+          <tr><th scope="row">勤務時間</th><td class="col-part">シフト制（現場による）</td><td class="col-full">シフト制（現場による）</td></tr>
+          <tr><th scope="row">試用期間</th><td class="col-part">なし</td><td class="col-full">なし</td></tr>
+          <tr><th scope="row">社会保険</th><td class="col-part">完備（アルバイト・正社員問わず）</td><td class="col-full">完備</td></tr>
+          <tr><th scope="row">研修</th><td class="col-part">入社後、現場に出る前に新任教育20時間あり</td><td class="col-full">入社後、現場に出る前に新任教育20時間あり</td></tr>
+          <tr><th scope="row">資格・経験</th><td class="col-part">不問・未経験歓迎</td><td class="col-full">不問・未経験歓迎</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     APPLICATION FORM
+     応募から現場デビューまで
      ============================================================ -->
-<section class="section section-alt">
-  <div class="container">
-    <div class="section-title">
-      <div class="label">APPLY NOW</div>
-      <h2>応募フォーム<span class="line"></span></h2>
-      <p>フォームに必要事項をご記入の上、送信してください。担当者よりご連絡いたします。</p>
+<section class="rc-sec" aria-labelledby="rcFlow">
+  <div class="wrap">
+    <div class="rc-head">
+      <span class="eyebrow">FLOW</span>
+      <h2 id="rcFlow">応募から現場デビューまで</h2>
     </div>
-
-    <div class="contact-form-box" style="max-width: 700px; margin: 0 auto;">
-      <div class="success-msg" id="successMsg" style="display:none; background:#e8f5e9; border:1px solid #a5d6a7; border-radius:8px; padding:24px; color:#2e7d32; text-align:center; font-size:1rem; line-height:1.8;">
-        ご応募ありがとうございます。担当者より改めてご連絡いたします。
-      </div>
-
-      <form id="recruitForm" action="https://formspree.io/f/xnjlrqlb" method="POST" novalidate>
-        <input type="hidden" name="_subject" value="【採用応募】SAIZEN警備保障株式会社">
-
-        <div class="form-group">
-          <label class="form-label" for="name">
-            お名前 <span class="required">必須</span>
-          </label>
-          <input type="text" id="name" name="name" class="form-input" placeholder="例：山田 太郎" required>
-          <div class="form-error" id="nameError" style="color:#e74c3c; font-size:.82rem; margin-top:4px; display:none;">お名前をご入力ください。</div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="tel">
-            電話番号 <span class="required">必須</span>
-          </label>
-          <input type="tel" id="tel" name="tel" class="form-input" placeholder="例：090-1234-5678" required>
-          <div class="form-error" id="telError" style="color:#e74c3c; font-size:.82rem; margin-top:4px; display:none;">電話番号をご入力ください。</div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="email">
-            メールアドレス <span class="required">必須</span>
-          </label>
-          <input type="email" id="email" name="email" class="form-input" placeholder="例：info@example.com" required>
-          <div class="form-error" id="emailError" style="color:#e74c3c; font-size:.82rem; margin-top:4px; display:none;">正しいメールアドレスをご入力ください。</div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="jobtype">
-            希望職種 <span class="required">必須</span>
-          </label>
-          <select id="jobtype" name="jobtype" class="form-select" required>
-            <option value="">--- 選択してください ---</option>
-            <option value="アルバイト・パート">アルバイト・パート</option>
-            <option value="正社員">正社員</option>
-          </select>
-          <div class="form-error" id="jobtypeError" style="color:#e74c3c; font-size:.82rem; margin-top:4px; display:none;">希望職種を選択してください。</div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="age">
-            年齢 <span class="optional">任意</span>
-          </label>
-          <input type="number" id="age" name="age" class="form-input" placeholder="例：25" min="15" max="99">
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="message">
-            志望動機・一言メッセージ <span class="optional">任意</span>
-          </label>
-          <textarea id="message" name="message" class="form-textarea" placeholder="志望動機やご質問などがあればお気軽にどうぞ。"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label class="form-check">
-            <input type="checkbox" id="privacy" required>
-            <span><a href="/privacy/" target="_blank">プライバシーポリシー</a>に同意する</span>
-          </label>
-          <div class="form-error" id="privacyError" style="color:#e74c3c; font-size:.82rem; margin-top:4px; display:none;">プライバシーポリシーへの同意が必要です。</div>
-        </div>
-
-        <div class="form-submit">
-          <button type="submit" class="btn btn-gold">応募する <span class="arrow">›</span></button>
-        </div>
-      </form>
-    </div>
+    <ol class="rc-flow">
+      <li>
+        <span class="rc-flow-circle"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-edit"/></svg></span>
+        <span class="step">STEP 1</span>
+        <h3>応募</h3>
+        <p>フォーム・電話・メールで</p>
+      </li>
+      <li>
+        <span class="rc-flow-circle"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-phone"/></svg></span>
+        <span class="step">STEP 2</span>
+        <h3>ご連絡・面接</h3>
+        <p>担当者からご連絡します</p>
+      </li>
+      <li>
+        <span class="rc-flow-circle"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-book"/></svg></span>
+        <span class="step">STEP 3</span>
+        <h3>新任教育 20時間</h3>
+        <p>現場に出る前にしっかり学ぶ</p>
+      </li>
+      <li>
+        <span class="rc-flow-circle"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-shield"/></svg></span>
+        <span class="step">STEP 4</span>
+        <h3>現場デビュー</h3>
+        <p>先輩と一緒に安心スタート</p>
+      </li>
+    </ol>
   </div>
 </section>
 
 <!-- ============================================================
-     PHONE / EMAIL CONTACT
+     応募する（送信先・項目名・送信の処理は以前のまま）
      ============================================================ -->
-<section class="section">
-  <div class="container">
-    <div class="section-title">
-      <div class="label">CONTACT</div>
-      <h2>お電話・メールでのご応募<span class="line"></span></h2>
-      <p>フォーム以外でもご応募を受け付けております。お気軽にご連絡ください。</p>
+<section class="rc-sec rc-sec-soft" id="apply" aria-labelledby="rcApply">
+  <div class="wrap">
+    <div class="rc-head">
+      <span class="eyebrow">APPLY</span>
+      <h2 id="rcApply">応募する</h2>
+      <p>フォームは1分で完了。お電話でも受け付けています。</p>
     </div>
-    <div class="contact-method-grid">
-      <div class="contact-method-box">
-        <div class="contact-method-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-phone"/></svg></div>
-        <h3>お電話でのご応募</h3>
-        <div class="contact-value"><a href="tel:08056241393">080-5624-1393</a></div>
-        <div class="contact-hours">受付時間：9:00〜18:00（土日祝除く）</div>
+    <div class="rc-apply">
+      <div class="rc-form-card">
+        <div class="success-msg rc-success" id="successMsg" style="display:none;">
+          ご応募ありがとうございます。担当者より改めてご連絡いたします。
+        </div>
+
+        <form id="recruitForm" action="https://formspree.io/f/xnjlrqlb" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="【採用応募】SAIZEN警備保障株式会社">
+
+          <fieldset class="rc-job">
+            <legend>希望職種 <span class="required">必須</span></legend>
+            <div class="rc-job-seg">
+              <label><input type="radio" name="jobtype" value="アルバイト・パート" required><span>アルバイト・パート</span></label>
+              <label><input type="radio" name="jobtype" value="正社員"><span>正社員</span></label>
+            </div>
+            <div class="form-error" id="jobtypeError" style="color:#e74c3c; font-size:.82rem; margin-top:4px; display:none;">希望職種を選択してください。</div>
+          </fieldset>
+
+          <div class="form-group">
+            <label class="form-label" for="name">
+              お名前 <span class="required">必須</span>
+            </label>
+            <input type="text" id="name" name="name" class="form-input" placeholder="例：山田 太郎" autocomplete="name" required>
+            <div class="form-error" id="nameError" style="color:#e74c3c; font-size:.82rem; margin-top:4px; display:none;">お名前をご入力ください。</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="tel">
+              電話番号 <span class="required">必須</span>
+            </label>
+            <input type="tel" id="tel" name="tel" class="form-input" placeholder="例：090-1234-5678" autocomplete="tel" required>
+            <div class="form-error" id="telError" style="color:#e74c3c; font-size:.82rem; margin-top:4px; display:none;">電話番号をご入力ください。</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">
+              メールアドレス <span class="required">必須</span>
+            </label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="例：info@example.com" autocomplete="email" required>
+            <div class="form-error" id="emailError" style="color:#e74c3c; font-size:.82rem; margin-top:4px; display:none;">正しいメールアドレスをご入力ください。</div>
+          </div>
+
+          <details class="rc-more">
+            <summary>くわしく書く（任意）</summary>
+            <div class="form-group">
+              <label class="form-label" for="age">
+                年齢 <span class="optional">任意</span>
+              </label>
+              <input type="number" id="age" name="age" class="form-input" placeholder="例：25" min="15" max="99">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="message">
+                志望動機・一言メッセージ <span class="optional">任意</span>
+              </label>
+              <textarea id="message" name="message" class="form-textarea" placeholder="志望動機やご質問などがあればお気軽にどうぞ。"></textarea>
+            </div>
+          </details>
+
+          <div class="form-group">
+            <label class="form-check">
+              <input type="checkbox" id="privacy" required>
+              <span><a href="/privacy/" target="_blank">プライバシーポリシー</a>に同意する</span>
+            </label>
+            <div class="form-error" id="privacyError" style="color:#e74c3c; font-size:.82rem; margin-top:4px; display:none;">プライバシーポリシーへの同意が必要です。</div>
+          </div>
+
+          <div class="form-submit">
+            <button type="submit" class="pill pill-primary">この内容で応募する<svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></button>
+          </div>
+        </form>
       </div>
-      <div class="contact-method-box">
-        <div class="contact-method-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-mail"/></svg></div>
-        <h3>メールでのご応募</h3>
-        <div class="contact-value"><a href="mailto:info@saizen.one">info@saizen.one</a></div>
-        <div class="contact-hours">24時間受付<br>（返信にお時間をいただく場合があります）</div>
-      </div>
+
+      <aside class="rc-tel-card" aria-labelledby="rcTel">
+        <h3 id="rcTel">お電話でも応募できます</h3>
+        <p>「ホームページを見た」とお伝えください。</p>
+        <a href="tel:080-5624-1393" class="rc-tel"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-phone"/></svg>080-5624-1393</a>
+        <p class="rc-hours">受付 9:00〜18:00（土日祝除く）</p>
+        <p class="rc-mail">メール：<a href="mailto:info@saizen.one">info@saizen.one</a>（24時間受付）</p>
+      </aside>
     </div>
   </div>
 </section>
+
+</main>
 
 <!-- ============================================================
      FOOTER
@@ -589,8 +587,8 @@
 
 <!-- スマホ下のボタン帯（共通） -->
 <div class="mbar">
-  <a href="tel:080-5624-1393" class="pill pill-outline"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-phone"/></svg>電話する</a>
-  <a href="/estimate/" class="pill pill-primary"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-calc"/></svg>無料見積もり</a>
+  <a href="tel:080-5624-1393" class="pill pill-outline"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-phone"/></svg>電話で応募</a>
+  <a href="#apply" class="pill pill-primary"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-edit"/></svg>応募フォーム</a>
 </div>
 <!-- site-footer:end -->
 
@@ -626,12 +624,13 @@
       emailError.style.display = 'none'; email.style.borderColor = '';
     }
 
-    const jobtype = document.getElementById('jobtype');
+    // 希望職種（切り替えボタン。送る名前と値は以前のセレクトボックスと同じ）
+    const jobtype = form.querySelector('input[name="jobtype"]:checked');
     const jobtypeError = document.getElementById('jobtypeError');
-    if (!jobtype.value) {
-      jobtypeError.style.display = 'block'; jobtype.style.borderColor = '#e74c3c'; valid = false;
+    if (!jobtype) {
+      jobtypeError.style.display = 'block'; valid = false;
     } else {
-      jobtypeError.style.display = 'none'; jobtype.style.borderColor = '';
+      jobtypeError.style.display = 'none';
     }
 
     const privacy = document.getElementById('privacy');

@@ -37,6 +37,22 @@ const pages = fs.readdirSync(root, { withFileTypes: true })
   .map(d => `${d.name}/index.html`)
   .concat(['404.html']);
 
+// ページごとに「スマホ下のボタン帯」を差し替える（ほかのページは index.html と同じ）
+const ICON = id => `<svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#${id}"/></svg>`;
+const PAGE_MBAR = {
+  'recruit/index.html':
+    '<div class="mbar">\n' +
+    `  <a href="tel:080-5624-1393" class="pill pill-outline">${ICON('i-phone')}電話で応募</a>\n` +
+    `  <a href="#apply" class="pill pill-primary">${ICON('i-edit')}応募フォーム</a>\n` +
+    '</div>',
+};
+function footerFor(p) {
+  if (!PAGE_MBAR[p]) return FOOTER;
+  const out = FOOTER.replace(/<div class="mbar">[\s\S]*?<\/div>/, PAGE_MBAR[p]);
+  if (out === FOOTER) throw new Error(`${p}: mbar not found in footer block`);
+  return out;
+}
+
 function currentFor(p) {
   const dir = p.split('/')[0];
   if (['service', 'price', 'order', 'company', 'recruit', 'blog'].includes(dir)) return [`/${dir}/`, 'page'];
@@ -89,12 +105,13 @@ for (const p of pages) {
       s = s.replace(hm[0], hdr);
     }
     // 2) フッター（＋スマホ下のボタン帯）
+    const ftr = footerFor(p);
     if (s.includes('<!-- site-footer:start -->')) {
-      s = s.replace(/<!-- site-footer:start -->[\s\S]*?<!-- site-footer:end -->/, FOOTER);
+      s = s.replace(/<!-- site-footer:start -->[\s\S]*?<!-- site-footer:end -->/, () => ftr);
     } else {
       const fm = s.match(/<footer id="footer">[\s\S]*?<\/footer>/g);
       if (!fm || fm.length !== 1) throw new Error('old footer not found exactly once');
-      s = s.replace(fm[0], FOOTER);
+      s = s.replace(fm[0], () => ftr);
     }
     // 3) 古いメニューの JavaScript を外す（同じ <script> 内のフォーム処理などは残す）
     s = s.replace(/<script>([\s\S]*?)<\/script>[ \t]*\n?/g, (all, body) => {
