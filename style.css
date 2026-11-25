@@ -580,25 +580,6 @@ button { font-family: inherit; }
   border-bottom: none;
 }
 
-.company-vision {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: #fff;
-  border-radius: 12px;
-  padding: 50px;
-  text-align: center;
-}
-.company-vision h3 {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-}
-.company-vision h3 span { color: var(--accent-lt); }
-.company-vision p {
-  color: rgba(255,255,255,.75);
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 2;
-}
-
 /* ============================================================
    SERVICE PAGE
    ============================================================ */
@@ -1437,8 +1418,6 @@ h1,h2,h3{font-feature-settings:"palt"}
 .tel-hours{color:rgba(255,255,255,.8)}
 
 /* 会社概要 */
-.company-vision{background:var(--primary);border-radius:28px}
-.company-vision p{color:rgba(255,255,255,.9)}
 .company-table th{color:var(--text);background:var(--soft)}
 
 /* 業務案内 */
@@ -1482,7 +1461,6 @@ h1,h2,h3{font-feature-settings:"palt"}
   .page-hero::after{width:110px;height:104px;left:-30px;top:-28px}
   .section{padding:56px 0}
   .section-title{margin-bottom:28px}
-  .company-vision{border-radius:22px;padding:36px 22px}
   .hyo-table{font-size:14px}
   .hyo-table tbody th,.hyo-table td{padding:10px 12px}
 }
@@ -1513,3 +1491,47 @@ label .i-sm,h3 .i-sm,strong .i-sm,.career-badge .i-sm,a .i-sm{display:inline-blo
   body .btn-month-sel,body .btn-cal-bulk,body .btn-cal-reset{min-height:44px}
 }
 @media (max-width:768px){ body a.ccb-tel{min-height:44px} }
+
+/* ============================================================
+   会社概要：私たちの想い（3つの約束）
+   ============================================================ */
+.belief{position:relative;overflow:hidden;border-radius:32px;background:linear-gradient(135deg,#EAF3FC 0%,#F6FAFD 100%);padding:84px 70px;text-align:center}
+.belief::after{content:"";position:absolute;right:-30px;bottom:-60px;width:300px;height:284px;background:url(/images/logo-01a.png) no-repeat center/contain;opacity:.06;pointer-events:none}
+.belief > *{position:relative;z-index:1}
+.belief-eyebrow{display:inline-flex;align-items:center;gap:12px;margin:0 0 18px;font-size:13px;font-weight:700;color:var(--text)}
+.belief-eyebrow .en{font-family:var(--font-en);color:var(--primary);letter-spacing:.22em}
+.belief-eyebrow-line{display:inline-block;width:28px;height:2px;background:var(--primary);border-radius:2px}
+.belief-title{font-size:44px;font-weight:900;line-height:1.35;letter-spacing:.02em;font-feature-settings:"palt";color:var(--text);margin:0 0 16px}
+.belief-title em{font-style:normal;color:var(--primary)}
+.belief-br{display:none}
+.belief-lead{color:var(--sub);font-size:16px;margin:0 0 44px}
+.belief-cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;text-align:left}
+.belief-card{position:relative;background:#fff;border-radius:22px;box-shadow:0 10px 30px rgba(15,29,46,.06);padding:34px 30px}
+.belief-card .ico{margin-bottom:22px}
+.belief-num{position:absolute;top:26px;right:28px;font-family:var(--font-en);font-weight:800;font-size:44px;line-height:1;color:var(--soft-blue);letter-spacing:-.02em}
+.belief-word{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px;margin:0 0 12px;line-height:1.3}
+.belief-key{font-size:28px;font-weight:900;color:var(--primary);font-feature-settings:"palt"}
+.belief-sub{font-size:16px;font-weight:700;color:var(--text)}
+.belief-card p{font-size:14.5px;color:var(--sub);line-height:1.95;margin:0;text-align:left}
+@media (max-width:960px){
+  .belief{padding:64px 36px}
+  .belief-cards{grid-template-columns:1fr}
+}
+@media (max-width:768px){
+  .belief-sec .container{padding-left:12px;padding-right:12px}
+  .belief{border-radius:24px;padding:44px 18px 40px}
+  .belief::after{width:170px;height:161px;right:-36px;bottom:-30px}
+  .belief-eyebrow{gap:8px;font-size:12px;margin-bottom:14px}
+  .belief-title{font-size:28px;margin-bottom:12px}
+  .belief-br{display:inline}
+  .belief-lead{font-size:13.5px;margin-bottom:28px}
+  .belief-cards{gap:12px}
+  .belief-card{display:grid;grid-template-columns:46px 1fr;column-gap:14px;padding:20px 18px;border-radius:18px}
+  .belief-card .ico{width:46px;height:46px;border-radius:14px;margin:0;grid-row:span 2}
+  .belief-card .ico .i{width:22px;height:22px}
+  .belief-num{top:14px;right:16px;font-size:28px}
+  .belief-word{margin:0 0 6px;gap:2px 10px}
+  .belief-key{font-size:22px}
+  .belief-sub{font-size:14px}
+  .belief-card p{font-size:13px;line-height:1.85}
+}
