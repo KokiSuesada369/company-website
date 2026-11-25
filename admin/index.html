@@ -728,7 +728,8 @@
   // ── 依頼の削除 ──
   //   Apps Script に { action:'deleteOrder', pw, rowIndex, receivedAt } を送る。
   //   Apps Script 側で「その行の受付日時が receivedAt と同じとき だけ」行を消す（行ずれで別の依頼を消さないため）。
-  //   no-cors のため返事は読めないので、少し待って一覧を読み直し、消えたかを確かめる。
+  //   Apps Script の返事（callback({...}) の形）を読んで、うまくいかなかったときは理由を表示する。
+  //   最後に一覧を読み直して、本当に消えたかも確かめる。
   async function deleteOrder(idx) {
     const o = orders[idx];
     if (!o) return;
@@ -736,24 +737,48 @@
     if (!confirm('この依頼を削除します。\n\n' + label + '\n\nスプレッドシートからも消え、元に戻せません。よろしいですか？')) return;
     const btn = document.getElementById('btnDelete');
     if (btn) { btn.disabled = true; btn.textContent = '削除しています…'; }
+
+    let reply = null, rawText = '', netError = '';
     try {
-      await fetch(GAS_URL, {
-        method:'POST', mode:'no-cors',
+      const res = await fetch(GAS_URL, {
+        method:'POST',
         headers:{'Content-Type':'text/plain'},
         body: JSON.stringify({ action:'deleteOrder', pw:getPw(), rowIndex:o.rowIndex, receivedAt:o.receivedAt })
       });
-    } catch (_) {}
+      rawText = await res.text();
+      const m = rawText.match(/^[A-Za-z_][A-Za-z0-9_]*\(([\s\S]*)\)\s*$/);
+      reply = JSON.parse(m ? m[1] : rawText);
+    } catch (err) {
+      netError = String(err && err.message || err);
+    }
+
     document.getElementById('detailOverlay').classList.remove('open');
+
+    let problem = '';
+    if (netError) {
+      problem = 'サーバーからの返事を読めませんでした。\n（' + netError + '）';
+    } else if (reply && reply.result === 'unauthorized') {
+      problem = 'パスワードが確認できませんでした。\nいったんログアウトして、ログインし直してから試してください。';
+    } else if (reply && reply.result === 'error' && reply.message === 'row mismatch') {
+      problem = '一覧が古くなっていたため、安全のため削除を止めました。\n一覧を読み直したので、もう一度削除してください。';
+    } else if (reply && reply.result === 'error') {
+      problem = 'サーバー側でエラーになりました。\n（' + (reply.message || '詳細なし') + '）';
+    } else if (!reply || reply.result !== 'success') {
+      problem = 'サーバーから想定外の返事がありました。\n（' + rawText.slice(0, 200) + '）';
+    }
+
     const key = String(o.receivedAt) + '|' + String(o.company);
-    setTimeout(function () {
-      loadData();
-      const check = window.gasCallback;
-      window.gasCallback = function (res) {
-        check(res);
-        const still = orders.some(function (x) { return String(x.receivedAt) + '|' + String(x.company) === key; });
-        if (still) alert('削除できませんでした。\nApps Script 側に削除の処理が入っているか、パスワードが正しいかを確認してください。');
-      };
-    }, 1500);
+    loadData();
+    const check = window.gasCallback;
+    window.gasCallback = function (res) {
+      check(res);
+      if (problem) { alert('削除できませんでした。\n\n' + problem); return; }
+      const still = orders.some(function (x) { return String(x.receivedAt) + '|' + String(x.company) === key; });
+      if (still) {
+        alert('削除できませんでした。\n\nサーバーは「成功」と返しましたが、一覧に残っています。\n'
+          + 'Apps Script の公開中のバージョンに削除の処理が入っていない可能性があります（その場合、空の依頼が1行増えています）。');
+      }
+    };
   }
 
   function closeDetail(e) {
