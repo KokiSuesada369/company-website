@@ -42,7 +42,6 @@ html {
   overflow-x: hidden;
   overflow-x: clip;
   overscroll-behavior-y: none;
-  -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -53,7 +52,6 @@ body {
   background: #fff;
   overflow-x: hidden;
   overflow-x: clip;
-  -webkit-overflow-scrolling: touch;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -1290,6 +1288,9 @@ a.hd-tel:hover strong{color:var(--primary)}
   .mbar{display:grid;grid-template-columns:1fr 1.35fr;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:80;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.96);border-top:1px solid var(--line);box-shadow:0 -6px 18px rgba(15,29,46,.06)}
   .mbar .pill{min-height:50px;padding:0 12px;font-size:15px}
   .mbar .pill-primary{box-shadow:none}
+  /* スクロールでブラウザのバーが出入りする一瞬、帯の下に隙間が見えないよう、画面の外まで白い下地を伸ばす */
+  .mbar{transform:translateZ(0)}
+  .mbar::after{content:"";position:absolute;left:0;right:0;top:100%;height:160px;background:#fff}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition:none!important}
