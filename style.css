@@ -38,7 +38,9 @@
 
 html {
   scroll-behavior: auto;
+  /* hidden だとヘッダーの固定（sticky）が効かなくなるので clip を使う（古いブラウザは hidden のまま） */
   overflow-x: hidden;
+  overflow-x: clip;
   overscroll-behavior-y: none;
   -webkit-overflow-scrolling: touch;
 }
@@ -50,6 +52,7 @@ body {
   font-size: 16px;
   background: #fff;
   overflow-x: hidden;
+  overflow-x: clip;
   -webkit-overflow-scrolling: touch;
 }
 

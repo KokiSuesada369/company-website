@@ -128,8 +128,9 @@
     .rc-more{margin:4px 0 20px;border-top:1px dashed var(--line);padding-top:14px}
     .rc-more summary{display:inline-flex;align-items:center;gap:6px;min-height:44px;cursor:pointer;color:var(--primary);font-weight:700;font-size:14.5px;list-style:none}
     .rc-more summary::-webkit-details-marker{display:none}
-    .rc-more summary::before{content:"+";display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--soft-blue);font-family:var(--font-en);font-weight:800}
-    .rc-more[open] summary::before{content:"−"}
+    /* ＋／− は文字ではなく線で描いて、丸の真ん中にそろえる */
+    .rc-more summary::before{content:"";flex:none;width:22px;height:22px;border-radius:50%;background:linear-gradient(var(--primary),var(--primary)) center/10px 2px no-repeat,linear-gradient(var(--primary),var(--primary)) center/2px 10px no-repeat,var(--soft-blue)}
+    .rc-more[open] summary::before{background:linear-gradient(var(--primary),var(--primary)) center/10px 2px no-repeat,var(--soft-blue)}
     .rc-more[open] summary{margin-bottom:12px}
     .rc-form-card .form-submit{text-align:left;margin-top:24px}
     .rc-form-card .form-submit .pill{min-height:54px;padding:0 34px;font-size:16px}
@@ -313,7 +314,7 @@
 
       <ul class="rc-pay" aria-label="給与">
         <li class="rc-pay-card">
-          <span class="rc-pay-type">アルバイト・パート</span>
+          <span class="rc-pay-type">アルバイト</span>
           <p class="rc-pay-amount"><span class="unit">日給</span><strong>10,000</strong><span class="yen">円〜</span></p>
           <p class="rc-pay-note">社会保険も加入OK ／ 交通誘導・雑踏警備</p>
         </li>
@@ -387,13 +388,13 @@
       <input type="radio" name="rcJdView" id="jdPart" class="rc-jd-radio" checked>
       <input type="radio" name="rcJdView" id="jdFull" class="rc-jd-radio">
       <div class="rc-jd-switch" aria-hidden="true">
-        <label for="jdPart">アルバイト・パート</label>
+        <label for="jdPart">アルバイト</label>
         <label for="jdFull">正社員</label>
       </div>
       <table class="rc-jd-table">
         <caption class="sr-only">警備員（交通誘導・雑踏警備）の募集要項</caption>
         <thead>
-          <tr><th scope="col"><span class="sr-only">項目</span></th><th scope="col" class="col-part">アルバイト・パート</th><th scope="col" class="col-full">正社員</th></tr>
+          <tr><th scope="col"><span class="sr-only">項目</span></th><th scope="col" class="col-part">アルバイト</th><th scope="col" class="col-full">正社員</th></tr>
         </thead>
         <tbody>
           <tr class="rc-jd-pay"><th scope="row">給与</th><td class="col-part">日給 10,000円〜</td><td class="col-full">月給 210,000円〜<span class="sub">・ボーナスあり</span></td></tr>
@@ -467,12 +468,12 @@
           <input type="hidden" name="_subject" value="【採用応募】SAIZEN警備保障株式会社">
 
           <fieldset class="rc-job">
-            <legend>希望職種 <span class="required">必須</span></legend>
+            <legend>希望の働き方 <span class="required">必須</span></legend>
             <div class="rc-job-seg">
-              <label><input type="radio" name="jobtype" value="アルバイト・パート" required><span>アルバイト・パート</span></label>
+              <label><input type="radio" name="jobtype" value="アルバイト" required><span>アルバイト</span></label>
               <label><input type="radio" name="jobtype" value="正社員"><span>正社員</span></label>
             </div>
-            <div class="form-error" id="jobtypeError" style="color:#e74c3c; font-size:.82rem; margin-top:4px; display:none;">希望職種を選択してください。</div>
+            <div class="form-error" id="jobtypeError" style="color:#e74c3c; font-size:.82rem; margin-top:4px; display:none;">希望の働き方を選択してください。</div>
           </fieldset>
 
           <div class="form-group">
@@ -624,7 +625,7 @@
       emailError.style.display = 'none'; email.style.borderColor = '';
     }
 
-    // 希望職種（切り替えボタン。送る名前と値は以前のセレクトボックスと同じ）
+    // 希望の働き方（アルバイト／正社員）。送る名前は以前と同じ jobtype
     const jobtype = form.querySelector('input[name="jobtype"]:checked');
     const jobtypeError = document.getElementById('jobtypeError');
     if (!jobtype) {

@@ -375,8 +375,8 @@
     <div class="ck-divider" aria-hidden="true"></div>
     <div class="ck-result">
       <span class="ck-label">料金のめやす（1日）</span>
-      <output class="ck-price" id="ckPrice" for="ckPersons" aria-live="polite">¥39,600</output>
-      <span class="ck-note">税込・残業や無線機は含みません</span>
+      <output class="ck-price" id="ckPrice" for="ckPersons" aria-live="polite">¥36,000</output>
+      <span class="ck-note">税抜・残業や無線機は含みません</span>
     </div>
     <button type="submit" class="pill pill-primary ck-submit">この内容で見積もり
       <svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg>
@@ -637,7 +637,7 @@
     function update() {
       var n = clamp(input.value);
       var d = R.daily(form.elements.day.value, form.elements.shift.value, n);
-      out.textContent = '¥' + d.total.toLocaleString('ja-JP');
+      out.textContent = '¥' + d.subtotal.toLocaleString('ja-JP'); // 税抜（料金表と同じ）
       minus.disabled = n <= MIN;
       plus.disabled  = n >= MAX;
     }
