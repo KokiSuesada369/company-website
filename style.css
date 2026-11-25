@@ -503,59 +503,8 @@ button { font-family: inherit; }
 /* ============================================================
    INDEX — CTA SECTION
    ============================================================ */
-.cta-section {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  padding: 90px 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-.cta-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, rgba(200,160,0,.08) 0%, transparent 70%);
-}
-.cta-section h2 {
-  font-size: 2rem;
-  color: #fff;
-  margin-bottom: 16px;
-  position: relative;
-}
-.cta-section p {
-  color: rgba(255,255,255,.7);
-  margin-bottom: 36px;
-  font-size: .95rem;
-  position: relative;
-}
-.cta-btns {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-  position: relative;
-}
 
 /* Tel large */
-.tel-large {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 30px;
-}
-.tel-large a {
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--accent-lt);
-  letter-spacing: .05em;
-}
-.tel-large .tel-icon { font-size: 1.8rem; }
-.tel-hours {
-  font-size: .8rem;
-  color: rgba(255,255,255,.5);
-  margin-bottom: 30px;
-}
 
 /* ============================================================
    COMPANY PAGE
@@ -904,23 +853,6 @@ button { font-family: inherit; }
 .sidebar-widget-body ul a::before { content: '›'; color: var(--accent); font-weight: 700; }
 .sidebar-widget-body ul a:hover { color: var(--secondary); }
 
-.sidebar-cta {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  border-radius: 10px;
-  padding: 30px 24px;
-  text-align: center;
-  color: #fff;
-}
-.sidebar-cta h3 {
-  font-size: 1rem;
-  margin-bottom: 8px;
-}
-.sidebar-cta p {
-  font-size: .8rem;
-  color: rgba(255,255,255,.65);
-  margin-bottom: 18px;
-}
-
 /* ============================================================
    CONTACT PAGE
    ============================================================ */
@@ -1150,7 +1082,6 @@ button { font-family: inherit; }
   .company-table th { border-bottom: none; padding-bottom: 6px; }
 
   /* CTA */
-  .tel-large a { font-size: 1.7rem; }
 
   .page-hero { padding: 25px 15px; }
   .page-hero h1 { font-size: 1.55rem; }
@@ -1220,7 +1151,7 @@ html { scroll-behavior: auto !important; }
  /* 30〜36px */
 .page-hero h1     { font-size: clamp(1.5rem, 4vw, 1.875rem) !important; }  /* 24〜30px */
 .section-title h2 { font-size: clamp(1.5rem, 4vw, 1.875rem) !important; }  /* 24〜30px */
-.cta-section h2   { font-size: clamp(1.375rem, 4vw, 1.5rem) !important; }  /* 22〜24px */
+  /* 22〜24px */
 .article-title    { font-size: clamp(1.5rem, 4vw, 1.75rem) !important; }   /* 24〜28px */
 .article-body h2  { font-size: 1.25rem !important; }                       /* 20px */
 .article-body h3  { font-size: 1rem !important; }                          /* 16px */
@@ -1414,11 +1345,6 @@ h1,h2,h3{font-feature-settings:"palt"}
 .blog-cat,.article-cat{background:var(--soft-blue);color:var(--primary)}
 
 /* お問い合わせの帯：ロゴの青で塗る */
-.cta-section{background:var(--primary)}
-.cta-section::before{display:none}
-.cta-section p{color:rgba(255,255,255,.88)}
-.tel-large a{color:#fff;font-family:var(--font-en)}
-.tel-hours{color:rgba(255,255,255,.8)}
 
 /* 会社概要 */
 .company-table th{color:var(--text);background:var(--soft)}
@@ -1434,8 +1360,6 @@ h1,h2,h3{font-feature-settings:"palt"}
 .article-body h2{background:var(--soft-blue);border-left:4px solid var(--primary);border-radius:0 12px 12px 0;color:var(--text)}
 .sidebar-widget{overflow:hidden}
 .sidebar-widget-head{background:var(--soft-blue);color:var(--text)}
-.sidebar-cta{background:var(--primary);border-radius:20px}
-.sidebar-cta p{color:rgba(255,255,255,.85)}
 
 /* フォーム */
 .contact-form-box h3{color:var(--text)}
@@ -1493,7 +1417,6 @@ label .i-sm,h3 .i-sm,strong .i-sm,.career-badge .i-sm,a .i-sm{display:inline-blo
   body .num-control input[type="number"]{height:44px}
   body .btn-month-sel,body .btn-cal-bulk,body .btn-cal-reset{min-height:44px}
 }
-@media (max-width:768px){ body a.ccb-tel{min-height:44px} }
 
 /* ============================================================
    会社概要：私たちの想い（3つの約束）
@@ -1537,4 +1460,87 @@ label .i-sm,h3 .i-sm,strong .i-sm,.career-badge .i-sm,a .i-sm{display:inline-blo
   .belief-key{font-size:22px}
   .belief-sub{font-size:14px}
   .belief-card p{font-size:13px;line-height:1.85}
+}
+
+/* ============================================================
+   お問い合わせの段（CTA 1-A）… 全ページ共通。HTML は3つの形で同じ書き方
+     .cta            横に並べる形（ページの段）
+     .cta--stack     縦に積む形（ブログ記事の最後）
+     .cta--side      小さい形（ブログ記事の右の欄）
+   ブログ本文（.article-body）の見た目に負けないよう、要素は .cta から書く
+   ============================================================ */
+.cta{position:relative;overflow:hidden;border-radius:28px;background:linear-gradient(135deg,#EAF3FC 0%,#F6FAFD 100%);padding:50px 56px;display:grid;grid-template-columns:auto minmax(400px,500px);justify-content:space-between;column-gap:56px;row-gap:24px;align-items:center;text-align:left}
+.cta::after{content:"";position:absolute;right:-30px;bottom:-60px;width:280px;height:265px;background:url(/images/logo-01a.png) no-repeat center/contain;opacity:.06;pointer-events:none}
+.cta > *{position:relative;z-index:1}
+.cta .cta-eyebrow{display:block;font-family:var(--font-en);font-size:13px;font-weight:700;letter-spacing:.22em;color:var(--primary);margin:0 0 10px;line-height:1.4}
+.cta .cta-title{font-size:30px;font-weight:900;line-height:1.5;letter-spacing:.02em;font-feature-settings:"palt";color:var(--text);margin:0 0 14px;padding:0;background:none;border:0}
+.cta .cta-lead{font-size:15px;color:var(--sub);line-height:1.8;margin:0}
+.cta .cta-title,.cta .cta-lead{word-break:auto-phrase;text-wrap:balance;line-break:strict}
+.cta .ib{display:inline-block;white-space:nowrap}
+.cta .cta-lead-short{display:none}
+.cta .cta-btns{display:grid;gap:10px;margin:0;padding:0}
+.cta a.cta-btn{display:flex;align-items:center;gap:14px;min-height:44px;padding:16px 18px;border-radius:16px;background:#fff;border:1px solid var(--line);color:var(--text);font-weight:400;text-decoration:none;text-align:left;transition:border-color .2s,box-shadow .2s,background-color .2s}
+.cta a.cta-btn:hover{color:var(--text);text-decoration:none;border-color:#BFD9EE;box-shadow:0 8px 20px rgba(0,62,110,.08)}
+.cta .cta-btn-ico{width:40px;height:40px;border-radius:12px;background:var(--soft-blue);color:var(--primary);display:grid;place-items:center;flex:none}
+.cta .cta-btn-ico .i{width:20px;height:20px}
+.cta .cta-btn-body{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.35}
+.cta .cta-btn-title{font-size:17px;font-weight:900;white-space:nowrap;font-feature-settings:"palt"}
+.cta .cta-btn-sub{font-size:13.5px;color:var(--sub);margin-top:3px;white-space:nowrap}
+.cta .cta-btn-sub.is-tel{font-family:var(--font-en);font-weight:700;font-size:15px;color:var(--primary);letter-spacing:.02em}
+.cta .cta-btn-arrow{width:18px;height:18px;color:var(--primary);flex:none}
+.cta a.cta-btn--primary{background:var(--primary);border-color:var(--primary);color:#fff;box-shadow:0 10px 24px rgba(0,110,184,.22)}
+.cta a.cta-btn--primary:hover{background:var(--primary-dark);border-color:var(--primary-dark);color:#fff;box-shadow:0 10px 24px rgba(0,110,184,.22)}
+.cta .cta-btn--primary .cta-btn-ico{background:rgba(255,255,255,.18);color:#fff}
+.cta .cta-btn--primary .cta-btn-sub{color:rgba(255,255,255,.9)}
+.cta .cta-btn--primary .cta-btn-arrow{color:#fff}
+
+/* 縦に積む形 */
+.cta--stack{grid-template-columns:1fr;justify-items:center;text-align:center;padding:40px}
+.cta--stack .cta-title{font-size:26px}
+.cta--stack .cta-btns{width:100%;max-width:440px}
+
+/* 小さい形（右の欄） */
+.cta--side{display:block;border-radius:20px;padding:22px 18px;text-align:left}
+.cta--side::after{width:150px;height:142px;right:-24px;bottom:-30px}
+.cta--side .cta-title{font-size:16px;font-weight:700;letter-spacing:0;margin:0 0 2px}
+.cta--side .cta-lead{font-size:12.5px;margin:0 0 14px}
+.cta--side .cta-lead-long{display:none}
+.cta--side .cta-lead-short{display:inline}
+.cta--side .cta-btns{gap:8px}
+.cta--side a.cta-btn{padding:11px 12px;gap:10px;border-radius:12px}
+.cta--side .cta-btn-ico{width:34px;height:34px;border-radius:10px}
+.cta--side .cta-btn-ico .i{width:17px;height:17px}
+.cta--side .cta-btn-title{font-size:14px}
+.cta--side .cta-btn-sub{font-size:11.5px;margin-top:1px}
+.cta--side .cta-btn-sub.is-tel{font-size:12.5px}
+.cta--side .cta-btn-arrow{width:15px;height:15px}
+
+/* 見出しを2行に保つため、幅に合わせて形を変える */
+@media (min-width:1001px) and (max-width:1100px){
+  .cta:not(.cta--side):not(.cta--stack){column-gap:40px;padding:44px 40px}
+  .cta:not(.cta--side) .cta-title{font-size:26px}
+}
+/* 横に並べる幅がないときは縦に積む */
+@media (max-width:1000px){
+  .cta:not(.cta--side){grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center;row-gap:24px}
+  .cta:not(.cta--side) .cta-btns{width:100%;max-width:440px}
+}
+/* スマホ */
+@media (max-width:800px){
+  .cta:not(.cta--side){grid-template-columns:1fr;justify-items:center;text-align:center;padding:28px 16px;border-radius:24px;row-gap:20px}
+  .cta:not(.cta--side) .cta-title{font-size:clamp(16px,5.2vw,24px);letter-spacing:0;margin-bottom:8px}
+  .cta:not(.cta--side) .cta-lead-long{display:none}
+  .cta:not(.cta--side) .cta-lead-short{display:inline}
+  .cta:not(.cta--side) .cta-lead{font-size:13.5px}
+  .cta:not(.cta--side) .cta-btns{width:100%;max-width:440px}
+  .cta .cta-btn-title{font-size:16px}
+  .cta::after{width:170px;height:161px;right:-36px;bottom:-30px}
+}
+/* とても狭いスマホ（360px 以下）：ボタンの文字を1行に保ったまま、箱の中に収める */
+@media (max-width:360px){
+  .cta:not(.cta--side){padding:24px 12px}
+  .cta:not(.cta--side) a.cta-btn{padding:14px 12px;gap:10px}
+  .cta:not(.cta--side) .cta-btn-ico{width:36px;height:36px}
+  .cta:not(.cta--side) .cta-btn-title{font-size:14.5px}
+  .cta:not(.cta--side) .cta-btn-arrow{width:16px;height:16px}
 }

@@ -131,13 +131,6 @@
   .col-card h3{font-size:16px;font-weight:700;line-height:1.6}
   .col-card:hover h3{color:var(--primary)}
 
-  .cta-box{background:var(--primary);color:#fff;border-radius:28px;padding:56px 64px;display:flex;align-items:center;justify-content:space-between;gap:40px}
-  .cta-box h2{font-size:28px;line-height:1.5}
-  .cta-box p{margin-top:10px;opacity:.88;font-size:15px}
-  .cta-actions{display:grid;gap:12px;flex:none;min-width:280px}
-  .cta-actions .pill{min-height:54px;font-size:16px}
-  .cta-actions .pill-ghost strong{font-family:var(--font-en);font-weight:700;letter-spacing:.03em}
-
   /* ---------- タブレット ---------- */
   @media (max-width:1180px){
     .checker{flex-wrap:wrap;row-gap:16px;margin-left:16px;margin-right:16px;padding:22px 24px}
@@ -151,7 +144,7 @@
     .feat:nth-child(3){border-left:0}
     .feat:nth-child(n+3){border-top:1px solid var(--line)}
     .svc-grid,.col-grid{grid-template-columns:1fr 1fr}
-    .cta-box{flex-direction:column;align-items:flex-start;padding:44px 40px}
+
   }
 
   /* ---------- スマホ ---------- */
@@ -222,11 +215,6 @@
     .col-thumb .i{width:28px;height:28px}
     .col-body{padding:14px 16px}
     .col-card h3{font-size:14.5px}
-
-    .cta-box{border-radius:22px;padding:36px 22px;align-items:stretch;text-align:center;gap:24px}
-    .cta-box h2{font-size:21px}
-    .cta-box p{font-size:13.5px}
-    .cta-actions{min-width:0}
 
   }
   @media (max-width:359px){
@@ -550,16 +538,20 @@
      ============================================================ -->
 <section class="sec" aria-labelledby="ctaTitle">
   <div class="wrap">
-    <div class="cta-box">
-      <div>
-        <h2 id="ctaTitle">警備のご依頼・お見積もりは、<br>お気軽にどうぞ。</h2>
-        <p>見積もりは無料。Webフォームは24時間受け付けています。</p>
+    <!-- cta:start -->
+    <div class="cta">
+      <div class="cta-head">
+        <p class="cta-eyebrow">CONTACT</p>
+        <h2 class="cta-title" id="ctaTitle"><span class="ib">警備のご依頼・お見積もりは、</span><br><span class="ib">お気軽にどうぞ。</span></h2>
+        <p class="cta-lead"><span class="cta-lead-long"><span class="ib">見積もり・ご相談は無料です。</span><br><span class="ib">ご都合のよい方法を</span><span class="ib">お選びください。</span></span><span class="cta-lead-short"><span class="ib">見積もり・ご相談は無料です</span></span></p>
       </div>
-      <div class="cta-actions">
-        <a href="/estimate/" class="pill pill-white">無料で見積もりする<svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
-        <a href="tel:080-5624-1393" class="pill pill-ghost"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-phone"/></svg><span class="sr-only">電話する </span><strong>080-5624-1393</strong></a>
+      <div class="cta-btns">
+        <a class="cta-btn cta-btn--primary" href="/estimate/"><span class="cta-btn-ico"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-calc"/></svg></span><span class="cta-btn-body"><span class="cta-btn-title">料金を見て、見積もる</span><span class="cta-btn-sub">選ぶだけで料金が分かる</span></span><svg class="i cta-btn-arrow" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+        <a class="cta-btn" href="tel:080-5624-1393"><span class="cta-btn-ico"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-phone"/></svg></span><span class="cta-btn-body"><span class="cta-btn-title">電話で相談する</span><span class="cta-btn-sub is-tel">080-5624-1393</span></span><svg class="i cta-btn-arrow" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+        <a class="cta-btn" href="/contact/"><span class="cta-btn-ico"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-edit"/></svg></span><span class="cta-btn-body"><span class="cta-btn-title">フォームで問い合わせ</span><span class="cta-btn-sub">24時間受付</span></span><svg class="i cta-btn-arrow" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
       </div>
     </div>
+    <!-- cta:end -->
   </div>
 </section>
 
