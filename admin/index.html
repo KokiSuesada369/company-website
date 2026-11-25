@@ -790,19 +790,39 @@
   }
 
   // ── 契約書URL構築 ──
+  // 今日の日付（日本時間）を YYYY-MM-DD で
+  function todayJst() {
+    return new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Tokyo' });
+  }
+  // 「2026/12/01 00:00:00」「2026-12-01」などを契約書が読める「2026-12-01」に
+  function toYmd(v) {
+    if (!v) return '';
+    var m = String(v).match(/^(\d{4})[\/-](\d{1,2})[\/-](\d{1,2})/);
+    return m ? m[1] + '-' + m[2].padStart(2, '0') + '-' + m[3].padStart(2, '0') : String(v);
+  }
+  // 契約書（/contract/）へ渡す。名前は契約書側（contract/index.html）が読む名前に合わせること
   function buildContractUrl(o) {
+    var contractDate = toYmd(o.contractDate) || todayJst();
+    var st = formatTime(o.startTime), et = formatTime(o.endTime);
+    var hours = (st || et) ? (st + '〜' + et + (o.shift ? '（' + o.shift + '）' : '')) : '';
     return '/contract/?' + new URLSearchParams({
-      company:o.company||'', contact:o.contact||'', phone:o.phone||'',
-      site:o.site||'', zip:o.zip||'', address:o.address||'',
-      guardType:o.guardType||'', startDate:o.startDate||'', endDate:o.endDate||'',
-      startTime:o.startTime||'', endTime:o.endTime||'', shift:o.shift||'',
-      staff:o.staff||'', ot:o.ot||'', radios:o.radios||'',
-      fee:o.fee||'', otRate:o.otRate||'', equip:o.equip||'',
-      cones:o.cones||'', lights:o.lights||'', signs:o.signs||'',
-      radiosEquip:o.radiosEquip||'', otherEquip:o.otherEquip||'',
-      special:o.special||'', contractDate:o.contractDate||''
+      client_name:    o.company   || '',
+      date:           contractDate,
+      business:       o.guardType || '',
+      period_start:   toYmd(o.startDate),
+      period_end:     toYmd(o.endDate),
+      work_hours:     hours,
+      postal_code:    o.zip       || '',
+      address:        o.address   || '',
+      staff_count:    o.staff     || '',
+      equipment:      o.equip     || '',
+      price:          o.fee       || '',
+      overtime_price: o.otRate    || '',
+      special_notes:  o.special   || '',
+      contract_date:  contractDate
     }).toString();
   }
+
 
   // ─────────────────────────────────────────────────
   // ── 新規契約書フォーム ──
@@ -822,7 +842,7 @@
     document.getElementById('cf_startTime').innerHTML = buildTimeOpts('08:00');
     document.getElementById('cf_endTime').innerHTML   = buildTimeOpts('17:00');
     // 契約締結日を今日に設定
-    document.getElementById('cf_contractDate').value = new Date().toISOString().slice(0, 10);
+    document.getElementById('cf_contractDate').value = todayJst();
     // フォームリセット
     ['cf_company','cf_contact','cf_phone','cf_email',
      'cf_site','cf_zip','cf_address','cf_special',
