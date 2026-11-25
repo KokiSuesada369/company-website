@@ -32,93 +32,11 @@
   <meta property="og:locale" content="ja_JP">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" href="/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="/style.css"></noscript>
+  <link rel="stylesheet" href="/style.css">
   <style>
-  /* ============================================================
-     D-2 ソフトブルーパネル
-     ※ style.css は非同期で読むため、トップの表示に必要なものはここに書く
-     ※「共通」の部分（ヘッダー・フッター・下のボタン帯・ボタン）は
-       フェーズ3で style.css へ移し、全ページで使う
-     ============================================================ */
-  :root{
-    --primary:#006EB8;--primary-dark:#00589A;--text:#0F1D2E;--sub:#5B6676;
-    --line:#E6E9EE;--soft:#F4F7FB;--soft-blue:#EAF3FB;--white:#FFFFFF;
-    --font-en:'Inter','Noto Sans JP',sans-serif;
-    --shadow-btn:0 8px 20px rgba(0,110,184,.24);
-    --wrap:1200px;--gutter:24px;--header-h:76px;
-  }
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  html{-webkit-text-size-adjust:100%}
-  html.menu-open{overflow:hidden}
-  body{font-family:'Noto Sans JP','Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;color:var(--text);background:var(--white);font-size:16px;line-height:1.8;font-weight:400;overflow-x:hidden}
-  a{color:inherit;text-decoration:none}
-  ul,ol{list-style:none}
-  img{max-width:100%;height:auto;display:block}
-  button,input{font:inherit;color:inherit}
-  h1,h2,h3{font-weight:900;font-feature-settings:"palt";line-height:1.4}
-  .en{font-family:var(--font-en)}
-  .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-  .wrap{max-width:calc(var(--wrap) + var(--gutter)*2);margin:0 auto;padding:0 var(--gutter)}
-  .i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
-  .i-sm{width:16px;height:16px}
-  .ico{width:56px;height:56px;border-radius:16px;background:var(--soft-blue);color:var(--primary);display:grid;place-items:center;flex:none}
-  .ico .i{width:26px;height:26px}
-  /* style.css の電話リンク（オレンジ・下線）を打ち消す */
-  a[href^="tel"]{font-weight:inherit}
-  a[href^="tel"]:hover{color:inherit;text-decoration:none}
-
-  /* ---------- 共通：ボタン ---------- */
-  .pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 26px;border-radius:999px;border:2px solid transparent;font-size:15px;font-weight:700;line-height:1.2;letter-spacing:.03em;white-space:nowrap;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s,box-shadow .2s}
-  .pill-primary{background:var(--primary);color:#fff;box-shadow:var(--shadow-btn)}
-  .pill-primary:hover,a.pill-primary:hover{background:var(--primary-dark);color:#fff}
-  .pill-outline{background:#fff;color:var(--primary);border-color:var(--primary)}
-  .pill-outline:hover,a.pill-outline:hover{background:var(--soft-blue);color:var(--primary)}
-  .pill-white{background:#fff;color:var(--primary)}
-  .pill-white:hover{background:var(--soft-blue)}
-  .pill-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.75)}
-  .pill-ghost:hover,a.pill-ghost:hover{background:rgba(255,255,255,.12);color:#fff}
-  .text-link{display:inline-flex;align-items:center;gap:6px;color:var(--primary);font-weight:700}
-  .text-link:hover{text-decoration:underline;text-underline-offset:4px}
-
-  /* ---------- 共通：ヘッダー ---------- */
-  .site-header{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--line)}
-  .hd-inner{max-width:calc(1240px + var(--gutter)*2);margin:0 auto;padding:0 var(--gutter);height:var(--header-h);display:flex;align-items:center;gap:24px}
-  .hd-logo{display:flex;align-items:center;flex:none}
-  .hd-logo img{height:34px;width:auto}
-  .hd-nav{margin-left:auto}
-  .hd-nav ul{display:flex;gap:2px}
-  .hd-nav a{display:block;padding:10px 12px;font-size:14.5px;font-weight:700;letter-spacing:.02em;border-radius:8px;transition:color .2s}
-  .hd-nav a:hover,.hd-nav a[aria-current="page"]{color:var(--primary)}
-  .hd-tel{display:flex;align-items:center;gap:8px;color:var(--text);line-height:1.2}
-  .hd-tel .i{color:var(--primary);width:20px;height:20px}
-  .hd-tel small{display:block;font-size:11px;color:var(--sub);font-weight:500}
-  .hd-tel strong{display:block;font-family:var(--font-en);font-size:18px;font-weight:700;letter-spacing:.02em;font-variant-numeric:tabular-nums}
-  .hd-tel:hover strong{color:var(--primary)}
-  .hd-cta{min-height:46px;padding:0 24px}
-  .menu-btn{display:none;margin-left:auto;width:44px;height:44px;border:0;background:none;border-radius:10px;cursor:pointer;position:relative}
-  .menu-btn span{position:absolute;left:11px;width:22px;height:2px;background:var(--text);border-radius:2px;transition:transform .25s,opacity .2s}
-  .menu-btn span:nth-child(1){top:15px}.menu-btn span:nth-child(2){top:21px}.menu-btn span:nth-child(3){top:27px}
-  .menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
-  .menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
-  .menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
-  .menu-overlay{display:none}
-  .drawer{display:none}
-  @media (max-width:1120px){
-    :root{--header-h:64px}
-    .hd-nav,.hd-tel,.hd-cta{display:none}
-    .hd-logo img{height:28px}
-    .menu-btn{display:block}
-    .menu-overlay{display:block;position:fixed;inset:var(--header-h) 0 0 0;background:rgba(15,29,46,.4);z-index:90;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
-    .menu-overlay.is-open{opacity:1;visibility:visible}
-    .drawer{display:flex;flex-direction:column;position:fixed;top:var(--header-h);right:0;bottom:0;width:min(86vw,360px);background:#fff;z-index:95;overflow-y:auto;padding:8px 20px calc(24px + env(safe-area-inset-bottom));transform:translateX(100%);visibility:hidden;transition:transform .25s ease,visibility .25s}
-    .drawer.is-open{transform:none;visibility:visible}
-    .drawer-nav a{display:flex;align-items:center;justify-content:space-between;min-height:54px;border-bottom:1px solid var(--line);font-weight:700}
-    .drawer-nav a .i{color:var(--primary);width:18px;height:18px}
-    .drawer-actions{display:grid;gap:10px;margin-top:20px}
-    .drawer-actions .pill{width:100%}
-  }
-
+  /* トップページだけの部品（共通部品は /style.css の「D-2 共通部品」） */
+  h1,h2,h3{font-weight:900;line-height:1.4}
+  .hero-wrap ul,.sec ul,.sec ol{list-style:none;margin:0;padding:0}
   /* ---------- トップ：最初の画面 ---------- */
   .hero-wrap{padding:24px var(--gutter) 0}
   .hero-panel{position:relative;max-width:1240px;margin:0 auto;border-radius:32px;background:linear-gradient(180deg,#EAF3FC 0%,#FFFFFF 100%);overflow:hidden;padding:92px 24px 150px;text-align:center}
@@ -220,35 +138,6 @@
   .cta-actions .pill{min-height:54px;font-size:16px}
   .cta-actions .pill-ghost strong{font-family:var(--font-en);font-weight:700;letter-spacing:.03em}
 
-  /* 警備業者標識（フェーズ3で /company/#hyoshiki へ移すまでの仮置き） */
-  .hyo{padding:0 0 96px}
-  .hyo-box{max-width:640px;margin:0 auto}
-  .hyo-box h2{font-size:20px;text-align:center;margin-bottom:18px}
-  .hyo-table{width:100%;border-collapse:collapse;border:2px solid var(--text);background:#fff;font-size:15px;text-align:left}
-  .hyo-table caption{caption-side:bottom;text-align:left;font-size:12.5px;color:var(--sub);padding-top:10px}
-  .hyo-table thead th{background:var(--text);color:#fff;text-align:center;padding:12px 16px;letter-spacing:.3em;font-size:16px}
-  .hyo-table tbody th{width:38%;background:var(--soft);font-weight:700;font-size:14px;color:var(--text)}
-  .hyo-table tbody th,.hyo-table td{padding:12px 16px;border:1px solid #C9D0DA;vertical-align:top}
-
-  /* ---------- 共通：フッター ---------- */
-  .site-footer{background:#fff;border-top:1px solid var(--line)}
-  .ft-top{display:flex;justify-content:space-between;gap:48px;padding:56px 0 44px}
-  .ft-logo img{height:30px;width:auto}
-  .ft-info{margin-top:18px;font-size:14px;color:var(--sub);line-height:1.95;font-style:normal}
-  .ft-info a{color:var(--text);font-family:var(--font-en);font-weight:600}
-  .ft-info a:hover{color:var(--primary)}
-  .ft-nav{display:grid;grid-template-columns:repeat(2,minmax(160px,auto));gap:24px 56px}
-  .ft-nav h2{font-size:12px;font-weight:700;color:var(--sub);letter-spacing:.12em;margin-bottom:10px}
-  .ft-nav a{display:inline-block;padding:5px 0;font-size:14.5px;font-weight:700}
-  .ft-nav a:hover{color:var(--primary)}
-  .ft-bottom{border-top:1px solid var(--line);padding:20px 0 24px;display:flex;justify-content:space-between;align-items:center;gap:12px 24px;flex-wrap:wrap;font-size:13px;color:var(--sub)}
-  .ft-bottom a{color:var(--primary);font-weight:700}
-  .ft-bottom a:hover{text-decoration:underline;text-underline-offset:3px}
-  .ft-copy{font-family:var(--font-en)}
-
-  /* ---------- 共通：スマホ下のボタン帯 ---------- */
-  .mbar{display:none}
-
   /* ---------- タブレット ---------- */
   @media (max-width:1180px){
     .checker{flex-wrap:wrap;row-gap:16px;margin-left:16px;margin-right:16px;padding:22px 24px}
@@ -263,13 +152,10 @@
     .feat:nth-child(n+3){border-top:1px solid var(--line)}
     .svc-grid,.col-grid{grid-template-columns:1fr 1fr}
     .cta-box{flex-direction:column;align-items:flex-start;padding:44px 40px}
-    .ft-top{flex-direction:column;gap:32px}
   }
 
   /* ---------- スマホ ---------- */
   @media (max-width:768px){
-    :root{--gutter:16px}
-    body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
     .hero-wrap{padding-top:12px}
     .hero-panel{border-radius:24px;padding:40px 18px 104px}
     .hero-deco-r{width:200px;right:-40px;bottom:-30px}
@@ -342,25 +228,10 @@
     .cta-box p{font-size:13.5px}
     .cta-actions{min-width:0}
 
-    .hyo{padding-bottom:56px}
-    .hyo-table{font-size:14px}
-    .hyo-table tbody th,.hyo-table td{padding:10px 12px}
-
-    .ft-top{padding:40px 0 28px}
-    .ft-nav{gap:20px 24px;grid-template-columns:1fr 1fr}
-    .ft-nav a{padding:10px 0;font-size:14px}
-    .ft-bottom{flex-direction:column;align-items:flex-start;gap:6px}
-
-    .mbar{display:grid;grid-template-columns:1fr 1.35fr;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:80;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.96);border-top:1px solid var(--line);box-shadow:0 -6px 18px rgba(15,29,46,.06)}
-    .mbar .pill{min-height:50px;padding:0 12px;font-size:15px}
-    .mbar .pill-primary{box-shadow:none}
   }
   @media (max-width:359px){
     .hero-title{font-size:30px}
     .seg span{padding:0 10px;font-size:13px}
-  }
-  @media (prefers-reduced-motion:reduce){
-    *,*::before,*::after{transition:none!important}
   }
   </style>
   <script type="application/ld+json">
@@ -402,6 +273,7 @@
 <!-- ============================================================
      ヘッダー（共通）
      ============================================================ -->
+<!-- site-header:start -->
 <header class="site-header">
   <div class="hd-inner">
     <a href="/" class="hd-logo">
@@ -447,6 +319,7 @@
     </a>
   </div>
 </div>
+<!-- site-header:end -->
 
 <main id="main-content">
 
@@ -689,38 +562,12 @@
   </div>
 </section>
 
-<!-- ============================================================
-     警備業者標識（警備業法第23条）
-     ※フェーズ3で /company/#hyoshiki へ移したあと、ここは外す
-     ============================================================ -->
-<section class="hyo" aria-labelledby="hyoTitle">
-  <div class="wrap">
-    <div class="hyo-box">
-      <h2 id="hyoTitle">警備業者標識</h2>
-      <table class="hyo-table">
-        <caption>※警備業法第23条に基づく標識</caption>
-        <thead>
-          <tr><th colspan="2" scope="col">警　備　業　者　標　識</th></tr>
-        </thead>
-        <tbody>
-          <tr><th scope="row">氏名又は名称</th><td>SAIZEN警備保障株式会社</td></tr>
-          <tr><th scope="row">認定公安委員会</th><td>広島県公安委員会</td></tr>
-          <tr><th scope="row">認定番号</th><td>第73000768号</td></tr>
-          <tr><th scope="row">警備業務の種別</th><td>2号業務（交通誘導警備業務 等）</td></tr>
-          <tr><th scope="row">代表者の氏名</th><td>末貞 皓己</td></tr>
-          <tr><th scope="row">主たる営業所の所在地</th><td>広島県広島市西区横川町3丁目1-9-305</td></tr>
-          <tr><th scope="row">有効期間</th><td>令和7年5月22日から<br>令和12年5月22日まで</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
 </main>
 
 <!-- ============================================================
      フッター（共通）
      ============================================================ -->
+<!-- site-footer:start -->
 <footer class="site-footer">
   <div class="wrap">
     <div class="ft-top">
@@ -765,6 +612,7 @@
   <a href="tel:080-5624-1393" class="pill pill-outline"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-phone"/></svg>電話する</a>
   <a href="/estimate/" class="pill pill-primary"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-calc"/></svg>無料見積もり</a>
 </div>
+<!-- site-footer:end -->
 
 <script src="/js/site.js"></script>
 <script src="/js/rates.js"></script>

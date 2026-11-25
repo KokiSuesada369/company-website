@@ -1682,3 +1682,239 @@ html { scroll-behavior: auto !important; }
 .skip-link:focus{left:0;}
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid #7aadde;outline-offset:2px;}
 #main-content{scroll-margin-top:90px;}
+
+/* ============================================================
+   D-2 共通部品（全ページ共通：ヘッダー・メニュー・フッター・スマホ下のボタン帯・ボタン・アイコン）
+   ここが共通部品の唯一の置き場所です。各ページの HTML は
+   <!-- site-header:start/end --> と <!-- site-footer:start/end --> の間を index.html と同じにしてください。
+   ============================================================ */
+:root{
+  --font-en:'Inter','Noto Sans JP',sans-serif;
+  --shadow-btn:0 8px 20px rgba(0,110,184,.24);
+  --wrap:1200px;--gutter:24px;--header-h:76px;
+}
+html.menu-open{overflow:hidden}
+h1,h2,h3{font-feature-settings:"palt"}
+.en{font-family:var(--font-en)}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.wrap{max-width:calc(var(--wrap) + var(--gutter)*2);margin:0 auto;padding:0 var(--gutter)}
+.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.i-sm{width:16px;height:16px}
+.ico{width:56px;height:56px;border-radius:16px;background:var(--soft-blue);color:var(--primary);display:grid;place-items:center;flex:none}
+.ico .i{width:26px;height:26px}
+a[href^="tel"]:hover{color:var(--primary)}
+
+/* ボタン */
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 26px;border-radius:999px;border:2px solid transparent;font-size:15px;font-weight:700;line-height:1.2;letter-spacing:.03em;white-space:nowrap;cursor:pointer;text-decoration:none;transition:background-color .2s,color .2s,border-color .2s,box-shadow .2s}
+a.pill:hover{text-decoration:none}
+.pill-primary,a.pill-primary{background:var(--primary);color:#fff;box-shadow:var(--shadow-btn)}
+.pill-primary:hover,a.pill-primary:hover{background:var(--primary-dark);color:#fff}
+.pill-outline,a.pill-outline{background:#fff;color:var(--primary);border-color:var(--primary)}
+.pill-outline:hover,a.pill-outline:hover{background:var(--soft-blue);color:var(--primary)}
+.pill-white,a.pill-white{background:#fff;color:var(--primary)}
+.pill-white:hover,a.pill-white:hover{background:var(--soft-blue);color:var(--primary)}
+.pill-ghost,a.pill-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.75)}
+.pill-ghost:hover,a.pill-ghost:hover{background:rgba(255,255,255,.12);color:#fff}
+.text-link{display:inline-flex;align-items:center;gap:6px;color:var(--primary);font-weight:700}
+.text-link:hover{text-decoration:underline;text-underline-offset:4px}
+
+/* ヘッダー */
+.site-header{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--line)}
+.hd-inner{max-width:calc(1240px + var(--gutter)*2);margin:0 auto;padding:0 var(--gutter);height:var(--header-h);display:flex;align-items:center;gap:24px}
+.hd-logo{display:flex;align-items:center;flex:none}
+.hd-logo img{height:34px;width:auto;max-width:none}
+.hd-nav{margin-left:auto}
+.hd-nav ul{display:flex;gap:2px;list-style:none;margin:0;padding:0}
+.hd-nav a{display:block;padding:10px 12px;font-size:14.5px;font-weight:700;letter-spacing:.02em;color:var(--text);border-radius:8px;transition:color .2s}
+.hd-nav a:hover,.hd-nav a[aria-current]{color:var(--primary)}
+a.hd-tel{display:flex;align-items:center;gap:8px;color:var(--text);line-height:1.2;font-weight:400;text-decoration:none}
+.hd-tel .i{color:var(--primary);width:20px;height:20px}
+.hd-tel small{display:block;font-size:11px;color:var(--sub);font-weight:500}
+.hd-tel strong{display:block;font-family:var(--font-en);font-size:18px;font-weight:700;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+a.hd-tel:hover{color:var(--text)}
+a.hd-tel:hover strong{color:var(--primary)}
+.hd-cta{min-height:46px;padding:0 24px}
+.menu-btn{display:none;margin-left:auto;width:44px;height:44px;border:0;background:none;border-radius:10px;cursor:pointer;position:relative;padding:0}
+.menu-btn span{position:absolute;left:11px;width:22px;height:2px;background:var(--text);border-radius:2px;transition:transform .25s,opacity .2s}
+.menu-btn span:nth-child(1){top:15px}.menu-btn span:nth-child(2){top:21px}.menu-btn span:nth-child(3){top:27px}
+.menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+.menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.menu-overlay{display:none}
+.drawer{display:none}
+
+/* フッター */
+.site-footer{background:#fff;border-top:1px solid var(--line);color:var(--text)}
+.ft-top{display:flex;justify-content:space-between;gap:48px;padding:56px 0 44px}
+.ft-logo{display:inline-block}
+.ft-logo img{height:30px;width:auto;max-width:none}
+.ft-info{margin-top:18px;font-size:14px;color:var(--sub);line-height:1.95;font-style:normal}
+.ft-info a{color:var(--text);font-family:var(--font-en);font-weight:600}
+.ft-info a:hover{color:var(--primary)}
+.ft-nav{display:grid;grid-template-columns:repeat(2,minmax(160px,auto));gap:24px 56px}
+.ft-nav h2{font-size:12px;font-weight:700;color:var(--sub);letter-spacing:.12em;margin:0 0 10px;line-height:1.4}
+.ft-nav ul{list-style:none;margin:0;padding:0}
+.ft-nav a{display:inline-block;padding:5px 0;font-size:14.5px;font-weight:700;color:var(--text)}
+.ft-nav a:hover{color:var(--primary)}
+.ft-bottom{border-top:1px solid var(--line);padding:20px 0 24px;display:flex;justify-content:space-between;align-items:center;gap:12px 24px;flex-wrap:wrap;font-size:13px;color:var(--sub)}
+.ft-bottom p{margin:0}
+.ft-bottom a{color:var(--primary);font-weight:700}
+.ft-bottom a:hover{text-decoration:underline;text-underline-offset:3px}
+.ft-copy{font-family:var(--font-en)}
+
+/* スマホ下のボタン帯 */
+.mbar{display:none}
+
+@media (max-width:1120px){
+  :root{--header-h:64px}
+  .hd-nav,.hd-tel,.hd-cta{display:none!important}
+  .hd-logo img{height:28px}
+  .menu-btn{display:block}
+  .menu-overlay{display:block;position:fixed;inset:var(--header-h) 0 0 0;background:rgba(15,29,46,.4);z-index:90;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
+  .menu-overlay.is-open{opacity:1;visibility:visible}
+  .drawer{display:flex;flex-direction:column;position:fixed;top:var(--header-h);right:0;bottom:0;width:min(86vw,360px);background:#fff;z-index:95;overflow-y:auto;padding:8px 20px calc(24px + env(safe-area-inset-bottom));transform:translateX(100%);visibility:hidden;transition:transform .25s ease,visibility .25s}
+  .drawer.is-open{transform:none;visibility:visible}
+  .drawer-nav a{display:flex;align-items:center;justify-content:space-between;min-height:54px;border-bottom:1px solid var(--line);font-weight:700;color:var(--text)}
+  .drawer-nav a[aria-current]{color:var(--primary)}
+  .drawer-nav a .i{color:var(--primary);width:18px;height:18px}
+  .drawer-actions{display:grid;gap:10px;margin-top:20px}
+  .drawer-actions .pill{width:100%}
+}
+@media (max-width:960px){
+  .ft-top{flex-direction:column;gap:32px}
+}
+@media (max-width:768px){
+  :root{--gutter:16px}
+  body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+  .ft-top{padding:40px 0 28px}
+  .ft-nav{gap:20px 24px;grid-template-columns:1fr 1fr}
+  .ft-nav a{padding:10px 0;font-size:14px}
+  .ft-bottom{flex-direction:column;align-items:flex-start;gap:6px}
+  .mbar{display:grid;grid-template-columns:1fr 1.35fr;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:80;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.96);border-top:1px solid var(--line);box-shadow:0 -6px 18px rgba(15,29,46,.06)}
+  .mbar .pill{min-height:50px;padding:0 12px;font-size:15px}
+  .mbar .pill-primary{box-shadow:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important}
+}
+
+/* ============================================================
+   D-2 既存ページの見た目合わせ（旧い部品を新しい色・形にそろえる）
+   ※ HTML は変えずに、ここで上書きしています
+   ============================================================ */
+h1,h2,h3{font-feature-settings:"palt"}
+
+/* ページ上部の見出し：淡い青のパネル（トップの最初の画面と同じ形） */
+.page-hero{display:flex;flex-direction:column-reverse;align-items:center;justify-content:center;gap:10px;position:relative;width:calc(100% - var(--gutter)*2);max-width:1240px;margin:24px auto 0;border-radius:32px;background:linear-gradient(180deg,#EAF3FC 0%,#FFFFFF 100%);padding:64px 24px 56px;overflow:hidden;text-align:center}
+.page-hero::before{content:"";position:absolute;right:-30px;bottom:-60px;left:auto;top:auto;width:300px;height:284px;inset:auto -30px -60px auto;background:url(/images/logo-01a.png) no-repeat center/contain;opacity:.07;pointer-events:none}
+.page-hero::after{content:"";position:absolute;left:-40px;top:-50px;width:190px;height:180px;background:url(/images/logo-01a.png) no-repeat center/contain;opacity:.05;pointer-events:none}
+.page-hero h1,.page-hero .page-hero-title{position:relative;z-index:1;color:var(--text)!important;font-weight:900;letter-spacing:.02em;line-height:1.35;margin:0;font-size:clamp(28px,3.2vw,42px)!important}
+.page-hero p:not(.page-hero-title){position:relative;z-index:1;color:var(--primary);font-family:var(--font-en);font-weight:700;font-size:13px;letter-spacing:.22em;text-transform:uppercase;margin:0}
+.breadcrumb{background:transparent;border-bottom:0;padding:16px var(--gutter) 0;font-size:12.5px;color:var(--sub)}
+.breadcrumb a{color:var(--primary)}
+
+/* 段と見出し */
+.section{padding:96px 0}
+.section-alt{background:var(--soft)}
+.section-dark{background:var(--primary)}
+.section-title{margin-bottom:48px}
+.section-title .label{font-family:var(--font-en);font-size:13px;letter-spacing:.22em;color:var(--primary)}
+.section-title h2{color:var(--text);font-weight:900;letter-spacing:.02em;font-size:clamp(24px,2.6vw,34px)!important}
+.section-title h2 .line{display:none}
+.section-title p{color:var(--sub)}
+
+/* ボタン：角を丸く、メインは青の塗り */
+.btn{border-radius:999px;letter-spacing:.03em;justify-content:center;min-height:48px}
+.btn:hover{transform:none!important}
+.btn-gold,.btn-orange,.btn-navy{background:var(--primary);border-color:var(--primary);color:#fff;box-shadow:var(--shadow-btn)}
+.btn-gold:hover,.btn-orange:hover,.btn-navy:hover{background:var(--primary-dark);border-color:var(--primary-dark);color:#fff;box-shadow:var(--shadow-btn)}
+.btn-outline-navy{background:#fff;color:var(--primary);border-color:var(--primary)}
+.btn-outline-navy:hover{background:var(--soft-blue);color:var(--primary)}
+.btn-outline-white:hover{background:rgba(255,255,255,.12)}
+.hero-link a{color:var(--primary);border-color:var(--primary)}
+
+/* カード：白・細い枠・角丸20px */
+.card,.service-card,.strength-card,.blog-card,.blog-list-item,.contact-form-box,.sidebar-widget{border:1px solid var(--line);border-radius:20px;box-shadow:none}
+.card:hover,.service-card:hover,.strength-card:hover,.blog-card:hover,.blog-list-item:hover{transform:none!important;border-color:#CFE2F2;box-shadow:0 10px 28px rgba(0,62,110,.08)}
+.service-card-head{background:var(--soft-blue)}
+.service-card-head h3{color:var(--text)}
+.service-icon{background:#fff;color:var(--primary)}
+.strength-num{color:var(--soft-blue)}
+.strength-card h3{color:var(--text)}
+.blog-card-img,.blog-list-thumb{background:var(--soft-blue);color:var(--primary)}
+.blog-card-img::after{display:none}
+.blog-list-thumb .thumb-cat{background:#fff;color:var(--primary)}
+.blog-list-content h2{color:var(--text)}
+.blog-list-item:hover .blog-list-content h2{color:var(--primary)}
+.blog-cat,.article-cat{background:var(--soft-blue);color:var(--primary)}
+
+/* お問い合わせの帯：ロゴの青で塗る */
+.cta-section{background:var(--primary)}
+.cta-section::before{display:none}
+.cta-section p{color:rgba(255,255,255,.88)}
+.tel-large a{color:#fff;font-family:var(--font-en)}
+.tel-hours{color:rgba(255,255,255,.8)}
+
+/* 会社概要 */
+.company-vision{background:var(--primary);border-radius:28px}
+.company-vision p{color:rgba(255,255,255,.9)}
+.company-table th{color:var(--text);background:var(--soft)}
+
+/* 業務案内 */
+.service-detail-visual{background:linear-gradient(180deg,#EAF3FC 0%,#FFFFFF 100%);border:1px solid var(--line);border-radius:28px;color:var(--text)}
+.service-detail-visual .ico{width:96px;height:96px;border-radius:28px;background:#fff}
+.service-detail-visual .ico .i{width:44px;height:44px;stroke-width:1.75}
+.service-detail-text h3{color:var(--text)}
+
+/* ブログ記事 */
+.article-title{color:var(--text)}
+.article-body h2{background:var(--soft-blue);border-left:4px solid var(--primary);border-radius:0 12px 12px 0;color:var(--text)}
+.sidebar-widget{overflow:hidden}
+.sidebar-widget-head{background:var(--soft-blue);color:var(--text)}
+.sidebar-cta{background:var(--primary);border-radius:20px}
+.sidebar-cta p{color:rgba(255,255,255,.85)}
+
+/* フォーム */
+.contact-form-box h3{color:var(--text)}
+.form-label{color:var(--text)}
+.required{background:var(--primary);border-radius:999px;padding:2px 8px}
+.optional{background:#8A94A3;border-radius:999px;padding:2px 8px}
+.form-input,.form-select,.form-textarea{border:1px solid #CDD5DF;border-radius:12px;min-height:48px;background:#fff}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,110,184,.15)}
+.form-check input{accent-color:var(--primary)}
+.form-check a{color:var(--primary)}
+
+/* 警備業者標識（/company/#hyoshiki） */
+.hyo-box{max-width:680px;margin:0 auto}
+.hyo-figure{margin:0 0 28px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px}
+.hyo-figure img{margin:0 auto;width:100%;height:auto}
+.hyo-table{width:100%;border-collapse:collapse;border:2px solid var(--text);background:#fff;font-size:15px;text-align:left}
+.hyo-table caption{caption-side:bottom;text-align:left;font-size:12.5px;color:var(--sub);padding-top:10px}
+.hyo-table thead th{background:var(--text);color:#fff;text-align:center;padding:12px 16px;letter-spacing:.3em;font-size:16px}
+.hyo-table tbody th{width:38%;background:var(--soft);font-weight:700;font-size:14px;color:var(--text)}
+.hyo-table tbody th,.hyo-table td{padding:12px 16px;border:1px solid #C9D0DA;vertical-align:top}
+#hyoshiki{scroll-margin-top:calc(var(--header-h) + 16px)}
+
+@media (max-width:768px){
+  .page-hero{border-radius:24px;padding:44px 18px 40px;margin-top:12px}
+  .page-hero::before{width:170px;height:161px;inset:auto -36px -30px auto}
+  .page-hero::after{width:110px;height:104px;left:-30px;top:-28px}
+  .section{padding:56px 0}
+  .section-title{margin-bottom:28px}
+  .company-vision{border-radius:22px;padding:36px 22px}
+  .hyo-table{font-size:14px}
+  .hyo-table tbody th,.hyo-table td{padding:10px 12px}
+}
+
+/* 絵文字から置き換えた線のアイコン */
+.strength-icon,.appeal-icon,.success-icon,.ph-icon{font-size:inherit;line-height:1}
+.strength-icon .ico,.appeal-icon .ico,.success-icon .ico,.ph-icon .ico{margin:0 auto}
+.extra-item-icon{font-size:inherit;line-height:1}
+.extra-item-icon .ico{width:44px;height:44px;border-radius:12px}
+.extra-item-icon .ico .i{width:22px;height:22px}
+.price-card-icon .i,.contact-info-icon .i,.contact-method-icon .i{width:22px;height:22px}
+.thumb-icon{line-height:1}
+.thumb-icon .i{width:40px;height:40px;stroke-width:1.75}
+label .i-sm,h3 .i-sm,strong .i-sm,.career-badge .i-sm,a .i-sm{display:inline-block;vertical-align:-3px;margin-right:6px}
+/* 見出しが .container に包まれているページ（見積もり・料金表・依頼フォーム）も同じ並びに */
+.page-hero > .container{display:flex;flex-direction:column-reverse;align-items:center;gap:10px;position:relative;z-index:1}

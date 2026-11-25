@@ -14,8 +14,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <meta name="theme-color" content="#1a2f5e">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#FFFFFF">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <title>広島の警備コラム・知恵袋｜交通誘導・警備料金・依頼方法を解説｜SAIZEN警備保障株式会社</title>
   <link rel="canonical" href="https://saizen.one/blog/">
   <meta property="og:site_name" content="SAIZEN警備保障株式会社">
@@ -42,20 +42,22 @@
 }
 .pagination button {
   padding: 10px 22px;
-  background: #1a2744;
+  background: var(--primary);
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 999px;
+  min-height: 44px;
   font-size: .9rem;
   cursor: pointer;
   transition: background .2s;
 }
-.pagination button:hover:not(:disabled) { background: #d97706; }
+.pagination button:hover:not(:disabled) { background: var(--primary-dark); }
 .pagination button:disabled { background: #ccc; cursor: default; }
 .pagination .page-info {
   font-size: 1rem;
   font-weight: 700;
-  color: #d97706;
+  color: var(--primary);
+  font-family: var(--font-en);
   min-width: 60px;
   text-align: center;
 }
@@ -65,36 +67,54 @@
 <body>
 <a href="#main-content" class="skip-link">本文へスキップ</a>
 
-<div class="nav-overlay" id="navOverlay"></div>
 
-<header id="header">
-  <div class="header-inner">
-    <a href="/" class="logo-img-link">
-      <img src="/images/logo-08a.png" alt="広島の警備会社 SAIZEN警備保障株式会社" width="2046" height="319" class="header-logo">
+<!-- site-header:start -->
+<header class="site-header">
+  <div class="hd-inner">
+    <a href="/" class="hd-logo">
+      <img src="/images/logo-08a.png" alt="広島の警備会社 SAIZEN警備保障株式会社" width="2046" height="319">
     </a>
-    <button class="hamburger" id="hamburger" aria-label="メニュー">
-      <span></span><span></span><span></span>
-    </button>
-    <nav class="gnav" id="gnav">
+    <nav class="hd-nav" aria-label="メインメニュー">
       <ul>
-        <li><a href="/">ホーム</a></li>
+        <li><a href="/service/">業務案内</a></li>
+        <li><a href="/price/">料金</a></li>
+        <li><a href="/#flow">ご依頼の流れ</a></li>
         <li><a href="/company/">会社概要</a></li>
-        <li class="has-dropdown">
-          <a href="/service/" class="dropdown-toggle">サービス <span class="dropdown-arrow">▼</span></a>
-          <ul class="dropdown">
-            <li><a href="/service/">業務案内</a></li>
-            <li><a href="/price/">料金表</a></li>
-            <li><a href="/estimate/">お見積もり</a></li>
-            <li><a href="/order/">警備依頼</a></li>
-          </ul>
-        </li>
         <li><a href="/recruit/">採用情報</a></li>
-        <li><a href="/blog/" class="active" aria-current="page">警備の知恵袋</a></li>
-        <li class="contact-link"><a href="/contact/">お問い合わせ</a></li>
+        <li><a href="/blog/" aria-current="page">警備の知恵袋</a></li>
       </ul>
     </nav>
+    <a href="tel:080-5624-1393" class="hd-tel">
+      <svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-phone"/></svg>
+      <span><small>お電話でのご相談</small><strong>080-5624-1393</strong></span>
+    </a>
+    <a href="/estimate/" class="pill pill-primary hd-cta">無料見積もり</a>
+    <button type="button" class="menu-btn" id="menuButton" aria-expanded="false" aria-controls="menuDrawer" aria-label="メニューを開く">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="drawer" id="menuDrawer" aria-hidden="true">
+  <nav class="drawer-nav" aria-label="スマホ用メニュー">
+    <a href="/service/">業務案内<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    <a href="/price/">料金表<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    <a href="/#flow">ご依頼の流れ<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    <a href="/company/">会社概要<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    <a href="/recruit/">採用情報<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    <a href="/blog/" aria-current="page">警備の知恵袋<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    <a href="/order/">警備を依頼する<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    <a href="/contact/">お問い合わせ<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+  </nav>
+  <div class="drawer-actions">
+    <a href="/estimate/" class="pill pill-primary">無料見積もり</a>
+    <a href="tel:080-5624-1393" class="pill pill-outline">
+      <svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-phone"/></svg>
+      <span class="en">080-5624-1393</span>
+    </a>
+  </div>
+</div>
+<!-- site-header:end -->
 
 <div class="page-hero">
   <h1>警備の知恵袋</h1>
@@ -122,7 +142,7 @@
     <!-- Article 66 -->
     <a data-index="0" href="/blog66/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">⛓️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-clipboard"/></svg></div>
         <div class="thumb-cat">発注ガイド</div>
       </div>
       <div class="blog-list-content">
@@ -135,7 +155,7 @@
     <!-- Article 65 -->
     <a data-index="0" href="/blog65/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🚫</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-shield"/></svg></div>
         <div class="thumb-cat">現場知識</div>
       </div>
       <div class="blog-list-content">
@@ -148,7 +168,7 @@
     <!-- Article 64 -->
     <a data-index="0" href="/blog64/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🚑</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-shield"/></svg></div>
         <div class="thumb-cat">現場知識</div>
       </div>
       <div class="blog-list-content">
@@ -161,7 +181,7 @@
     <!-- Article 63 -->
     <a data-index="0" href="/blog63/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🏠</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-clipboard"/></svg></div>
         <div class="thumb-cat">発注ガイド</div>
       </div>
       <div class="blog-list-content">
@@ -174,7 +194,7 @@
     <!-- Article 62 -->
     <a data-index="0" href="/blog62/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🎖️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-award"/></svg></div>
         <div class="thumb-cat">資格・検定</div>
       </div>
       <div class="blog-list-content">
@@ -187,7 +207,7 @@
     <!-- Article 61 -->
     <a data-index="0" href="/blog61/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">👮</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-book"/></svg></div>
         <div class="thumb-cat">警備の基礎</div>
       </div>
       <div class="blog-list-content">
@@ -200,7 +220,7 @@
     <!-- Article 60 -->
     <a data-index="0" href="/blog60/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🤝</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-user"/></svg></div>
         <div class="thumb-cat">採用・働き方</div>
       </div>
       <div class="blog-list-content">
@@ -213,7 +233,7 @@
     <!-- Article 59 -->
     <a data-index="0" href="/blog59/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">⚠️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-shield"/></svg></div>
         <div class="thumb-cat">現場知識</div>
       </div>
       <div class="blog-list-content">
@@ -226,7 +246,7 @@
     <!-- Article 58 -->
     <a data-index="0" href="/blog58/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🌉</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-cone"/></svg></div>
         <div class="thumb-cat">交通誘導</div>
       </div>
       <div class="blog-list-content">
@@ -239,7 +259,7 @@
     <!-- Article 57 -->
     <a data-index="0" href="/blog57/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🗓️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-user"/></svg></div>
         <div class="thumb-cat">採用・働き方</div>
       </div>
       <div class="blog-list-content">
@@ -252,7 +272,7 @@
     <!-- Article 56 -->
     <a data-index="0" href="/blog56/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🎪</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-yen"/></svg></div>
         <div class="thumb-cat">料金・費用</div>
       </div>
       <div class="blog-list-content">
@@ -265,7 +285,7 @@
     <!-- Article 55 -->
     <a data-index="0" href="/blog55/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">💰</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-user"/></svg></div>
         <div class="thumb-cat">採用・働き方</div>
       </div>
       <div class="blog-list-content">
@@ -277,7 +297,7 @@
     <!-- Article 54 -->
     <a data-index="0" href="/blog54/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">👩‍✈️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-user"/></svg></div>
         <div class="thumb-cat">採用・働き方</div>
       </div>
       <div class="blog-list-content">
@@ -290,7 +310,7 @@
     <!-- Article 53 -->
     <a data-index="0" href="/blog53/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">📑</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-clipboard"/></svg></div>
         <div class="thumb-cat">発注ガイド</div>
       </div>
       <div class="blog-list-content">
@@ -303,7 +323,7 @@
     <!-- Article 52 -->
     <a data-index="0" href="/blog52/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🛡️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-book"/></svg></div>
         <div class="thumb-cat">警備の基礎</div>
       </div>
       <div class="blog-list-content">
@@ -315,7 +335,7 @@
     <!-- Article 51 -->
     <a data-index="0" href="/blog51/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🚧</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-cone"/></svg></div>
         <div class="thumb-cat">交通誘導</div>
       </div>
       <div class="blog-list-content">
@@ -327,7 +347,7 @@
     <!-- Article 50 -->
     <a data-index="0" href="/blog50/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🛣️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-cone"/></svg></div>
         <div class="thumb-cat">交通誘導</div>
       </div>
       <div class="blog-list-content">
@@ -341,7 +361,7 @@
     <!-- Article 49 -->
     <a data-index="1" href="/blog49/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🚨</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-shield"/></svg></div>
         <div class="thumb-cat">現場知識</div>
       </div>
       <div class="blog-list-content">
@@ -355,7 +375,7 @@
     <!-- Article 48 -->
     <a data-index="2" href="/blog48/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🗣️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-award"/></svg></div>
         <div class="thumb-cat">技術・スキル</div>
       </div>
       <div class="blog-list-content">
@@ -369,7 +389,7 @@
     <!-- Article 47 -->
     <a data-index="3" href="/blog47/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">❄️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-check-circle"/></svg></div>
         <div class="thumb-cat">健康管理</div>
       </div>
       <div class="blog-list-content">
@@ -383,7 +403,7 @@
     <!-- Article 46 -->
     <a data-index="4" href="/blog46/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">☀️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-check-circle"/></svg></div>
         <div class="thumb-cat">健康管理</div>
       </div>
       <div class="blog-list-content">
@@ -397,7 +417,7 @@
     <!-- Article 45 -->
     <a data-index="5" href="/blog45/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🌧️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-shield"/></svg></div>
         <div class="thumb-cat">現場知識</div>
       </div>
       <div class="blog-list-content">
@@ -411,7 +431,7 @@
     <!-- Article 44 -->
     <a data-index="6" href="/blog44/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🌙</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-shield"/></svg></div>
         <div class="thumb-cat">現場知識</div>
       </div>
       <div class="blog-list-content">
@@ -425,7 +445,7 @@
     <!-- Article 43 -->
     <a data-index="7" href="/blog43/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🚧</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-cone"/></svg></div>
         <div class="thumb-cat">交通誘導</div>
       </div>
       <div class="blog-list-content">
@@ -439,7 +459,7 @@
     <!-- Article 42 -->
     <a data-index="8" href="/blog42/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🚀</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-user"/></svg></div>
         <div class="thumb-cat">採用情報</div>
       </div>
       <div class="blog-list-content">
@@ -453,7 +473,7 @@
     <!-- Article 41 -->
     <a data-index="9" href="/blog41/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">📈</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-trend"/></svg></div>
         <div class="thumb-cat">キャリア</div>
       </div>
       <div class="blog-list-content">
@@ -467,7 +487,7 @@
     <!-- Article 40 -->
     <a data-index="10" href="/blog40/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">📖</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-shield"/></svg></div>
         <div class="thumb-cat">現場知識</div>
       </div>
       <div class="blog-list-content">
@@ -481,7 +501,7 @@
     <!-- Article 39 -->
     <a data-index="11" href="/blog39/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">💪</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-check-circle"/></svg></div>
         <div class="thumb-cat">健康管理</div>
       </div>
       <div class="blog-list-content">
@@ -495,7 +515,7 @@
     <!-- Article 38 -->
     <a data-index="12" href="/blog38/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">💼</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-user"/></svg></div>
         <div class="thumb-cat">採用情報</div>
       </div>
       <div class="blog-list-content">
@@ -509,7 +529,7 @@
     <!-- Article 37 -->
     <a data-index="13" href="/blog37/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">⚠️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-clipboard"/></svg></div>
         <div class="thumb-cat">発注ガイド</div>
       </div>
       <div class="blog-list-content">
@@ -523,7 +543,7 @@
     <!-- Article 36 -->
     <a data-index="14" href="/blog36/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🗺️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-clipboard"/></svg></div>
         <div class="thumb-cat">発注ガイド</div>
       </div>
       <div class="blog-list-content">
@@ -537,7 +557,7 @@
     <!-- Article 35 -->
     <a data-index="15" href="/blog35/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">💰</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-yen"/></svg></div>
         <div class="thumb-cat">料金・費用</div>
       </div>
       <div class="blog-list-content">
@@ -551,7 +571,7 @@
     <!-- Article 34 -->
     <a data-index="16" href="/blog34/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🏗️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-clipboard"/></svg></div>
         <div class="thumb-cat">発注ガイド</div>
       </div>
       <div class="blog-list-content">
@@ -565,7 +585,7 @@
     <!-- Article 33 -->
     <a data-index="17" href="/blog33/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">📝</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-clipboard"/></svg></div>
         <div class="thumb-cat">発注ガイド</div>
       </div>
       <div class="blog-list-content">
@@ -579,7 +599,7 @@
     <!-- Article 32 -->
     <a data-index="18" href="/blog32/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">📋</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-file"/></svg></div>
         <div class="thumb-cat">契約・法律</div>
       </div>
       <div class="blog-list-content">
@@ -593,7 +613,7 @@
     <!-- Article 31 -->
     <a data-index="19" href="/blog31/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🆘</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-clipboard"/></svg></div>
         <div class="thumb-cat">発注ガイド</div>
       </div>
       <div class="blog-list-content">
@@ -607,7 +627,7 @@
     <!-- Article 30 -->
     <a data-index="20" href="/blog30/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🔧</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-shield"/></svg></div>
         <div class="thumb-cat">現場知識</div>
       </div>
       <div class="blog-list-content">
@@ -621,7 +641,7 @@
     <!-- Article 29 -->
     <a data-index="21" href="/blog29/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">👥</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-clipboard"/></svg></div>
         <div class="thumb-cat">発注ガイド</div>
       </div>
       <div class="blog-list-content">
@@ -635,7 +655,7 @@
     <!-- Article 28 -->
     <a data-index="22" href="/blog28/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">⚠️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-clipboard"/></svg></div>
         <div class="thumb-cat">発注ガイド</div>
       </div>
       <div class="blog-list-content">
@@ -649,7 +669,7 @@
     <!-- Article 27 -->
     <a data-index="23" href="/blog27/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">📍</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-clipboard"/></svg></div>
         <div class="thumb-cat">依頼ガイド</div>
       </div>
       <div class="blog-list-content">
@@ -663,7 +683,7 @@
     <!-- Article 26 -->
     <a data-index="24" href="/blog26/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🤝</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-clipboard"/></svg></div>
         <div class="thumb-cat">発注ガイド</div>
       </div>
       <div class="blog-list-content">
@@ -677,7 +697,7 @@
     <!-- Article 25 -->
     <a data-index="25" href="/blog25/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">📅</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-yen"/></svg></div>
         <div class="thumb-cat">料金・費用</div>
       </div>
       <div class="blog-list-content">
@@ -691,7 +711,7 @@
     <!-- Article 24 -->
     <a data-index="26" href="/blog24/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">📚</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-user"/></svg></div>
         <div class="thumb-cat">採用・教育</div>
       </div>
       <div class="blog-list-content">
@@ -705,7 +725,7 @@
     <!-- Article 23 -->
     <a data-index="27" href="/blog23/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🛣️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-clipboard"/></svg></div>
         <div class="thumb-cat">発注ガイド</div>
       </div>
       <div class="blog-list-content">
@@ -719,7 +739,7 @@
     <!-- Article 22 -->
     <a data-index="28" href="/blog22/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🔨</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-shield"/></svg></div>
         <div class="thumb-cat">現場知識</div>
       </div>
       <div class="blog-list-content">
@@ -733,7 +753,7 @@
     <!-- Article 21 -->
     <a data-index="29" href="/blog21/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🏗️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-clipboard"/></svg></div>
         <div class="thumb-cat">発注ガイド</div>
       </div>
       <div class="blog-list-content">
@@ -747,7 +767,7 @@
     <!-- Article 20 -->
     <a data-index="30" href="/blog20/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🛡️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-cone"/></svg></div>
         <div class="thumb-cat">交通誘導</div>
       </div>
       <div class="blog-list-content">
@@ -761,7 +781,7 @@
     <!-- Article 19 -->
     <a data-index="31" href="/blog19/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🔍</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-clipboard"/></svg></div>
         <div class="thumb-cat">発注ガイド</div>
       </div>
       <div class="blog-list-content">
@@ -775,7 +795,7 @@
     <!-- Article 18 -->
     <a data-index="32" href="/blog18/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">📻</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-shield"/></svg></div>
         <div class="thumb-cat">現場知識</div>
       </div>
       <div class="blog-list-content">
@@ -789,7 +809,7 @@
     <!-- Article 17 -->
     <a data-index="33" href="/blog17/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">📝</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-clipboard"/></svg></div>
         <div class="thumb-cat">依頼ガイド</div>
       </div>
       <div class="blog-list-content">
@@ -803,7 +823,7 @@
     <!-- Article 16 -->
     <a data-index="34" href="/blog16/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">👷</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-radio"/></svg></div>
         <div class="thumb-cat">装備知識</div>
       </div>
       <div class="blog-list-content">
@@ -817,7 +837,7 @@
     <!-- Article 15 -->
     <a data-index="35" href="/blog15/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🎉</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-users"/></svg></div>
         <div class="thumb-cat">雑踏警備</div>
       </div>
       <div class="blog-list-content">
@@ -831,7 +851,7 @@
     <!-- Article 14 -->
     <a data-index="36" href="/blog14/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🌙</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-moon"/></svg></div>
         <div class="thumb-cat">夜間警備</div>
       </div>
       <div class="blog-list-content">
@@ -845,7 +865,7 @@
     <!-- Article 13 -->
     <a data-index="37" href="/blog13/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">⚖️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-file"/></svg></div>
         <div class="thumb-cat">法律知識</div>
       </div>
       <div class="blog-list-content">
@@ -859,7 +879,7 @@
     <!-- Article 12 -->
     <a data-index="38" href="/blog12/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">💰</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-yen"/></svg></div>
         <div class="thumb-cat">料金・費用</div>
       </div>
       <div class="blog-list-content">
@@ -873,7 +893,7 @@
     <!-- Article 11 -->
     <a data-index="39" href="/blog11/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">📜</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-award"/></svg></div>
         <div class="thumb-cat">資格・検定</div>
       </div>
       <div class="blog-list-content">
@@ -887,7 +907,7 @@
     <!-- Article 10 -->
     <a data-index="40" href="/blog10/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">✅</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-clipboard"/></svg></div>
         <div class="thumb-cat">発注ガイド</div>
       </div>
       <div class="blog-list-content">
@@ -901,7 +921,7 @@
     <!-- Article 9 -->
     <a data-index="41" href="/blog9/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🦺</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-shield"/></svg></div>
         <div class="thumb-cat">現場の知識</div>
       </div>
       <div class="blog-list-content">
@@ -915,7 +935,7 @@
     <!-- Article 8 -->
     <a data-index="42" href="/blog8/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🏗️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-book"/></svg></div>
         <div class="thumb-cat">警備の基礎</div>
       </div>
       <div class="blog-list-content">
@@ -929,7 +949,7 @@
     <!-- Article 7 -->
     <a data-index="43" href="/blog7/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">📋</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-clipboard"/></svg></div>
         <div class="thumb-cat">発注ガイド</div>
       </div>
       <div class="blog-list-content">
@@ -943,7 +963,7 @@
     <!-- Article 6 -->
     <a data-index="44" href="/blog6/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">⏱️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-cone"/></svg></div>
         <div class="thumb-cat">交通誘導</div>
       </div>
       <div class="blog-list-content">
@@ -957,7 +977,7 @@
     <!-- Article 5 -->
     <a data-index="45" href="/blog5/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🅿️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-parking"/></svg></div>
         <div class="thumb-cat">駐車場</div>
       </div>
       <div class="blog-list-content">
@@ -971,7 +991,7 @@
     <!-- Article 4 -->
     <a data-index="46" href="/blog4/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🎪</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-users"/></svg></div>
         <div class="thumb-cat">イベント</div>
       </div>
       <div class="blog-list-content">
@@ -985,7 +1005,7 @@
     <!-- Article 3 -->
     <a data-index="47" href="/blog3/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">⚖️</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-file"/></svg></div>
         <div class="thumb-cat">法律知識</div>
       </div>
       <div class="blog-list-content">
@@ -999,7 +1019,7 @@
     <!-- Article 2 -->
     <a data-index="48" href="/blog2/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🚩</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-flag"/></svg></div>
         <div class="thumb-cat">誘導旗</div>
       </div>
       <div class="blog-list-content">
@@ -1013,7 +1033,7 @@
     <!-- Article 1 -->
     <a data-index="49" href="/blog1/" class="blog-list-item">
       <div class="blog-list-thumb">
-        <div class="thumb-icon">🚦</div>
+        <div class="thumb-icon"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-cone"/></svg></div>
         <div class="thumb-cat">交通誘導</div>
       </div>
       <div class="blog-list-content">
@@ -1045,41 +1065,53 @@
   </div>
 </section>
 
-<footer id="footer">
-  <div class="footer-bottom">
-    <p>Copyright &copy; 2026 SAIZEN警備保障株式会社 All Rights Reserved.</p>
+<!-- site-footer:start -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="ft-top">
+      <div>
+        <a href="/" class="ft-logo"><img src="/images/logo-08a.png" alt="SAIZEN警備保障株式会社" width="2046" height="319" loading="lazy"></a>
+        <address class="ft-info">
+          〒733-0011 広島県広島市西区横川町3丁目1-9-305<br>
+          TEL <a href="tel:080-5624-1393">080-5624-1393</a><br>
+          MAIL <a href="mailto:info@saizen.one">info@saizen.one</a>
+        </address>
+      </div>
+      <nav class="ft-nav" aria-label="フッターメニュー">
+        <div>
+          <h2>サービス</h2>
+          <ul>
+            <li><a href="/service/">業務案内</a></li>
+            <li><a href="/price/">料金表</a></li>
+            <li><a href="/estimate/">お見積もり</a></li>
+            <li><a href="/order/">警備のご依頼</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>会社</h2>
+          <ul>
+            <li><a href="/company/">会社概要</a></li>
+            <li><a href="/recruit/">採用情報</a></li>
+            <li><a href="/blog/">警備の知恵袋</a></li>
+            <li><a href="/contact/">お問い合わせ</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="ft-bottom">
+      <p>広島県公安委員会 認定 第73000768号 ｜ <a href="/company/#hyoshiki">警備業者標識 →</a> ｜ <a href="/privacy/">プライバシーポリシー</a></p>
+      <p class="ft-copy">&copy; 2026 SAIZEN警備保障株式会社</p>
+    </div>
   </div>
 </footer>
 
-<script>
-  const ham = document.getElementById('hamburger');
-  const nav = document.getElementById('gnav');
-  const overlay = document.getElementById('navOverlay');
-  function toggleMenu() {
-    ham.classList.toggle('open'); nav.classList.toggle('open'); overlay.classList.toggle('open');
-    document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
-    nav.querySelectorAll('.has-dropdown.open').forEach(function(d){ d.classList.remove('open'); });
-  }
-  ham.addEventListener('click', toggleMenu);
-  overlay.addEventListener('click', toggleMenu);
-  nav.querySelectorAll('a:not(.dropdown-toggle)').forEach(a => a.addEventListener('click', () => { if (nav.classList.contains('open')) toggleMenu(); }));
+<!-- スマホ下のボタン帯（共通） -->
+<div class="mbar">
+  <a href="tel:080-5624-1393" class="pill pill-outline"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-phone"/></svg>電話する</a>
+  <a href="/estimate/" class="pill pill-primary"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-calc"/></svg>無料見積もり</a>
+</div>
+<!-- site-footer:end -->
 
-  // Mobile dropdown toggle
-  nav.querySelectorAll('.dropdown-toggle').forEach(function(t) {
-    t.addEventListener('click', function(e) {
-      if (window.innerWidth <= 768) {
-        e.preventDefault();
-        this.closest('.has-dropdown').classList.toggle('open');
-      }
-    });
-  });
-
-  // Fixed header: set body padding-top dynamically
-  document.addEventListener('DOMContentLoaded', function() {
-    var header = document.getElementById('header');
-    document.body.style.paddingTop = header.offsetHeight + 'px';
-  });
-</script>
 <script>
 (function() {
   var PER_PAGE = 15;
@@ -1088,7 +1120,7 @@
   var pages  = Math.ceil(total / PER_PAGE);
   var cur    = 1;
 
-  function showPage(p) {
+  function showPage(p, scroll) {
     cur = p;
     var start = (p - 1) * PER_PAGE;
     var end   = p * PER_PAGE;
@@ -1103,19 +1135,20 @@
     document.getElementById('pg-next').disabled = (p === pages);
     document.getElementById('pg-info').textContent = p + ' / ' + pages;
     var section = document.querySelector('.section');
-    if (section) window.scrollTo({ top: section.offsetTop - 80, behavior: 'smooth' });
+    if (scroll && section) window.scrollTo({ top: section.offsetTop - 80, behavior: 'smooth' });
   }
 
   document.getElementById('pg-prev').addEventListener('click', function() {
-    if (cur > 1) showPage(cur - 1);
+    if (cur > 1) showPage(cur - 1, true);
   });
   document.getElementById('pg-next').addEventListener('click', function() {
-    if (cur < pages) showPage(cur + 1);
+    if (cur < pages) showPage(cur + 1, true);
   });
 
   showPage(1);
 })();
 </script>
 
+<script src="/js/site.js"></script>
 </body>
 </html>

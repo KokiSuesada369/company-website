@@ -14,8 +14,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <meta name="theme-color" content="#1a2f5e">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#FFFFFF">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <title>警備依頼・お申し込み｜広島SAIZEN警備保障株式会社</title>
   <link rel="canonical" href="https://saizen.one/order/">
   <meta name="twitter:card" content="summary_large_image">
@@ -226,17 +226,16 @@
 
     /* 送信ボタン（金色） */
     .btn-order {
-      background: #d97706;
+      background: var(--primary);
       color: #fff;
-      border-color: #d97706;
+      border-color: var(--primary);
+      box-shadow: var(--shadow-btn);
       font-size: 1.05rem;
       padding: 16px 64px;
     }
     .btn-order:hover {
-      background: #b45309;
-      border-color: #b45309;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 22px rgba(217,119,6,.32);
+      background: var(--primary-dark);
+      border-color: var(--primary-dark);
     }
 
     /* 送信成功メッセージ */
@@ -438,10 +437,10 @@
       border: 1px solid transparent;
     }
     .cal-d.empty { cursor: default; pointer-events: none; background: transparent; border-color: transparent; }
-    .cal-d.wd-off  { background: #eef1f8; color: #1a2f5e; border-color: #c5cde0; }
+    .cal-d.wd-off  { background: #eef1f8; color: var(--primary); border-color: #c5cde0; }
     .cal-d.sat-off { background: #eff6ff; color: #1e40af; border-color: #bfdbfe; }
     .cal-d.sun-off { background: #fff1f2; color: #9f1239; border-color: #fecdd3; }
-    .cal-d.wd-on   { background: #1a2f5e; color: #fff; border-color: #1a2f5e; }
+    .cal-d.wd-on   { background: var(--primary); color: #fff; border-color: var(--primary); }
     .cal-d.sat-on  { background: #d97706; color: #fff; border-color: #d97706; }
     .cal-d.sun-on  { background: #16a34a; color: #fff; border-color: #16a34a; }
     .cal-d:not(.empty):hover { transform: scale(1.1); opacity: .82; }
@@ -510,40 +509,57 @@
 <body>
 <a href="#main-content" class="skip-link">本文へスキップ</a>
 
-<!-- Nav overlay -->
-<div class="nav-overlay" id="navOverlay"></div>
 
 <!-- ============================================================
      HEADER
      ============================================================ -->
-<header id="header">
-  <div class="header-inner">
-    <a href="/" class="logo-img-link">
-      <img src="/images/logo-08a.png" alt="広島の警備会社 SAIZEN警備保障株式会社" width="2046" height="319" class="header-logo">
+<!-- site-header:start -->
+<header class="site-header">
+  <div class="hd-inner">
+    <a href="/" class="hd-logo">
+      <img src="/images/logo-08a.png" alt="広島の警備会社 SAIZEN警備保障株式会社" width="2046" height="319">
     </a>
-    <button class="hamburger" id="hamburger" aria-label="メニュー">
-      <span></span><span></span><span></span>
-    </button>
-    <nav class="gnav" id="gnav">
+    <nav class="hd-nav" aria-label="メインメニュー">
       <ul>
-        <li><a href="/">ホーム</a></li>
+        <li><a href="/service/">業務案内</a></li>
+        <li><a href="/price/">料金</a></li>
+        <li><a href="/#flow">ご依頼の流れ</a></li>
         <li><a href="/company/">会社概要</a></li>
-        <li class="has-dropdown active">
-          <a href="/service/" class="dropdown-toggle">サービス <span class="dropdown-arrow">▼</span></a>
-          <ul class="dropdown">
-            <li><a href="/service/">業務案内</a></li>
-            <li><a href="/price/">料金表</a></li>
-            <li><a href="/estimate/">お見積もり</a></li>
-            <li><a href="/order/" class="active" aria-current="page">警備依頼</a></li>
-          </ul>
-        </li>
         <li><a href="/recruit/">採用情報</a></li>
         <li><a href="/blog/">警備の知恵袋</a></li>
-        <li class="contact-link"><a href="/contact/">お問い合わせ</a></li>
       </ul>
     </nav>
+    <a href="tel:080-5624-1393" class="hd-tel">
+      <svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-phone"/></svg>
+      <span><small>お電話でのご相談</small><strong>080-5624-1393</strong></span>
+    </a>
+    <a href="/estimate/" class="pill pill-primary hd-cta">無料見積もり</a>
+    <button type="button" class="menu-btn" id="menuButton" aria-expanded="false" aria-controls="menuDrawer" aria-label="メニューを開く">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="drawer" id="menuDrawer" aria-hidden="true">
+  <nav class="drawer-nav" aria-label="スマホ用メニュー">
+    <a href="/service/">業務案内<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    <a href="/price/">料金表<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    <a href="/#flow">ご依頼の流れ<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    <a href="/company/">会社概要<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    <a href="/recruit/">採用情報<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    <a href="/blog/">警備の知恵袋<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    <a href="/order/">警備を依頼する<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    <a href="/contact/">お問い合わせ<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+  </nav>
+  <div class="drawer-actions">
+    <a href="/estimate/" class="pill pill-primary">無料見積もり</a>
+    <a href="tel:080-5624-1393" class="pill pill-outline">
+      <svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-phone"/></svg>
+      <span class="en">080-5624-1393</span>
+    </a>
+  </div>
+</div>
+<!-- site-header:end -->
 
 <!-- ============================================================
      PAGE HERO
@@ -582,7 +598,7 @@
 
         <!-- 送信成功メッセージ -->
         <div class="order-success" id="orderSuccess">
-          <div class="success-icon">✅</div>
+          <div class="success-icon"><span class="ico"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-check-circle"/></svg></span></div>
           <h3>ご依頼ありがとうございます。<br>担当者より改めてお電話いたします。</h3>
           <p>
             通常1〜2営業日以内にご連絡いたします。<br>
@@ -674,13 +690,13 @@
             </label>
             <div class="toggle-group" id="guardTypeGroup">
               <input type="radio" name="警備種別" id="gt-traffic" value="交通誘導警備" checked>
-              <label for="gt-traffic">🚦 交通誘導警備</label>
+              <label for="gt-traffic"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-cone"/></svg>交通誘導警備</label>
               <input type="radio" name="警備種別" id="gt-crowd" value="雑踏警備">
-              <label for="gt-crowd">🎪 雑踏警備</label>
+              <label for="gt-crowd"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-users"/></svg>雑踏警備</label>
               <input type="radio" name="警備種別" id="gt-event" value="イベント警備">
-              <label for="gt-event">🏟️ イベント警備</label>
+              <label for="gt-event"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-stadium"/></svg>イベント警備</label>
               <input type="radio" name="警備種別" id="gt-parking" value="駐車場警備">
-              <label for="gt-parking">🅿️ 駐車場警備</label>
+              <label for="gt-parking"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-parking"/></svg>駐車場警備</label>
             </div>
             <div class="form-error" id="guardTypeError"></div>
           </div>
@@ -702,7 +718,7 @@
             <div class="cal-panels" id="calPanelsContainer"></div>
 
             <div class="cal-legend-new">
-              <div class="cal-leg-item"><div class="cal-leg-dot" style="background:#1a2f5e;"></div>平日（選択）</div>
+              <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--primary);"></div>平日（選択）</div>
               <div class="cal-leg-item"><div class="cal-leg-dot" style="background:#d97706;"></div>土曜（選択）</div>
               <div class="cal-leg-item"><div class="cal-leg-dot" style="background:#16a34a;"></div>日祝（選択）</div>
               <div class="cal-leg-item"><div class="cal-leg-dot" style="background:#eef1f8;border:1px solid #c5cde0;"></div>未選択</div>
@@ -718,9 +734,9 @@
             </label>
             <div class="toggle-group">
               <input type="radio" name="勤務区分" id="shift-day" value="日勤" checked>
-              <label for="shift-day">☀️ 日勤（8h）</label>
+              <label for="shift-day"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-sun"/></svg>日勤（8h）</label>
               <input type="radio" name="勤務区分" id="shift-night" value="夜勤">
-              <label for="shift-night">🌙 夜勤（8h）</label>
+              <label for="shift-night"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-moon"/></svg>夜勤（8h）</label>
             </div>
           </div>
 
@@ -921,7 +937,7 @@
           </div>
 
           <div class="oec-placeholder" id="oecPlaceholder">
-            <div class="ph-icon">🧮</div>
+            <div class="ph-icon"><span class="ico"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-calc"/></svg></span></div>
             <p>開始日・終了日・<br>必要人数を入力すると<br>概算料金が表示されます</p>
           </div>
 
@@ -984,11 +1000,52 @@
 <!-- ============================================================
      FOOTER
      ============================================================ -->
-<footer id="footer">
-  <div class="footer-bottom">
-    <p>Copyright &copy; 2026 SAIZEN警備保障株式会社 All Rights Reserved.</p>
+<!-- site-footer:start -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="ft-top">
+      <div>
+        <a href="/" class="ft-logo"><img src="/images/logo-08a.png" alt="SAIZEN警備保障株式会社" width="2046" height="319" loading="lazy"></a>
+        <address class="ft-info">
+          〒733-0011 広島県広島市西区横川町3丁目1-9-305<br>
+          TEL <a href="tel:080-5624-1393">080-5624-1393</a><br>
+          MAIL <a href="mailto:info@saizen.one">info@saizen.one</a>
+        </address>
+      </div>
+      <nav class="ft-nav" aria-label="フッターメニュー">
+        <div>
+          <h2>サービス</h2>
+          <ul>
+            <li><a href="/service/">業務案内</a></li>
+            <li><a href="/price/">料金表</a></li>
+            <li><a href="/estimate/">お見積もり</a></li>
+            <li><a href="/order/">警備のご依頼</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>会社</h2>
+          <ul>
+            <li><a href="/company/">会社概要</a></li>
+            <li><a href="/recruit/">採用情報</a></li>
+            <li><a href="/blog/">警備の知恵袋</a></li>
+            <li><a href="/contact/">お問い合わせ</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="ft-bottom">
+      <p>広島県公安委員会 認定 第73000768号 ｜ <a href="/company/#hyoshiki">警備業者標識 →</a> ｜ <a href="/privacy/">プライバシーポリシー</a></p>
+      <p class="ft-copy">&copy; 2026 SAIZEN警備保障株式会社</p>
+    </div>
   </div>
 </footer>
+
+<!-- スマホ下のボタン帯（共通） -->
+<div class="mbar">
+  <a href="tel:080-5624-1393" class="pill pill-outline"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-phone"/></svg>電話する</a>
+  <a href="/estimate/" class="pill pill-primary"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-calc"/></svg>無料見積もり</a>
+</div>
+<!-- site-footer:end -->
 
 <script src="/js/rates.js"></script>
 <script>
@@ -1478,43 +1535,12 @@
     renderCalendars();
   })();
 
-  // ── ハンバーガーメニュー ──
-  const ham     = document.getElementById('hamburger');
-  const gnav    = document.getElementById('gnav');
-  const overlay = document.getElementById('navOverlay');
-  function toggleMenu() {
-    ham.classList.toggle('open');
-    gnav.classList.toggle('open');
-    overlay.classList.toggle('open');
-    document.body.style.overflow = gnav.classList.contains('open') ? 'hidden' : '';
-    gnav.querySelectorAll('.has-dropdown.open').forEach(function(d){ d.classList.remove('open'); });
-  }
-  ham.addEventListener('click', toggleMenu);
-  ham.addEventListener('touchstart', e => { e.preventDefault(); toggleMenu(); }, { passive: false });
-  overlay.addEventListener('click', toggleMenu);
-  gnav.querySelectorAll('a:not(.dropdown-toggle)').forEach(a => a.addEventListener('click', () => {
-    if (gnav.classList.contains('open')) toggleMenu();
-  }));
-
-  // Mobile dropdown toggle
-  gnav.querySelectorAll('.dropdown-toggle').forEach(function(t) {
-    t.addEventListener('click', function(e) {
-      if (window.innerWidth <= 768) {
-        e.preventDefault();
-        this.closest('.has-dropdown').classList.toggle('open');
-      }
-    });
-  });
 
   // ── スクロールリビール ──
   /* scroll-reveal removed */
 
-  // Fixed header: set body padding-top dynamically
-  document.addEventListener('DOMContentLoaded', function() {
-    var header = document.getElementById('header');
-    document.body.style.paddingTop = header.offsetHeight + 'px';
-  });
 </script>
 
+<script src="/js/site.js"></script>
 </body>
 </html>
