@@ -92,6 +92,9 @@
     .detail-actions { display:flex; align-items:center; gap:14px; flex-wrap:wrap; padding-top:4px; }
     .btn-contract-lg { padding:10px 24px; background:var(--gold); color:#fff; border:none; border-radius:var(--radius); font-size:.9rem; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px; cursor:pointer; transition:background .15s; }
     .btn-contract-lg:hover { background:var(--gold2); }
+    .btn-delete { margin-left:auto; padding:10px 20px; background:#fff; color:#c0392b; border:1px solid #e3a59d; border-radius:var(--radius); font-size:.88rem; font-weight:700; cursor:pointer; transition:background .15s; }
+    .btn-delete:hover { background:#fdf0ee; }
+    .btn-delete:disabled { opacity:.5; cursor:default; }
 
     /* ─── CONTRACT FORM MODAL ─── */
     .cform-modal { background:var(--white); border-radius:14px; width:100%; max-width:680px; box-shadow:0 20px 60px rgba(0,0,0,.3); overflow:hidden; margin:auto; }
@@ -714,8 +717,40 @@
       `<div class="detail-grid">${grid}</div>
        <div class="detail-actions">
          <a href="${buildContractUrl(o)}" target="_blank" class="btn-contract-lg">📄 契約書を作成する</a>
+         <button type="button" class="btn-delete" id="btnDelete" onclick="deleteOrder(${idx})">この依頼を削除</button>
        </div>`;
     document.getElementById('detailOverlay').classList.add('open');
+  }
+
+  // ── 依頼の削除 ──
+  //   Apps Script に { action:'deleteOrder', pw, rowIndex, receivedAt } を送る。
+  //   Apps Script 側で「その行の受付日時が receivedAt と同じとき だけ」行を消す（行ずれで別の依頼を消さないため）。
+  //   no-cors のため返事は読めないので、少し待って一覧を読み直し、消えたかを確かめる。
+  async function deleteOrder(idx) {
+    const o = orders[idx];
+    if (!o) return;
+    const label = (o.company || '（会社名なし）') + '／' + (o.site || '（現場名なし）') + '／受付 ' + formatDate(o.receivedAt);
+    if (!confirm('この依頼を削除します。\n\n' + label + '\n\nスプレッドシートからも消え、元に戻せません。よろしいですか？')) return;
+    const btn = document.getElementById('btnDelete');
+    if (btn) { btn.disabled = true; btn.textContent = '削除しています…'; }
+    try {
+      await fetch(GAS_URL, {
+        method:'POST', mode:'no-cors',
+        headers:{'Content-Type':'text/plain'},
+        body: JSON.stringify({ action:'deleteOrder', pw:getPw(), rowIndex:o.rowIndex, receivedAt:o.receivedAt })
+      });
+    } catch (_) {}
+    document.getElementById('detailOverlay').classList.remove('open');
+    const key = String(o.receivedAt) + '|' + String(o.company);
+    setTimeout(function () {
+      loadData();
+      const check = window.gasCallback;
+      window.gasCallback = function (res) {
+        check(res);
+        const still = orders.some(function (x) { return String(x.receivedAt) + '|' + String(x.company) === key; });
+        if (still) alert('削除できませんでした。\nApps Script 側に削除の処理が入っているか、パスワードが正しいかを確認してください。');
+      };
+    }, 1500);
   }
 
   function closeDetail(e) {
