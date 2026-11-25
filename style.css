@@ -1388,8 +1388,8 @@ h1,h2,h3{font-feature-settings:"palt"}
 
 /* ページ上部の見出し：淡い青のパネル（トップの最初の画面と同じ形） */
 .page-hero{display:flex;flex-direction:column-reverse;align-items:center;justify-content:center;gap:10px;position:relative;width:calc(100% - var(--gutter)*2);max-width:1240px;margin:24px auto 0;border-radius:32px;background:linear-gradient(180deg,#EAF3FC 0%,#FFFFFF 100%);padding:64px 24px 56px;overflow:hidden;text-align:center}
-.page-hero::before{content:"";position:absolute;right:-30px;bottom:-60px;left:auto;top:auto;width:300px;height:284px;inset:auto -30px -60px auto;background:url(/images/logo-01a.png) no-repeat center/contain;opacity:.07;pointer-events:none}
-.page-hero::after{content:"";position:absolute;left:-40px;top:-50px;width:190px;height:180px;background:url(/images/logo-01a.png) no-repeat center/contain;opacity:.05;pointer-events:none}
+.page-hero::before{content:"";position:absolute;right:-30px;bottom:-60px;left:auto;top:auto;width:300px;height:284px;inset:auto -30px -60px auto;background:url(/images/logo-01a.png) no-repeat center/contain;opacity:.15;pointer-events:none}
+.page-hero::after{content:"";position:absolute;left:-40px;top:-50px;width:190px;height:180px;background:url(/images/logo-01a.png) no-repeat center/contain;opacity:.15;pointer-events:none}
 .page-hero h1,.page-hero .page-hero-title{position:relative;z-index:1;color:var(--text)!important;font-weight:900;letter-spacing:.02em;line-height:1.35;margin:0;font-size:clamp(28px,3.2vw,42px)!important}
 .page-hero p:not(.page-hero-title){position:relative;z-index:1;color:var(--primary);font-family:var(--font-en);font-weight:700;font-size:13px;letter-spacing:.22em;text-transform:uppercase;margin:0}
 .breadcrumb{background:transparent;border-bottom:0;padding:16px var(--gutter) 0;font-size:12.5px;color:var(--sub)}
