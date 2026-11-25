@@ -39,7 +39,7 @@ const pages = fs.readdirSync(root, { withFileTypes: true })
 
 function currentFor(p) {
   const dir = p.split('/')[0];
-  if (['service', 'price', 'company', 'recruit', 'blog'].includes(dir)) return [`/${dir}/`, 'page'];
+  if (['service', 'price', 'order', 'company', 'recruit', 'blog'].includes(dir)) return [`/${dir}/`, 'page'];
   if (/^blog\d+$/.test(dir)) return ['/blog/', 'true'];
   return null;
 }

@@ -37,7 +37,7 @@
     }
   });
   // PC幅に戻ったら閉じる
-  var mq = window.matchMedia('(min-width: 1121px)');
+  var mq = window.matchMedia('(min-width: 1241px)');
   var onChange = function (e) { if (e.matches) setOpen(false); };
   if (mq.addEventListener) mq.addEventListener('change', onChange);
   else if (mq.addListener) mq.addListener(onChange);

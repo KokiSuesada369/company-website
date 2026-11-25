@@ -1283,20 +1283,20 @@ a.pill:hover{text-decoration:none}
 
 /* ヘッダー */
 .site-header{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--line)}
-.hd-inner{max-width:calc(1240px + var(--gutter)*2);margin:0 auto;padding:0 var(--gutter);height:var(--header-h);display:flex;align-items:center;gap:24px}
+.hd-inner{max-width:calc(1240px + var(--gutter)*2);margin:0 auto;padding:0 var(--gutter);height:var(--header-h);display:flex;align-items:center;gap:16px}
 .hd-logo{display:flex;align-items:center;flex:none}
-.hd-logo img{height:34px;width:auto;max-width:none}
+.hd-logo img{height:30px;width:auto;max-width:none}
 .hd-nav{margin-left:auto}
 .hd-nav ul{display:flex;gap:2px;list-style:none;margin:0;padding:0}
-.hd-nav a{display:block;padding:10px 12px;font-size:14.5px;font-weight:700;letter-spacing:.02em;color:var(--text);border-radius:8px;transition:color .2s}
+.hd-nav a{display:block;padding:10px 8px;font-size:14px;white-space:nowrap;font-weight:700;letter-spacing:.02em;color:var(--text);border-radius:8px;transition:color .2s}
 .hd-nav a:hover,.hd-nav a[aria-current]{color:var(--primary)}
-a.hd-tel{display:flex;align-items:center;gap:8px;color:var(--text);line-height:1.2;font-weight:400;text-decoration:none}
+a.hd-tel{display:flex;align-items:center;gap:8px;color:var(--text);line-height:1.2;font-weight:400;text-decoration:none;white-space:nowrap;flex:none}
 .hd-tel .i{color:var(--primary);width:20px;height:20px}
 .hd-tel small{display:block;font-size:11px;color:var(--sub);font-weight:500}
 .hd-tel strong{display:block;font-family:var(--font-en);font-size:18px;font-weight:700;letter-spacing:.02em;font-variant-numeric:tabular-nums}
 a.hd-tel:hover{color:var(--text)}
 a.hd-tel:hover strong{color:var(--primary)}
-.hd-cta{min-height:46px;padding:0 24px}
+.hd-cta{min-height:46px;padding:0 22px;flex:none}
 .menu-btn{display:none;margin-left:auto;width:44px;height:44px;border:0;background:none;border-radius:10px;cursor:pointer;position:relative;padding:0}
 .menu-btn span{position:absolute;left:11px;width:22px;height:2px;background:var(--text);border-radius:2px;transition:transform .25s,opacity .2s}
 .menu-btn span:nth-child(1){top:15px}.menu-btn span:nth-child(2){top:21px}.menu-btn span:nth-child(3){top:27px}
@@ -1328,7 +1328,7 @@ a.hd-tel:hover strong{color:var(--primary)}
 /* スマホ下のボタン帯 */
 .mbar{display:none}
 
-@media (max-width:1120px){
+@media (max-width:1240px){
   :root{--header-h:64px}
   .hd-nav,.hd-tel,.hd-cta{display:none!important}
   .hd-logo img{height:28px}
