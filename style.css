@@ -12,18 +12,27 @@
 }
 
 :root {
-  --primary:    #1a2f5e;
-  --secondary:  #2a4898;
-  --accent:     #1a2f5e;
-  --accent-lt:  #7aadde;
-  --white:      #ffffff;
-  --light-bg:   #f4f6fa;
-  --mid-gray:   #dde2eb;
-  --dark-gray:  #555e6b;
-  --text:       #1e2530;
+  /* D-2 ソフトブルーパネルの色 */
+  --primary:      #006EB8;  /* ロゴの青：ボタン・リンク・アイコン・強調 */
+  --primary-dark: #00589A;  /* ボタンのホバー */
+  --text:         #0F1D2E;  /* 本文・見出し */
+  --sub:          #5B6676;  /* 説明文・補足 */
+  --line:         #E6E9EE;  /* 線・カードの枠 */
+  --soft:         #F4F7FB;  /* 背景の薄いグレー青（交互の段） */
+  --soft-blue:    #EAF3FB;  /* アイコンの背景・最初の画面のパネル */
+  --white:        #FFFFFF;
+
+  /* 旧い変数名（フェーズ3で各ページを直し終えるまでの読み替え） */
+  --secondary:  var(--primary-dark);
+  --accent:     var(--primary);
+  --accent-lt:  #7FB6E0;
+  --light-bg:   var(--soft);
+  --mid-gray:   var(--line);
+  --dark-gray:  var(--sub);
+
   --radius:     6px;
-  --shadow:     0 4px 20px rgba(26,47,94,.10);
-  --shadow-hv:  0 8px 30px rgba(26,47,94,.18);
+  --shadow:     0 4px 20px rgba(0,62,110,.08);
+  --shadow-hv:  0 8px 30px rgba(0,62,110,.14);
   --transition: .25s ease;
 }
 
@@ -1669,7 +1678,7 @@ html { scroll-behavior: auto !important; }
 }
 
 /* ===== アクセシビリティ: skip-link / focus-visible ===== */
-.skip-link{position:absolute;left:-9999px;top:0;z-index:100000;background:#1a2f5e;color:#fff;padding:10px 16px;border-radius:0 0 6px 0;font-weight:700;}
+.skip-link{position:absolute;left:-9999px;top:0;z-index:100000;background:var(--primary);color:#fff;padding:10px 16px;border-radius:0 0 6px 0;font-weight:700;}
 .skip-link:focus{left:0;}
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid #7aadde;outline-offset:2px;}
 #main-content{scroll-margin-top:90px;}

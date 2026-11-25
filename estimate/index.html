@@ -746,20 +746,29 @@
   </div>
 </footer>
 
+<script src="/js/rates.js"></script>
 <script>
-  // ── 料金テーブル ──
-  const RATES = {
-    base: {
-      '平日':     { '日勤': 18000, '夜勤': 25000 },
-      '土曜':     { '日勤': 18000, '夜勤': 25000 },
-      '日曜祝日': { '日勤': 22500, '夜勤': 31000 }
-    },
-    overtime: {
-      '平日':     { '日勤': 2900, '夜勤': 3900 },
-      '土曜':     { '日勤': 2900, '夜勤': 3900 },
-      '日曜祝日': { '日勤': 3600, '夜勤': 4900 }
+  // ── 料金テーブル（/js/rates.js で一元管理） ──
+  const RATES = window.SAIZEN_RATES.RATES;
+
+  // ── トップの「かんたん料金チェック」から来たときの初期値 ──
+  //   例：/estimate/?day=平日&shift=日勤&persons=2（値がない・おかしいときは何もしない）
+  (function () {
+    const q = new URLSearchParams(window.location.search);
+    const pick = (name, value) => {
+      if (!value) return;
+      const el = Array.from(document.querySelectorAll('input[name="' + name + '"]'))
+        .find(r => r.value === value);
+      if (el) el.checked = true;
+    };
+    pick('day', q.get('day'));
+    pick('shift', q.get('shift'));
+    const p = q.get('persons');
+    if (p !== null && /^\d+$/.test(p)) {
+      const n = parseInt(p, 10);
+      if (n >= 1 && n <= 20) document.getElementById('persons').value = n;
     }
-  };
+  })();
 
   // ── 数値フォーマット ──
   const fmt = n => n.toLocaleString('ja-JP');

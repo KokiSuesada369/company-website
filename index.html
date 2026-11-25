@@ -14,8 +14,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <meta name="theme-color" content="#1a2f5e">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#FFFFFF">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
   <title>広島の警備会社｜SAIZEN警備保障株式会社｜交通誘導・雑踏警備</title>
   <link rel="canonical" href="https://saizen.one/">
   <meta name="twitter:card" content="summary_large_image">
@@ -35,86 +35,332 @@
   <link rel="preload" href="/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="/style.css"></noscript>
   <style>
+  /* ============================================================
+     D-2 ソフトブルーパネル
+     ※ style.css は非同期で読むため、トップの表示に必要なものはここに書く
+     ※「共通」の部分（ヘッダー・フッター・下のボタン帯・ボタン）は
+       フェーズ3で style.css へ移し、全ページで使う
+     ============================================================ */
+  :root{
+    --primary:#006EB8;--primary-dark:#00589A;--text:#0F1D2E;--sub:#5B6676;
+    --line:#E6E9EE;--soft:#F4F7FB;--soft-blue:#EAF3FB;--white:#FFFFFF;
+    --font-en:'Inter','Noto Sans JP',sans-serif;
+    --shadow-btn:0 8px 20px rgba(0,110,184,.24);
+    --wrap:1200px;--gutter:24px;--header-h:76px;
+  }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  :root{--primary:#1a2f5e;--secondary:#2a4898;--accent:#1a2f5e;--accent-lt:#7aadde;--white:#fff;--light-bg:#f4f6fa;--mid-gray:#dde2eb;--dark-gray:#555e6b;--text:#1e2530;--radius:6px;--shadow:0 4px 20px rgba(26,47,94,.10);--shadow-hv:0 8px 30px rgba(26,47,94,.18);--transition:.25s ease}
-  html{scroll-behavior:auto;overflow-x:hidden;overscroll-behavior-y:none;-webkit-overflow-scrolling:touch}
-  body{font-family:'Noto Sans JP','Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;color:var(--text);line-height:1.8;font-size:16px;background:#fff;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+  html{-webkit-text-size-adjust:100%}
+  html.menu-open{overflow:hidden}
+  body{font-family:'Noto Sans JP','Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;color:var(--text);background:var(--white);font-size:16px;line-height:1.8;font-weight:400;overflow-x:hidden}
   a{color:inherit;text-decoration:none}
-  ul{list-style:none}
+  ul,ol{list-style:none}
   img{max-width:100%;height:auto;display:block}
-  button{font-family:inherit}
-  .container{max-width:1100px;margin:0 auto;padding:0 24px}
-  @keyframes fadeInDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
-  @keyframes fadeInUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-  @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
-  .header-logo{height:50px;width:auto;display:block}
-  .hero-tag{}
-  .hero h1{}
-  .hero-sub{}
-  .hero-btns{}
-  @media (prefers-reduced-motion:reduce){.header-logo,.hero-tag,.hero h1,.hero-sub,.hero-btns,.page-hero h1,.page-hero p{animation:none;will-change:auto}}
-  #header{position:fixed;top:0;left:0;width:100%;z-index:9999;background:#fff!important;background-color:#fff!important;box-shadow:0 2px 10px rgba(0,0,0,.08);border-bottom:2px solid #1a2744}
-  .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:1200px;margin:0 auto}
-  .logo-img-link{display:flex;align-items:center}
-  .gnav ul{display:flex;gap:6px}
-  .gnav a{display:block;padding:8px 14px;font-size:.875rem;color:#1a2744;border-radius:var(--radius);letter-spacing:.04em;transition:background var(--transition),color var(--transition)}
-  .gnav a:hover,.gnav a.active{background:rgba(26,39,68,.08);color:#1a2744}
-  .gnav .contact-link a{background:#f97316;color:#fff;font-weight:700;border:1px solid #f97316}
-  .gnav .has-dropdown{position:relative}
-  .gnav .dropdown{display:none;position:absolute;top:calc(100% + 4px);left:0;background:#1a2744;border-radius:var(--radius);box-shadow:0 8px 28px rgba(0,0,0,.22);min-width:168px;z-index:1000;padding:6px 0;white-space:nowrap}
-  .gnav .has-dropdown:hover>.dropdown{display:block}
-  .gnav .dropdown li{display:block;margin:0}
-  .gnav .dropdown a{display:block;padding:10px 20px;font-size:.875rem;color:rgba(255,255,255,.88)!important;border-radius:0}
-  .hamburger{display:none;flex-direction:column;gap:6px;cursor:pointer;padding:6px;background:none;border:none}
-  .hamburger span{display:block;width:26px;height:2px;background:#1a2744;border-radius:2px;transition:all .3s}
-  .hamburger.open span:nth-child(1){transform:translateY(8px) rotate(45deg)}
-  .hamburger.open span:nth-child(2){opacity:0}
-  .hamburger.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
-  .hero{min-height:90vh;background:#fff;display:flex;align-items:center;position:relative;overflow:hidden}
-  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 70% 50%,rgba(26,47,94,.04) 0%,transparent 70%)}
-  .hero-geo{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-  .hero-geo::before{content:'';position:absolute;right:-5%;top:-10%;width:55%;height:130%;background:linear-gradient(135deg,#eef1f8 0%,#f4f6fa 100%);clip-path:polygon(15% 0,100% 0,100% 100%,0% 100%)}
-  .hero-geo::after{content:'';position:absolute;right:0;top:0;width:4px;height:100%;background:var(--primary);opacity:.3}
-  .hero-content{position:relative;z-index:2;padding:0 24px;max-width:700px;margin-left:max(24px,calc(50vw - 550px))}
-  .hero-tag{display:inline-block;background:rgba(26,47,94,.08);border:1px solid rgba(26,47,94,.25);color:var(--primary);font-size:.78rem;letter-spacing:.15em;padding:5px 16px;border-radius:20px;margin-bottom:28px;font-weight:700}
-  .hero h1{font-size:clamp(2.8rem,7vw,4.5rem);font-weight:700;color:var(--primary);line-height:1.2;letter-spacing:.04em;margin-bottom:24px}
-  .hero h1 .accent-text{color:var(--secondary)}
-  .hero-sub{font-size:1.05rem;color:var(--dark-gray);margin-bottom:40px;line-height:1.9}
-  .hero-btns{display:flex;gap:16px;flex-wrap:wrap}
-  .hero-badge{position:absolute;bottom:40px;right:max(24px,calc(50vw - 550px));z-index:2;display:flex;gap:24px}
-  .hero-badge-item{text-align:center;color:var(--dark-gray)}
-  .hero-badge-item .num{font-size:2rem;font-weight:700;color:var(--primary);line-height:1}
-  .hero-badge-item .unit{font-size:.75rem;color:var(--dark-gray)}
-  .hero-badge-item .desc{font-size:.72rem;margin-top:4px}
-  .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 38px;border-radius:var(--radius);font-size:.95rem;font-weight:700;letter-spacing:.05em;transition:all var(--transition);cursor:pointer;border:2px solid transparent}
-  .btn-orange{background:#e86c00;color:#fff;border-color:#e86c00}
-  .btn-outline-navy{background:transparent;color:var(--primary);border-color:var(--primary)}
-  .btn-lg{padding:16px 44px;font-size:1.05rem}
-  .hero-link{margin-top:14px}
-  .hero-link a{color:var(--secondary);font-size:.9rem;font-weight:600;text-decoration:none;border-bottom:1px solid var(--secondary);transition:color var(--transition),border-color var(--transition)}
+  button,input{font:inherit;color:inherit}
+  h1,h2,h3{font-weight:900;font-feature-settings:"palt";line-height:1.4}
+  .en{font-family:var(--font-en)}
+  .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .wrap{max-width:calc(var(--wrap) + var(--gutter)*2);margin:0 auto;padding:0 var(--gutter)}
+  .i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+  .i-sm{width:16px;height:16px}
+  .ico{width:56px;height:56px;border-radius:16px;background:var(--soft-blue);color:var(--primary);display:grid;place-items:center;flex:none}
+  .ico .i{width:26px;height:26px}
+  /* style.css の電話リンク（オレンジ・下線）を打ち消す */
+  a[href^="tel"]{font-weight:inherit}
+  a[href^="tel"]:hover{color:inherit;text-decoration:none}
+
+  /* ---------- 共通：ボタン ---------- */
+  .pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 26px;border-radius:999px;border:2px solid transparent;font-size:15px;font-weight:700;line-height:1.2;letter-spacing:.03em;white-space:nowrap;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s,box-shadow .2s}
+  .pill-primary{background:var(--primary);color:#fff;box-shadow:var(--shadow-btn)}
+  .pill-primary:hover,a.pill-primary:hover{background:var(--primary-dark);color:#fff}
+  .pill-outline{background:#fff;color:var(--primary);border-color:var(--primary)}
+  .pill-outline:hover,a.pill-outline:hover{background:var(--soft-blue);color:var(--primary)}
+  .pill-white{background:#fff;color:var(--primary)}
+  .pill-white:hover{background:var(--soft-blue)}
+  .pill-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.75)}
+  .pill-ghost:hover,a.pill-ghost:hover{background:rgba(255,255,255,.12);color:#fff}
+  .text-link{display:inline-flex;align-items:center;gap:6px;color:var(--primary);font-weight:700}
+  .text-link:hover{text-decoration:underline;text-underline-offset:4px}
+
+  /* ---------- 共通：ヘッダー ---------- */
+  .site-header{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--line)}
+  .hd-inner{max-width:calc(1240px + var(--gutter)*2);margin:0 auto;padding:0 var(--gutter);height:var(--header-h);display:flex;align-items:center;gap:24px}
+  .hd-logo{display:flex;align-items:center;flex:none}
+  .hd-logo img{height:34px;width:auto}
+  .hd-nav{margin-left:auto}
+  .hd-nav ul{display:flex;gap:2px}
+  .hd-nav a{display:block;padding:10px 12px;font-size:14.5px;font-weight:700;letter-spacing:.02em;border-radius:8px;transition:color .2s}
+  .hd-nav a:hover,.hd-nav a[aria-current="page"]{color:var(--primary)}
+  .hd-tel{display:flex;align-items:center;gap:8px;color:var(--text);line-height:1.2}
+  .hd-tel .i{color:var(--primary);width:20px;height:20px}
+  .hd-tel small{display:block;font-size:11px;color:var(--sub);font-weight:500}
+  .hd-tel strong{display:block;font-family:var(--font-en);font-size:18px;font-weight:700;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+  .hd-tel:hover strong{color:var(--primary)}
+  .hd-cta{min-height:46px;padding:0 24px}
+  .menu-btn{display:none;margin-left:auto;width:44px;height:44px;border:0;background:none;border-radius:10px;cursor:pointer;position:relative}
+  .menu-btn span{position:absolute;left:11px;width:22px;height:2px;background:var(--text);border-radius:2px;transition:transform .25s,opacity .2s}
+  .menu-btn span:nth-child(1){top:15px}.menu-btn span:nth-child(2){top:21px}.menu-btn span:nth-child(3){top:27px}
+  .menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  .menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+  .menu-overlay{display:none}
+  .drawer{display:none}
+  @media (max-width:1120px){
+    :root{--header-h:64px}
+    .hd-nav,.hd-tel,.hd-cta{display:none}
+    .hd-logo img{height:28px}
+    .menu-btn{display:block}
+    .menu-overlay{display:block;position:fixed;inset:var(--header-h) 0 0 0;background:rgba(15,29,46,.4);z-index:90;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
+    .menu-overlay.is-open{opacity:1;visibility:visible}
+    .drawer{display:flex;flex-direction:column;position:fixed;top:var(--header-h);right:0;bottom:0;width:min(86vw,360px);background:#fff;z-index:95;overflow-y:auto;padding:8px 20px calc(24px + env(safe-area-inset-bottom));transform:translateX(100%);visibility:hidden;transition:transform .25s ease,visibility .25s}
+    .drawer.is-open{transform:none;visibility:visible}
+    .drawer-nav a{display:flex;align-items:center;justify-content:space-between;min-height:54px;border-bottom:1px solid var(--line);font-weight:700}
+    .drawer-nav a .i{color:var(--primary);width:18px;height:18px}
+    .drawer-actions{display:grid;gap:10px;margin-top:20px}
+    .drawer-actions .pill{width:100%}
+  }
+
+  /* ---------- トップ：最初の画面 ---------- */
+  .hero-wrap{padding:24px var(--gutter) 0}
+  .hero-panel{position:relative;max-width:1240px;margin:0 auto;border-radius:32px;background:linear-gradient(180deg,#EAF3FC 0%,#FFFFFF 100%);overflow:hidden;padding:92px 24px 150px;text-align:center}
+  .hero-deco{position:absolute;pointer-events:none;user-select:none;height:auto}
+  .hero-deco-r{width:380px;right:-30px;bottom:-70px;opacity:.07}
+  .hero-deco-l{width:240px;left:-40px;top:-50px;opacity:.05}
+  .hero-inner{position:relative;z-index:1}
+  .hero-eyebrow{color:var(--primary);font-size:15px;font-weight:700;letter-spacing:.2em;margin-bottom:22px}
+  .hero-title{font-size:clamp(33px,4.6vw + 4px,60px);line-height:1.35;letter-spacing:.02em;margin-bottom:28px}
+  .hero-title em{font-style:normal;color:var(--primary)}
+  .hero-lead{color:var(--sub);font-size:16px;line-height:2.1}
+  .hero-lead-sp{display:none}
+
+  /* かんたん料金チェック */
+  .checker{position:relative;z-index:2;max-width:1120px;margin:-86px auto 0;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:0 18px 48px rgba(0,62,110,.10);padding:20px 22px 20px 26px;display:flex;align-items:center;gap:16px}
+  .ck-title{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:900;line-height:1.35;flex:none}
+  .ck-title .i{color:var(--primary)}
+  .ck-controls{display:flex;align-items:flex-end;gap:14px;flex:none}
+  .ck-field{border:0;min-width:0}
+  .ck-field legend,.ck-label{display:block;font-size:12px;font-weight:700;color:var(--sub);margin-bottom:6px;padding:0}
+  .seg{display:inline-flex;background:var(--soft);border-radius:999px;padding:4px}
+  .seg label{position:relative;display:block;cursor:pointer}
+  .seg input{position:absolute;inset:0;opacity:0;cursor:pointer;margin:0}
+  .seg span{display:flex;align-items:center;justify-content:center;min-height:40px;padding:0 16px;border-radius:999px;font-size:14px;font-weight:700;color:var(--sub);white-space:nowrap;transition:background-color .15s,color .15s}
+  .seg input:checked+span{background:#fff;color:var(--primary);box-shadow:0 1px 4px rgba(15,29,46,.10)}
+  .seg input:focus-visible+span{outline:3px solid #7FB6E0;outline-offset:1px}
+  .stepper{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);border-radius:999px;padding:3px}
+  .stepper button{width:40px;height:40px;border-radius:50%;border:0;cursor:pointer;font-size:20px;font-weight:700;line-height:1;display:grid;place-items:center;transition:background-color .15s,opacity .15s}
+  .stepper .st-minus{background:var(--soft-blue);color:var(--primary)}
+  .stepper .st-plus{background:var(--primary);color:#fff}
+  .stepper button:disabled{opacity:.35;cursor:default}
+  .stepper .st-val{display:flex;align-items:baseline;gap:2px;padding:0 4px}
+  .stepper input{width:2.4ch;border:0;background:transparent;text-align:right;font-family:var(--font-en);font-weight:700;font-size:17px;font-variant-numeric:tabular-nums;-moz-appearance:textfield;appearance:textfield}
+  .stepper input::-webkit-outer-spin-button,.stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .stepper .st-unit{font-size:14px;font-weight:700}
+  .ck-divider{width:1px;align-self:stretch;background:var(--line);flex:none}
+  .ck-result{flex:1 0 auto;text-align:center}
+  .ck-result .ck-label{margin-bottom:0}
+  .ck-price{display:block;font-family:var(--font-en);font-weight:800;font-size:34px;line-height:1.15;color:var(--primary);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+  .ck-note{display:block;font-size:11.5px;color:var(--sub);margin-top:2px;line-height:1.5;white-space:nowrap}
+  .ck-submit{flex:none;min-height:52px}
+
+  .features{max-width:1120px;margin:28px auto 0;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:16px;background:#fff}
+  .feat{display:flex;align-items:center;justify-content:center;gap:10px;padding:18px 12px;font-weight:700;font-size:15px}
+  .feat+.feat{border-left:1px solid var(--line)}
+  .feat .i{color:var(--primary)}
+  .direct-order{text-align:center;margin-top:20px;font-size:14px;color:var(--sub)}
+  .direct-order a{color:var(--primary);font-weight:700;display:inline-flex;align-items:center;gap:4px;padding:6px 0}
+  .direct-order a:hover{text-decoration:underline;text-underline-offset:4px}
+
+  /* ---------- トップ：各段 ---------- */
+  .sec{padding:96px 0}
+  .sec-first{padding-top:88px}
+  .sec-soft{background:var(--soft)}
+  .sec-head{text-align:center;margin-bottom:48px}
+  .eyebrow{display:block;font-family:var(--font-en);font-size:13px;font-weight:700;letter-spacing:.22em;color:var(--primary);margin-bottom:10px}
+  .sec-title{font-size:34px;letter-spacing:.02em}
+  .sec-lead{color:var(--sub);margin-top:12px}
+
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .why-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px 24px 30px}
+  .why-num{display:block;font-family:var(--font-en);font-weight:700;font-size:13px;letter-spacing:.1em;color:var(--primary);margin-bottom:14px}
+  .why-card h3{font-size:18px;margin:18px 0 8px}
+  .why-card p{font-size:14.5px;color:var(--sub);line-height:1.8}
+
+  .flow-list{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:step}
+  .flow-step{position:relative;text-align:center;padding:0 8px}
+  .flow-step+.flow-step::before{content:"";position:absolute;top:38px;right:calc(50% + 46px);width:calc(100% - 92px + 16px);border-top:2px dotted #8DBFE3}
+  .flow-circle{width:76px;height:76px;border-radius:50%;background:#fff;border:2px solid var(--primary);color:var(--primary);display:grid;place-items:center;margin:0 auto 18px}
+  .flow-circle .i{width:30px;height:30px}
+  .flow-step .step{display:block;font-family:var(--font-en);font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--primary)}
+  .flow-step h3{font-size:18px;margin:4px 0 6px}
+  .flow-step p{font-size:14px;color:var(--sub);line-height:1.7}
+
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .svc-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:20px;padding:32px 28px}
+  .svc-card h3{font-size:20px;margin:20px 0 10px}
+  .svc-card p{font-size:14.5px;color:var(--sub);line-height:1.85;flex:1}
+  .svc-card .text-link{margin-top:18px;min-height:44px}
+
+  .col-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:36px}
+  .col-head .sec-title{text-align:left}
+  .col-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .col-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;transition:box-shadow .2s,border-color .2s}
+  .col-card:hover{border-color:#CFE2F2;box-shadow:0 10px 28px rgba(0,62,110,.08)}
+  .col-thumb{height:132px;background:var(--soft-blue);color:var(--primary);display:grid;place-items:center}
+  .col-thumb .i{width:36px;height:36px;stroke-width:1.75}
+  .col-body{padding:20px 22px 24px}
+  .col-meta{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--sub);margin-bottom:8px}
+  .col-cat{background:var(--soft-blue);color:var(--primary);font-weight:700;border-radius:999px;padding:2px 10px}
+  .col-date{font-family:var(--font-en);font-variant-numeric:tabular-nums}
+  .col-card h3{font-size:16px;font-weight:700;line-height:1.6}
+  .col-card:hover h3{color:var(--primary)}
+
+  .cta-box{background:var(--primary);color:#fff;border-radius:28px;padding:56px 64px;display:flex;align-items:center;justify-content:space-between;gap:40px}
+  .cta-box h2{font-size:28px;line-height:1.5}
+  .cta-box p{margin-top:10px;opacity:.88;font-size:15px}
+  .cta-actions{display:grid;gap:12px;flex:none;min-width:280px}
+  .cta-actions .pill{min-height:54px;font-size:16px}
+  .cta-actions .pill-ghost strong{font-family:var(--font-en);font-weight:700;letter-spacing:.03em}
+
+  /* 警備業者標識（フェーズ3で /company/#hyoshiki へ移すまでの仮置き） */
+  .hyo{padding:0 0 96px}
+  .hyo-box{max-width:640px;margin:0 auto}
+  .hyo-box h2{font-size:20px;text-align:center;margin-bottom:18px}
+  .hyo-table{width:100%;border-collapse:collapse;border:2px solid var(--text);background:#fff;font-size:15px;text-align:left}
+  .hyo-table caption{caption-side:bottom;text-align:left;font-size:12.5px;color:var(--sub);padding-top:10px}
+  .hyo-table thead th{background:var(--text);color:#fff;text-align:center;padding:12px 16px;letter-spacing:.3em;font-size:16px}
+  .hyo-table tbody th{width:38%;background:var(--soft);font-weight:700;font-size:14px;color:var(--text)}
+  .hyo-table tbody th,.hyo-table td{padding:12px 16px;border:1px solid #C9D0DA;vertical-align:top}
+
+  /* ---------- 共通：フッター ---------- */
+  .site-footer{background:#fff;border-top:1px solid var(--line)}
+  .ft-top{display:flex;justify-content:space-between;gap:48px;padding:56px 0 44px}
+  .ft-logo img{height:30px;width:auto}
+  .ft-info{margin-top:18px;font-size:14px;color:var(--sub);line-height:1.95;font-style:normal}
+  .ft-info a{color:var(--text);font-family:var(--font-en);font-weight:600}
+  .ft-info a:hover{color:var(--primary)}
+  .ft-nav{display:grid;grid-template-columns:repeat(2,minmax(160px,auto));gap:24px 56px}
+  .ft-nav h2{font-size:12px;font-weight:700;color:var(--sub);letter-spacing:.12em;margin-bottom:10px}
+  .ft-nav a{display:inline-block;padding:5px 0;font-size:14.5px;font-weight:700}
+  .ft-nav a:hover{color:var(--primary)}
+  .ft-bottom{border-top:1px solid var(--line);padding:20px 0 24px;display:flex;justify-content:space-between;align-items:center;gap:12px 24px;flex-wrap:wrap;font-size:13px;color:var(--sub)}
+  .ft-bottom a{color:var(--primary);font-weight:700}
+  .ft-bottom a:hover{text-decoration:underline;text-underline-offset:3px}
+  .ft-copy{font-family:var(--font-en)}
+
+  /* ---------- 共通：スマホ下のボタン帯 ---------- */
+  .mbar{display:none}
+
+  /* ---------- タブレット ---------- */
+  @media (max-width:1180px){
+    .checker{flex-wrap:wrap;row-gap:16px;margin-left:16px;margin-right:16px;padding:22px 24px}
+    .ck-controls{flex:1;justify-content:flex-start;flex-wrap:wrap}
+    .ck-divider{width:100%;height:1px;align-self:auto;flex-basis:100%}
+    .ck-result{text-align:left;display:flex;align-items:baseline;gap:4px 14px;flex-wrap:wrap}
+    .why-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:960px){
+    .features{grid-template-columns:repeat(2,1fr);margin-left:16px;margin-right:16px}
+    .feat:nth-child(3){border-left:0}
+    .feat:nth-child(n+3){border-top:1px solid var(--line)}
+    .svc-grid,.col-grid{grid-template-columns:1fr 1fr}
+    .cta-box{flex-direction:column;align-items:flex-start;padding:44px 40px}
+    .ft-top{flex-direction:column;gap:32px}
+  }
+
+  /* ---------- スマホ ---------- */
   @media (max-width:768px){
-    .gnav{position:fixed;top:0;right:-100%;width:80%;max-width:320px;height:100vh;background:#1a2744;padding:80px 30px 30px;transition:right .25s ease;box-shadow:-5px 0 20px rgba(0,0,0,.3);z-index:800}
-    .gnav.open{right:0}
-    .gnav ul{flex-direction:column;gap:0}
-    .gnav a{padding:14px 0;border-radius:0;border-bottom:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.85)}
-    .gnav .contact-link a{background:#f97316;color:#fff;font-weight:700;border:1px solid #f97316;border-radius:6px;margin-top:16px;text-align:center;justify-content:center;border-bottom:none}
-    .gnav .has-dropdown:hover>.dropdown{display:none}
-    .gnav .has-dropdown.open>.dropdown{display:block}
-    .gnav .dropdown{position:static;background:rgba(255,255,255,.06);border-radius:0;box-shadow:none;min-width:unset;padding:0;white-space:normal}
-    .gnav .dropdown a{padding:12px 0 12px 36px!important;font-size:.84rem;color:rgba(255,255,255,.7)!important;border-bottom:1px solid rgba(255,255,255,.08)!important}
-    .hamburger{display:flex;z-index:900;position:relative}
-    .header-logo{height:35px}
-    .nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:700}
-    .nav-overlay.open{display:block}
-    .hero{min-height:100svh}
-    .hero-content{margin-left:0;text-align:center;padding:36px 24px 80px}
-    .hero h1{font-size:2.8rem}
-    .hero-btns{justify-content:center}
-    .hero-badge{display:none}
-    .hero-geo::before{display:none}
-    .hero-tag{}
-    .hero-sub{}
-    .btn{will-change:auto;transition:none}
+    :root{--gutter:16px}
+    body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+    .hero-wrap{padding-top:12px}
+    .hero-panel{border-radius:24px;padding:40px 18px 104px}
+    .hero-deco-r{width:200px;right:-40px;bottom:-30px}
+    .hero-deco-l{width:130px;left:-36px;top:-30px}
+    .hero-eyebrow{font-size:12.5px;letter-spacing:.16em;margin-bottom:14px}
+    .hero-title{letter-spacing:0;margin-bottom:16px}
+    .hero-lead-pc{display:none}
+    .hero-lead-sp{display:block;font-size:14px}
+
+    .checker{flex-direction:column;align-items:stretch;gap:16px;margin:-80px 16px 0;padding:22px 18px 20px;border-radius:20px}
+    .ck-title{font-size:17px}
+    .ck-title br{display:none}
+    .ck-controls{display:grid;grid-template-columns:auto auto;grid-template-areas:"day day" "shift persons";justify-content:space-between;align-items:end;gap:16px 12px}
+    .ck-day{grid-area:day}
+    .ck-day .seg{display:flex}
+    .ck-day .seg label{flex:1}
+    .ck-shift{grid-area:shift}
+    .ck-persons{grid-area:persons;justify-self:end}
+    .seg span{min-height:44px;padding:0 14px}
+    .stepper button{width:44px;height:44px}
+    .ck-result{justify-content:space-between;align-items:center}
+    .ck-price{font-size:30px}
+    .ck-note{flex-basis:100%;text-align:right;margin-top:-4px}
+    .ck-submit{width:100%}
+
+    .features{margin-top:20px}
+    .feat{font-size:13.5px;padding:14px 4px;gap:6px}
+    .feat .i{width:20px;height:20px}
+    .direct-order{padding:0 16px;line-height:1.7}
+
+    .sec{padding:56px 0}
+    .sec-first{padding-top:56px}
+    .sec-head{margin-bottom:28px}
+    .sec-title{font-size:24px}
+    .sec-lead{font-size:14px}
+
+    .why-grid{grid-template-columns:1fr;gap:12px}
+    .why-card{display:grid;grid-template-columns:56px 1fr;column-gap:16px;align-items:start;padding:18px 18px 20px;border-radius:16px}
+    .why-num{display:none}
+    .why-card .ico{grid-row:span 2}
+    .why-card h3{margin:2px 0 4px;font-size:16.5px}
+    .why-card p{font-size:13.5px}
+
+    .flow-list{grid-template-columns:1fr;gap:0}
+    .flow-step{display:grid;grid-template-columns:56px 1fr;column-gap:16px;text-align:left;padding:0 0 26px}
+    .flow-step+.flow-step::before{display:none}
+    .flow-step:not(:last-child)::after{content:"";position:absolute;left:27px;top:60px;bottom:4px;border-left:2px dotted #8DBFE3}
+    .flow-circle{width:56px;height:56px;margin:0;grid-row:span 3}
+    .flow-circle .i{width:24px;height:24px}
+    .flow-step h3{font-size:17px;margin:0 0 2px}
+    .flow-step p{font-size:13.5px}
+
+    .svc-grid,.col-grid{grid-template-columns:1fr;gap:12px}
+    .svc-card{display:grid;grid-template-columns:56px 1fr;column-gap:16px;padding:20px 18px;border-radius:16px}
+    .svc-card .ico{grid-row:span 3}
+    .svc-card h3{margin:2px 0 6px;font-size:17px}
+    .svc-card p{font-size:13.5px}
+    .svc-card .text-link{margin-top:6px;font-size:14px}
+
+    .col-head{align-items:center;margin-bottom:22px}
+    .col-head .text-link{font-size:13.5px;min-height:44px}
+    .col-card{flex-direction:row;border-radius:16px}
+    .col-thumb{width:96px;height:auto;flex:none}
+    .col-thumb .i{width:28px;height:28px}
+    .col-body{padding:14px 16px}
+    .col-card h3{font-size:14.5px}
+
+    .cta-box{border-radius:22px;padding:36px 22px;align-items:stretch;text-align:center;gap:24px}
+    .cta-box h2{font-size:21px}
+    .cta-box p{font-size:13.5px}
+    .cta-actions{min-width:0}
+
+    .hyo{padding-bottom:56px}
+    .hyo-table{font-size:14px}
+    .hyo-table tbody th,.hyo-table td{padding:10px 12px}
+
+    .ft-top{padding:40px 0 28px}
+    .ft-nav{gap:20px 24px;grid-template-columns:1fr 1fr}
+    .ft-nav a{padding:10px 0;font-size:14px}
+    .ft-bottom{flex-direction:column;align-items:flex-start;gap:6px}
+
+    .mbar{display:grid;grid-template-columns:1fr 1.35fr;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:80;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.96);border-top:1px solid var(--line);box-shadow:0 -6px 18px rgba(15,29,46,.06)}
+    .mbar .pill{min-height:50px;padding:0 12px;font-size:15px}
+    .mbar .pill-primary{box-shadow:none}
+  }
+  @media (max-width:359px){
+    .hero-title{font-size:30px}
+    .seg span{padding:0 10px;font-size:13px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{transition:none!important}
   }
   </style>
   <script type="application/ld+json">
@@ -153,362 +399,413 @@
 <body>
 <a href="#main-content" class="skip-link">本文へスキップ</a>
 
-<!-- Nav overlay -->
-<div class="nav-overlay" id="navOverlay"></div>
-
 <!-- ============================================================
-     HEADER
+     ヘッダー（共通）
      ============================================================ -->
-<header id="header">
-  <div class="header-inner">
-    <a href="/" class="logo-img-link">
-      <img src="images/logo-08a.png" alt="広島の警備会社 SAIZEN警備保障株式会社" class="header-logo" width="2046" height="319">
+<header class="site-header">
+  <div class="hd-inner">
+    <a href="/" class="hd-logo">
+      <img src="/images/logo-08a.png" alt="広島の警備会社 SAIZEN警備保障株式会社" width="2046" height="319">
     </a>
-    <button class="hamburger" id="hamburger" aria-label="メニュー">
+    <nav class="hd-nav" aria-label="メインメニュー">
+      <ul>
+        <li><a href="/service/">業務案内</a></li>
+        <li><a href="/price/">料金</a></li>
+        <li><a href="/#flow">ご依頼の流れ</a></li>
+        <li><a href="/company/">会社概要</a></li>
+        <li><a href="/recruit/">採用情報</a></li>
+        <li><a href="/blog/">警備の知恵袋</a></li>
+      </ul>
+    </nav>
+    <a href="tel:080-5624-1393" class="hd-tel">
+      <svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-phone"/></svg>
+      <span><small>お電話でのご相談</small><strong>080-5624-1393</strong></span>
+    </a>
+    <a href="/estimate/" class="pill pill-primary hd-cta">無料見積もり</a>
+    <button type="button" class="menu-btn" id="menuButton" aria-expanded="false" aria-controls="menuDrawer" aria-label="メニューを開く">
       <span></span><span></span><span></span>
     </button>
-    <nav class="gnav" id="gnav">
-      <ul>
-        <li><a href="/" class="active" aria-current="page">ホーム</a></li>
-        <li><a href="/company/">会社概要</a></li>
-        <li class="has-dropdown">
-          <a href="/service/" class="dropdown-toggle">サービス <span class="dropdown-arrow">▼</span></a>
-          <ul class="dropdown">
+  </div>
+</header>
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="drawer" id="menuDrawer" aria-hidden="true">
+  <nav class="drawer-nav" aria-label="スマホ用メニュー">
+    <a href="/service/">業務案内<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    <a href="/price/">料金表<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    <a href="/#flow">ご依頼の流れ<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    <a href="/company/">会社概要<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    <a href="/recruit/">採用情報<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    <a href="/blog/">警備の知恵袋<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    <a href="/order/">警備を依頼する<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    <a href="/contact/">お問い合わせ<svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+  </nav>
+  <div class="drawer-actions">
+    <a href="/estimate/" class="pill pill-primary">無料見積もり</a>
+    <a href="tel:080-5624-1393" class="pill pill-outline">
+      <svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-phone"/></svg>
+      <span class="en">080-5624-1393</span>
+    </a>
+  </div>
+</div>
+
+<main id="main-content">
+
+<!-- ============================================================
+     最初の画面
+     ============================================================ -->
+<section class="hero-wrap" aria-labelledby="heroTitle">
+  <div class="hero-panel">
+    <img class="hero-deco hero-deco-l" src="/images/logo-01a.png" alt="" aria-hidden="true" width="614" height="581">
+    <img class="hero-deco hero-deco-r" src="/images/logo-01a.png" alt="" aria-hidden="true" width="614" height="581">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">広島の交通誘導・雑踏警備</p>
+      <h1 class="hero-title" id="heroTitle">警備の手配を、<br>もっと<em>かんたん</em>に。</h1>
+      <p class="hero-lead hero-lead-pc">広島の交通誘導・雑踏警備は、SAIZEN警備保障へ。<br>料金の確認から見積もり・ご依頼まで、Webでそのまま完結します。</p>
+      <p class="hero-lead hero-lead-sp">料金の確認から見積もりまで、Webで完結。</p>
+    </div>
+  </div>
+
+  <!-- かんたん料金チェック：JSなしでも /estimate/?day=…&shift=…&persons=… へ送れる -->
+  <form class="checker" id="priceCheck" action="/estimate/" method="get" aria-labelledby="ckTitle">
+    <h2 class="ck-title" id="ckTitle">
+      <svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-calc"/></svg>
+      <span>かんたん<br>料金チェック</span>
+    </h2>
+    <div class="ck-controls">
+      <fieldset class="ck-field ck-day">
+        <legend>曜日</legend>
+        <div class="seg">
+          <label><input type="radio" name="day" value="平日" checked><span>月〜土</span></label>
+          <label><input type="radio" name="day" value="日曜祝日"><span>日曜・祝日</span></label>
+        </div>
+      </fieldset>
+      <fieldset class="ck-field ck-shift">
+        <legend>時間帯</legend>
+        <div class="seg">
+          <label><input type="radio" name="shift" value="日勤" checked><span>日勤</span></label>
+          <label><input type="radio" name="shift" value="夜勤"><span>夜勤</span></label>
+        </div>
+      </fieldset>
+      <div class="ck-persons">
+        <label class="ck-label" for="ckPersons">人数</label>
+        <div class="stepper">
+          <button type="button" class="st-minus" id="ckMinus" aria-label="人数を1名減らす" aria-controls="ckPersons">−</button>
+          <span class="st-val">
+            <input type="number" id="ckPersons" name="persons" value="2" min="1" max="20" step="1" inputmode="numeric">
+            <span class="st-unit" aria-hidden="true">名</span>
+          </span>
+          <button type="button" class="st-plus" id="ckPlus" aria-label="人数を1名増やす" aria-controls="ckPersons">＋</button>
+        </div>
+      </div>
+    </div>
+    <div class="ck-divider" aria-hidden="true"></div>
+    <div class="ck-result">
+      <span class="ck-label">料金のめやす（1日）</span>
+      <output class="ck-price" id="ckPrice" for="ckPersons" aria-live="polite">¥39,600</output>
+      <span class="ck-note">税込・残業や無線機は含みません</span>
+    </div>
+    <button type="submit" class="pill pill-primary ck-submit">この内容で見積もり
+      <svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg>
+    </button>
+  </form>
+
+  <ul class="features" aria-label="SAIZENの特長">
+    <li class="feat"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-yen"/></svg>見積もり無料</li>
+    <li class="feat"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-file"/></svg>料金表を公開</li>
+    <li class="feat"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-clock"/></svg>Webで24時間受付</li>
+    <li class="feat"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-map"/></svg>広島県内に対応</li>
+  </ul>
+  <p class="direct-order">見積もりをせずにご依頼の方は <a href="/order/">警備を依頼する<svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a></p>
+</section>
+
+<!-- ============================================================
+     SAIZENが選ばれる理由
+     ============================================================ -->
+<section class="sec sec-first" aria-labelledby="whyTitle">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">WHY SAIZEN</span>
+      <h2 class="sec-title" id="whyTitle">SAIZENが選ばれる理由</h2>
+    </div>
+    <ul class="why-grid">
+      <li class="why-card">
+        <span class="why-num" aria-hidden="true">01</span>
+        <span class="ico"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-yen"/></svg></span>
+        <h3>料金が明確</h3>
+        <p>料金表をすべて公開。見積もりは無料です。</p>
+      </li>
+      <li class="why-card">
+        <span class="why-num" aria-hidden="true">02</span>
+        <span class="ico"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-monitor"/></svg></span>
+        <h3>Webで完結</h3>
+        <p>見積もり・依頼・契約書までオンラインで進められます。</p>
+      </li>
+      <li class="why-card">
+        <span class="why-num" aria-hidden="true">03</span>
+        <span class="ico"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-pin"/></svg></span>
+        <h3>広島の地元企業</h3>
+        <p>広島市西区を拠点に、県内の現場へうかがいます。</p>
+      </li>
+      <li class="why-card">
+        <span class="why-num" aria-hidden="true">04</span>
+        <span class="ico"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-phone"/></svg></span>
+        <h3>急な依頼も相談OK</h3>
+        <p>まずはお電話・フォームでお気軽にご相談ください。</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================
+     ご依頼の流れ
+     ============================================================ -->
+<section class="sec sec-soft" id="flow" aria-labelledby="flowTitle">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">FLOW</span>
+      <h2 class="sec-title" id="flowTitle">ご依頼の流れ</h2>
+      <p class="sec-lead">お電話なしでも、Webだけで完結します。</p>
+    </div>
+    <ol class="flow-list">
+      <li class="flow-step">
+        <span class="flow-circle"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-calc"/></svg></span>
+        <span class="step">STEP 1</span>
+        <h3>料金チェック</h3>
+        <p>曜日・時間・人数を選ぶだけ</p>
+      </li>
+      <li class="flow-step">
+        <span class="flow-circle"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-edit"/></svg></span>
+        <span class="step">STEP 2</span>
+        <h3>警備を依頼</h3>
+        <p>日時と場所をフォームで入力</p>
+      </li>
+      <li class="flow-step">
+        <span class="flow-circle"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-file-check"/></svg></span>
+        <span class="step">STEP 3</span>
+        <h3>契約書を確認</h3>
+        <p>オンラインで確認・同意</p>
+      </li>
+      <li class="flow-step">
+        <span class="flow-circle"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-shield"/></svg></span>
+        <span class="step">STEP 4</span>
+        <h3>当日の警備</h3>
+        <p>警備員が現場にうかがいます</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================================================
+     業務案内
+     ============================================================ -->
+<section class="sec" aria-labelledby="svcTitle">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">SERVICE</span>
+      <h2 class="sec-title" id="svcTitle">業務案内</h2>
+    </div>
+    <ul class="svc-grid">
+      <li class="svc-card">
+        <span class="ico"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-cone"/></svg></span>
+        <h3>交通誘導警備</h3>
+        <p>道路工事や建設現場で、車両と歩行者を安全に誘導します。片側交互通行や夜間の工事にも対応します。</p>
+        <a href="/service/#traffic" class="text-link">詳しく見る<span class="sr-only">（交通誘導警備）</span><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+      </li>
+      <li class="svc-card">
+        <span class="ico"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-users"/></svg></span>
+        <h3>雑踏・イベント警備</h3>
+        <p>コンサートやスポーツ大会、地域のお祭りなどで、入場の管理や混雑の整理、緊急時の対応を行います。</p>
+        <a href="/service/#event" class="text-link">詳しく見る<span class="sr-only">（雑踏・イベント警備）</span><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+      </li>
+      <li class="svc-card">
+        <span class="ico"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-parking"/></svg></span>
+        <h3>駐車場警備</h3>
+        <p>商業施設・病院・イベント会場などの駐車場で、車両の誘導や満空の管理を行い、円滑な運営を支えます。</p>
+        <a href="/service/#parking" class="text-link">詳しく見る<span class="sr-only">（駐車場警備）</span><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================
+     警備の知恵袋
+     ============================================================ -->
+<section class="sec sec-soft" aria-labelledby="colTitle">
+  <div class="wrap">
+    <div class="col-head">
+      <div>
+        <span class="eyebrow">COLUMN</span>
+        <h2 class="sec-title" id="colTitle">警備の知恵袋</h2>
+      </div>
+      <a href="/blog/" class="text-link">すべての記事を見る<svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+    </div>
+    <ul class="col-grid">
+      <li>
+        <a href="/blog1/" class="col-card">
+          <span class="col-thumb"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-cone"/></svg></span>
+          <span class="col-body">
+            <span class="col-meta"><span class="col-cat">交通誘導</span><time class="col-date" datetime="2025-11-10">2025.11.10</time></span>
+            <h3>交通誘導警備の基本｜誘導員が押さえるべき基礎知識</h3>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="/blog2/" class="col-card">
+          <span class="col-thumb"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-flag"/></svg></span>
+          <span class="col-body">
+            <span class="col-meta"><span class="col-cat">誘導旗</span><time class="col-date" datetime="2025-11-18">2025.11.18</time></span>
+            <h3>誘導旗の正しい振り方と合図の意味を解説</h3>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="/blog3/" class="col-card">
+          <span class="col-thumb"><svg class="i" aria-hidden="true"><use href="/images/icons.svg#i-book"/></svg></span>
+          <span class="col-body">
+            <span class="col-meta"><span class="col-cat">法律知識</span><time class="col-date" datetime="2025-12-01">2025.12.01</time></span>
+            <h3>警備員が知っておくべき道路交通法の基礎</h3>
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================
+     お問い合わせ
+     ============================================================ -->
+<section class="sec" aria-labelledby="ctaTitle">
+  <div class="wrap">
+    <div class="cta-box">
+      <div>
+        <h2 id="ctaTitle">警備のご依頼・お見積もりは、<br>お気軽にどうぞ。</h2>
+        <p>見積もりは無料。Webフォームは24時間受け付けています。</p>
+      </div>
+      <div class="cta-actions">
+        <a href="/estimate/" class="pill pill-white">無料で見積もりする<svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>
+        <a href="tel:080-5624-1393" class="pill pill-ghost"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-phone"/></svg><span class="sr-only">電話する </span><strong>080-5624-1393</strong></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     警備業者標識（警備業法第23条）
+     ※フェーズ3で /company/#hyoshiki へ移したあと、ここは外す
+     ============================================================ -->
+<section class="hyo" aria-labelledby="hyoTitle">
+  <div class="wrap">
+    <div class="hyo-box">
+      <h2 id="hyoTitle">警備業者標識</h2>
+      <table class="hyo-table">
+        <caption>※警備業法第23条に基づく標識</caption>
+        <thead>
+          <tr><th colspan="2" scope="col">警　備　業　者　標　識</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">氏名又は名称</th><td>SAIZEN警備保障株式会社</td></tr>
+          <tr><th scope="row">認定公安委員会</th><td>広島県公安委員会</td></tr>
+          <tr><th scope="row">認定番号</th><td>第73000768号</td></tr>
+          <tr><th scope="row">警備業務の種別</th><td>2号業務（交通誘導警備業務 等）</td></tr>
+          <tr><th scope="row">代表者の氏名</th><td>末貞 皓己</td></tr>
+          <tr><th scope="row">主たる営業所の所在地</th><td>広島県広島市西区横川町3丁目1-9-305</td></tr>
+          <tr><th scope="row">有効期間</th><td>令和7年5月22日から<br>令和12年5月22日まで</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================================================
+     フッター（共通）
+     ============================================================ -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="ft-top">
+      <div>
+        <a href="/" class="ft-logo"><img src="/images/logo-08a.png" alt="SAIZEN警備保障株式会社" width="2046" height="319" loading="lazy"></a>
+        <address class="ft-info">
+          〒733-0011 広島県広島市西区横川町3丁目1-9-305<br>
+          TEL <a href="tel:080-5624-1393">080-5624-1393</a><br>
+          MAIL <a href="mailto:info@saizen.one">info@saizen.one</a>
+        </address>
+      </div>
+      <nav class="ft-nav" aria-label="フッターメニュー">
+        <div>
+          <h2>サービス</h2>
+          <ul>
             <li><a href="/service/">業務案内</a></li>
             <li><a href="/price/">料金表</a></li>
             <li><a href="/estimate/">お見積もり</a></li>
-            <li><a href="/order/">警備依頼</a></li>
+            <li><a href="/order/">警備のご依頼</a></li>
           </ul>
-        </li>
-        <li><a href="/recruit/">採用情報</a></li>
-        <li><a href="/blog/">警備の知恵袋</a></li>
-        <li class="contact-link"><a href="/contact/">お問い合わせ</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
-<!-- ============================================================
-     HERO
-     ============================================================ -->
-<section id="main-content" role="main" class="hero">
-  <div class="hero-geo"></div>
-  <div class="hero-content">
-    <div class="hero-tag">広島県公安委員会認定 第73000768号</div>
-    <h1>広島を、<span class="accent-text">守る。</span></h1>
-    <p class="hero-sub">
-      広島の警備会社として、地域に根ざした誠実な警備で人・街・現場の安全をお守りします。<br>
-      広島の交通誘導警備・雑踏警備・イベント警備など、県内全域に対応。
-    </p>
-    <div class="hero-btns">
-      <a href="/estimate/" class="btn btn-orange btn-lg">無料で見積もりする <span class="arrow">›</span></a>
-      <a href="/order/" class="btn btn-outline-navy">警備を依頼する</a>
-    </div>
-    <div class="hero-link">
-      <a href="/price/">料金表を見る ›</a>
-    </div>
-  </div>
-  <div class="hero-badge">
-    <div class="hero-badge-item">
-      <div class="num">24</div>
-      <div class="unit">時間</div>
-      <div class="desc">対応可能</div>
-    </div>
-    <div class="hero-badge-item">
-      <div class="num">365</div>
-      <div class="unit">日</div>
-      <div class="desc">稼働体制</div>
-    </div>
-    <div class="hero-badge-item">
-      <div class="num">全域</div>
-      <div class="unit"></div>
-      <div class="desc">広島県内</div>
-    </div>
-  </div>
-
-</section>
-
-<!-- ============================================================
-     SERVICES
-     ============================================================ -->
-<section class="section section-alt">
-  <div class="container">
-    <div class="section-title">
-      <div class="label">SERVICES</div>
-      <h2>業務案内<span class="line"></span></h2>
-      <p>広島の交通誘導警備をはじめ、現場の安全を守るプロフェッショナルとして多様な警備ニーズに対応します。</p>
-    </div>
-    <div class="grid-3">
-      <!-- 交通誘導 -->
-      <div class="service-card">
-        <div class="service-card-head">
-          <div class="service-icon">🚦</div>
-          <h3><small>Traffic Guard</small>交通誘導警備</h3>
         </div>
-        <div class="service-card-body">
-          <p>広島県内の工事現場・道路工事における交通誘導をはじめ、一般道・高速道路・駐車場出入口など、様々な現場での安全確保を担います。</p>
-          <div class="service-tags">
-            <span class="service-tag">道路工事</span>
-            <span class="service-tag">建設現場</span>
-            <span class="service-tag">片側交互通行</span>
-            <span class="service-tag">夜間対応</span>
-          </div>
-          <a href="/service/#traffic" class="btn btn-outline-navy" style="margin-top:18px; font-size:.85rem; padding:8px 22px;">詳しく見る <span class="arrow">›</span></a>
+        <div>
+          <h2>会社</h2>
+          <ul>
+            <li><a href="/company/">会社概要</a></li>
+            <li><a href="/recruit/">採用情報</a></li>
+            <li><a href="/blog/">警備の知恵袋</a></li>
+            <li><a href="/contact/">お問い合わせ</a></li>
+          </ul>
         </div>
-      </div>
-      <!-- イベント -->
-      <div class="service-card">
-        <div class="service-card-head">
-          <div class="service-icon">🎪</div>
-          <h3><small>Event Guard</small>イベント警備</h3>
-        </div>
-        <div class="service-card-body">
-          <p>コンサート・スポーツイベント・地域祭事など大小様々なイベントでの入場管理・群衆整理・緊急時対応を行います。</p>
-          <div class="service-tags">
-            <span class="service-tag">コンサート</span>
-            <span class="service-tag">スポーツ大会</span>
-            <span class="service-tag">地域イベント</span>
-            <span class="service-tag">群衆整理</span>
-          </div>
-          <a href="/service/#event" class="btn btn-outline-navy" style="margin-top:18px; font-size:.85rem; padding:8px 22px;">詳しく見る <span class="arrow">›</span></a>
-        </div>
-      </div>
-      <!-- 駐車場 -->
-      <div class="service-card">
-        <div class="service-card-head">
-          <div class="service-icon">🅿️</div>
-          <h3><small>Parking Guard</small>駐車場警備</h3>
-        </div>
-        <div class="service-card-body">
-          <p>商業施設・病院・イベント会場などの駐車場における車両誘導・満空管理・トラブル対応など、安全・円滑な運営をサポートします。</p>
-          <div class="service-tags">
-            <span class="service-tag">商業施設</span>
-            <span class="service-tag">病院</span>
-            <span class="service-tag">車両誘導</span>
-            <span class="service-tag">満空管理</span>
-          </div>
-          <a href="/service/#parking" class="btn btn-outline-navy" style="margin-top:18px; font-size:.85rem; padding:8px 22px;">詳しく見る <span class="arrow">›</span></a>
-        </div>
-      </div>
+      </nav>
     </div>
-    <div style="text-align:center; margin-top:42px;">
-      <a href="/service/" class="btn btn-navy">業務案内の詳細はこちら <span class="arrow">›</span></a>
+    <div class="ft-bottom">
+      <p>広島県公安委員会 認定 第73000768号 ｜ <a href="/company/#hyoshiki">警備業者標識 →</a> ｜ <a href="/privacy/">プライバシーポリシー</a></p>
+      <p class="ft-copy">&copy; 2026 SAIZEN警備保障株式会社</p>
     </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     BLOG PREVIEW
-     ============================================================ -->
-<section class="section section-alt">
-  <div class="container">
-    <div class="section-title">
-      <div class="label">KNOWLEDGE</div>
-      <h2>警備の知恵袋<span class="line"></span></h2>
-      <p>警備業務に関する役立つ情報をお届けします。</p>
-    </div>
-    <div class="grid-3">
-      <a href="/blog1/" class="blog-card">
-        <div class="blog-card-img">🚦</div>
-        <div class="blog-card-body">
-          <div class="blog-meta">
-            <span class="blog-cat">交通誘導</span>
-            <span class="blog-date">2025年11月10日</span>
-          </div>
-          <h3>交通誘導警備の基本｜誘導員が押さえるべき基礎知識</h3>
-          <span class="read-more">続きを読む ›</span>
-        </div>
-      </a>
-      <a href="/blog2/" class="blog-card">
-        <div class="blog-card-img">🚩</div>
-        <div class="blog-card-body">
-          <div class="blog-meta">
-            <span class="blog-cat">誘導旗</span>
-            <span class="blog-date">2025年11月18日</span>
-          </div>
-          <h3>誘導旗の正しい振り方と合図の意味を解説</h3>
-          <span class="read-more">続きを読む ›</span>
-        </div>
-      </a>
-      <a href="/blog3/" class="blog-card">
-        <div class="blog-card-img">⚖️</div>
-        <div class="blog-card-body">
-          <div class="blog-meta">
-            <span class="blog-cat">法律知識</span>
-            <span class="blog-date">2025年12月01日</span>
-          </div>
-          <h3>警備員が知っておくべき道路交通法の基礎</h3>
-          <span class="read-more">続きを読む ›</span>
-        </div>
-      </a>
-    </div>
-    <div style="text-align:center; margin-top:42px;">
-      <a href="/blog/" class="btn btn-navy">すべての記事を見る <span class="arrow">›</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     CTA
-     ============================================================ -->
-<section class="section" style="background:#ffffff; padding:70px 0;">
-  <div class="container" style="text-align:center;">
-    <h2 style="font-size:1.8rem; color:#1a2f5e; margin-bottom:14px;">広島の警備依頼・見積もりはお気軽に</h2>
-    <p style="color:#555e6b; margin-bottom:30px; font-size:.95rem;">広島の警備費用の見積もりは無料です。警備料金・依頼内容のご相談など、広島県内全域で承ります。</p>
-    <div class="cta-btns">
-      <a href="/contact/" class="btn btn-gold">お問い合わせフォーム <span class="arrow">›</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     会社概要
-     ============================================================ -->
-<section class="section section-alt">
-  <div class="container">
-    <div class="section-title">
-      <div class="label">COMPANY PROFILE</div>
-      <h2>会社概要<span class="line"></span></h2>
-      <p>SAIZEN警備保障株式会社は、広島を拠点とする警備会社です。広島県公安委員会認定のもと、県内全域で警備サービスを展開しています。</p>
-    </div>
-    <div style="background:#fff; border-radius:12px; box-shadow:var(--shadow); overflow:hidden; max-width:780px; margin:0 auto;">
-      <table class="company-table">
-        <tbody>
-          <tr>
-            <th>会社名</th>
-            <td>SAIZEN警備保障株式会社</td>
-          </tr>
-          <tr>
-            <th>設立</th>
-            <td>令和6年6月</td>
-          </tr>
-          <tr>
-            <th>所在地</th>
-            <td>広島県広島市西区横川町3丁目1-9-305</td>
-          </tr>
-          <tr>
-            <th>認定番号</th>
-            <td>広島県公安委員会 第73000768号</td>
-          </tr>
-          <tr>
-            <th>代表</th>
-            <td>末貞 皓己</td>
-          </tr>
-          <tr>
-            <th>資本金</th>
-            <td>100万円</td>
-          </tr>
-          <tr>
-            <th>対応エリア</th>
-            <td>広島県内全域</td>
-          </tr>
-          <tr>
-            <th>有効期間</th>
-            <td>令和7年5月22日から令和12年5月22日まで</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- 警備業者標識 -->
-    <div style="max-width:640px; margin:50px auto 0; text-align:center;">
-      <h3 style="font-size:1.2rem; color:#1a2f5e; margin-bottom:20px; padding-bottom:10px; border-bottom:2px solid #dde2eb;">警備業者標識</h3>
-      <table style="width:100%; border-collapse:collapse; border:2px solid #1a2f5e; font-size:1rem; text-align:left; background:#fff;">
-        <thead>
-          <tr>
-            <th colspan="2" style="background:#1a2f5e; color:#fff; text-align:center; padding:14px 20px; font-size:1.15rem; letter-spacing:.1em;">警　備　業　者　標　識</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th style="width:38%; background:#f4f6fa; color:#1a2f5e; padding:14px 18px; border:1px solid #1a2f5e; font-size:.95rem; font-weight:700; vertical-align:top;">氏名又は名称</th>
-            <td style="padding:14px 18px; border:1px solid #1a2f5e; font-size:1rem; vertical-align:top;">SAIZEN警備保障株式会社</td>
-          </tr>
-          <tr>
-            <th style="background:#f4f6fa; color:#1a2f5e; padding:14px 18px; border:1px solid #1a2f5e; font-size:.95rem; font-weight:700; vertical-align:top;">認定公安委員会</th>
-            <td style="padding:14px 18px; border:1px solid #1a2f5e; font-size:1rem; vertical-align:top;">広島県公安委員会</td>
-          </tr>
-          <tr>
-            <th style="background:#f4f6fa; color:#1a2f5e; padding:14px 18px; border:1px solid #1a2f5e; font-size:.95rem; font-weight:700; vertical-align:top;">認定番号</th>
-            <td style="padding:14px 18px; border:1px solid #1a2f5e; font-size:1rem; vertical-align:top;">第73000768号</td>
-          </tr>
-          <tr>
-            <th style="background:#f4f6fa; color:#1a2f5e; padding:14px 18px; border:1px solid #1a2f5e; font-size:.95rem; font-weight:700; vertical-align:top;">警備業務の種別</th>
-            <td style="padding:14px 18px; border:1px solid #1a2f5e; font-size:1rem; vertical-align:top;">2号業務（交通誘導警備業務 等）</td>
-          </tr>
-          <tr>
-            <th style="background:#f4f6fa; color:#1a2f5e; padding:14px 18px; border:1px solid #1a2f5e; font-size:.95rem; font-weight:700; vertical-align:top;">代表者の氏名</th>
-            <td style="padding:14px 18px; border:1px solid #1a2f5e; font-size:1rem; vertical-align:top;">末貞 皓己</td>
-          </tr>
-          <tr>
-            <th style="background:#f4f6fa; color:#1a2f5e; padding:14px 18px; border:1px solid #1a2f5e; font-size:.95rem; font-weight:700; vertical-align:top;">主たる営業所の所在地</th>
-            <td style="padding:14px 18px; border:1px solid #1a2f5e; font-size:1rem; vertical-align:top;">広島県広島市西区横川町3丁目1-9-305</td>
-          </tr>
-          <tr>
-            <th style="background:#f4f6fa; color:#1a2f5e; padding:14px 18px; border:1px solid #1a2f5e; font-size:.95rem; font-weight:700; vertical-align:top;">有効期間</th>
-            <td style="padding:14px 18px; border:1px solid #1a2f5e; font-size:1rem; vertical-align:top;">令和7年5月22日から<br>令和12年5月22日まで</td>
-          </tr>
-        </tbody>
-      </table>
-      <p style="margin-top:12px; font-size:.82rem; color:#888;">※警備業法第23条に基づく標識</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
-<footer id="footer">
-  <div class="footer-bottom">
-    <p>Copyright &copy; 2026 SAIZEN警備保障株式会社 All Rights Reserved.</p>
   </div>
 </footer>
 
+<!-- スマホ下のボタン帯（共通） -->
+<div class="mbar">
+  <a href="tel:080-5624-1393" class="pill pill-outline"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-phone"/></svg>電話する</a>
+  <a href="/estimate/" class="pill pill-primary"><svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-calc"/></svg>無料見積もり</a>
+</div>
+
+<script src="/js/site.js"></script>
+<script src="/js/rates.js"></script>
 <script>
-  // Hamburger menu
-  const ham = document.getElementById('hamburger');
-  const nav = document.getElementById('gnav');
-  const overlay = document.getElementById('navOverlay');
+  // ── かんたん料金チェック（計算は /js/rates.js と同じ） ──
+  (function () {
+    var R = window.SAIZEN_RATES;
+    var form = document.getElementById('priceCheck');
+    if (!R || !form) return;
+    var input = document.getElementById('ckPersons');
+    var minus = document.getElementById('ckMinus');
+    var plus  = document.getElementById('ckPlus');
+    var out   = document.getElementById('ckPrice');
+    var MIN = 1, MAX = 20, DEF = 2;
 
-  function toggleMenu() {
-    ham.classList.toggle('open');
-    nav.classList.toggle('open');
-    overlay.classList.toggle('open');
-    document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
-    nav.querySelectorAll('.has-dropdown.open').forEach(function(d){ d.classList.remove('open'); });
-  }
-  ham.addEventListener('click', toggleMenu);
-  ham.addEventListener('touchstart', function(e) { e.preventDefault(); toggleMenu(); }, { passive: false });
-  overlay.addEventListener('click', toggleMenu);
-
-  // Close on link click
-  nav.querySelectorAll('a:not(.dropdown-toggle)').forEach(a => a.addEventListener('click', () => {
-    if (nav.classList.contains('open')) toggleMenu();
-  }));
-
-  // Mobile dropdown toggle
-  nav.querySelectorAll('.dropdown-toggle').forEach(function(t) {
-    t.addEventListener('click', function(e) {
-      if (window.innerWidth <= 768) {
-        e.preventDefault();
-        this.closest('.has-dropdown').classList.toggle('open');
-      }
+    function clamp(v) {
+      v = parseInt(v, 10);
+      if (isNaN(v)) v = DEF;
+      return Math.min(MAX, Math.max(MIN, v));
+    }
+    function update() {
+      var n = clamp(input.value);
+      var d = R.daily(form.elements.day.value, form.elements.shift.value, n);
+      out.textContent = '¥' + d.total.toLocaleString('ja-JP');
+      minus.disabled = n <= MIN;
+      plus.disabled  = n >= MAX;
+    }
+    function step(delta) {
+      input.value = clamp(clamp(input.value) + delta);
+      update();
+    }
+    minus.addEventListener('click', function () { step(-1); });
+    plus.addEventListener('click',  function () { step(1); });
+    form.addEventListener('change', function (e) {
+      if (e.target === input) input.value = clamp(input.value);
+      update();
     });
-  });
-
-  /* scroll-reveal removed: アニメーション削除でカクつき防止 */
-
-  // Fixed header: set body padding-top dynamically
-  function setBodyPadding() {
-    var header = document.getElementById('header');
-    document.body.style.paddingTop = header.offsetHeight + 'px';
-  }
-  document.addEventListener('DOMContentLoaded', setBodyPadding);
-  window.addEventListener('load', setBodyPadding);
-  var _lastW = window.innerWidth;
-  window.addEventListener('resize', function () {
-    if (window.innerWidth !== _lastW) { _lastW = window.innerWidth; setBodyPadding(); }
-  });
+    input.addEventListener('input', update);
+    form.addEventListener('submit', function () { input.value = clamp(input.value); });
+    update();
+  })();
 </script>
 
 </body>

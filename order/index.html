@@ -990,6 +990,7 @@
   </div>
 </footer>
 
+<script src="/js/rates.js"></script>
 <script>
   // ── エラー表示ヘルパー ──
   function showError(id, msg) {
@@ -1155,11 +1156,8 @@
   });
 
   // ── 概算料金計算 ──
-  const PRICE_RATES = {
-    weekday:  { base: { day: 18000, night: 25000 }, ot: { day: 2900, night: 3900 } },
-    saturday: { base: { day: 18000, night: 25000 }, ot: { day: 2900, night: 3900 } },
-    sunday:   { base: { day: 22500, night: 31000 }, ot: { day: 3600, night: 4900 } }
-  };
+  // 料金は /js/rates.js で一元管理
+  const PRICE_RATES = window.SAIZEN_RATES.BY_DAY_TYPE;
 
   // フォールバック用手動祝日データ
   const HOLIDAYS_FALLBACK = new Set([

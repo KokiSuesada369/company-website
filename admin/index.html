@@ -483,6 +483,7 @@
   </div>
 </div>
 
+<script src="/js/rates.js"></script>
 <script>
   const GAS_URL  = 'https://script.google.com/macros/s/AKfycbxAIcflhTwYbWPOPjaGauiQPN8fr80h176098NaFGQFUpdEsQ6FM2Putccvdedue2Rz/exec';
   // パスワードはこのファイルには書きません。入力された値をApps Script側へ送って確認します。
@@ -511,11 +512,8 @@
   let orders = [];
 
   // ── 単価 ──
-  const PR = {
-    weekday:  { base:{ day:18000, night:27000 }, ot:{ day:2900, night:4300 } },
-    saturday: { base:{ day:22500, night:33800 }, ot:{ day:3600, night:5400 } },
-    sunday:   { base:{ day:24300, night:36500 }, ot:{ day:3800, night:5800 } }
-  };
+  // 料金は /js/rates.js で一元管理（形は { weekday|saturday|sunday: { base:{day,night}, ot:{day,night} } }）
+  const PR = window.SAIZEN_RATES.BY_DAY_TYPE;
 
   // 祝日データ（フォールバック）
   let HOLIDAYS = new Set([
