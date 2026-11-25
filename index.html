@@ -36,7 +36,7 @@
   <style>
   /* トップページだけの部品（共通部品は /style.css の「D-2 共通部品」） */
   h1,h2,h3{font-weight:900;line-height:1.4}
-  .hero-wrap ul,.sec ul,.sec ol{list-style:none;margin:0;padding:0}
+  .hero-wrap ul,.sec ul,.sec ol{list-style:none;padding-left:0}
   /* ---------- トップ：最初の画面 ---------- */
   .hero-wrap{padding:24px var(--gutter) 0}
   .hero-panel{position:relative;max-width:1240px;margin:0 auto;border-radius:32px;background:linear-gradient(180deg,#EAF3FC 0%,#FFFFFF 100%);overflow:hidden;padding:92px 24px 150px;text-align:center}
@@ -69,7 +69,7 @@
   .stepper .st-plus{background:var(--primary);color:#fff}
   .stepper button:disabled{opacity:.35;cursor:default}
   .stepper .st-val{display:flex;align-items:baseline;gap:2px;padding:0 4px}
-  .stepper input{width:2.4ch;border:0;background:transparent;text-align:right;font-family:var(--font-en);font-weight:700;font-size:17px;font-variant-numeric:tabular-nums;-moz-appearance:textfield;appearance:textfield}
+  .stepper input{width:2.4ch;border:0;background:transparent;text-align:right;font-family:var(--font-en);font-weight:700;font-size:17px;font-variant-numeric:tabular-nums;-moz-appearance:textfield;appearance:textfield;height:40px}
   .stepper input::-webkit-outer-spin-button,.stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
   .stepper .st-unit{font-size:14px;font-weight:700}
   .ck-divider{width:1px;align-self:stretch;background:var(--line);flex:none}
@@ -84,7 +84,7 @@
   .feat+.feat{border-left:1px solid var(--line)}
   .feat .i{color:var(--primary)}
   .direct-order{text-align:center;margin-top:20px;font-size:14px;color:var(--sub)}
-  .direct-order a{color:var(--primary);font-weight:700;display:inline-flex;align-items:center;gap:4px;padding:6px 0}
+  .direct-order a{color:var(--primary);font-weight:700;display:inline-flex;align-items:center;gap:4px;min-height:44px}
   .direct-order a:hover{text-decoration:underline;text-underline-offset:4px}
 
   /* ---------- トップ：各段 ---------- */
