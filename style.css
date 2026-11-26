@@ -1240,7 +1240,7 @@ a.hd-tel:hover strong{color:var(--primary)}
 
 /* フッター */
 .site-footer{background:#fff;border-top:1px solid var(--line);color:var(--text)}
-.ft-top{display:flex;justify-content:space-between;gap:48px;padding:76px 0 44px}
+.ft-top{display:flex;justify-content:space-between;gap:48px;padding:56px 0 44px}
 .ft-logo{display:inline-block}
 .ft-logo img{height:30px;width:auto;max-width:none}
 .ft-info{margin-top:18px;font-size:14px;color:var(--sub);line-height:1.95;font-style:normal}
@@ -1281,7 +1281,7 @@ a.hd-tel:hover strong{color:var(--primary)}
 @media (max-width:768px){
   :root{--gutter:16px}
   body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
-  .ft-top{padding:60px 0 28px}
+  .ft-top{padding:40px 0 28px}
   .ft-nav{gap:20px 24px;grid-template-columns:1fr 1fr}
   .ft-nav a{padding:10px 0;font-size:14px}
   .ft-bottom{flex-direction:column;align-items:flex-start;gap:6px}
