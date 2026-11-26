@@ -1240,7 +1240,7 @@ a.hd-tel:hover strong{color:var(--primary)}
 
 /* フッター */
 .site-footer{background:#fff;border-top:1px solid var(--line);color:var(--text)}
-.ft-top{display:flex;justify-content:space-between;gap:48px;padding:56px 0 44px}
+.ft-top{display:flex;justify-content:space-between;gap:48px;padding:76px 0 44px}
 .ft-logo{display:inline-block}
 .ft-logo img{height:30px;width:auto;max-width:none}
 .ft-info{margin-top:18px;font-size:14px;color:var(--sub);line-height:1.95;font-style:normal}
@@ -1281,7 +1281,7 @@ a.hd-tel:hover strong{color:var(--primary)}
 @media (max-width:768px){
   :root{--gutter:16px}
   body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
-  .ft-top{padding:40px 0 28px}
+  .ft-top{padding:60px 0 28px}
   .ft-nav{gap:20px 24px;grid-template-columns:1fr 1fr}
   .ft-nav a{padding:10px 0;font-size:14px}
   .ft-bottom{flex-direction:column;align-items:flex-start;gap:6px}
@@ -1549,3 +1549,16 @@ label .i-sm,h3 .i-sm,strong .i-sm,.career-badge .i-sm,a .i-sm{display:inline-blo
 p.cta-recruit-link{text-align:center;margin:14px 0 0;font-size:14px;color:var(--sub)}
 p.cta-recruit-link a{display:inline-flex;align-items:center;gap:4px;min-height:44px;color:var(--primary);font-weight:700}
 p.cta-recruit-link a:hover{text-decoration:underline;text-underline-offset:4px}
+
+/* フッター最下部：「認定番号」と「警備業者標識 →」は、それぞれ途中で改行しない。
+   入りきらないときは2つ目が次の行に回り、そのとき先頭の「｜」は枠の外に出て見えなくなる */
+.ft-license{overflow:hidden;max-width:100%;min-width:0}
+.ft-bottom .ft-license p{display:flex;flex-wrap:wrap;margin:0 0 0 -2em}
+.ft-license p > *{position:relative;padding-left:2em;white-space:nowrap}
+.ft-license p > *::before{content:"｜";position:absolute;left:0;width:2em;text-align:center;color:var(--sub);font-weight:400}
+/* フッターのリンクは途中で改行しない。とても狭いスマホでは列の間と文字を少し詰める */
+.ft-nav a{white-space:nowrap}
+@media (max-width:360px){
+  .ft-nav{column-gap:12px}
+  .ft-nav a{font-size:13.5px}
+}
