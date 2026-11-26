@@ -1544,3 +1544,7 @@ label .i-sm,h3 .i-sm,strong .i-sm,.career-badge .i-sm,a .i-sm{display:inline-blo
   .cta:not(.cta--side) .cta-btn-title{font-size:14.5px}
   .cta:not(.cta--side) .cta-btn-arrow{width:16px;height:16px}
 }
+/* 求職者向けの記事だけ：CTA の下に採用ページへのリンク */
+p.cta-recruit-link{text-align:center;margin:14px 0 0;font-size:14px;color:var(--sub)}
+p.cta-recruit-link a{display:inline-flex;align-items:center;gap:4px;min-height:44px;color:var(--primary);font-weight:700}
+p.cta-recruit-link a:hover{text-decoration:underline;text-underline-offset:4px}
