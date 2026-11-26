@@ -2,13 +2,18 @@
 <html lang="ja">
 <head>
   <meta name="robots" content="noindex, nofollow">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0YKC08K5X"></script>
+<!-- Google tag (gtag.js)：表示を速くするため、ページの表示が終わってから読み込む -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-S0YKC08K5X');
+  addEventListener('load', function () {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-S0YKC08K5X';
+    document.head.appendChild(s);
+  });
 </script>
   <link rel="icon" href="/images/logo-01a.png" type="image/png">
   <meta charset="UTF-8">

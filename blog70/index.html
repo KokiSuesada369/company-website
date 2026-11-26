@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0YKC08K5X"></script>
+<!-- Google tag (gtag.js)：表示を速くするため、ページの表示が終わってから読み込む -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-S0YKC08K5X');
+  addEventListener('load', function () {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-S0YKC08K5X';
+    document.head.appendChild(s);
+  });
 </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <meta name="theme-color" content="#FFFFFF">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800&family=Noto+Sans+JP:wght@400;700;900&display=optional" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800&family=Noto+Sans+JP:wght@400;700;900&display=optional" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800&family=Noto+Sans+JP:wght@400;700;900&display=optional" rel="stylesheet"></noscript>
   <title>広島の豪雨・土砂災害と警備｜災害復旧工事・緊急工事の交通誘導を解説｜警備の知恵袋</title>
   <link rel="icon" href="/images/logo-01a.png" type="image/png">
   <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
@@ -360,7 +366,7 @@
           災害復旧の現場では、通る人や車の安全と、二次災害の防止の両方を考えた警備が必要です。
           SAIZEN警備保障はご依頼を24時間365日受け付けています。緊急工事の交通誘導も、まずはお電話でご相談ください。<br>
           TEL：<strong>080-5624-1393</strong><br>
-          MAIL：info@saizen.one
+          MAIL：<a href="mailto:info@saizen.one">info@saizen.one</a>
         </p>
 
 
