@@ -368,6 +368,7 @@
       flex-wrap: wrap;
       gap: 6px;
       margin-bottom: 14px;
+      min-height: 90px;   /* JavaScript で描く前から場所を取っておく（実際の高さより小さめ） */
     }
     .btn-month-sel {
       padding: 5px 12px;
@@ -388,6 +389,7 @@
       flex-wrap: wrap;
       gap: 14px;
       margin-bottom: 10px;
+      min-height: 220px;  /* 同上（4週だけの月より小さくする） */
     }
     .cal-panel { flex: 0 0 calc(50% - 7px); min-width: 260px; }
     .cal-panel {

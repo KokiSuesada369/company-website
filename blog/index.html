@@ -62,6 +62,8 @@
   text-align: center;
 }
 .blog-list-item[data-hidden] { display: none; }
+/* ページ送りの準備ができるまで、16件目以降は最初から隠しておく（読み込み後にページが縮んで動かないように） */
+html:not(.blog-paged) .blog-list-item:nth-of-type(n+16) { display: none; }
 </style>
 </head>
 <body>
@@ -1188,7 +1190,8 @@
 
 <script>
 (function() {
-  var PER_PAGE = 15;
+  var PER_PAGE = 15; // ↑ CSS の nth-of-type(n+16) と同じ数にする
+  document.documentElement.classList.add('blog-paged');
   var items = Array.from(document.querySelectorAll('.blog-list-item[data-index]'));
   var total  = items.length;
   var pages  = Math.ceil(total / PER_PAGE);
