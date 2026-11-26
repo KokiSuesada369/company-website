@@ -74,7 +74,7 @@ function headerFor(p) {
 const MENU_RE = /[ \t]*(?:\/\/[^\n]*(?:ハンバーガー|Hamburger|Nav)[^\n]*\n)?[ \t]*const ham\s*=[\s\S]*?this\.closest\('\.has-dropdown'\)\.classList\.toggle\('open'\);\s*\}\s*\}\);\s*\}\);[ \t]*\n/;
 const PAD_RE = /[ \t]*(?:\/\/ Fixed header: set body padding-top dynamically\n)?[ \t]*document\.addEventListener\('DOMContentLoaded', function\(\) \{\s*var header = document\.getElementById\('header'\);\s*document\.body\.style\.paddingTop = header\.offsetHeight \+ 'px';\s*\}\);[ \t]*\n/;
 const OLD_FONT = 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap';
-const NEW_FONT = 'https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;900&display=optional';
+const NEW_FONT = 'https://fonts.googleapis.com/css2?family=Inter:wght@700;800&family=Noto+Sans+JP:wght@400;700;900&display=optional';
 
 const between = (s, a, b) => { const i = s.indexOf(a); const j = s.indexOf(b, i); return (i < 0 || j < 0) ? null : s.slice(i + a.length, j); };
 const headInfo = s => ({

@@ -183,6 +183,61 @@ const blogBreadcrumb = () => ({
   ],
 });
 
+// ---- トップの「よくあるご質問」（画面の文と FAQPage の JSON-LD を同じ中身で作る） ----
+const FAQ = () => {
+  const b = R.base, p = n => fmt(n) + '円';
+  return [
+    { q: '警備の料金はいくらですか？',
+      a: `警備員1名1日（9時間拘束・実働8時間）あたり、月〜土の日勤は${p(b['平日']['日勤'])}、夜勤は${p(b['平日']['夜勤'])}、日曜・祝日は日勤${p(b['日曜祝日']['日勤'])}・夜勤${p(b['日曜祝日']['夜勤'])}です（すべて税抜）。土曜日も平日と同じ料金です。夜間は夜勤料金として最初から決まっており、深夜割増を後から加算することはありません。`,
+      link: ['料金表を見る', '/price/'] },
+    { q: '見積もりは無料ですか？',
+      a: 'はい、無料です。Webの無料見積もりでは、人数・日数・曜日などを選ぶだけで、その場で概算料金が分かります。',
+      link: ['無料見積もりへ', '/estimate/'] },
+    { q: 'どこまで来てもらえますか？',
+      a: '広島県内全域に対応しています。広島市・東広島市・呉市・福山市・廿日市市など、市町ごとの依頼のポイントも記事で紹介しています。',
+      link: ['広島県の市町別 警備依頼ガイド', '/blog68/'] },
+    { q: '急な依頼や直前の依頼にも対応できますか？',
+      a: `前日・当日などのご依頼でも割増はなく、同じ料金です。ただし警備員の空き状況によっては対応できない場合があるため、お早めにお電話（${COMPANY.tel}、24時間365日受付）でご相談ください。`,
+      link: null },
+    { q: '資格を持った警備員（検定2級）を配置できますか？',
+      a: 'はい。交通誘導警備業務検定2級の資格者は、1名1日あたり3,000円（税抜）の追加で配置できます。',
+      link: ['料金表を見る', '/price/'] },
+    { q: '依頼から当日までの流れを教えてください。',
+      a: '料金チェック・無料見積もりのあと、依頼フォームで日時と現場を入力します。契約書をオンラインで確認・同意いただき、当日は警備員が現場にうかがいます。お電話でのご依頼も受け付けています。',
+      link: ['警備を依頼する', '/order/'] },
+  ];
+};
+const faqHtml = () => [
+  '<!-- faq:start （tools/sync-seo.mjs が作る。直接は直さない） -->',
+  '<section class="sec faq-sec" aria-labelledby="faqTitle">',
+  '  <div class="wrap">',
+  '    <div class="sec-head">',
+  '      <span class="eyebrow">FAQ</span>',
+  '      <h2 class="sec-title" id="faqTitle">よくあるご質問</h2>',
+  '    </div>',
+  '    <div class="faq-list">',
+  ...FAQ().map((f, i) => [
+    `      <details class="faq-item"${i === 0 ? ' open' : ''}>`,
+    `        <summary><span class="faq-q" aria-hidden="true">Q</span><span class="faq-qt">${f.q}</span></summary>`,
+    `        <div class="faq-a"><p>${f.a}</p>${f.link ? `<a href="${f.link[1]}" class="text-link">${f.link[0]}<svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>` : ''}</div>`,
+    '      </details>',
+  ].join('\n')),
+  '    </div>',
+  '  </div>',
+  '</section>',
+  '<!-- faq:end -->',
+].join('\n');
+const faqLd = () => ({
+  '@context': 'https://schema.org', '@type': 'FAQPage', '@id': `${SITE}/#faq`,
+  mainEntity: FAQ().map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+});
+function setFaq(s) {
+  if (s.includes('<!-- faq:start')) return s.replace(/<!-- faq:start[\s\S]*?<!-- faq:end -->/, faqHtml());
+  const anchor = '<!-- ============================================================\n     お問い合わせ';
+  if (!s.includes(anchor)) throw new Error('index.html: FAQ を入れる場所が見つからない');
+  return s.replace(anchor, faqHtml() + '\n\n' + anchor);
+}
+
 // ---- JSON-LD の入れ替え ----
 const LD_RE = /([ \t]*)<script type="application\/ld\+json">\n?([\s\S]*?)\n?[ \t]*<\/script>/g;
 const block = (obj, ind = '  ') => `${ind}<script type="application/ld+json">\n${JSON.stringify(obj, (k, v) => v === undefined ? undefined : v, 2).split('\n').map(l => ind + l).join('\n')}\n${ind}</script>`;
@@ -203,12 +258,12 @@ function editLd(s, match, fn) {
     return block(fn(j), ind || '  ');
   });
 }
-const stripLd = s => s.replace(LD_RE, '').split('\n').filter(l => l.trim() !== '').join('\n');
+const stripLd = s => s.replace(LD_RE, '').replace(/<!-- faq:start[\s\S]*?<!-- faq:end -->/, '').split('\n').filter(l => l.trim() !== '').join('\n');
 
 const type = t => j => j['@type'] === t;
 const id = i => j => j['@id'] === i;
 const PLAN = {
-  'index.html': s => setLd(setLd(s, type('LocalBusiness'), org()), type('WebSite'), website()),
+  'index.html': s => setLd(setLd(setLd(setFaq(s), type('LocalBusiness'), org()), type('WebSite'), website()), type('FAQPage'), faqLd()),
   'company/index.html': s => setLd(s, type('AboutPage'), aboutPage()),
   'price/index.html': s => setLd(s, id(`${SITE}/price/#service`), priceService()),
   'recruit/index.html': s => setLd(setLd(s, id(`${SITE}/recruit/#job-part`), job('part')), id(`${SITE}/recruit/#job-full`), job('full')),

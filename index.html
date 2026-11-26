@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <meta name="theme-color" content="#FFFFFF">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=optional" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800&family=Noto+Sans+JP:wght@400;700;900&display=optional" rel="stylesheet">
   <title>広島の警備会社｜SAIZEN警備保障株式会社｜交通誘導・雑踏警備</title>
   <link rel="canonical" href="https://saizen.one/">
   <meta name="twitter:card" content="summary_large_image">
@@ -128,6 +128,19 @@
   .col-card:hover{border-color:#CFE2F2;box-shadow:0 10px 28px rgba(0,62,110,.08)}
   .col-thumb{height:132px;background:var(--soft-blue);color:var(--primary);display:grid;place-items:center}
   .col-thumb .i{width:36px;height:36px;stroke-width:1.75}
+
+  .faq-sec{padding-bottom:0}
+  .faq-list{max-width:880px;margin:0 auto;display:grid;gap:12px}
+  .faq-item{background:#fff;border:1px solid var(--line);border-radius:16px;transition:border-color .2s}
+  .faq-item[open]{border-color:#CFE2F2}
+  .faq-item summary{display:flex;align-items:center;gap:14px;padding:18px 52px 18px 20px;min-height:44px;cursor:pointer;list-style:none;position:relative;font-weight:700;font-size:16px;line-height:1.6}
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary::after{content:"";position:absolute;right:22px;top:50%;width:9px;height:9px;border-right:2px solid var(--primary);border-bottom:2px solid var(--primary);transform:translateY(-70%) rotate(45deg);transition:transform .2s}
+  .faq-item[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+  .faq-item summary:focus-visible{outline:2px solid var(--primary);outline-offset:2px;border-radius:16px}
+  .faq-q{flex:none;width:30px;height:30px;border-radius:50%;background:var(--primary);color:#fff;display:grid;place-items:center;font-family:var(--font-en);font-size:14px;font-weight:700}
+  .faq-a{padding:0 20px 20px 64px;color:var(--sub);font-size:15px;line-height:1.85}
+  .faq-a .text-link{margin-top:8px;min-height:44px}
   .col-body{padding:20px 22px 24px}
   .col-meta{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--sub);margin-bottom:8px}
   .col-cat{background:var(--soft-blue);color:var(--primary);font-weight:700;border-radius:999px;padding:2px 10px}
@@ -219,6 +232,13 @@
     .col-thumb .i{width:28px;height:28px}
     .col-body{padding:14px 16px}
     .col-card h3{font-size:14.5px}
+
+    .faq-list{gap:10px}
+    .faq-item summary{gap:12px;padding:14px 44px 14px 14px;font-size:14.5px}
+    .faq-item summary::after{right:18px}
+    .faq-q{width:26px;height:26px;font-size:13px}
+    .faq-a{padding:0 16px 16px 52px;font-size:13.5px}
+    .faq-a .text-link{font-size:14px}
 
   }
   @media (max-width:359px){
@@ -384,6 +404,63 @@
     "publisher": {
       "@id": "https://saizen.one/#organization"
     }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": "https://saizen.one/#faq",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "警備の料金はいくらですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "警備員1名1日（9時間拘束・実働8時間）あたり、月〜土の日勤は18,000円、夜勤は27,000円、日曜・祝日は日勤24,300円・夜勤36,450円です（すべて税抜）。土曜日も平日と同じ料金です。夜間は夜勤料金として最初から決まっており、深夜割増を後から加算することはありません。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "見積もりは無料ですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい、無料です。Webの無料見積もりでは、人数・日数・曜日などを選ぶだけで、その場で概算料金が分かります。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "どこまで来てもらえますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "広島県内全域に対応しています。広島市・東広島市・呉市・福山市・廿日市市など、市町ごとの依頼のポイントも記事で紹介しています。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "急な依頼や直前の依頼にも対応できますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "前日・当日などのご依頼でも割増はなく、同じ料金です。ただし警備員の空き状況によっては対応できない場合があるため、お早めにお電話（080-5624-1393、24時間365日受付）でご相談ください。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "資格を持った警備員（検定2級）を配置できますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい。交通誘導警備業務検定2級の資格者は、1名1日あたり3,000円（税抜）の追加で配置できます。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "依頼から当日までの流れを教えてください。",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "料金チェック・無料見積もりのあと、依頼フォームで日時と現場を入力します。契約書をオンラインで確認・同意いただき、当日は警備員が現場にうかがいます。お電話でのご依頼も受け付けています。"
+        }
+      }
+    ]
   }
   </script>
 </head>
@@ -664,6 +741,43 @@
     </ul>
   </div>
 </section>
+
+<!-- faq:start （tools/sync-seo.mjs が作る。直接は直さない） -->
+<section class="sec faq-sec" aria-labelledby="faqTitle">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">FAQ</span>
+      <h2 class="sec-title" id="faqTitle">よくあるご質問</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary><span class="faq-q" aria-hidden="true">Q</span><span class="faq-qt">警備の料金はいくらですか？</span></summary>
+        <div class="faq-a"><p>警備員1名1日（9時間拘束・実働8時間）あたり、月〜土の日勤は18,000円、夜勤は27,000円、日曜・祝日は日勤24,300円・夜勤36,450円です（すべて税抜）。土曜日も平日と同じ料金です。夜間は夜勤料金として最初から決まっており、深夜割増を後から加算することはありません。</p><a href="/price/" class="text-link">料金表を見る<svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a></div>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-q" aria-hidden="true">Q</span><span class="faq-qt">見積もりは無料ですか？</span></summary>
+        <div class="faq-a"><p>はい、無料です。Webの無料見積もりでは、人数・日数・曜日などを選ぶだけで、その場で概算料金が分かります。</p><a href="/estimate/" class="text-link">無料見積もりへ<svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a></div>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-q" aria-hidden="true">Q</span><span class="faq-qt">どこまで来てもらえますか？</span></summary>
+        <div class="faq-a"><p>広島県内全域に対応しています。広島市・東広島市・呉市・福山市・廿日市市など、市町ごとの依頼のポイントも記事で紹介しています。</p><a href="/blog68/" class="text-link">広島県の市町別 警備依頼ガイド<svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a></div>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-q" aria-hidden="true">Q</span><span class="faq-qt">急な依頼や直前の依頼にも対応できますか？</span></summary>
+        <div class="faq-a"><p>前日・当日などのご依頼でも割増はなく、同じ料金です。ただし警備員の空き状況によっては対応できない場合があるため、お早めにお電話（080-5624-1393、24時間365日受付）でご相談ください。</p></div>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-q" aria-hidden="true">Q</span><span class="faq-qt">資格を持った警備員（検定2級）を配置できますか？</span></summary>
+        <div class="faq-a"><p>はい。交通誘導警備業務検定2級の資格者は、1名1日あたり3,000円（税抜）の追加で配置できます。</p><a href="/price/" class="text-link">料金表を見る<svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a></div>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-q" aria-hidden="true">Q</span><span class="faq-qt">依頼から当日までの流れを教えてください。</span></summary>
+        <div class="faq-a"><p>料金チェック・無料見積もりのあと、依頼フォームで日時と現場を入力します。契約書をオンラインで確認・同意いただき、当日は警備員が現場にうかがいます。お電話でのご依頼も受け付けています。</p><a href="/order/" class="text-link">警備を依頼する<svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a></div>
+      </details>
+    </div>
+  </div>
+</section>
+<!-- faq:end -->
 
 <!-- ============================================================
      お問い合わせ

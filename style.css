@@ -1562,3 +1562,29 @@ p.cta-recruit-link a:hover{text-decoration:underline;text-underline-offset:4px}
   .ft-nav{column-gap:12px}
   .ft-nav a{font-size:13.5px}
 }
+
+/* ============================================================
+   記事ページ：記事の列が画面の幅を超えないようにする
+   （表などは .table-wrap の中で横にスクロール。列ごと広がらない）
+   ============================================================ */
+.article-layout{grid-template-columns:minmax(0,1fr) 320px}
+.article-body{min-width:0}
+@media (max-width:900px){
+  .article-layout{grid-template-columns:minmax(0,1fr)}
+}
+/* 狭いスマホでは、記事の箱とCTAの内側を少し詰めて、CTAの見出し・ボタンを1行のまま収める */
+@media (max-width:400px){
+  .article-layout{margin:0 -8px}
+  .article-body{padding:22px 12px}
+  .article-body .cta--stack{padding:22px 10px}
+}
+@media (max-width:768px){
+  .article-body .cta--stack .cta-title{font-size:clamp(15px,4.6vw,22px)}
+}
+@media (max-width:360px){
+  .article-body .cta a.cta-btn{padding:12px 10px;gap:8px}
+  .article-body .cta .cta-btn-ico{width:32px;height:32px;border-radius:10px}
+  .article-body .cta .cta-btn-ico .i{width:17px;height:17px}
+  .article-body .cta .cta-btn-title{font-size:14px}
+  .article-body .cta .cta-btn-arrow{width:14px;height:14px}
+}
