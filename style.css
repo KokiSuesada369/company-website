@@ -1349,6 +1349,17 @@ h1,h2,h3{font-feature-settings:"palt"}
 
 /* ブログ記事 */
 .article-title{color:var(--text)}
+
+/* 記事の「この記事の要点」（tools/sync-summary.mjs が入れる） */
+.article-summary{margin:4px 0 34px;padding:20px 22px 8px;background:var(--soft-blue);border:1px solid #D5E6F4;border-radius:16px}
+.article-body .article-summary-title{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:15px;line-height:1.5;font-weight:700;color:var(--primary);letter-spacing:.04em}
+.article-summary-title::before{content:"";flex:none;width:5px;height:18px;border-radius:3px;background:var(--primary)}
+.article-body .article-summary ul{margin:0}
+.article-body .article-summary li{margin-bottom:12px;font-size:15px;line-height:1.8;color:var(--text)}
+@media (max-width:768px){
+  .article-summary{padding:16px 16px 6px;margin-bottom:28px;border-radius:14px}
+  .article-body .article-summary li{font-size:14.5px;line-height:1.75}
+}
 .article-body h2{background:var(--soft-blue);border-left:4px solid var(--primary);border-radius:0 12px 12px 0;color:var(--text)}
 .sidebar-widget{overflow:hidden}
 .sidebar-widget-head{background:var(--soft-blue);color:var(--text)}
