@@ -684,7 +684,8 @@ button { font-family: inherit; }
 }
 .article-meta {
   display: flex;
-  gap: 16px;
+  flex-wrap: wrap;
+  gap: 4px 16px;
   margin-bottom: 30px;
   padding-bottom: 20px;
   border-bottom: 2px solid var(--mid-gray);
@@ -1200,6 +1201,7 @@ a.pill:hover{text-decoration:none}
 .pill-ghost,a.pill-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.75)}
 .pill-ghost:hover,a.pill-ghost:hover{background:rgba(255,255,255,.12);color:#fff}
 .text-link{display:inline-flex;align-items:center;gap:6px;color:var(--primary);font-weight:700}
+.map-link{min-height:44px}
 .text-link:hover{text-decoration:underline;text-underline-offset:4px}
 
 /* ヘッダー */

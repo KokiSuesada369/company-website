@@ -93,6 +93,7 @@ const org = () => ({
   email: COMPANY.email,
   address: address(),
   geo: { '@type': 'GeoCoordinates', latitude: 34.4028, longitude: 132.4486 },
+  hasMap: 'https://www.google.com/maps/search/?api=1&query=%E3%80%92733-0011%20%E5%BA%83%E5%B3%B6%E7%9C%8C%E5%BA%83%E5%B3%B6%E5%B8%82%E8%A5%BF%E5%8C%BA%E6%A8%AA%E5%B7%9D%E7%94%BA3%E4%B8%81%E7%9B%AE1-9-305',
   areaServed: { '@type': 'AdministrativeArea', name: '広島県' },
   openingHoursSpecification: hours247(),
   foundingDate: COMPANY.founded,
@@ -258,7 +259,8 @@ function editLd(s, match, fn) {
     return block(fn(j), ind || '  ');
   });
 }
-const stripLd = s => s.replace(LD_RE, '').replace(/<!-- faq:start[\s\S]*?<!-- faq:end -->/, '').split('\n').filter(l => l.trim() !== '').join('\n');
+const UPDATED_RE = /[ \t]*<time class="article-updated"[^>]*>[^<]*<\/time>\r?\n?/;
+const stripLd = s => s.replace(LD_RE, '').replace(/<!-- faq:start[\s\S]*?<!-- faq:end -->/, '').replace(UPDATED_RE, '').split('\n').filter(l => l.trim() !== '').join('\n');
 
 const type = t => j => j['@type'] === t;
 const id = i => j => j['@id'] === i;
@@ -271,12 +273,24 @@ const PLAN = {
   'blog/index.html': s => setLd(setLd(s, type('CollectionPage'), collection()), type('BreadcrumbList'), blogBreadcrumb()),
 };
 for (const a of fs.readdirSync(root).filter(d => /^blog\d+$/.test(d))) {
-  PLAN[`${a}/index.html`] = s => editLd(s, type('Article'), j => ({
+  PLAN[`${a}/index.html`] = s => setUpdated(editLd(s, type('Article'), j => ({
     ...j,
     image: j.image || `${SITE}/images/og-image.png`,
     author: { ...j.author, '@id': ORG_ID },
     publisher: { '@type': 'Organization', '@id': ORG_ID, name: COMPANY.name, url: `${SITE}/`, logo: { '@type': 'ImageObject', url: `${SITE}/images/logo-08a.png` } },
-  }));
+  })));
+}
+// 記事の公開日の横に、構造化データの dateModified と同じ「更新日」を出す（公開日と同じなら出さない）
+function setUpdated(s) {
+  let pub, mod;
+  for (const m of s.matchAll(LD_RE)) { try { const j = JSON.parse(m[2]); if (j['@type'] === 'Article') { pub = j.datePublished; mod = j.dateModified; } } catch {} }
+  s = s.replace(UPDATED_RE, '');
+  if (!pub || !mod || mod.slice(0, 10) <= pub.slice(0, 10)) return s;
+  const d = mod.slice(0, 10), [y, mo, da] = d.split('-');
+  const tag = `<time class="article-updated" datetime="${d}">更新 ${y}年${mo}月${da}日</time>`;
+  const re = /(<div class="article-meta">\n([ \t]*)<span class="article-cat">[^<]*<\/span>\n[ \t]*<span>[^<]*<\/span>\n)/;
+  if (!re.test(s)) throw new Error('記事の日付の場所が見つからない');
+  return s.replace(re, (all, head, ind) => `${head}${ind}${tag}\n`);
 }
 
 const report = []; let failed = 0;
