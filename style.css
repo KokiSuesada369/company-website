@@ -1131,6 +1131,7 @@ a[href^="tel"] {
   color: inherit;
   text-decoration: none;
   font-weight: bold;
+  white-space: nowrap; /* 番号の途中で改行しない */
 }
 a[href^="tel"]:hover {
   color: #f97316;

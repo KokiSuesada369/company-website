@@ -219,7 +219,7 @@ const faqHtml = () => [
   ...FAQ().map((f, i) => [
     `      <details class="faq-item"${i === 0 ? ' open' : ''}>`,
     `        <summary><span class="faq-q" aria-hidden="true">Q</span><span class="faq-qt">${f.q}</span></summary>`,
-    `        <div class="faq-a"><p>${f.a}</p>${f.link ? `<a href="${f.link[1]}" class="text-link">${f.link[0]}<svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>` : ''}</div>`,
+    `        <div class="faq-a"><p>${f.a.split(COMPANY.tel).join(`<a href="tel:${COMPANY.tel}">${COMPANY.tel}</a>`)}</p>${f.link ? `<a href="${f.link[1]}" class="text-link">${f.link[0]}<svg class="i i-sm" aria-hidden="true"><use href="/images/icons.svg#i-arrow"/></svg></a>` : ''}</div>`,
     '      </details>',
   ].join('\n')),
   '    </div>',
