@@ -144,18 +144,6 @@ button { font-family: inherit; }
   position: relative;
 }
 
-/* Breadcrumb */
-.breadcrumb {
-  background: var(--light-bg);
-  padding: 10px 24px;
-  font-size: .8rem;
-  color: var(--dark-gray);
-  border-bottom: 1px solid var(--mid-gray);
-}
-.breadcrumb .container { display: flex; gap: 8px; align-items: center; }
-.breadcrumb a { color: var(--secondary); }
-.breadcrumb a:hover { text-decoration: underline; }
-.breadcrumb .sep { color: #bbb; }
 
 /* ============================================================
    SECTIONS (共通)
@@ -1309,8 +1297,8 @@ h1,h2,h3{font-feature-settings:"palt"}
 .page-hero::after{content:"";position:absolute;left:-40px;top:-50px;width:190px;height:180px;background:url(/images/logo-01a.png) no-repeat center/contain;opacity:.15;pointer-events:none}
 .page-hero h1,.page-hero .page-hero-title{position:relative;z-index:1;color:var(--text)!important;font-weight:900;letter-spacing:.02em;line-height:1.35;margin:0;font-size:clamp(28px,3.2vw,42px)!important}
 .page-hero p:not(.page-hero-title){position:relative;z-index:1;color:var(--primary);font-family:var(--font-en);font-weight:700;font-size:13px;letter-spacing:.22em;text-transform:uppercase;margin:0}
-.breadcrumb{background:transparent;border-bottom:0;padding:16px var(--gutter) 0;font-size:12.5px;color:var(--sub)}
-.breadcrumb a{color:var(--primary)}
+/* 見出しのすぐ下が色付きの段のとき、くっつかないように少しあける */
+.page-hero + .section-alt{margin-top:24px}
 
 /* 段と見出し */
 .section{padding:96px 0}
@@ -1386,6 +1374,7 @@ h1,h2,h3{font-feature-settings:"palt"}
 
 @media (max-width:768px){
   .page-hero{border-radius:24px;padding:44px 18px 40px;margin-top:12px}
+  .page-hero + .section-alt{margin-top:12px}
   .page-hero::before{width:170px;height:161px;inset:auto -36px -30px auto}
   .page-hero::after{width:110px;height:104px;left:-30px;top:-28px}
   .section{padding:56px 0}
@@ -1412,7 +1401,6 @@ label .i-sm,h3 .i-sm,strong .i-sm,.career-badge .i-sm,a .i-sm{display:inline-blo
 .sidebar-widget-body ul li{padding:0}
 .sidebar-widget-body ul a{min-height:44px;align-items:center;padding:10px 0}
 @media (max-width:768px){
-  .breadcrumb a{display:inline-block;padding:11px 0;margin:-11px 0}
   .form-check a{display:inline-block;padding:12px 0;margin:-12px 0}
   .contact-method-box a{display:inline-flex;align-items:center;min-height:44px}
   body .num-control button{min-width:44px;height:44px}
