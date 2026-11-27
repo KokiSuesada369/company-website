@@ -617,6 +617,10 @@
 
         <!-- 依頼フォーム -->
         <form id="orderForm" novalidate>
+          <!-- ボット除け（人には見えない欄。入力があれば受付しない） -->
+          <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
+            <label>ウェブサイト<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+          </div>
 
           <!-- ① 依頼者情報 -->
           <div class="form-sec-head">
@@ -1172,16 +1176,27 @@
     btn.disabled = true;
     btn.textContent = '送信中...';
 
+    // NEXT KB ONE の受付箱（移行中は、GAS のメール通知にも、これまでどおり送る）
+    const KB_URL = 'https://keibi-kanri.vercel.app/api/public/inquiries/saizen';
+
     const formData = new FormData(form);
     const data = {};
     formData.forEach((value, key) => { data[key] = value; });
+
+    // 受付箱への送信は、失敗しても画面は止めない（GAS の通知が届くため）
+    const toKb = fetch(KB_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+      keepalive: true
+    }).catch(() => null);
 
     fetch(GAS_URL, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify(data)
-    }).then(() => {
+    }).then(() => toKb).then(() => {
       form.style.display = 'none';
       document.querySelector('.order-footer-wrap').style.display = 'none';
       const success = document.getElementById('orderSuccess');
